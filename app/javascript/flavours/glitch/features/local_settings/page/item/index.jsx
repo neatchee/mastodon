@@ -35,7 +35,7 @@ export default class LocalSettingsPageItem extends React.PureComponent {
 
   render () {
     const { handleChange } = this;
-    const { settings, item, id, inputProps, options, children, dependsOn, dependsOnNot, placeholder, disabled } = this.props;
+    const { settings, item, id, inputProps, options, children, dependsOn, dependsOnNot, placeholder, number, disabled } = this.props;
     let enabled = !disabled;
 
     if (dependsOn) {

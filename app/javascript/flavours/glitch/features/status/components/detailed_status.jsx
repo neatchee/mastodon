@@ -19,6 +19,7 @@ import Icon from 'flavours/glitch/components/icon';
 import AnimatedNumber from 'flavours/glitch/components/animated_number';
 import PictureInPicturePlaceholder from 'flavours/glitch/components/picture_in_picture_placeholder';
 import EditedTimestamp from 'flavours/glitch/components/edited_timestamp';
+import StatusReactions from 'flavours/glitch/components/status_reactions';
 
 <<<<<<< HEAD:app/javascript/flavours/glitch/features/status/components/detailed_status.jsx
 class DetailedStatus extends ImmutablePureComponent {
@@ -28,6 +29,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
+    identity: PropTypes.object,
   };
 
   static propTypes = {
@@ -48,6 +50,8 @@ export default class DetailedStatus extends ImmutablePureComponent {
       available: PropTypes.bool,
     }),
     onToggleMediaVisibility: PropTypes.func,
+    onReactionAdd: PropTypes.func.isRequired,
+    onReactionRemove: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
   };
 
@@ -326,6 +330,14 @@ export default class DetailedStatus extends ImmutablePureComponent {
             rewriteMentions={settings.get('rewrite_mentions')}
             zoomEmojisOnHover={settings.get('zoom_emojis_on_hover')}
             disabled
+          />
+
+          <StatusReactions
+            statusId={status.get('id')}
+            reactions={status.get('reactions')}
+            addReaction={this.props.onReactionAdd}
+            removeReaction={this.props.onReactionRemove}
+            canReact={this.context.identity.signedIn}
           />
 
           <div className='detailed-status__meta'>
