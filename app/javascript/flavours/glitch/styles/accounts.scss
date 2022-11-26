@@ -403,3 +403,25 @@
     color: $gold-star;
   }
 }
+
+.batch-table__row--warn {
+  color: $warning-red;
+}
+
+.batch-table__row--warn .pending-account__header,
+.batch-table__row--warn .accounts-table,
+.batch-table__row--warn .name-tag {
+  &,
+  a,
+  strong {
+    color: $warning-red;
+  }
+}
+
+.batch-table__row--warn .accounts-table {
+  tbody td.accounts-table__extra,
+  &__count,
+  &__count small {
+    color: $warning-red;
+  }
+}
