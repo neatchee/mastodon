@@ -69,7 +69,7 @@ const dateFormatOptions = {
   month: 'short',
   day: 'numeric',
   year: 'numeric',
-  hour12: false,
+  hourCycle: 'h23',
   hour: '2-digit',
   minute: '2-digit',
 };
@@ -107,7 +107,7 @@ class Header extends ImmutablePureComponent {
 
   openEditProfile = () => {
     window.open('/settings/profile', '_blank');
-  }
+  };
 
   isStatusesPageActive = (match, location) => {
     if (!match) {
@@ -115,7 +115,7 @@ class Header extends ImmutablePureComponent {
     }
 
     return !location.pathname.match(/\/(followers|following)\/?$/);
-  }
+  };
 
   handleMouseEnter = ({ currentTarget }) => {
     if (autoPlayGif) {
@@ -128,7 +128,7 @@ class Header extends ImmutablePureComponent {
       let emoji = emojis[i];
       emoji.src = emoji.getAttribute('data-original');
     }
-  }
+  };
 
   handleMouseLeave = ({ currentTarget }) => {
     if (autoPlayGif) {
@@ -141,14 +141,14 @@ class Header extends ImmutablePureComponent {
       let emoji = emojis[i];
       emoji.src = emoji.getAttribute('data-static');
     }
-  }
+  };
 
   handleAvatarClick = e => {
     if (e.button === 0 && !(e.ctrlKey || e.metaKey)) {
       e.preventDefault();
       this.props.onOpenAvatar();
     }
-  }
+  };
 
   handleShare = () => {
     const { account } = this.props;
@@ -159,9 +159,9 @@ class Header extends ImmutablePureComponent {
     }).catch((e) => {
       if (e.name !== 'AbortError') console.error(e);
     });
-  }
+  };
 
-  render () {
+  render() {
     const { account, hidden, intl, domain } = this.props;
     const { signedIn } = this.context.identity;
 
@@ -169,15 +169,15 @@ class Header extends ImmutablePureComponent {
       return null;
     }
 
-    const suspended    = account.get('suspended');
-    const isRemote     = account.get('acct') !== account.get('username');
+    const suspended = account.get('suspended');
+    const isRemote = account.get('acct') !== account.get('username');
     const remoteDomain = isRemote ? account.get('acct').split('@')[1] : null;
 
-    let info        = [];
-    let actionBtn   = '';
-    let bellBtn     = '';
-    let lockedIcon  = '';
-    let menu        = [];
+    let info = [];
+    let actionBtn = '';
+    let bellBtn = '';
+    let lockedIcon = '';
+    let menu = [];
 
     if (me !== account.get('id') && account.getIn(['relationship', 'followed_by'])) {
       info.push(<span key='followed_by' className='relationship-tag'><FormattedMessage id='account.follows_you' defaultMessage='Follows you' /></span>);
@@ -293,12 +293,12 @@ class Header extends ImmutablePureComponent {
       menu.push({ text: intl.formatMessage(messages.admin_account, { name: account.get('username') }), href: `/admin/accounts/${account.get('id')}` });
     }
 
-    const content         = { __html: account.get('note_emojified') };
+    const content = { __html: account.get('note_emojified') };
     const displayNameHtml = { __html: account.get('display_name_html') };
-    const fields          = account.get('fields');
-    const isLocal         = account.get('acct').indexOf('@') === -1;
-    const acct            = isLocal && domain ? `${account.get('acct')}@${domain}` : account.get('acct');
-    const isIndexable     = !account.get('noindex');
+    const fields = account.get('fields');
+    const isLocal = account.get('acct').indexOf('@') === -1;
+    const acct = isLocal && domain ? `${account.get('acct')}@${domain}` : account.get('acct');
+    const isIndexable = !account.get('noindex');
 
     let badge;
 

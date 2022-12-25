@@ -85,7 +85,7 @@ class StatusActionBar extends ImmutablePureComponent {
     'showReplyCount',
     'withCounters',
     'withDismiss',
-  ]
+  ];
 
   handleReplyClick = () => {
     const { signedIn } = this.context.identity;
@@ -95,14 +95,14 @@ class StatusActionBar extends ImmutablePureComponent {
     } else {
       this.props.onInteractionModal('reply', this.props.status);
     }
-  }
+  };
 
   handleShareClick = () => {
     navigator.share({
       text: this.props.status.get('search_index'),
       url: this.props.status.get('url'),
     });
-  }
+  };
 
   handleFavouriteClick = (e) => {
     const { signedIn } = this.context.identity;
@@ -112,7 +112,7 @@ class StatusActionBar extends ImmutablePureComponent {
     } else {
       this.props.onInteractionModal('favourite', this.props.status);
     }
-  }
+  };
 
   handleReblogClick = e => {
     const { signedIn } = this.context.identity;
@@ -122,88 +122,88 @@ class StatusActionBar extends ImmutablePureComponent {
     } else {
       this.props.onInteractionModal('reblog', this.props.status);
     }
-  }
+  };
 
   handleBookmarkClick = (e) => {
     this.props.onBookmark(this.props.status, e);
-  }
+  };
 
   handleDeleteClick = () => {
     this.props.onDelete(this.props.status, this.context.router.history);
-  }
+  };
 
   handleRedraftClick = () => {
     this.props.onDelete(this.props.status, this.context.router.history, true);
-  }
+  };
 
   handleEditClick = () => {
     this.props.onEdit(this.props.status, this.context.router.history);
-  }
+  };
 
   handlePinClick = () => {
     this.props.onPin(this.props.status);
-  }
+  };
 
   handleMentionClick = () => {
     this.props.onMention(this.props.status.get('account'), this.context.router.history);
-  }
+  };
 
   handleDirectClick = () => {
     this.props.onDirect(this.props.status.get('account'), this.context.router.history);
-  }
+  };
 
   handleMuteClick = () => {
     this.props.onMute(this.props.status.get('account'));
-  }
+  };
 
   handleBlockClick = () => {
     this.props.onBlock(this.props.status);
-  }
+  };
 
   handleOpen = () => {
-    let state = {...this.context.router.history.location.state};
+    let state = { ...this.context.router.history.location.state };
     if (state.mastodonModalKey) {
       this.context.router.history.replace(`/@${this.props.status.getIn(['account', 'acct'])}/${this.props.status.get('id')}`, { mastodonBackSteps: (state.mastodonBackSteps || 0) + 1 });
     } else {
       state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
       this.context.router.history.push(`/@${this.props.status.getIn(['account', 'acct'])}/${this.props.status.get('id')}`, state);
     }
-  }
+  };
 
   handleEmbed = () => {
     this.props.onEmbed(this.props.status);
-  }
+  };
 
   handleReport = () => {
     this.props.onReport(this.props.status);
-  }
+  };
 
   handleConversationMuteClick = () => {
     this.props.onMuteConversation(this.props.status);
-  }
+  };
 
   handleCopy = () => {
     const url = this.props.status.get('url');
     navigator.clipboard.writeText(url);
-  }
+  };
 
   handleHideClick = () => {
     this.props.onFilter();
-  }
+  };
 
   handleFilterClick = () => {
     this.props.onAddFilter(this.props.status);
-  }
+  };
 
-  render () {
+  render() {
     const { status, intl, withDismiss, withCounters, showReplyCount, scrollKey } = this.props;
 
-    const anonymousAccess    = !me;
+    const anonymousAccess = !me;
     const mutingConversation = status.get('muted');
-    const publicStatus       = ['public', 'unlisted'].includes(status.get('visibility'));
-    const pinnableStatus     = ['public', 'unlisted', 'private'].includes(status.get('visibility'));
-    const writtenByMe        = status.getIn(['account', 'id']) === me;
-    const isRemote           = status.getIn(['account', 'username']) !== status.getIn(['account', 'acct']);
+    const publicStatus = ['public', 'unlisted'].includes(status.get('visibility'));
+    const pinnableStatus = ['public', 'unlisted', 'private'].includes(status.get('visibility'));
+    const writtenByMe = status.getIn(['account', 'id']) === me;
+    const isRemote = status.getIn(['account', 'username']) !== status.getIn(['account', 'acct']);
 
     let menu = [];
     let reblogIcon = 'retweet';
@@ -330,7 +330,7 @@ class StatusActionBar extends ImmutablePureComponent {
 
         <div className='status__action-bar-spacer' />
         <a href={status.get('url')} className='status__relative-time' target='_blank' rel='noopener'>
-          <RelativeTimestamp timestamp={status.get('created_at')} />{status.get('edited_at') && <abbr title={intl.formatMessage(messages.edited, { date: intl.formatDate(status.get('edited_at'), { hour12: false, year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }) })}> *</abbr>}
+          <RelativeTimestamp timestamp={status.get('created_at')} />{status.get('edited_at') && <abbr title={intl.formatMessage(messages.edited, { date: intl.formatDate(status.get('edited_at'), { hourCycle: 'h23', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }) })}> *</abbr>}
         </a>
       </div>
     );

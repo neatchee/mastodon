@@ -53,30 +53,30 @@ class DetailedStatus extends ImmutablePureComponent {
   handleAccountClick = (e) => {
     if (e.button === 0 && !(e.ctrlKey || e.altKey || e.metaKey) && this.context.router) {
       e.preventDefault();
-      let state = {...this.context.router.history.location.state};
+      let state = { ...this.context.router.history.location.state };
       state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
       this.context.router.history.push(`/@${this.props.status.getIn(['account', 'acct'])}`, state);
     }
 
     e.stopPropagation();
-  }
+  };
 
   parseClick = (e, destination) => {
     if (e.button === 0 && !(e.ctrlKey || e.altKey || e.metaKey) && this.context.router) {
       e.preventDefault();
-      let state = {...this.context.router.history.location.state};
+      let state = { ...this.context.router.history.location.state };
       state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
       this.context.router.history.push(destination, state);
     }
 
     e.stopPropagation();
-  }
+  };
 
   handleOpenVideo = (options) => {
     this.props.onOpenVideo(this.props.status.getIn(['media_attachments', 0]), options);
-  }
+  };
 
-  _measureHeight (heightJustChanged) {
+  _measureHeight(heightJustChanged) {
     if (this.props.measureHeight && this.node) {
       scheduleIdleTask(() => this.node && this.setState({ height: Math.ceil(this.node.scrollHeight) + 1 }));
 
@@ -89,15 +89,15 @@ class DetailedStatus extends ImmutablePureComponent {
   setRef = c => {
     this.node = c;
     this._measureHeight();
-  }
+  };
 
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     this._measureHeight(prevState.height !== this.state.height);
   }
 
   handleChildUpdate = () => {
     this._measureHeight();
-  }
+  };
 
   handleModalLink = e => {
     e.preventDefault();
@@ -111,14 +111,14 @@ class DetailedStatus extends ImmutablePureComponent {
     }
 
     window.open(href, 'mastodon-intent', 'width=445,height=600,resizable=no,menubar=no,status=no,scrollbars=yes');
-  }
+  };
 
   handleTranslate = () => {
     const { onTranslate, status } = this.props;
     onTranslate(status);
-  }
+  };
 
-  render () {
+  render() {
     const status = (this.props.status && this.props.status.get('reblog')) ? this.props.status.get('reblog') : this.props.status;
     const { expanded, onToggleHidden, settings, usingPiP, intl } = this.props;
     const outerStyle = { boxSizing: 'border-box' };
@@ -321,7 +321,7 @@ class DetailedStatus extends ImmutablePureComponent {
 
           <div className='detailed-status__meta'>
             <a className='detailed-status__datetime' href={status.get('url')} target='_blank' rel='noopener noreferrer'>
-              <FormattedDate value={new Date(status.get('created_at'))} hour12={false} year='numeric' month='short' day='2-digit' hour='2-digit' minute='2-digit' />
+              <FormattedDate value={new Date(status.get('created_at'))} hourCycle='h23' year='numeric' month='short' day='2-digit' hour='2-digit' minute='2-digit' />
             </a>{edited}{visibilityLink}{applicationLink}{reblogLink} · {favouriteLink}
           </div>
         </div>
