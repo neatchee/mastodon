@@ -407,7 +407,7 @@ class Announcements extends ImmutablePureComponent {
     this.setState({ index: (this.props.announcements.size + this.state.index - 1) % this.props.announcements.size });
   }
 
-  render() {
+  render () {
     const { announcements, intl } = this.props;
     const { index } = this.state;
 

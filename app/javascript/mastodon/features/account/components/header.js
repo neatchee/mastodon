@@ -293,12 +293,12 @@ class Header extends ImmutablePureComponent {
       menu.push({ text: intl.formatMessage(messages.admin_account, { name: account.get('username') }), href: `/admin/accounts/${account.get('id')}` });
     }
 
-    const content         = { __html: account.get('note_emojified') };
-    const displayNameHtml = { __html: account.get('display_name_html') };
-    const fields          = account.get('fields');
-    const isLocal         = account.get('acct').indexOf('@') === -1;
-    const acct            = isLocal && domain ? `${account.get('acct')}@${domain}` : account.get('acct');
-    const isIndexable     = !account.get('noindex');
+    const content          = { __html: account.get('note_emojified') };
+    const displayNameHtml  = { __html: account.get('display_name_html') };
+    const fields           = account.get('fields');
+    const isLocal          = account.get('acct').indexOf('@') === -1;
+    const acct             = isLocal && domain ? `${account.get('acct')}@${domain}` : account.get('acct');
+    const isIndexable      = !account.get('noindex');
 
     let badge;
 

@@ -185,8 +185,8 @@ class RelativeTimestamp extends React.Component {
   render () {
     const { timestamp, intl, year, futureDate, short } = this.props;
 
-    const timeGiven = timestamp.includes('T');
-    const date = new Date(timestamp);
+    const timeGiven    = timestamp.includes('T');
+    const date         = new Date(timestamp);
     const relativeTime = futureDate ? timeRemainingString(intl, date, this.state.now, timeGiven) : timeAgoString(intl, date, this.state.now, year, timeGiven, short);
 
     return (
