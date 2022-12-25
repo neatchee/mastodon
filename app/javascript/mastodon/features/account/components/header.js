@@ -173,11 +173,11 @@ class Header extends ImmutablePureComponent {
     const isRemote     = account.get('acct') !== account.get('username');
     const remoteDomain = isRemote ? account.get('acct').split('@')[1] : null;
 
-    let info       = [];
-    let actionBtn  = '';
-    let bellBtn    = '';
-    let lockedIcon = '';
-    let menu       = [];
+    let info        = [];
+    let actionBtn   = '';
+    let bellBtn     = '';
+    let lockedIcon  = '';
+    let menu        = [];
 
     if (me !== account.get('id') && account.getIn(['relationship', 'followed_by'])) {
       info.push(<span key='followed_by' className='relationship-tag'><FormattedMessage id='account.follows_you' defaultMessage='Follows you' /></span>);
@@ -293,12 +293,12 @@ class Header extends ImmutablePureComponent {
       menu.push({ text: intl.formatMessage(messages.admin_account, { name: account.get('username') }), href: `/admin/accounts/${account.get('id')}` });
     }
 
-    const content          = { __html: account.get('note_emojified') };
-    const displayNameHtml  = { __html: account.get('display_name_html') };
-    const fields           = account.get('fields');
-    const isLocal          = account.get('acct').indexOf('@') === -1;
-    const acct             = isLocal && domain ? `${account.get('acct')}@${domain}` : account.get('acct');
-    const isIndexable      = !account.get('noindex');
+    const content         = { __html: account.get('note_emojified') };
+    const displayNameHtml = { __html: account.get('display_name_html') };
+    const fields          = account.get('fields');
+    const isLocal         = account.get('acct').indexOf('@') === -1;
+    const acct            = isLocal && domain ? `${account.get('acct')}@${domain}` : account.get('acct');
+    const isIndexable     = !account.get('noindex');
 
     let badge;
 
