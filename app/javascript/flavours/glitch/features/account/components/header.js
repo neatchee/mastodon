@@ -107,7 +107,7 @@ class Header extends ImmutablePureComponent {
 
   openEditProfile = () => {
     window.open(profileLink, '_blank');
-  };
+  }
 
   handleMouseEnter = ({ currentTarget }) => {
     if (autoPlayGif) {
@@ -120,7 +120,7 @@ class Header extends ImmutablePureComponent {
       let emoji = emojis[i];
       emoji.src = emoji.getAttribute('data-original');
     }
-  };
+  }
 
   handleMouseLeave = ({ currentTarget }) => {
     if (autoPlayGif) {
@@ -133,14 +133,14 @@ class Header extends ImmutablePureComponent {
       let emoji = emojis[i];
       emoji.src = emoji.getAttribute('data-static');
     }
-  };
+  }
 
   handleAvatarClick = e => {
     if (e.button === 0 && !(e.ctrlKey || e.metaKey)) {
       e.preventDefault();
       this.props.onOpenAvatar();
     }
-  };
+  }
 
   handleShare = () => {
     const { account } = this.props;
@@ -151,9 +151,9 @@ class Header extends ImmutablePureComponent {
     }).catch((e) => {
       if (e.name !== 'AbortError') console.error(e);
     });
-  };
+  }
 
-  render() {
+  render () {
     const { account, hidden, intl, domain } = this.props;
     const { signedIn } = this.context.identity;
 
@@ -163,15 +163,15 @@ class Header extends ImmutablePureComponent {
 
     const accountNote = account.getIn(['relationship', 'note']);
 
-    const suspended = account.get('suspended');
-    const isRemote = account.get('acct') !== account.get('username');
+    const suspended    = account.get('suspended');
+    const isRemote     = account.get('acct') !== account.get('username');
     const remoteDomain = isRemote ? account.get('acct').split('@')[1] : null;
 
-    let info = [];
-    let actionBtn = '';
-    let bellBtn = '';
+    let info       = [];
+    let actionBtn  = '';
+    let bellBtn    = '';
     let lockedIcon = '';
-    let menu = [];
+    let menu       = [];
 
     if (me !== account.get('id') && account.getIn(['relationship', 'followed_by'])) {
       info.push(<span className='relationship-tag'><FormattedMessage id='account.follows_you' defaultMessage='Follows you' /></span>);
@@ -296,12 +296,12 @@ class Header extends ImmutablePureComponent {
       menu.push({ text: intl.formatMessage(messages.admin_account, { name: account.get('username') }), href: accountAdminLink(account.get('id')) });
     }
 
-    const content = { __html: account.get('note_emojified') };
+    const content         = { __html: account.get('note_emojified') };
     const displayNameHtml = { __html: account.get('display_name_html') };
-    const fields = account.get('fields');
-    const isLocal = account.get('acct').indexOf('@') === -1;
-    const acct = isLocal && domain ? `${account.get('acct')}@${domain}` : account.get('acct');
-    const isIndexable = !account.get('noindex');
+    const fields          = account.get('fields');
+    const isLocal         = account.get('acct').indexOf('@') === -1;
+    const acct            = isLocal && domain ? `${account.get('acct')}@${domain}` : account.get('acct');
+    const isIndexable     = !account.get('noindex');
 
     let badge;
 
@@ -359,12 +359,12 @@ class Header extends ImmutablePureComponent {
           {!(suspended || hidden) && (
             <div className='account__header__extra'>
               <div className='account__header__bio'>
-                {fields.size > 0 && (
+                { fields.size > 0 && (
                   <div className='account__header__fields'>
                     {fields.map((pair, i) => (
                       <dl key={i}>
                         <dt dangerouslySetInnerHTML={{ __html: pair.get('name_emojified') }} title={pair.get('name')} />
-
+   
                         <dd className={pair.get('verified_at') && 'verified'} title={pair.get('value_plain')}>
                           {pair.get('verified_at') && <span title={intl.formatMessage(messages.linkVerifiedOn, { date: intl.formatDate(pair.get('verified_at'), dateFormatOptions) })}><Icon id='check' className='verified__mark' /></span>} <span dangerouslySetInnerHTML={{ __html: pair.get('value_emojified') }} className='translate' />
                         </dd>

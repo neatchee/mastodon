@@ -61,17 +61,17 @@ class DetailedStatus extends ImmutablePureComponent {
     }
 
     e.stopPropagation();
-  };
+  }
 
   handleOpenVideo = (options) => {
     this.props.onOpenVideo(this.props.status.getIn(['media_attachments', 0]), options);
-  };
+  }
 
   handleExpandedToggle = () => {
     this.props.onToggleHidden(this.props.status);
-  };
+  }
 
-  _measureHeight(heightJustChanged) {
+  _measureHeight (heightJustChanged) {
     if (this.props.measureHeight && this.node) {
       scheduleIdleTask(() => this.node && this.setState({ height: Math.ceil(this.node.scrollHeight) + 1 }));
 
@@ -84,9 +84,9 @@ class DetailedStatus extends ImmutablePureComponent {
   setRef = c => {
     this.node = c;
     this._measureHeight();
-  };
+  }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate (prevProps, prevState) {
     this._measureHeight(prevState.height !== this.state.height);
   }
 
@@ -102,14 +102,14 @@ class DetailedStatus extends ImmutablePureComponent {
     }
 
     window.open(href, 'mastodon-intent', 'width=445,height=600,resizable=no,menubar=no,status=no,scrollbars=yes');
-  };
+  }
 
   handleTranslate = () => {
     const { onTranslate, status } = this.props;
     onTranslate(status);
-  };
+  }
 
-  render() {
+  render () {
     const status = (this.props.status && this.props.status.get('reblog')) ? this.props.status.get('reblog') : this.props.status;
     const outerStyle = { boxSizing: 'border-box' };
     const { intl, compact, pictureInPicture } = this.props;
@@ -118,7 +118,7 @@ class DetailedStatus extends ImmutablePureComponent {
       return null;
     }
 
-    let media = '';
+    let media           = '';
     let applicationLink = '';
     let reblogLink = '';
     let reblogIcon = 'retweet';

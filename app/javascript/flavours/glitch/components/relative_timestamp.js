@@ -37,8 +37,8 @@ const shortDateFormatOptions = {
 
 const SECOND = 1000;
 const MINUTE = 1000 * 60;
-const HOUR = 1000 * 60 * 60;
-const DAY = 1000 * 60 * 60 * 24;
+const HOUR   = 1000 * 60 * 60;
+const DAY    = 1000 * 60 * 60 * 24;
 
 const MAX_DELAY = 2147483647;
 
@@ -58,16 +58,16 @@ const selectUnits = delta => {
 
 const getUnitDelay = units => {
   switch (units) {
-    case 'second':
-      return SECOND;
-    case 'minute':
-      return MINUTE;
-    case 'hour':
-      return HOUR;
-    case 'day':
-      return DAY;
-    default:
-      return MAX_DELAY;
+  case 'second':
+    return SECOND;
+  case 'minute':
+    return MINUTE;
+  case 'hour':
+    return HOUR;
+  case 'day':
+    return DAY;
+  default:
+    return MAX_DELAY;
   }
 };
 
@@ -141,7 +141,7 @@ class RelativeTimestamp extends React.Component {
     short: true,
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate (nextProps, nextState) {
     // As of right now the locale doesn't change without a new page load,
     // but we might as well check in case that ever changes.
     return this.props.timestamp !== nextProps.timestamp ||
@@ -149,44 +149,44 @@ class RelativeTimestamp extends React.Component {
       this.state.now !== nextState.now;
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (this.props.timestamp !== nextProps.timestamp) {
       this.setState({ now: this.props.intl.now() });
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this._scheduleNextUpdate(this.props, this.state);
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  componentWillUpdate (nextProps, nextState) {
     this._scheduleNextUpdate(nextProps, nextState);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     clearTimeout(this._timer);
   }
 
-  _scheduleNextUpdate(props, state) {
+  _scheduleNextUpdate (props, state) {
     clearTimeout(this._timer);
 
-    const { timestamp } = props;
-    const delta = (new Date(timestamp)).getTime() - state.now;
-    const unitDelay = getUnitDelay(selectUnits(delta));
-    const unitRemainder = Math.abs(delta % unitDelay);
+    const { timestamp }  = props;
+    const delta          = (new Date(timestamp)).getTime() - state.now;
+    const unitDelay      = getUnitDelay(selectUnits(delta));
+    const unitRemainder  = Math.abs(delta % unitDelay);
     const updateInterval = 1000 * 10;
-    const delay = delta < 0 ? Math.max(updateInterval, unitDelay - unitRemainder) : Math.max(updateInterval, unitRemainder);
+    const delay          = delta < 0 ? Math.max(updateInterval, unitDelay - unitRemainder) : Math.max(updateInterval, unitRemainder);
 
     this._timer = setTimeout(() => {
       this.setState({ now: this.props.intl.now() });
     }, delay);
   }
 
-  render() {
+  render () {
     const { timestamp, intl, year, futureDate, short } = this.props;
 
-    const timeGiven = timestamp.includes('T');
-    const date = new Date(timestamp);
+    const timeGiven    = timestamp.includes('T');
+    const date         = new Date(timestamp);
     const relativeTime = futureDate ? timeRemainingString(intl, date, this.state.now, timeGiven) : timeAgoString(intl, date, this.state.now, year, timeGiven, short);
 
     return (

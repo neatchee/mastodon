@@ -35,17 +35,17 @@ class Content extends ImmutablePureComponent {
 
   setRef = c => {
     this.node = c;
-  };
+  }
 
-  componentDidMount() {
+  componentDidMount () {
     this._updateLinks();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate () {
     this._updateLinks();
   }
 
-  _updateLinks() {
+  _updateLinks () {
     const node = this.node;
 
     if (!node) {
@@ -89,7 +89,7 @@ class Content extends ImmutablePureComponent {
       e.preventDefault();
       this.context.router.history.push(`/@${mention.get('acct')}`);
     }
-  };
+  }
 
   onHashtagClick = (hashtag, e) => {
     hashtag = hashtag.replace(/^#/, '');
@@ -98,14 +98,14 @@ class Content extends ImmutablePureComponent {
       e.preventDefault();
       this.context.router.history.push(`/tags/${hashtag}`);
     }
-  };
+  }
 
   onStatusClick = (status, e) => {
     if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
       e.preventDefault();
       this.context.router.history.push(`/@${status.getIn(['account', 'acct'])}/${status.get('id')}`);
     }
-  };
+  }
 
   handleMouseEnter = ({ currentTarget }) => {
     if (autoPlayGif) {
@@ -118,7 +118,7 @@ class Content extends ImmutablePureComponent {
       let emoji = emojis[i];
       emoji.src = emoji.getAttribute('data-original');
     }
-  };
+  }
 
   handleMouseLeave = ({ currentTarget }) => {
     if (autoPlayGif) {
@@ -131,9 +131,9 @@ class Content extends ImmutablePureComponent {
       let emoji = emojis[i];
       emoji.src = emoji.getAttribute('data-static');
     }
-  };
+  }
 
-  render() {
+  render () {
     const { announcement } = this.props;
 
     return (
@@ -157,7 +157,7 @@ class Emoji extends React.PureComponent {
     hovered: PropTypes.bool.isRequired,
   };
 
-  render() {
+  render () {
     const { emoji, emojiMap, hovered } = this.props;
 
     if (unicodeMapping[emoji]) {
@@ -174,7 +174,7 @@ class Emoji extends React.PureComponent {
         />
       );
     } else if (emojiMap.get(emoji)) {
-      const filename = (autoPlayGif || hovered) ? emojiMap.getIn([emoji, 'url']) : emojiMap.getIn([emoji, 'static_url']);
+      const filename  = (autoPlayGif || hovered) ? emojiMap.getIn([emoji, 'url']) : emojiMap.getIn([emoji, 'static_url']);
       const shortCode = `:${emoji}:`;
 
       return (
@@ -216,13 +216,13 @@ class Reaction extends ImmutablePureComponent {
     } else {
       addReaction(announcementId, reaction.get('name'));
     }
-  };
+  }
 
-  handleMouseEnter = () => this.setState({ hovered: true });
+  handleMouseEnter = () => this.setState({ hovered: true })
 
-  handleMouseLeave = () => this.setState({ hovered: false });
+  handleMouseLeave = () => this.setState({ hovered: false })
 
-  render() {
+  render () {
     const { reaction } = this.props;
 
     let shortCode = reaction.get('name');
@@ -254,17 +254,17 @@ class ReactionsBar extends ImmutablePureComponent {
   handleEmojiPick = data => {
     const { addReaction, announcementId } = this.props;
     addReaction(announcementId, data.native.replace(/:/g, ''));
-  };
+  }
 
-  willEnter() {
+  willEnter () {
     return { scale: reduceMotion ? 1 : 0 };
   }
 
-  willLeave() {
+  willLeave () {
     return { scale: reduceMotion ? 0 : spring(0, { stiffness: 170, damping: 26 }) };
   }
 
-  render() {
+  render () {
     const { reactions } = this.props;
     const visibleReactions = reactions.filter(x => x.get('count') > 0);
 
@@ -314,14 +314,14 @@ class Announcement extends ImmutablePureComponent {
     unread: !this.props.announcement.get('read'),
   };
 
-  componentDidUpdate() {
+  componentDidUpdate () {
     const { selected, announcement } = this.props;
     if (!selected && this.state.unread !== !announcement.get('read')) {
       this.setState({ unread: !announcement.get('read') });
     }
   }
 
-  render() {
+  render () {
     const { announcement } = this.props;
     const { unread } = this.state;
     const startsAt = announcement.get('starts_at') && new Date(announcement.get('starts_at'));
@@ -380,15 +380,15 @@ class Announcements extends ImmutablePureComponent {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this._markAnnouncementAsRead();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate () {
     this._markAnnouncementAsRead();
   }
 
-  _markAnnouncementAsRead() {
+  _markAnnouncementAsRead () {
     const { dismissAnnouncement, announcements } = this.props;
     const { index } = this.state;
     const announcement = announcements.get(announcements.size - 1 - index);
@@ -397,17 +397,17 @@ class Announcements extends ImmutablePureComponent {
 
   handleChangeIndex = index => {
     this.setState({ index: index % this.props.announcements.size });
-  };
+  }
 
   handleNextClick = () => {
     this.setState({ index: (this.state.index + 1) % this.props.announcements.size });
-  };
+  }
 
   handlePrevClick = () => {
     this.setState({ index: (this.props.announcements.size + this.state.index - 1) % this.props.announcements.size });
-  };
+  }
 
-  render() {
+  render () {
     const { announcements, intl } = this.props;
     const { index } = this.state;
 

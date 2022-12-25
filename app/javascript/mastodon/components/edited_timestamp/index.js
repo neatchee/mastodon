@@ -10,7 +10,7 @@ import InlineAccount from 'mastodon/components/inline_account';
 
 const mapDispatchToProps = (dispatch, { statusId }) => ({
 
-  onItemClick(index) {
+  onItemClick (index) {
     dispatch(openModal('COMPARE_HISTORY', { index, statusId }));
   },
 
@@ -36,7 +36,7 @@ class EditedTimestamp extends React.PureComponent {
     return (
       <FormattedMessage id='status.edited_x_times' defaultMessage='Edited {count, plural, one {{count} time} other {{count} times}}' values={{ count: items.size - 1 }} />
     );
-  };
+  }
 
   renderItem = (item, index, { onClick, onKeyPress }) => {
     const formattedDate = <RelativeTimestamp timestamp={item.get('created_at')} short={false} />;
@@ -53,9 +53,9 @@ class EditedTimestamp extends React.PureComponent {
         <button data-index={index} onClick={onClick} onKeyPress={onKeyPress}>{label}</button>
       </li>
     );
-  };
+  }
 
-  render() {
+  render () {
     const { timestamp, intl, statusId } = this.props;
 
     return (

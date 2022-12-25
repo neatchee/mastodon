@@ -94,7 +94,7 @@ function main() {
 
     [].forEach.call(document.querySelectorAll('time.time-ago'), (content) => {
       const datetime = new Date(content.getAttribute('datetime'));
-      const now = new Date();
+      const now      = new Date();
 
       content.title = dateTimeFormat.format(datetime);
       content.textContent = timeAgoString({
@@ -156,7 +156,7 @@ function main() {
     delegate(document, '.custom-emoji', 'mouseover', getEmojiAnimationHandler('data-original'));
     delegate(document, '.custom-emoji', 'mouseout', getEmojiAnimationHandler('data-static'));
 
-    delegate(document, '.status__content__spoiler-link', 'click', function () {
+    delegate(document, '.status__content__spoiler-link', 'click', function() {
       const statusEl = this.parentNode.parentNode;
 
       if (statusEl.dataset.spoiler === 'expanded') {
