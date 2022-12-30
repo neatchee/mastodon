@@ -48,7 +48,7 @@
 
 .status__content {
   position: relative;
-  margin: 10px 0;
+  margin: 20px 0;
   font-size: 15px;
   line-height: 20px;
   word-wrap: break-word;
@@ -212,6 +212,20 @@
     &:focus {
       background: lighten($ui-base-color, 33%);
       text-decoration: none;
+    }
+  }
+
+  .status__content--uncollapse-msg {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    z-index: 1;
+    width: 100%;
+    color: $light-text-color;
+    background: linear-gradient(90deg, rgba($ui-base-color,0), rgba($ui-base-color,1) 40% 60%, rgba($ui-base-color,0));
+
+    .status__content--uncollapse-msg-arrow {
+      margin: 0 10px;
     }
   }
 }
@@ -406,6 +420,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       padding-top: 0;
+      margin-bottom: 5px;
 
       &:after {
         content: "";

@@ -306,6 +306,7 @@ class StatusContent extends React.PureComponent {
       status,
       media,
       extraMedia,
+      collapsed,
       mediaIcons,
       parseClick,
       disabled,
@@ -327,6 +328,14 @@ class StatusContent extends React.PureComponent {
 
     const translateButton = renderTranslate && (
       <TranslateButton onClick={this.handleTranslate} translation={status.get('translation')} />
+    );
+
+    const collapsedIndicator = collapsed && (
+      <div className='status__content--uncollapse-msg'>
+        <span className='status__content--uncollapse-msg-arrow' aria-hidden>⬇⬇</span>
+        <FormattedMessage id='status.uncollapse' defaultMessage='Uncollapse' />
+        <span className='status__content--uncollapse-msg-arrow' aria-hidden>⬇⬇</span>
+      </div>
     );
 
     if (status.get('spoiler_text').length > 0) {
@@ -409,6 +418,7 @@ class StatusContent extends React.PureComponent {
           </div>
 
           {extraMedia}
+          {collapsedIndicator}
         </div>
       );
     } else if (parseClick) {
@@ -432,6 +442,7 @@ class StatusContent extends React.PureComponent {
           {translateButton}
           {media}
           {extraMedia}
+          {collapsedIndicator}
         </div>
       );
     } else {
@@ -453,6 +464,7 @@ class StatusContent extends React.PureComponent {
           {translateButton}
           {media}
           {extraMedia}
+          {collapsedIndicator}
         </div>
       );
     }
