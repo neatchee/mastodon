@@ -443,6 +443,9 @@
     &.status-direct > .status__content:after {
       background: linear-gradient(rgba(lighten($ui-base-color, 8%), 0), rgba(lighten($ui-base-color, 8%), 1));
     }
+    &.status-direct .status__content--uncollapse-msg {
+      background: linear-gradient(90deg,rgba(lighten($ui-base-color, 8%), 0), rgba(lighten($ui-base-color, 8%), 1) 40% 60%, rgba(lighten($ui-base-color, 8%), 0));
+    }
 
     .notification__message {
       margin-bottom: 0;
