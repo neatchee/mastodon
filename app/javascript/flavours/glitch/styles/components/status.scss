@@ -391,7 +391,8 @@
     }
 
     .status__content {
-      height: 60px;
+      max-height: 60px;
+      min-height: 22px;
       overflow: hidden;
       text-overflow: ellipsis;
       padding-top: 0;
