@@ -1,4 +1,4 @@
-import { autoPlayGif, useSystemEmojiFont } from 'flavours/glitch/initial_state';
+import { autoPlayGif, useSystemEmojiFont, zoomEmojisOnHover } from 'flavours/glitch/initial_state';
 import unicodeMapping from './emoji_unicode_mapping_light';
 import { assetHost } from 'flavours/glitch/utils/config';
 import Trie from 'substring-trie';
@@ -51,7 +51,7 @@ const emojifyTextNode = (node, customEmojis) => {
           const filename = autoPlayGif ? customEmojis[shortname].url : customEmojis[shortname].static_url;
           replacement = document.createElement('img');
           replacement.setAttribute('draggable', false);
-          replacement.setAttribute('class', 'emojione custom-emoji');
+          replacement.setAttribute('class', zoomEmojisOnHover ? 'emojione custom-emoji zoomable' : 'emojione custom-emoji');
           replacement.setAttribute('alt', shortname);
           replacement.setAttribute('title', shortname);
           replacement.setAttribute('src', filename);
@@ -66,7 +66,7 @@ const emojifyTextNode = (node, customEmojis) => {
       const title = shortCode ? `:${shortCode}:` : '';
       replacement = document.createElement('img');
       replacement.setAttribute('draggable', false);
-      replacement.setAttribute('class', 'emojione');
+      replacement.setAttribute('class', zoomEmojisOnHover ? 'emojione zoomable' : 'emojione');
       replacement.setAttribute('alt', match);
       replacement.setAttribute('title', title);
       replacement.setAttribute('src', `${assetHost}/emoji/${emojiFilename(filename)}.svg`);
