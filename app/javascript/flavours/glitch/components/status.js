@@ -518,7 +518,7 @@ class Status extends ImmutablePureComponent {
       pictureInPicture,
       ...other
     } = this.props;
-    const { isCollapsed } = this.state;
+    const { isCollapsed, forceFilter } = this.state;
     let background = null;
     let attachments = null;
 
@@ -796,7 +796,6 @@ class Status extends ImmutablePureComponent {
             extraMedia={extraMedia}
             mediaIcons={contentMediaIcons}
             expanded={isExpanded}
-            collapsed={isCollapsed}
             onExpandedToggle={this.handleExpandedToggle}
             onTranslate={this.handleTranslate}
             parseClick={parseClick}
