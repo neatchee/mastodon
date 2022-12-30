@@ -342,6 +342,10 @@
   &.status-direct {
     background: lighten($ui-base-color, 8%);
     border-bottom-color: lighten($ui-base-color, 12%);
+
+    .status__collapse-button.active {
+      background-image: linear-gradient(rgba(lighten($ui-base-color, 16%), 255) 0 0);
+    }
   }
 
   &.light {
@@ -500,6 +504,10 @@
   .text-icon {
     padding-left: 2px;
     padding-right: 2px;
+  }
+
+  .status__collapse-button.active {
+    background-image: linear-gradient(rgba(lighten($ui-base-color, 8%), 255) 0 0);
   }
 
   .status__collapse-button.active > .fa-angle-double-up {
