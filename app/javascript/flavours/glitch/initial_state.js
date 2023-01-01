@@ -97,9 +97,6 @@ const initialState = element?.textContent && JSON.parse(element.textContent);
 // Glitch-soc-specific “local settings”
 try {
   initialState.local_settings = JSON.parse(localStorage.getItem('mastodon-settings'));
-  if (initialState.local_settings.zoom_emojis_on_hover) {
-    document.body.classList.add('zoom-emoji-on-hover');
-  }
 } catch (e) {
   initialState.local_settings = {};
 }

@@ -72,11 +72,6 @@ export function deleteLocalSetting(key) {
 export function saveLocalSettings() {
   return (_, getState) => {
     const localSettings = getState().get('local_settings').toJS();
-    if (localSettings.zoom_emojis_on_hover) {
-      document.body.classList.add('zoom-emoji-on-hover');
-    } else {
-      document.body.classList.remove('zoom-emoji-on-hover');
-    }
     localStorage.setItem('mastodon-settings', JSON.stringify(localSettings));
   };
 };
