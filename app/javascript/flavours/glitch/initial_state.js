@@ -97,6 +97,9 @@ const initialState = element?.textContent && JSON.parse(element.textContent);
 // Glitch-soc-specific “local settings”
 try {
   initialState.local_settings = JSON.parse(localStorage.getItem('mastodon-settings'));
+  if (initialState.local_settings.zoom_emojis_on_hover) {
+    document.body.classList.add('zoom-emoji-on-hover');
+  }
 } catch (e) {
   initialState.local_settings = {};
 }
@@ -147,6 +150,5 @@ export const favouriteModal = getMeta('favourite_modal');
 export const pollLimits = (initialState && initialState.poll_limits);
 export const defaultContentType = getMeta('default_content_type');
 export const useSystemEmojiFont = getMeta('system_emoji_font');
-export const zoomEmojisOnHover = initialState?.local_settings?.zoom_emojis_on_hover;
 
 export default initialState;
