@@ -436,6 +436,10 @@
         );
         pointer-events: none;
       }
+      
+      .media-gallery {
+        display: none;
+      }
 
       a:hover {
         text-decoration: none;
