@@ -332,10 +332,6 @@
   &.status-direct {
     background: lighten($ui-base-color, 8%);
     border-bottom-color: lighten($ui-base-color, 12%);
-
-    .status__collapse-button.active {
-      background-image: linear-gradient(rgba(lighten($ui-base-color, 16%), 255) 0 0);
-    }
   }
 
   &.light {
@@ -427,7 +423,27 @@
       background: linear-gradient(rgba(lighten($ui-base-color, 8%), 0), rgba(lighten($ui-base-color, 8%), 1));
     }
 
-    .notification__message {
+    &.status-direct .status__collapse-button {
+      background-image: linear-gradient(rgba(lighten($ui-base-color, 12%), 255) 0 0);
+    
+      &:active,
+      &:hover,
+      &:focus {
+        background-image: linear-gradient(rgba(lighten($ui-base-color, 20%), 255) 0 0);
+      }
+    }
+					  
+    .status__collapse-button {
+      background-image: linear-gradient(rgba(lighten($ui-base-color, 4%), 255) 0 0);
+
+      &:active,
+      &:hover,
+      &:focus {
+        background-image: linear-gradient(rgba(lighten($ui-base-color, 12%), 255) 0 0);
+      }
+    }
+
+    notification__message {
       margin-bottom: 0;
     }
 
@@ -498,10 +514,6 @@
   .text-icon {
     padding-left: 2px;
     padding-right: 2px;
-  }
-
-  .status__collapse-button.active {
-    background-image: linear-gradient(rgba(lighten($ui-base-color, 8%), 255) 0 0);
   }
 
   .status__collapse-button.active > .fa-angle-double-up {
