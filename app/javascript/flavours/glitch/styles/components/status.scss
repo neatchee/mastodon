@@ -460,7 +460,27 @@
       );
     }
 
-    .notification__message {
+    &.status-direct .status__collapse-button {
+      background-image: linear-gradient(rgba(lighten($ui-base-color, 12%), 255) 0 0);
+    
+      &:active,
+      &:hover,
+      &:focus {
+        background-image: linear-gradient(rgba(lighten($ui-base-color, 20%), 255) 0 0);
+      }
+    }
+					  
+    .status__collapse-button {
+      background-image: linear-gradient(rgba(lighten($ui-base-color, 4%), 255) 0 0);
+
+      &:active,
+      &:hover,
+      &:focus {
+        background-image: linear-gradient(rgba(lighten($ui-base-color, 12%), 255) 0 0);
+      }
+    }
+
+    notification__message {
       margin-bottom: 0;
     }
 
