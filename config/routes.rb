@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     /blocks
     /domain_blocks
     /mutes
+    /followed_tags
     /statuses/(*any)
   ).freeze
 
@@ -314,7 +315,11 @@ Rails.application.routes.draw do
     end
 
     resources :reports, only: [:index, :show] do
-      resources :actions, only: [:create], controller: 'reports/actions'
+      resources :actions, only: [:create], controller: 'reports/actions' do
+        collection do
+          post :preview
+        end
+      end
 
       member do
         post :assign_to_self
@@ -441,6 +446,11 @@ Rails.application.routes.draw do
 
           resource :favourite, only: :create
           post :unfavourite, to: 'favourites#destroy'
+
+          # foreign custom emojis are encoded as shortcode@domain.tld
+          # the constraint prevents rails from interpreting the ".tld" as a filename extension
+          post '/react/:id', to: 'reactions#create', constraints: { id: /[^\/]+/ }
+          post '/unreact/:id', to: 'reactions#destroy', constraints: { id: /[^\/]+/ }
 
           resource :bookmark, only: :create
           post :unbookmark, to: 'bookmarks#destroy'

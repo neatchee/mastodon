@@ -31,7 +31,7 @@
 #
 
 class Status < ApplicationRecord
-  before_destroy :unlink_from_conversations
+  before_destroy :unlink_from_conversations!
 
   include Discard::Model
   include Paginable
@@ -71,6 +71,7 @@ class Status < ApplicationRecord
   has_many :mentioned_accounts, through: :mentions, source: :account, class_name: 'Account'
   has_many :active_mentions, -> { active }, class_name: 'Mention', inverse_of: :status
   has_many :media_attachments, dependent: :nullify
+  has_many :status_reactions, inverse_of: :status, dependent: :destroy
 
   has_and_belongs_to_many :tags
   has_and_belongs_to_many :preview_cards
@@ -122,7 +123,7 @@ class Status < ApplicationRecord
                    :tags,
                    :preview_cards,
                    :preloadable_poll,
-                   account: [:account_stat, :user],
+                   account: [:account_stat, user: :role],
                    active_mentions: { account: :account_stat },
                    reblog: [
                      :application,
@@ -132,7 +133,7 @@ class Status < ApplicationRecord
                      :conversation,
                      :status_stat,
                      :preloadable_poll,
-                     account: [:account_stat, :user],
+                     account: [:account_stat, user: :role],
                      active_mentions: { account: :account_stat },
                    ],
                    thread: { account: :account_stat }
@@ -263,6 +264,21 @@ class Status < ApplicationRecord
     @emojis = CustomEmoji.from_text(fields.join(' '), account.domain)
   end
 
+  def reactions(account = nil)
+    records = begin
+      scope = status_reactions.group(:status_id, :name, :custom_emoji_id).order(Arel.sql('MIN(created_at) ASC'))
+
+      if account.nil?
+        scope.select('name, custom_emoji_id, count(*) as count, false as me')
+      else
+        scope.select("name, custom_emoji_id, count(*) as count, exists(select 1 from status_reactions r where r.account_id = #{account.id} and r.status_id = status_reactions.status_id and r.name = status_reactions.name) as me")
+      end
+    end
+
+    ActiveRecord::Associations::Preloader.new.preload(records, :custom_emoji)
+    records
+  end
+
   def ordered_media_attachments
     if ordered_media_attachment_ids.nil?
       media_attachments
@@ -314,15 +330,14 @@ class Status < ApplicationRecord
   after_create_commit :store_uri, if: :local?
   after_create_commit :update_statistics, if: :local?
 
-  around_create Mastodon::Snowflake::Callbacks
-
-  before_create :set_locality
-
   before_validation :prepare_contents, if: :local?
   before_validation :set_reblog
   before_validation :set_visibility
   before_validation :set_conversation
   before_validation :set_local
+  before_create :set_locality
+
+  around_create Mastodon::Snowflake::Callbacks
 
   after_create :set_poll_id
 
@@ -504,6 +519,17 @@ class Status < ApplicationRecord
     update_attribute(:deleted_at, discard_time)
   end
 
+  def unlink_from_conversations!
+    return unless direct_visibility?
+
+    inbox_owners = mentioned_accounts.local
+    inbox_owners += [account] if account.local?
+
+    inbox_owners.each do |inbox_owner|
+      AccountConversation.remove_status(inbox_owner, self)
+    end
+  end
+
   private
 
   def update_status_stat!(attrs)
@@ -586,16 +612,5 @@ class Status < ApplicationRecord
     account&.decrement_count!(:statuses_count)
     reblog&.decrement_count!(:reblogs_count) if reblog?
     thread&.decrement_count!(:replies_count) if in_reply_to_id.present? && distributable?
-  end
-
-  def unlink_from_conversations
-    return unless direct_visibility?
-
-    inbox_owners = mentioned_accounts.local
-    inbox_owners += [account] if account.local?
-
-    inbox_owners.each do |inbox_owner|
-      AccountConversation.remove_status(inbox_owner, self)
-    end
   end
 end

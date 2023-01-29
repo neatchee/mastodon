@@ -55,6 +55,7 @@ class REST::InstanceSerializer < ActiveModel::Serializer
         max_characters: StatusLengthValidator::MAX_CHARS,
         max_media_attachments: 4,
         characters_reserved_per_url: StatusLengthValidator::URL_PLACEHOLDER_CHARS,
+        supported_mime_types: HtmlAwareFormatter::STATUS_MIME_TYPES,
       },
 
       media_attachments: {
@@ -75,6 +76,10 @@ class REST::InstanceSerializer < ActiveModel::Serializer
 
       translation: {
         enabled: TranslationService.configured?,
+      },
+
+      reactions: {
+        max_reactions: StatusReactionValidator::LIMIT,
       },
     }
   end

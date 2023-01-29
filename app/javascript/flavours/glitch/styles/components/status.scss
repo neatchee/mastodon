@@ -438,7 +438,27 @@
       background: linear-gradient(rgba(lighten($ui-base-color, 8%), 0), rgba(lighten($ui-base-color, 8%), 1));
     }
 
-    .notification__message {
+    &.status-direct .status__collapse-button {
+      background-image: linear-gradient(rgba(lighten($ui-base-color, 12%), 255) 0 0);
+    
+      &:active,
+      &:hover,
+      &:focus {
+        background-image: linear-gradient(rgba(lighten($ui-base-color, 20%), 255) 0 0);
+      }
+    }
+					  
+    .status__collapse-button {
+      background-image: linear-gradient(rgba(lighten($ui-base-color, 4%), 255) 0 0);
+
+      &:active,
+      &:hover,
+      &:focus {
+        background-image: linear-gradient(rgba(lighten($ui-base-color, 12%), 255) 0 0);
+      }
+    }
+
+    notification__message {
       margin-bottom: 0;
     }
 
@@ -449,6 +469,10 @@
 
   .notification__message {
     margin: -10px 0px 10px 0;
+  }
+
+  .reactions-bar--empty {
+    display: none;
   }
 }
 
@@ -598,6 +622,10 @@
   align-items: center;
   display: flex;
   margin-top: 8px;
+
+  & > .emoji-picker-dropdown > .emoji-button {
+    padding: 0;
+  }
 }
 
 .status__action-bar-button {
@@ -605,6 +633,10 @@
 
   &.icon-button--with-counter {
     margin-right: 14px;
+  }
+
+  .fa-plus {
+    padding-top: 1px;
   }
 }
 
@@ -672,6 +704,10 @@
   display: flex;
   flex-direction: row;
   padding: 10px 0;
+
+  .fa-plus {
+    padding-top: 2px;
+  }
 }
 
 .detailed-status__link {

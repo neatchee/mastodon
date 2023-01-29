@@ -6,6 +6,7 @@ import StatusHeader from './status_header';
 import StatusIcons from './status_icons';
 import StatusContent from './status_content';
 import StatusActionBar from './status_action_bar';
+import StatusReactions from './status_reactions';
 import AttachmentList from './attachment_list';
 import Card from '../features/status/components/card';
 import { injectIntl, FormattedMessage } from 'react-intl';
@@ -16,7 +17,7 @@ import NotificationOverlayContainer from 'flavours/glitch/features/notifications
 import classNames from 'classnames';
 import { autoUnfoldCW } from 'flavours/glitch/utils/content_warning';
 import PollContainer from 'flavours/glitch/containers/poll_container';
-import { displayMedia } from 'flavours/glitch/initial_state';
+import { displayMedia, visibleReactions } from 'flavours/glitch/initial_state';
 import PictureInPicturePlaceholder from 'flavours/glitch/components/picture_in_picture_placeholder';
 import { List as ImmutableList } from 'immutable';
 
@@ -62,6 +63,7 @@ class Status extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
+    identity: PropTypes.object,
   };
 
   static propTypes = {
@@ -76,6 +78,8 @@ class Status extends ImmutablePureComponent {
     onDelete: PropTypes.func,
     onDirect: PropTypes.func,
     onMention: PropTypes.func,
+    onReactionAdd: PropTypes.func,
+    onReactionRemove: PropTypes.func,
     onPin: PropTypes.func,
     onOpenMedia: PropTypes.func,
     onOpenVideo: PropTypes.func,
@@ -225,7 +229,7 @@ class Status extends ImmutablePureComponent {
   //   -  The user has decided to collapse all notifications ('muted'
   //      statuses).
   //   -  The user has decided to collapse long statuses and the status is
-  //      over 400px (without media, or 650px with).
+  //      over the user set value (default 400 without media, or 610px with).
   //   -  The status is a reply and the user has decided to collapse all
   //      replies.
   //   -  The status contains media and the user has decided to collapse all
@@ -728,6 +732,7 @@ class Status extends ImmutablePureComponent {
     if (this.props.prepend && accounts) {
       const notifKind = {
         favourite: 'favourited',
+        reaction: 'reacted',
         reblog: 'boosted',
         reblogged_by: 'boosted',
         status: 'posted',
@@ -816,6 +821,15 @@ class Status extends ImmutablePureComponent {
             tagLinks={settings.get('tag_misleading_links')}
             rewriteMentions={settings.get('rewrite_mentions')}
             zoomEmojisOnHover={settings.get('zoom_emojis_on_hover')}
+          />
+
+          <StatusReactions
+            statusId={status.get('id')}
+            reactions={status.get('reactions')}
+            numVisible={visibleReactions}
+            addReaction={this.props.onReactionAdd}
+            removeReaction={this.props.onReactionRemove}
+            canReact={this.context.identity.signedIn}
           />
 
           {!isCollapsed || !(muted || !settings.getIn(['collapsed', 'show_action_bar'])) ? (

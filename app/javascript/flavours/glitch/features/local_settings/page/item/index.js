@@ -110,7 +110,11 @@ export default class LocalSettingsPageItem extends React.PureComponent {
             onChange={handleChange}
             disabled={!enabled}
             {...inputProps}
+<<<<<<< HEAD
           />
+=======
+	    />
+>>>>>>> glitch-soc/main
           {children}
         </label>
       </div>

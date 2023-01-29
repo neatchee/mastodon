@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { EmojiPicker as EmojiPickerAsync } from '../../ui/util/async-components';
-import Overlay from 'react-overlays/lib/Overlay';
+import Overlay from 'react-overlays/Overlay';
 import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { supportsPassiveEvents } from 'detect-passive-events';
@@ -155,9 +155,6 @@ class EmojiPickerMenu extends React.PureComponent {
     onClose: PropTypes.func.isRequired,
     onPick: PropTypes.func.isRequired,
     style: PropTypes.object,
-    placement: PropTypes.string,
-    arrowOffsetLeft: PropTypes.string,
-    arrowOffsetTop: PropTypes.string,
     intl: PropTypes.object.isRequired,
     skinTone: PropTypes.number.isRequired,
     onSkinTone: PropTypes.func.isRequired,
@@ -276,8 +273,8 @@ class EmojiPickerMenu extends React.PureComponent {
       <div className={classNames('emoji-picker-dropdown__menu', { selecting: modifierOpen })} style={style} ref={this.setRef}>
         <EmojiPicker
           perLine={8}
-          emojiSize={33}
-          sheetSize={43}
+          emojiSize={22}
+          sheetSize={32}
           custom={buildCustomEmojis(custom_emojis)}
           color=''
           emoji=''
@@ -321,19 +318,19 @@ class EmojiPickerDropdown extends React.PureComponent {
     onSkinTone: PropTypes.func.isRequired,
     skinTone: PropTypes.number.isRequired,
     button: PropTypes.node,
+    disabled: PropTypes.bool,
   };
 
   state = {
     active: false,
     loading: false,
-    placement: null,
   };
 
   setRef = (c) => {
     this.dropdown = c;
   }
 
-  onShowDropdown = ({ target }) => {
+  onShowDropdown = () => {
     this.setState({ active: true });
 
     if (!EmojiPicker) {
@@ -348,9 +345,6 @@ class EmojiPickerDropdown extends React.PureComponent {
         this.setState({ loading: false, active: false });
       });
     }
-
-    const { top } = target.getBoundingClientRect();
-    this.setState({ placement: top * 2 < innerHeight ? 'bottom' : 'top' });
   }
 
   onHideDropdown = () => {
@@ -358,7 +352,7 @@ class EmojiPickerDropdown extends React.PureComponent {
   }
 
   onToggle = (e) => {
-    if (!this.state.loading && (!e.key || e.key === 'Enter')) {
+    if (!this.state.disabled && !this.state.loading && (!e.key || e.key === 'Enter')) {
       if (this.state.active) {
         this.onHideDropdown();
       } else {
@@ -384,7 +378,7 @@ class EmojiPickerDropdown extends React.PureComponent {
   render () {
     const { intl, onPickEmoji, onSkinTone, skinTone, frequentlyUsedEmojis, button } = this.props;
     const title = intl.formatMessage(messages.emoji);
-    const { active, loading, placement } = this.state;
+    const { active, loading } = this.state;
 
     return (
       <div className='emoji-picker-dropdown' onKeyDown={this.handleKeyDown}>
@@ -396,16 +390,22 @@ class EmojiPickerDropdown extends React.PureComponent {
           />}
         </div>
 
-        <Overlay show={active} placement={placement} target={this.findTarget}>
-          <EmojiPickerMenu
-            custom_emojis={this.props.custom_emojis}
-            loading={loading}
-            onClose={this.onHideDropdown}
-            onPick={onPickEmoji}
-            onSkinTone={onSkinTone}
-            skinTone={skinTone}
-            frequentlyUsedEmojis={frequentlyUsedEmojis}
-          />
+        <Overlay show={active} placement={'bottom'} target={this.findTarget} popperConfig={{ strategy: 'fixed' }}>
+          {({ props, placement })=> (
+            <div {...props} style={{ ...props.style, width: 299 }}>
+              <div className={`dropdown-animation ${placement}`}>
+                <EmojiPickerMenu
+                  custom_emojis={this.props.custom_emojis}
+                  loading={loading}
+                  onClose={this.onHideDropdown}
+                  onPick={onPickEmoji}
+                  onSkinTone={onSkinTone}
+                  skinTone={skinTone}
+                  frequentlyUsedEmojis={frequentlyUsedEmojis}
+                />
+              </div>
+            </div>
+          )}
         </Overlay>
       </div>
     );

@@ -124,6 +124,7 @@ export default class Notification extends ImmutablePureComponent {
           onMoveDown={onMoveDown}
           onMoveUp={onMoveUp}
           onMention={onMention}
+          contextType='notifications'
           getScrollPosition={getScrollPosition}
           updateScrollBottom={updateScrollBottom}
           cachedMediaWidth={this.props.cachedMediaWidth}
@@ -141,6 +142,29 @@ export default class Notification extends ImmutablePureComponent {
           id={notification.get('status')}
           account={notification.get('account')}
           prepend='favourite'
+          muted
+          notification={notification}
+          onMoveDown={onMoveDown}
+          onMoveUp={onMoveUp}
+          onMention={onMention}
+          contextType='notifications'
+          getScrollPosition={getScrollPosition}
+          updateScrollBottom={updateScrollBottom}
+          cachedMediaWidth={this.props.cachedMediaWidth}
+          cacheMediaWidth={this.props.cacheMediaWidth}
+          onUnmount={this.props.onUnmount}
+          withDismiss
+          unread={this.props.unread}
+        />
+      );
+    case 'reaction':
+      return (
+        <StatusContainer
+          containerId={notification.get('id')}
+          hidden={hidden}
+          id={notification.get('status')}
+          account={notification.get('account')}
+          prepend='reaction'
           muted
           notification={notification}
           onMoveDown={onMoveDown}
@@ -168,6 +192,7 @@ export default class Notification extends ImmutablePureComponent {
           onMoveDown={onMoveDown}
           onMoveUp={onMoveUp}
           onMention={onMention}
+          contextType='notifications'
           getScrollPosition={getScrollPosition}
           updateScrollBottom={updateScrollBottom}
           cachedMediaWidth={this.props.cachedMediaWidth}
@@ -190,6 +215,7 @@ export default class Notification extends ImmutablePureComponent {
           onMoveDown={onMoveDown}
           onMoveUp={onMoveUp}
           onMention={onMention}
+          contextType='notifications'
           getScrollPosition={getScrollPosition}
           updateScrollBottom={updateScrollBottom}
           cachedMediaWidth={this.props.cachedMediaWidth}
@@ -212,6 +238,7 @@ export default class Notification extends ImmutablePureComponent {
           onMoveDown={onMoveDown}
           onMoveUp={onMoveUp}
           onMention={onMention}
+          contextType='notifications'
           getScrollPosition={getScrollPosition}
           updateScrollBottom={updateScrollBottom}
           cachedMediaWidth={this.props.cachedMediaWidth}

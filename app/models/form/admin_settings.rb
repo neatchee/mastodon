@@ -30,6 +30,7 @@ class Form::AdminSettings
     show_reblogs_in_federated_timelines
     show_replies_in_federated_timelines
     trends
+    trends_as_landing_page
     trendable_by_default
     trending_status_cw
     show_domain_blocks
@@ -61,6 +62,7 @@ class Form::AdminSettings
     show_reblogs_in_federated_timelines
     show_replies_in_federated_timelines
     trends
+    trends_as_landing_page
     trendable_by_default
     trending_status_cw
     noindex
