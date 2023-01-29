@@ -227,7 +227,7 @@ class Notifications extends React.PureComponent {
   groupNotifications(notifications) {
     const groupedNotifications = [];
     for (const notif of notifications) {
-      const newNotif = notif.delete('account').set('accounts', ImmutableList([notif.get('account')]));
+      const newNotif = notif.set('account', ImmutableList([notif.get('account')]));
       if (notif.get('type') === 'favourite' || notif.get('type') === 'reblog') {
         const matchingNotifIdx = groupedNotifications.findIndex(
           other => other.get('type') === notif.get('type') && other.get('status') === notif.get('status'),
@@ -235,9 +235,9 @@ class Notifications extends React.PureComponent {
         const matchingNotif = groupedNotifications[matchingNotifIdx];
         if (matchingNotif) {
           groupedNotifications[matchingNotifIdx] = matchingNotif.update(
-            'accounts',
+            'account',
             ImmutableList(),
-            accounts => accounts.push(...newNotif.get('accounts')),
+            accounts => accounts.push(...newNotif.get('account')),
           );
         } else {
           groupedNotifications.push(newNotif);
@@ -279,7 +279,7 @@ class Notifications extends React.PureComponent {
         <NotificationContainer
           key={item.get('id')}
           notification={item}
-          accountIds={item.get('accounts')}
+          accountIds={item.get('account')}
           onMoveUp={this.handleMoveUp}
           onMoveDown={this.handleMoveDown}
           unread={lastReadId !== '0' && compareId(item.get('id'), lastReadId) > 0}

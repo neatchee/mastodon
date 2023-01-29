@@ -66,14 +66,14 @@ const makeMapStateToProps = () => {
 
     let status = getStatus(state, props);
     let reblogStatus = status ? status.get('reblog', null) : null;
-    let accounts = undefined;
+    let account = undefined;
     let prepend = undefined;
 
     if (props.featured && status) {
-      accounts = ImmutableList([status.get('account')]);
+      account = status.get('account');
       prepend = 'featured';
     } else if (reblogStatus !== null && typeof reblogStatus === 'object') {
-      accounts = ImmutableList([status.get('account')]);
+      account = status.get('account');
       status = reblogStatus;
       prepend = 'reblogged_by';
     }
@@ -81,7 +81,7 @@ const makeMapStateToProps = () => {
     return {
       containerId: props.containerId || props.id,  //  Should match reblogStatus's id for reblogs
       status: status,
-      accounts: props.accounts || accounts || ImmutableList(),
+      account: props.account || account,
       settings: state.get('local_settings'),
       prepend: prepend || props.prepend,
       pictureInPicture: getPictureInPicture(state, props),

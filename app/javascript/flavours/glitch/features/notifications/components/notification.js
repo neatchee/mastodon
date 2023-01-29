@@ -117,7 +117,7 @@ export default class Notification extends ImmutablePureComponent {
           containerId={notification.get('id')}
           hidden={hidden}
           id={notification.get('status')}
-          accounts={notification.get('accounts')}
+          account={notification.get('account')}
           prepend='status'
           muted
           notification={notification}
@@ -139,7 +139,7 @@ export default class Notification extends ImmutablePureComponent {
           containerId={notification.get('id')}
           hidden={hidden}
           id={notification.get('status')}
-          accounts={notification.get('accounts')}
+          account={notification.get('account')}
           prepend='favourite'
           muted
           notification={notification}
@@ -161,7 +161,7 @@ export default class Notification extends ImmutablePureComponent {
           containerId={notification.get('id')}
           hidden={hidden}
           id={notification.get('status')}
-          accounts={notification.get('accounts')}
+          account={notification.get('account')}
           prepend='reblog'
           muted
           notification={notification}
@@ -183,7 +183,7 @@ export default class Notification extends ImmutablePureComponent {
           containerId={notification.get('id')}
           hidden={hidden}
           id={notification.get('status')}
-          account={notifications.get('accounts')}
+          account={notification.get('account')}
           prepend='poll'
           muted
           notification={notification}
@@ -205,7 +205,7 @@ export default class Notification extends ImmutablePureComponent {
           containerId={notification.get('id')}
           hidden={hidden}
           id={notification.get('status')}
-          account={notification.get('accounts')}
+          account={notification.get('account')}
           prepend='update'
           muted
           notification={notification}
