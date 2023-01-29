@@ -1,6 +1,7 @@
 import React from 'react';
 import NotificationsContainer from './containers/notifications_container';
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import LoadingBarContainer from './containers/loading_bar_container';
 import ModalContainer from './containers/modal_container';
 import { connect } from 'react-redux';

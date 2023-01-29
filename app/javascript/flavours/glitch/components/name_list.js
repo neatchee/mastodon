@@ -41,8 +41,8 @@ function NameList({ intl, accounts, onAccountClick, onViewMoreClick, viewMoreHre
 
   let elementNum = 0;
   return parts.map(({ type, value }) => {
+	const currentElement = elementNum;
     if (type === 'element') {
-      const currentElement = elementNum;
       elementNum++;
       if (currentElement === 2) {
         return <NameLink href={viewMoreHref} onClick={onViewMoreClick}>{value}</NameLink>;
@@ -52,9 +52,9 @@ function NameList({ intl, accounts, onAccountClick, onViewMoreClick, viewMoreHre
         onAccountClick(accounts.get(currentElement), ev);
       };
 
-      return <NameLink href={href} onClick={handleClick}>{value}</NameLink>;
+      return <NameLink href={href} key={accounts.get(currentElement).get('id')} onClick={handleClick}>{value}</NameLink>;
     } else {
-      return value;
+      return <React.Fragment key={`${accounts.get(currentElement).get('id')}_separator`}>{value}</React.Fragment>;
     }
   });
 }
