@@ -46,3 +46,5 @@ en:
     use_this: Use this
   settings:
     flavours: Flavours
+  status:
+    n_others: '%{n} others'

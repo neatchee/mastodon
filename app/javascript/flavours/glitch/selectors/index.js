@@ -107,8 +107,13 @@ export const getAlerts = createSelector([getAlertsBase], (base) => {
 
 export const makeGetNotification = () => createSelector([
   (_, base)             => base,
-  (state, _, accountId) => state.getIn(['accounts', accountId]),
-], (base, account) => base.set('account', account));
+  (state, _, accountIds) => {
+    return ImmutableList(state.get('accounts').filter((_, k) => accountIds.includes(k)).values());
+  },
+], (base, accounts) => {
+    return base.set('accounts', accounts);
+  },
+);
 
 export const makeGetReport = () => createSelector([
   (_, base) => base,

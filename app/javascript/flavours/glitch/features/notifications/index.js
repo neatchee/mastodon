@@ -224,8 +224,33 @@ class Notifications extends React.PureComponent {
     this.props.onMarkAsRead();
   }
 
+  groupNotifications(notifications) {
+    const groupedNotifications = [];
+    for (const notif of notifications) {
+      const newNotif = notif.delete('account').set('accounts', ImmutableList([notif.get('account')]));
+      if (notif.get('type') === 'favourite' || notif.get('type') === 'reblog') {
+        const matchingNotifIdx = groupedNotifications.findIndex(
+          other => other.get('type') === notif.get('type') && other.get('status') === notif.get('status'),
+        );
+        const matchingNotif = groupedNotifications[matchingNotifIdx];
+        if (matchingNotif) {
+          groupedNotifications[matchingNotifIdx] = matchingNotif.update(
+            'accounts',
+            ImmutableList(),
+            accounts => accounts.push(...newNotif.get('accounts')),
+          );
+        } else {
+          groupedNotifications.push(newNotif);
+        }
+      } else {
+        groupedNotifications.push(newNotif);
+      }
+    }
+    return ImmutableList(groupedNotifications);
+  }
+
   render () {
-    const { intl, notifications, isLoading, isUnread, columnId, multiColumn, hasMore, numPending, showFilterBar, lastReadId, canMarkAsRead, needsNotificationPermission } = this.props;
+    const { intl, isLoading, isUnread, columnId, multiColumn, hasMore, numPending, showFilterBar, lastReadId, canMarkAsRead, needsNotificationPermission } = this.props;
     const { notifCleaning, notifCleaningActive } = this.props;
     const { animatingNCD } = this.state;
     const pinned = !!columnId;
@@ -237,6 +262,8 @@ class Notifications extends React.PureComponent {
     const filterBarContainer = (signedIn && showFilterBar)
       ? (<FilterBarContainer />)
       : null;
+
+    const notifications = this.groupNotifications(this.props.notifications);
 
     if (isLoading && this.scrollableContent) {
       scrollableContent = this.scrollableContent;
@@ -252,7 +279,7 @@ class Notifications extends React.PureComponent {
         <NotificationContainer
           key={item.get('id')}
           notification={item}
-          accountId={item.get('account')}
+          accountIds={item.get('accounts')}
           onMoveUp={this.handleMoveUp}
           onMoveDown={this.handleMoveDown}
           unread={lastReadId !== '0' && compareId(item.get('id'), lastReadId) > 0}
