@@ -32,16 +32,19 @@ function NameList({ intl, accounts, onAccountClick, onViewMoreClick, viewMoreHre
     );
   }
 
-  const accountsToIntl = accounts.slice(0, 2).map(acct => acct.get('display_name_html') || acct.get('username'));
-  if (accounts.size > 2) {
-    accountsToIntl.push(intl.formatMessage({ id: 'status.n_others', defaultMessage: '{n} others' }, { n: accounts.size - 2 }));
+  let accountsToIntl;
+  if (accounts.size > 3) {
+    accountsToIntl = accounts.slice(0, 2).map(acct => acct.get('display_name_html') || acct.get('username'));
+    accountsToIntl = accountsToIntl.push(intl.formatMessage({ id: 'status.n_others', defaultMessage: '{n} others' }, { n: accounts.size - 2 }));
+  } else {
+    accountsToIntl = accounts.map(acct => acct.get('display_name_html') || acct.get('username'));
   }
 
   const parts = new Intl.ListFormat(intl.locale, { type: 'conjunction' }).formatToParts(accountsToIntl);
 
   let elementNum = 0;
   return parts.map(({ type, value }) => {
-	const currentElement = elementNum;
+    const currentElement = elementNum;
     if (type === 'element') {
       elementNum++;
       if (currentElement === 2) {
