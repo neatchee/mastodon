@@ -246,7 +246,7 @@ class Notifications extends React.PureComponent {
         groupedNotifications.push(newNotif);
       }
     }
-    return ImmutableList(groupedNotifications);
+    return groupedNotifications.length === 1 ? groupedNotifications[0] : ImmutableList(groupedNotifications);
   }
 
   render () {
@@ -279,7 +279,7 @@ class Notifications extends React.PureComponent {
         <NotificationContainer
           key={item.get('id')}
           notification={item}
-          accountIds={item.get('account')}
+          accountId={item.get('account')}
           onMoveUp={this.handleMoveUp}
           onMoveDown={this.handleMoveDown}
           unread={lastReadId !== '0' && compareId(item.get('id'), lastReadId) > 0}

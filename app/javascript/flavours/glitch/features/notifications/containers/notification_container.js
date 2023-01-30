@@ -10,7 +10,7 @@ const makeMapStateToProps = () => {
   const getNotification = makeGetNotification();
 
   const mapStateToProps = (state, props) => ({
-    notification: getNotification(state, props.notification, props.accountIds),
+    notification: getNotification(state, props.notification, props.accountId),
     notifCleaning: state.getIn(['notifications', 'cleaningMode']),
   });
 

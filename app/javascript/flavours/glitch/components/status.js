@@ -762,7 +762,7 @@ class Status extends ImmutablePureComponent {
       } else {
         rebloggedByText = intl.formatMessage(
           { id: 'status.reblogged_by', defaultMessage: '{name} boosted' },
-          { name: accounts[0].get('acct') },
+          { name: accounts.get(0).get('acct') },
         );
       }
     }

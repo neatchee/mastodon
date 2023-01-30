@@ -37,7 +37,7 @@ export default class StatusHeader extends React.PureComponent {
     const account = status.get('account');
 
     let statusAvatar;
-    if (friends === undefined || friends === null || friends.size === 0) {
+    if (friends === undefined || friends === null || !friends.get(0)) {
       statusAvatar = <Avatar account={account} size={48} />;
     } else {
       statusAvatar = <AvatarOverlay account={account} friend={friends.get(0)} />;
