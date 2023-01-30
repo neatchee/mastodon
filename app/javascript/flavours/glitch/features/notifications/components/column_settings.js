@@ -32,6 +32,8 @@ export default class ColumnSettings extends React.PureComponent {
   render () {
     const { settings, pushSettings, onChange, onClear, alertsEnabled, browserSupport, browserPermission, onRequestNotificationPermission } = this.props;
 
+    const groupFavorites = <FormattedMessage id='notifications.column_settings.notification_grouping.favourite' defaultMessage='kachow' />;
+    const groupBoosts = <FormattedMessage id='notifications.column_settings.notification_grouping.boost' defaultMessage='Group Boosts' />;
     const unreadMarkersShowStr = <FormattedMessage id='notifications.column_settings.unread_notifications.highlight' defaultMessage='Highlight unread notifications' />;
     const filterBarShowStr = <FormattedMessage id='notifications.column_settings.filter_bar.show_bar' defaultMessage='Show filter bar' />;
     const filterAdvancedStr = <FormattedMessage id='notifications.column_settings.filter_bar.advanced' defaultMessage='Display all categories' />;
@@ -60,6 +62,17 @@ export default class ColumnSettings extends React.PureComponent {
 
         <div className='column-settings__row'>
           <ClearColumnButton onClick={onClear} />
+        </div>
+
+        <div role='group' aria-labelledby='notifications-grouping'>
+          <span id='notifications-grouping' className='column-settings__section'>
+            <FormattedMessage id='notifications.column_settings.notification_grouping.category' defaultMessage='Notification Grouping' />
+          </span>
+
+          <div className='column-settings__row'>
+            <SettingToggle id='group-favourites' prefix='notifications' settings={settings} settingPath={['groupFavourites']} onChange={onChange} label={groupFavorites} />
+            <SettingToggle id='group-boosts' prefix='notifications' settings={settings} settingPath={['groupBoosts']} onChange={onChange} label={groupBoosts} />
+          </div>
         </div>
 
         <div role='group' aria-labelledby='notifications-unread-markers'>

@@ -151,6 +151,9 @@ const messages = {
   'notification.reaction': '{name} reacted to your post',
   'notifications.clear': 'Clear all my notifications',
   'notifications.column_settings.reaction': 'Reactions:',
+  'notifications.column_settings.notification_grouping.category': 'Notification Grouping',
+  'notifications.column_settings.notification_grouping.favourite': 'Group Favourites',
+  'notifications.column_settings.notification_grouping.boost': 'Group Boosts',
   'notifications.marked_clear_confirmation': 'Are you sure you want to permanently clear all selected notifications?',
   'notifications.marked_clear': 'Clear selected notifications',
 
