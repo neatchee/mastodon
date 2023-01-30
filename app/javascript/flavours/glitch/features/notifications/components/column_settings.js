@@ -71,7 +71,7 @@ export default class ColumnSettings extends React.PureComponent {
 
           <div className='column-settings__row'>
             <SettingToggle id='group-favourites' prefix='notifications' settings={settings} settingPath={['grouping', 'favourite']} onChange={onChange} label={groupFavorites} />
-            <SettingToggle id='group-boosts' prefix='notifications' settings={settings} settingPath={['grouping', 'boost']} onChange={onChange} label={groupBoosts} />
+            <SettingToggle id='group-boosts' prefix='notifications' settings={settings} settingPath={['grouping', 'reblog']} onChange={onChange} label={groupBoosts} />
           </div>
         </div>
 

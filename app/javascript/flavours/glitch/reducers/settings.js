@@ -86,7 +86,7 @@ const initialState = ImmutableMap({
 
     grouping: ImmutableMap({
       favourite: true,
-      boost: true,
+      reblog: true,
     }),
   }),
 
