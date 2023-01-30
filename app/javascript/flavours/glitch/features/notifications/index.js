@@ -72,6 +72,7 @@ const mapStateToProps = state => ({
   lastReadId: state.getIn(['settings', 'notifications', 'showUnread']) ? state.getIn(['notifications', 'readMarkerId']) : '0',
   canMarkAsRead: state.getIn(['settings', 'notifications', 'showUnread']) && state.getIn(['notifications', 'readMarkerId']) !== '0' && getNotifications(state).some(item => item !== null && compareId(item.get('id'), state.getIn(['notifications', 'readMarkerId'])) > 0),
   needsNotificationPermission: state.getIn(['settings', 'notifications', 'alerts']).includes(true) && state.getIn(['notifications', 'browserSupport']) && state.getIn(['notifications', 'browserPermission']) === 'default' && !state.getIn(['settings', 'notifications', 'dismissPermissionBanner']),
+  grouping: state.getIn(['settings', 'notifications', 'grouping']),
 });
 
 /* glitch */
@@ -119,6 +120,7 @@ class Notifications extends React.PureComponent {
     lastReadId: PropTypes.string,
     canMarkAsRead: PropTypes.bool,
     needsNotificationPermission: PropTypes.bool,
+    grouping: ImmutablePropTypes.map,
   };
 
   static defaultProps = {
@@ -224,11 +226,11 @@ class Notifications extends React.PureComponent {
     this.props.onMarkAsRead();
   }
 
-  groupNotifications(notifications) {
+  groupUpNotifications(notifications, types) {
     const groupedNotifications = [];
     for (const notif of notifications) {
       const newNotif = notif.set('account', ImmutableList([notif.get('account')]));
-      if (notif.get('type') === 'favourite' || notif.get('type') === 'reblog') {
+      if (types.includes(notif.get('type'))) {
         const matchingNotifIdx = groupedNotifications.findIndex(
           other => other.get('type') === notif.get('type') && other.get('status') === notif.get('status'),
         );
@@ -250,7 +252,7 @@ class Notifications extends React.PureComponent {
   }
 
   render () {
-    const { intl, isLoading, isUnread, columnId, multiColumn, hasMore, numPending, showFilterBar, lastReadId, canMarkAsRead, needsNotificationPermission } = this.props;
+    const { intl, isLoading, isUnread, columnId, multiColumn, hasMore, numPending, showFilterBar, lastReadId, canMarkAsRead, needsNotificationPermission, grouping } = this.props;
     const { notifCleaning, notifCleaningActive } = this.props;
     const { animatingNCD } = this.state;
     const pinned = !!columnId;
@@ -263,7 +265,10 @@ class Notifications extends React.PureComponent {
       ? (<FilterBarContainer />)
       : null;
 
-    const notifications = this.groupNotifications(this.props.notifications);
+    const notifications = this.groupUpNotifications(
+      this.props.notifications,
+      grouping.reduce((acc, enabled, groupBy) => enabled ? acc.push(groupBy) : acc, ImmutableList.of()),
+    );
 
     if (isLoading && this.scrollableContent) {
       scrollableContent = this.scrollableContent;
