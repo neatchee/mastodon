@@ -51,3 +51,5 @@ en:
       body: "%{name} reacted to your post:"
       subject: "%{name} reacted to your post"
       title: New reaction
+  status:
+    others: 'some others'

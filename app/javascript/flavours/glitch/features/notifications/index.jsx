@@ -72,6 +72,7 @@ const mapStateToProps = state => ({
   lastReadId: state.getIn(['settings', 'notifications', 'showUnread']) ? state.getIn(['notifications', 'readMarkerId']) : '0',
   canMarkAsRead: state.getIn(['settings', 'notifications', 'showUnread']) && state.getIn(['notifications', 'readMarkerId']) !== '0' && getNotifications(state).some(item => item !== null && compareId(item.get('id'), state.getIn(['notifications', 'readMarkerId'])) > 0),
   needsNotificationPermission: state.getIn(['settings', 'notifications', 'alerts']).includes(true) && state.getIn(['notifications', 'browserSupport']) && state.getIn(['notifications', 'browserPermission']) === 'default' && !state.getIn(['settings', 'notifications', 'dismissPermissionBanner']),
+  grouping: state.getIn(['settings', 'notifications', 'grouping']),
 });
 
 /* glitch */
@@ -117,6 +118,7 @@ class Notifications extends React.PureComponent {
     lastReadId: PropTypes.string,
     canMarkAsRead: PropTypes.bool,
     needsNotificationPermission: PropTypes.bool,
+    grouping: ImmutablePropTypes.map,
   };
 
   static defaultProps = {
@@ -271,7 +273,7 @@ class Notifications extends React.PureComponent {
   }
 
   render () {
-    const { intl, notifications, isLoading, isUnread, columnId, multiColumn, hasMore, numPending, showFilterBar, lastReadId, canMarkAsRead, needsNotificationPermission } = this.props;
+    const { intl, isLoading, isUnread, columnId, multiColumn, hasMore, numPending, showFilterBar, lastReadId, canMarkAsRead, needsNotificationPermission } = this.props;
     const { notifCleaning, notifCleaningActive } = this.props;
     const { animatingNCD } = this.state;
     const pinned = !!columnId;

@@ -19,6 +19,7 @@ import { autoUnfoldCW } from 'flavours/glitch/utils/content_warning';
 import PollContainer from 'flavours/glitch/containers/poll_container';
 import { displayMedia, visibleReactions } from 'flavours/glitch/initial_state';
 import PictureInPicturePlaceholder from 'flavours/glitch/components/picture_in_picture_placeholder';
+import { List as ImmutableList } from 'immutable';
 
 // We use the component (and not the container) since we do not want
 // to use the progress bar to show download progress
@@ -68,7 +69,7 @@ class Status extends ImmutablePureComponent {
     containerId: PropTypes.string,
     id: PropTypes.string,
     status: ImmutablePropTypes.map,
-    account: ImmutablePropTypes.map,
+    account: PropTypes.oneOfType([ImmutablePropTypes.map, ImmutablePropTypes.listOf(ImmutablePropTypes.map)]),
     onReply: PropTypes.func,
     onFavourite: PropTypes.func,
     onReblog: PropTypes.func,
@@ -503,7 +504,6 @@ class Status extends ImmutablePureComponent {
     const {
       handleRef,
       parseClick,
-      setExpansion,
       setCollapsed,
     } = this;
     const { router } = this.context;
@@ -537,6 +537,8 @@ class Status extends ImmutablePureComponent {
     let extraMediaIcons = [];
     let media = contentMedia;
     let mediaIcons = contentMediaIcons;
+
+    const accounts = ImmutableList.isList(account) ? account : ImmutableList.of(account);
 
     if (settings.getIn(['content_warnings', 'media_outside'])) {
       media = extraMedia;
@@ -732,7 +734,7 @@ class Status extends ImmutablePureComponent {
 
     let prepend;
 
-    if (this.props.prepend && account) {
+    if (this.props.prepend && accounts) {
       const notifKind = {
         favourite: 'favourited',
         reaction: 'reacted',
@@ -741,12 +743,13 @@ class Status extends ImmutablePureComponent {
         status: 'posted',
       }[this.props.prepend];
 
-      selectorAttribs[`data-${notifKind}-by`] = `@${account.get('acct')}`;
+      selectorAttribs[`data-${notifKind}-by`] = accounts.map(acct => `@${acct.get('acct')}`).join(',');
 
       prepend = (
         <StatusPrepend
           type={this.props.prepend}
-          account={account}
+          status={status}
+          accounts={accounts}
           parseClick={parseClick}
           notificationId={this.props.notificationId}
         />
@@ -788,7 +791,7 @@ class Status extends ImmutablePureComponent {
               {!muted || !isCollapsed ? (
                 <StatusHeader
                   status={status}
-                  friend={account}
+                  friends={accounts}
                   collapsed={isCollapsed}
                   parseClick={parseClick}
                 />

@@ -5,12 +5,14 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { FormattedMessage } from 'react-intl';
 import Icon from 'flavours/glitch/components/icon';
 import { me } from 'flavours/glitch/initial_state';
+import NameList from './name_list';
 
 export default class StatusPrepend extends React.PureComponent {
 
   static propTypes = {
     type: PropTypes.string.isRequired,
-    account: ImmutablePropTypes.map.isRequired,
+    status: ImmutablePropTypes.map.isRequired,
+    accounts: ImmutablePropTypes.listOf(ImmutablePropTypes.map.isRequired),
     parseClick: PropTypes.func.isRequired,
     notificationId: PropTypes.number,
   };
@@ -51,7 +53,7 @@ export default class StatusPrepend extends React.PureComponent {
           viewMoreHref={viewMoreHref}
           onClick={this.handleClick}
         />
-      </a>
+      </span>
     );
 
     switch (type) {
