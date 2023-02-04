@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -222,6 +222,33 @@ class Notifications extends React.PureComponent {
     this.props.onMarkAsRead();
   };
 
+  groupUpNotifications(notifications, types) {
+    const groupedNotifications = [];
+    notifications = notifications.filter(n => n !== null); // Weird state on mobile where this can have null values when returning to suspended app
+    for (const notif of notifications) {
+      if (notif === null) { useState([]); } // We should never be in this state, something has gone wrong. Refresh the page.
+      const newNotif = notif.set('account', ImmutableList([notif.get('account')]));
+      if (types.includes(notif.get('type'))) {
+        const matchingNotifIdx = groupedNotifications.findIndex(
+          other => other.get('type') === notif.get('type') && other.get('status') === notif.get('status'),
+        );
+        const matchingNotif = groupedNotifications[matchingNotifIdx];
+        if (matchingNotif) {
+          groupedNotifications[matchingNotifIdx] = matchingNotif.update(
+            'account',
+            ImmutableList(),
+            accounts => accounts.push(...newNotif.get('account')),
+          );
+        } else {
+          groupedNotifications.push(newNotif);
+        }
+      } else {
+        groupedNotifications.push(newNotif);
+      }
+    }
+    return ImmutableList(groupedNotifications);
+  }
+
   render () {
     const { intl, notifications, isLoading, isUnread, columnId, multiColumn, hasMore, numPending, showFilterBar, lastReadId, canMarkAsRead, needsNotificationPermission } = this.props;
     const { notifCleaning, notifCleaningActive } = this.props;
@@ -235,6 +262,11 @@ class Notifications extends React.PureComponent {
     const filterBarContainer = (signedIn && showFilterBar)
       ? (<FilterBarContainer />)
       : null;
+
+    const notifications = this.props.notifications.size > 0 ? this.groupUpNotifications(
+      this.props.notifications,
+      grouping.reduce((acc, enabled, groupBy) => enabled ? acc.push(groupBy) : acc, ImmutableList.of()),
+    ) : ImmutableList.of();
 
     if (isLoading && this.scrollableContent) {
       scrollableContent = this.scrollableContent;
