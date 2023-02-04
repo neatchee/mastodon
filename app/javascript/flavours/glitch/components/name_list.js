@@ -11,9 +11,8 @@ function NameLink({ onClick, children, href }) {
       href={href}
       className='status__display-name'
       onClick={onClick}
-    >
-      {children}
-    </a>
+      dangerouslySetInnerHTML={{ __html: children }}
+    />
   );
 }
 
@@ -48,7 +47,7 @@ function NameList({ intl, accounts, onAccountClick, onViewMoreClick, viewMoreHre
     if (type === 'element') {
       elementNum++;
       if (currentElement === 2) {
-        return <NameLink href={viewMoreHref} onClick={onViewMoreClick}>{value}</NameLink>;
+        return <NameLink href={viewMoreHref} key={accounts.get(currentElement).get('id')} onClick={onViewMoreClick}>{value}</NameLink>;
       }
       let href = accounts.get(currentElement).get('url');
       let handleClick = (ev) => {
