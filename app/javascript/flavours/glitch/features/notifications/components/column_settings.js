@@ -32,6 +32,7 @@ export default class ColumnSettings extends React.PureComponent {
   render () {
     const { settings, pushSettings, onChange, onClear, alertsEnabled, browserSupport, browserPermission, onRequestNotificationPermission } = this.props;
 
+    const groupReactions = <FormattedMessage id='notifications.column_settings.notification_grouping.reaction' defaultMessage='Group Reactions' />;
     const groupFavorites = <FormattedMessage id='notifications.column_settings.notification_grouping.favourite' defaultMessage='Group Favourites' />;
     const groupBoosts = <FormattedMessage id='notifications.column_settings.notification_grouping.boost' defaultMessage='Group Boosts' />;
     const unreadMarkersShowStr = <FormattedMessage id='notifications.column_settings.unread_notifications.highlight' defaultMessage='Highlight unread notifications' />;
@@ -70,6 +71,7 @@ export default class ColumnSettings extends React.PureComponent {
           </span>
 
           <div className='column-settings__row'>
+            <SettingToggle id='group-reactions' prefix='notifications' settings={settings} settingPath={['grouping', 'reaction']} onChange={onChange} label={groupReactions} />
             <SettingToggle id='group-favourites' prefix='notifications' settings={settings} settingPath={['grouping', 'favourite']} onChange={onChange} label={groupFavorites} />
             <SettingToggle id='group-boosts' prefix='notifications' settings={settings} settingPath={['grouping', 'reblog']} onChange={onChange} label={groupBoosts} />
           </div>
