@@ -248,7 +248,7 @@ class Notifications extends React.PureComponent {
         groupedNotifications.push(newNotif);
       }
     }
-    return groupedNotifications.length === 1 ? groupedNotifications[0] : ImmutableList(groupedNotifications);
+    return ImmutableList(groupedNotifications);
   }
 
   render () {
