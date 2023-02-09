@@ -105,9 +105,20 @@ export const getAlerts = createSelector([getAlertsBase], (base) => {
   return arr;
 });
 
+/**
+ * Turns an accountId (or list of account ids) into an account (or list of accounts)
+ */
 export const makeGetNotification = () => createSelector([
   (_, base)             => base,
-  (state, _, accountId) => state.getIn(['accounts', accountId]),
+  (state, _, accountId) => {
+    let account;
+    if (ImmutableList.isList(accountId)) {
+      account = ImmutableList(accountId.map(each => state.getIn(['accounts', each])));
+    } else {
+      account = state.getIn(['accounts', accountId]);
+    }
+    return account;
+  },
 ], (base, account) => base.set('account', account));
 
 export const makeGetReport = () => createSelector([
