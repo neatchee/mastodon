@@ -117,7 +117,8 @@ module.exports = {
     'react/jsx-equals-spacing': 'error',
     'react/jsx-first-prop-new-line': ['error', 'multiline-multiprop'],
     'react/jsx-indent': ['error', 2],
-    'react/jsx-no-bind': 'error',
+    // jsx-no-bind is outdated; browsers have been updated to support this case without the perf impact
+    // 'react/jsx-no-bind': 'error',
     'react/jsx-no-target-blank': 'off',
     'react/jsx-tag-spacing': 'error',
     'react/jsx-wrap-multilines': 'error',

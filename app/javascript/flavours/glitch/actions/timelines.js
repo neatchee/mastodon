@@ -3,7 +3,7 @@ import { submitMarkers } from './markers';
 import api, { getLinks } from 'flavours/glitch/api';
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import compareId from 'flavours/glitch/compare_id';
-import { me, usePendingItems as preferPendingItems } from 'flavours/glitch/initial_state';
+import { usePendingItems as preferPendingItems } from 'flavours/glitch/initial_state';
 import { toServerSideType } from 'flavours/glitch/utils/filters';
 
 export const TIMELINE_UPDATE  = 'TIMELINE_UPDATE';

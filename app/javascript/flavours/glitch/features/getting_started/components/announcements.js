@@ -340,7 +340,7 @@ class Announcement extends ImmutablePureComponent {
       hour: skipTime ? undefined : '2-digit',
       minute: skipTime ? undefined : '2-digit',
     });
-    
+
     const formattedEndsAt = endsAt?.toLocaleString(undefined, {
       hourCycle: 'h23',
       year: (skipYear || startsAt.getFullYear() === now.getFullYear()) ? undefined : 'numeric',

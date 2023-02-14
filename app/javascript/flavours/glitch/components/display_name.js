@@ -14,6 +14,7 @@ export default class DisplayName extends React.PureComponent {
     localDomain: PropTypes.string,
     others: ImmutablePropTypes.list,
     handleClick: PropTypes.func,
+    onAccountClick: PropTypes.func,
   };
 
   handleMouseEnter = ({ currentTarget }) => {
@@ -66,8 +67,9 @@ export default class DisplayName extends React.PureComponent {
           onClick={(e) => onAccountClick(a.get('acct'), e)}
           title={`@${a.get('acct')}`}
           rel='noopener noreferrer'
+          key={a.get('id')}
         >
-          <bdi key={a.get('id')}>
+          <bdi>
             <strong className='display-name__html' dangerouslySetInnerHTML={{ __html: a.get('display_name_html') }} />
           </bdi>
         </a>
