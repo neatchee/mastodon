@@ -10,7 +10,8 @@ Added features:
   - Enlarge emoji in post content on mouse-over/tap
 - Collapsed post improvements 
   - show > 1 line for better visual parsing
-  - customize height of posts to trigger lengthy toot collapse, etc)
+  - ~~customize height of posts to trigger lengthy toot collapse, etc~~ 
+    - Merged upstream!
 - Option to merge boosts and favorites into a single notification for the same status
 - Emoji reactions!
 
