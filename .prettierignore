@@ -77,3 +77,6 @@ docker-compose.override.yml
 
 # Ignore glitch-soc emoji map file
 /app/javascript/flavours/glitch/features/emoji/emoji_map.json
+
+# Ignore vendored CSS reset
+app/javascript/styles/mastodon/reset.scss
