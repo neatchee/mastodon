@@ -1,16 +1,11 @@
-<<<<<<< HEAD
-=======
 # frozen_string_literal: true
 
->>>>>>> mastodon/main
 require 'rails_helper'
 
-describe HealthController do
+describe PrivacyController do
   render_views
 
   describe 'GET #show' do
-    subject(:response) { get :show, params: { format: :json } }
-
     it 'returns http success' do
       get :show
       expect(response).to have_http_status(200)
