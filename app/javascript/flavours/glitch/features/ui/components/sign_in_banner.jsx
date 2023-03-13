@@ -32,8 +32,8 @@ const SignInBanner = () => {
     <div className='sign-in-banner'>
       <p><FormattedMessage id='sign_in_banner.text' defaultMessage='Sign in to follow profiles or hashtags, favourite, share and reply to posts. You can also interact from your account on a different server.' /></p>
       <a href='/auth/sign_in' className='button button--block'><FormattedMessage id='sign_in_banner.sign_in' defaultMessage='Sign in' /></a>
-      <a href='https://halcyon.urusai.social/' className='button button--block'>Alternative UI (Halcyon)</a>
       {signupButton}
+	<p>If you signed up for an account have not received a verification email, check your SPAM folder. If you do not get it in an hour, send an email on the about page to the owner to have your account manually approved.</p>
     </div>
   );
 };
