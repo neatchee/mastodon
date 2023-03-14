@@ -46,7 +46,7 @@ module CacheConcern
       cache_key = Rails.cache.send(:normalize_key, culprit, {})
       entry = Rails.cache.send(:read_entry, cache_key)
       raw_marshal = Zlib::Inflate.inflate(entry.instance_variable_get(:@value))
-      # $stderr.puts "base64 marshal: #{Base64.encode64(raw_marshal)}"
+      $stderr.puts "base64 marshal: #{Base64.encode64(raw_marshal)}"
     end
 
     return [] if raw.empty?
