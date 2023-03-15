@@ -36,9 +36,9 @@ const mapDispatchToProps = (dispatch, { accountId }) => ({
 
 });
 
-export default @connect(mapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class SubscribedLanguagesModal extends ImmutablePureComponent {
+export default class SubscribedLanguagesModal extends ImmutablePureComponent {
 
   static propTypes = {
     accountId: PropTypes.string.isRequired,

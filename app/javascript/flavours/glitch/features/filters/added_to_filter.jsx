@@ -10,8 +10,8 @@ const mapStateToProps = (state, { filterId }) => ({
   filter: state.getIn(['filters', filterId]),
 });
 
-export default @connect(mapStateToProps)
-class AddedToFilter extends React.PureComponent {
+@connect(mapStateToProps)
+export default class AddedToFilter extends React.PureComponent {
 
   static propTypes = {
     onClose: PropTypes.func.isRequired,

@@ -14,8 +14,8 @@ const makeMapStateToProps = () => {
   return mapStateToProps;
 };
 
-export default @connect(makeMapStateToProps)
-class InlineAccount extends React.PureComponent {
+@connect(makeMapStateToProps)
+export default class InlineAccount extends React.PureComponent {
 
   static propTypes = {
     account: ImmutablePropTypes.map.isRequired,

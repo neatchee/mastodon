@@ -113,8 +113,8 @@ class ToggleOption extends ImmutablePureComponent {
 
 }
 
-export default @injectIntl
-class ComposerOptions extends ImmutablePureComponent {
+@injectIntl
+export default class ComposerOptions extends ImmutablePureComponent {
 
   static propTypes = {
     acceptContentTypes: PropTypes.string,

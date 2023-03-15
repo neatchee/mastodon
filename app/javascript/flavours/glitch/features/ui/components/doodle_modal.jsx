@@ -145,8 +145,8 @@ const mapDispatchToProps = dispatch => ({
  * - Ctrl + left mouse button: pick background
  * - Right mouse button: pick background
  */
-export default @connect(mapStateToProps, mapDispatchToProps)
-class DoodleModal extends ImmutablePureComponent {
+@connect(mapStateToProps, mapDispatchToProps)
+export default class DoodleModal extends ImmutablePureComponent {
 
   static propTypes = {
     options: ImmutablePropTypes.map,

@@ -45,8 +45,8 @@ const messages = defineMessages({
   },
 });
 
-export default @injectIntl
-class Header extends ImmutablePureComponent {
+@injectIntl
+export default class Header extends ImmutablePureComponent {
 
   static propTypes = {
     columns: ImmutablePropTypes.list,

@@ -31,9 +31,9 @@ const mapStateToProps = state => ({
   regex: state.getIn(['settings', 'home', 'regex', 'body']),
 });
 
-export default @connect(mapStateToProps)
+@connect(mapStateToProps)
 @injectIntl
-class HomeTimeline extends React.PureComponent {
+export default class HomeTimeline extends React.PureComponent {
 
   static contextTypes = {
     identity: PropTypes.object,

@@ -28,9 +28,9 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 });
 
-export default @injectIntl
+@injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class DisabledAccountBanner extends React.PureComponent {
+export default class DisabledAccountBanner extends React.PureComponent {
 
   static propTypes = {
     disabledAcct: PropTypes.string.isRequired,

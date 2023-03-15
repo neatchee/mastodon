@@ -13,8 +13,8 @@ const messages = defineMessages({
   user_setting_disable_swiping: { id: 'settings.swipe_to_change_columns', defaultMessage: 'Allow swiping to change columns (Mobile only)' },
 });
 
-export default @injectIntl
-class DeprecatedSettingsModal extends React.PureComponent {
+@injectIntl
+export default class DeprecatedSettingsModal extends React.PureComponent {
 
   static propTypes = {
     settings: ImmutablePropTypes.list.isRequired,

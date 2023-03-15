@@ -26,8 +26,8 @@ const messages = defineMessages({
   saveChanges: { id: 'compose_form.save_changes', defaultMessage: 'Save changes' },
 });
 
-export default @injectIntl
-class Publisher extends ImmutablePureComponent {
+@injectIntl
+export default class Publisher extends ImmutablePureComponent {
 
   static propTypes = {
     countText: PropTypes.string,

@@ -29,8 +29,8 @@ const messages = defineMessages({
   app_settings: { id: 'navigation_bar.app_settings', defaultMessage: 'App settings' },
 });
 
-export default @injectIntl
-class NavigationPanel extends React.Component {
+@injectIntl
+export default class NavigationPanel extends React.Component {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,

@@ -9,8 +9,8 @@ const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
 });
 
-export default @injectIntl
-class ImageModal extends React.PureComponent {
+@injectIntl
+export default class ImageModal extends React.PureComponent {
 
   static propTypes = {
     src: PropTypes.string.isRequired,

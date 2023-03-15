@@ -48,8 +48,8 @@ const messages = defineMessages({
   openOriginalPage: { id: 'account.open_original_page', defaultMessage: 'Open original page' },
 });
 
-export default @injectIntl
-class StatusActionBar extends ImmutablePureComponent {
+@injectIntl
+export default class StatusActionBar extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

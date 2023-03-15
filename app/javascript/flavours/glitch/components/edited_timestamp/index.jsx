@@ -16,8 +16,8 @@ const mapDispatchToProps = (dispatch, { statusId }) => ({
 
 });
 
-export default @connect(null, mapDispatchToProps)
-class EditedTimestamp extends React.PureComponent {
+@connect(null, mapDispatchToProps)
+export default class EditedTimestamp extends React.PureComponent {
 
   static propTypes = {
     statusId: PropTypes.string.isRequired,

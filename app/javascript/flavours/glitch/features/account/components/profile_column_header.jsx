@@ -7,8 +7,8 @@ const messages = defineMessages({
   profile: { id: 'column_header.profile', defaultMessage: 'Profile' },
 });
 
-export default @injectIntl
-class ProfileColumnHeader extends React.PureComponent {
+@injectIntl
+export default class ProfileColumnHeader extends React.PureComponent {
 
   static propTypes = {
     onClick: PropTypes.func,

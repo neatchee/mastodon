@@ -19,8 +19,8 @@ const mapStateToProps = (state, { match: { params: { acct } } }) => {
   };
 };
 
-export default @connect(mapStateToProps)
-class AccountNavigation extends React.PureComponent {
+@connect(mapStateToProps)
+export default class AccountNavigation extends React.PureComponent {
 
   static propTypes = {
     match: PropTypes.shape({
