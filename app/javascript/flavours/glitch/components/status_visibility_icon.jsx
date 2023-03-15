@@ -12,8 +12,8 @@ const messages = defineMessages({
   direct: { id: 'privacy.direct.short', defaultMessage: 'Mentioned people only' },
 });
 
-export default @injectIntl
-class VisibilityIcon extends ImmutablePureComponent {
+@injectIntl
+export default class VisibilityIcon extends ImmutablePureComponent {
 
   static propTypes = {
     visibility: PropTypes.string,

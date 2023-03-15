@@ -99,8 +99,8 @@ class TranslateButton extends React.PureComponent {
 
 }
 
-export default @injectIntl
-class StatusContent extends React.PureComponent {
+@injectIntl
+export default class StatusContent extends React.PureComponent {
 
   static contextTypes = {
     identity: PropTypes.object,

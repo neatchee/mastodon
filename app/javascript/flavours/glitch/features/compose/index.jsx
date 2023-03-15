@@ -39,9 +39,9 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 });
 
-export default @connect(mapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class Compose extends React.PureComponent {
+export default class Compose extends React.PureComponent {
 
   static propTypes = {
     multiColumn: PropTypes.bool,

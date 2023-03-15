@@ -15,8 +15,8 @@ const messages = defineMessages({
   markForDeletion: { id: 'notification.markForDeletion', defaultMessage: 'Mark for deletion' },
 });
 
-export default @injectIntl
-class NotificationOverlay extends ImmutablePureComponent {
+@injectIntl
+export default class NotificationOverlay extends ImmutablePureComponent {
 
   static propTypes = {
     notification    : ImmutablePropTypes.map.isRequired,

@@ -27,8 +27,8 @@ const iconMap = [
   ['threaded_mode', 'comments', messages.threadedMode],
 ];
 
-export default @injectIntl
-class TextareaIcons extends ImmutablePureComponent {
+@injectIntl
+export default class TextareaIcons extends ImmutablePureComponent {
 
   static propTypes = {
     advancedOptions: ImmutablePropTypes.map,

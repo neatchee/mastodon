@@ -18,9 +18,9 @@ const mapStateToProps = state => ({
   server: state.getIn(['server', 'server']),
 });
 
-export default @connect(mapStateToProps)
+@connect(mapStateToProps)
 @injectIntl
-class ServerBanner extends React.PureComponent {
+export default class ServerBanner extends React.PureComponent {
 
   static propTypes = {
     server: PropTypes.object,

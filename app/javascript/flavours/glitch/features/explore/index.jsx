@@ -24,9 +24,9 @@ const mapStateToProps = state => ({
   isSearching: state.getIn(['search', 'submitted']) || !showTrends,
 });
 
-export default @connect(mapStateToProps)
+@connect(mapStateToProps)
 @injectIntl
-class Explore extends React.PureComponent {
+export default class Explore extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

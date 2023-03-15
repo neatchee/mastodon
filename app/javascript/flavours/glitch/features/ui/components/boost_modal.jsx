@@ -35,9 +35,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default @connect(mapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class BoostModal extends ImmutablePureComponent {
+export default class BoostModal extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

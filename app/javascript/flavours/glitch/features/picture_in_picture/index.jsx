@@ -13,8 +13,8 @@ const mapStateToProps = state => ({
   left: state.getIn(['local_settings', 'media', 'pop_in_position']) === 'left',
 });
 
-export default @connect(mapStateToProps)
-class PictureInPicture extends React.Component {
+@connect(mapStateToProps)
+export default class PictureInPicture extends React.Component {
 
   static propTypes = {
     statusId: PropTypes.string,

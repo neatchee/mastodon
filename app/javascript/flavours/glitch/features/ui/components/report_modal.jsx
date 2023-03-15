@@ -31,9 +31,9 @@ const makeMapStateToProps = () => {
   return mapStateToProps;
 };
 
-export default @connect(makeMapStateToProps)
+@connect(makeMapStateToProps)
 @injectIntl
-class ReportModal extends ImmutablePureComponent {
+export default class ReportModal extends ImmutablePureComponent {
 
   static propTypes = {
     accountId: PropTypes.string.isRequired,

@@ -11,8 +11,8 @@ const mapStateToProps = (state, { statusId }) => ({
   accountStaticAvatar: state.getIn(['accounts', state.getIn(['statuses', statusId, 'account']), 'avatar_static']),
 });
 
-export default @connect(mapStateToProps, null, null, { forwardRef: true })
-class AudioModal extends ImmutablePureComponent {
+@connect(mapStateToProps, null, null, { forwardRef: true })
+export default class AudioModal extends ImmutablePureComponent {
 
   static propTypes = {
     media: ImmutablePropTypes.map.isRequired,

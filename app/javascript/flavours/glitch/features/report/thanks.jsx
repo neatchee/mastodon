@@ -12,8 +12,8 @@ import {
 
 const mapStateToProps = () => ({});
 
-export default @connect(mapStateToProps)
-class Thanks extends React.PureComponent {
+@connect(mapStateToProps)
+export default class Thanks extends React.PureComponent {
 
   static propTypes = {
     submitted: PropTypes.bool,

@@ -13,8 +13,8 @@ const mapStateToProps = state => ({
   isLoadingHashtags: state.getIn(['trends', 'tags', 'isLoading']),
 });
 
-export default @connect(mapStateToProps)
-class Tags extends React.PureComponent {
+@connect(mapStateToProps)
+export default class Tags extends React.PureComponent {
 
   static propTypes = {
     hashtags: ImmutablePropTypes.list,

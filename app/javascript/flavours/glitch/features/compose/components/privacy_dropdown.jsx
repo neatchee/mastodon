@@ -16,8 +16,8 @@ const messages = defineMessages({
   change_privacy: { id: 'privacy.change', defaultMessage: 'Adjust status privacy' },
 });
 
-export default @injectIntl
-class PrivacyDropdown extends React.PureComponent {
+@injectIntl
+export default class PrivacyDropdown extends React.PureComponent {
 
   static propTypes = {
     isUserTouching: PropTypes.func,

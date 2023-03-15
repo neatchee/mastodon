@@ -80,9 +80,9 @@ class Section extends React.PureComponent {
 
 }
 
-export default @connect(mapStateToProps)
+@connect(mapStateToProps)
 @injectIntl
-class About extends React.PureComponent {
+export default class About extends React.PureComponent {
 
   static propTypes = {
     server: ImmutablePropTypes.map,

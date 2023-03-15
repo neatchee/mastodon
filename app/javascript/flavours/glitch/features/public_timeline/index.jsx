@@ -35,9 +35,9 @@ const mapStateToProps = (state, { columnId }) => {
   };
 };
 
-export default @connect(mapStateToProps)
+@connect(mapStateToProps)
 @injectIntl
-class PublicTimeline extends React.PureComponent {
+export default class PublicTimeline extends React.PureComponent {
 
   static defaultProps = {
     onlyMedia: false,
