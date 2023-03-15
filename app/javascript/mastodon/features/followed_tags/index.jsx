@@ -22,9 +22,9 @@ const mapStateToProps = state => ({
   hasMore: !!state.getIn(['followed_tags', 'next']),
 });
 
-export default @connect(mapStateToProps)
+@connect(mapStateToProps)
 @injectIntl
-class FollowedTags extends ImmutablePureComponent {
+export default class FollowedTags extends ImmutablePureComponent {
 
   static propTypes = {
     params: PropTypes.object.isRequired,

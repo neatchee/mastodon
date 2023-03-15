@@ -54,8 +54,8 @@ RemoteHint.propTypes = {
   url: PropTypes.string.isRequired,
 };
 
-export default @connect(mapStateToProps)
-class Followers extends ImmutablePureComponent {
+@connect(mapStateToProps)
+export default class Followers extends ImmutablePureComponent {
 
   static propTypes = {
     params: PropTypes.shape({

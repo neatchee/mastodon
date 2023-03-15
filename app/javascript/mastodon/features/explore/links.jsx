@@ -13,8 +13,8 @@ const mapStateToProps = state => ({
   isLoading: state.getIn(['trends', 'links', 'isLoading']),
 });
 
-export default @connect(mapStateToProps)
-class Links extends React.PureComponent {
+@connect(mapStateToProps)
+export default class Links extends React.PureComponent {
 
   static propTypes = {
     links: ImmutablePropTypes.list,

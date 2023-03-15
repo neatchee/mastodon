@@ -9,8 +9,8 @@ const mapStateToProps = state => ({
   message: state.getIn(['server', 'server', 'registrations', 'message']),
 });
 
-export default @connect(mapStateToProps)
-class ClosedRegistrationsModal extends ImmutablePureComponent {
+@connect(mapStateToProps)
+export default class ClosedRegistrationsModal extends ImmutablePureComponent {
 
   componentDidMount () {
     const { dispatch } = this.props;

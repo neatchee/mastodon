@@ -223,8 +223,8 @@ class Item extends React.PureComponent {
 
 }
 
-export default @injectIntl
-class MediaGallery extends React.PureComponent {
+@injectIntl
+export default class MediaGallery extends React.PureComponent {
 
   static propTypes = {
     sensitive: PropTypes.bool,

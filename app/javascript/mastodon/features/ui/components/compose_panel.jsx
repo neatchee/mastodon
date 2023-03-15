@@ -8,8 +8,8 @@ import LinkFooter from './link_footer';
 import ServerBanner from 'mastodon/components/server_banner';
 import { changeComposing, mountCompose, unmountCompose } from 'mastodon/actions/compose';
 
-export default @connect()
-class ComposePanel extends React.PureComponent {
+@connect()
+export default class ComposePanel extends React.PureComponent {
 
   static contextTypes = {
     identity: PropTypes.object.isRequired,

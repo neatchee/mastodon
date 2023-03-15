@@ -92,8 +92,8 @@ class CopyButton extends React.PureComponent {
 
 }
 
-export default @injectIntl
-class BundleColumnError extends React.PureComponent {
+@injectIntl
+export default class BundleColumnError extends React.PureComponent {
 
   static propTypes = {
     errorType: PropTypes.oneOf(['routing', 'network', 'error']),

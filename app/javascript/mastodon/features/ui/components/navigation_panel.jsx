@@ -28,8 +28,8 @@ const messages = defineMessages({
   search: { id: 'navigation_bar.search', defaultMessage: 'Search' },
 });
 
-export default @injectIntl
-class NavigationPanel extends React.Component {
+@injectIntl
+export default class NavigationPanel extends React.Component {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,
