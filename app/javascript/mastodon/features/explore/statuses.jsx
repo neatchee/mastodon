@@ -14,8 +14,8 @@ const mapStateToProps = state => ({
   hasMore: !!state.getIn(['status_lists', 'trending', 'next']),
 });
 
-export default @connect(mapStateToProps)
-class Statuses extends React.PureComponent {
+@connect(mapStateToProps)
+export default class Statuses extends React.PureComponent {
 
   static propTypes = {
     statusIds: ImmutablePropTypes.list,

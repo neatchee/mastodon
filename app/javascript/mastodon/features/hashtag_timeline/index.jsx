@@ -26,9 +26,9 @@ const mapStateToProps = (state, props) => ({
   tag: state.getIn(['tags', props.params.id]),
 });
 
-export default @connect(mapStateToProps)
+@connect(mapStateToProps)
 @injectIntl
-class HashtagTimeline extends React.PureComponent {
+export default class HashtagTimeline extends React.PureComponent {
 
   disconnects = [];
 

@@ -15,8 +15,8 @@ const DefaultNavigation = () => (
   </>
 );
 
-export default @withRouter
-class NavigationPortal extends React.PureComponent {
+@withRouter
+export default class NavigationPortal extends React.PureComponent {
 
   render () {
     return (

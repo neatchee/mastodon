@@ -12,8 +12,8 @@ const mapStateToProps = state => ({
   isLoading: state.getIn(['suggestions', 'isLoading']),
 });
 
-export default @connect(mapStateToProps)
-class Suggestions extends React.PureComponent {
+@connect(mapStateToProps)
+export default class Suggestions extends React.PureComponent {
 
   static propTypes = {
     isLoading: PropTypes.bool,

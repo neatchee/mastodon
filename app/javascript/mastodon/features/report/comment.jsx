@@ -8,8 +8,8 @@ const messages = defineMessages({
   placeholder: { id: 'report.placeholder', defaultMessage: 'Type or paste additional comments' },
 });
 
-export default @injectIntl
-class Comment extends React.PureComponent {
+@injectIntl
+export default class Comment extends React.PureComponent {
 
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,

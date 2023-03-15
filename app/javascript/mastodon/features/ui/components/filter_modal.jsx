@@ -13,9 +13,9 @@ const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
 });
 
-export default @connect(undefined)
+@connect(undefined)
 @injectIntl
-class FilterModal extends ImmutablePureComponent {
+export default class FilterModal extends ImmutablePureComponent {
 
   static propTypes = {
     statusId: PropTypes.string.isRequired,

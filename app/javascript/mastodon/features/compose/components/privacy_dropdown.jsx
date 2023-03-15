@@ -132,8 +132,8 @@ class PrivacyDropdownMenu extends React.PureComponent {
 
 }
 
-export default @injectIntl
-class PrivacyDropdown extends React.PureComponent {
+@injectIntl
+export default class PrivacyDropdown extends React.PureComponent {
 
   static propTypes = {
     isUserTouching: PropTypes.func,

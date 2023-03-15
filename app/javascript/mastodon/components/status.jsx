@@ -60,8 +60,8 @@ const messages = defineMessages({
   edited: { id: 'status.edited', defaultMessage: 'Edited {date}' },
 });
 
-export default @injectIntl
-class Status extends ImmutablePureComponent {
+@injectIntl
+export default class Status extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

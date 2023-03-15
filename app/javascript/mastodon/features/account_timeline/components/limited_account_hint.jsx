@@ -14,8 +14,8 @@ const mapDispatchToProps = (dispatch, { accountId }) => ({
 
 });
 
-export default @connect(() => {}, mapDispatchToProps)
-class LimitedAccountHint extends React.PureComponent {
+@connect(() => {}, mapDispatchToProps)
+export default class LimitedAccountHint extends React.PureComponent {
 
   static propTypes = {
     accountId: PropTypes.string.isRequired,

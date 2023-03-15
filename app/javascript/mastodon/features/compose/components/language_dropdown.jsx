@@ -237,8 +237,8 @@ class LanguageDropdownMenu extends React.PureComponent {
 
 }
 
-export default @injectIntl
-class LanguageDropdown extends React.PureComponent {
+@injectIntl
+export default class LanguageDropdown extends React.PureComponent {
 
   static propTypes = {
     value: PropTypes.string,

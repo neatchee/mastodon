@@ -84,8 +84,8 @@ class Rule extends React.PureComponent {
 
 }
 
-export default @injectIntl
-class ReportReasonSelector extends React.PureComponent {
+@injectIntl
+export default class ReportReasonSelector extends React.PureComponent {
 
   static propTypes = {
     id: PropTypes.string.isRequired,

@@ -24,8 +24,8 @@ const mapDispatchToProps = dispatch => ({
 
 });
 
-export default @connect(mapStateToProps, mapDispatchToProps)
-class CompareHistoryModal extends React.PureComponent {
+@connect(mapStateToProps, mapDispatchToProps)
+export default class CompareHistoryModal extends React.PureComponent {
 
   static propTypes = {
     onClose: PropTypes.func.isRequired,

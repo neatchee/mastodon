@@ -22,9 +22,9 @@ const mapStateToProps = (state, { contextType }) => ({
   ]),
 });
 
-export default @connect(mapStateToProps)
+@connect(mapStateToProps)
 @injectIntl
-class SelectFilter extends React.PureComponent {
+export default class SelectFilter extends React.PureComponent {
 
   static propTypes = {
     onSelectFilter: PropTypes.func.isRequired,

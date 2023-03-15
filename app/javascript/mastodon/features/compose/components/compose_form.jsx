@@ -32,8 +32,8 @@ const messages = defineMessages({
   saveChanges: { id: 'compose_form.save_changes', defaultMessage: 'Save changes' },
 });
 
-export default @injectIntl
-class ComposeForm extends ImmutablePureComponent {
+@injectIntl
+export default class ComposeForm extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

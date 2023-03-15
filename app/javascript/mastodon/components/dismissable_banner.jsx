@@ -8,8 +8,8 @@ const messages = defineMessages({
   dismiss: { id: 'dismissable_banner.dismiss', defaultMessage: 'Dismiss' },
 });
 
-export default @injectIntl
-class DismissableBanner extends React.PureComponent {
+@injectIntl
+export default class DismissableBanner extends React.PureComponent {
 
   static propTypes = {
     id: PropTypes.string.isRequired,

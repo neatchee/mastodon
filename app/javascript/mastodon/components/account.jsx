@@ -23,8 +23,8 @@ const messages = defineMessages({
   block: { id: 'account.block', defaultMessage: 'Block @{name}' },
 });
 
-export default @injectIntl
-class Account extends ImmutablePureComponent {
+@injectIntl
+export default class Account extends ImmutablePureComponent {
 
   static propTypes = {
     size: PropTypes.number,

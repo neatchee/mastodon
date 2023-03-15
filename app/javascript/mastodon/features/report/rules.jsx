@@ -10,8 +10,8 @@ const mapStateToProps = state => ({
   rules: state.getIn(['server', 'server', 'rules']),
 });
 
-export default @connect(mapStateToProps)
-class Rules extends React.PureComponent {
+@connect(mapStateToProps)
+export default class Rules extends React.PureComponent {
 
   static propTypes = {
     onNextStep: PropTypes.func.isRequired,

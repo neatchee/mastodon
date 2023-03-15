@@ -24,9 +24,9 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 });
 
-export default @injectIntl
+@injectIntl
 @connect(null, mapDispatchToProps)
-class LinkFooter extends React.PureComponent {
+export default class LinkFooter extends React.PureComponent {
 
   static contextTypes = {
     identity: PropTypes.object,
