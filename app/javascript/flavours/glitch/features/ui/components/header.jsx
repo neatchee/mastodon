@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default @withRouter 
+export default @withRouter
 @connect(null, mapDispatchToProps)
 class Header extends React.PureComponent {
 

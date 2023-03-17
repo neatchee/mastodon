@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 # frozen_string_literal: true
 
->>>>>>> mastodon/main
 require 'rails_helper'
 
 describe HealthController do

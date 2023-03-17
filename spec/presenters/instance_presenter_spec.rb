@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe InstancePresenter do
-  let(:instance_presenter) { InstancePresenter.new }
+  let(:instance_presenter) { described_class.new }
 
   describe '#description' do
     around do |example|
@@ -108,8 +108,8 @@ describe InstancePresenter do
         end
       end
 
-      it 'defaults to the core mastodon repo URL' do
-        expect(instance_presenter.source_url).to eq('https://github.com/mastodon/mastodon')
+      it 'defaults to the core glitch-soc repo URL' do
+        expect(instance_presenter.source_url).to eq('https://github.com/glitch-soc/mastodon')
       end
     end
   end

@@ -112,7 +112,7 @@ module ApplicationHelper
   def fa_icon(icon, attributes = {})
     class_names = attributes[:class]&.split(' ') || []
     class_names << 'fa'
-    class_names += icon.split(' ').map { |cl| "fa-#{cl}" }
+    class_names += icon.split.map { |cl| "fa-#{cl}" }
 
     content_tag(:i, nil, attributes.merge(class: class_names.join(' ')))
   end
