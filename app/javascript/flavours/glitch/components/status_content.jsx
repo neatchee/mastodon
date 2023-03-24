@@ -104,8 +104,6 @@ const mapStateToProps = state => ({
   languages: state.getIn(['server', 'translationLanguages', 'items']),
 });
 
-export default @connect(mapStateToProps)
-@injectIntl
 class StatusContent extends React.PureComponent {
 
   static contextTypes = {
@@ -475,3 +473,5 @@ class StatusContent extends React.PureComponent {
   }
 
 }
+
+export default connect(mapStateToProps)(injectIntl(StatusContent));
