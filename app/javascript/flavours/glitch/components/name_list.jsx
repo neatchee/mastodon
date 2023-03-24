@@ -40,6 +40,7 @@ class NameLink extends React.PureComponent {
 /**
  * Displays a list of accounts as a comma-separated, link-ified list of displaynames.
  */
+
 class NameList extends React.PureComponent {
 
   static propTypes = {
