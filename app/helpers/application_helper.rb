@@ -164,7 +164,7 @@ module ApplicationHelper
   end
 
   def body_classes
-    output = (@body_classes || '').split(' ')
+    output = (@body_classes || '').split
     output << "flavour-#{current_flavour.parameterize}"
     output << "skin-#{current_skin.parameterize}"
     output << 'system-font' if current_account&.user&.setting_system_font_ui
