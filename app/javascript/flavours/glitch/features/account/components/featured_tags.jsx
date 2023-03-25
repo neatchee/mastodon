@@ -10,7 +10,6 @@ const messages = defineMessages({
   empty: { id: 'account.featured_tags.last_status_never', defaultMessage: 'No posts' },
 });
 
-export default @injectIntl
 class FeaturedTags extends ImmutablePureComponent {
 
   static contextTypes = {
@@ -35,7 +34,7 @@ class FeaturedTags extends ImmutablePureComponent {
       <div className='getting-started__trends'>
         <h4><FormattedMessage id='account.featured_tags.title' defaultMessage="{name}'s featured hashtags" values={{ name: <bdi dangerouslySetInnerHTML={{ __html: account.get('display_name_html') }} /> }} /></h4>
 
-        {featuredTags.take(3).map(featuredTag => (
+        {featuredTags.map(featuredTag => (
           <Hashtag
             key={featuredTag.get('name')}
             name={featuredTag.get('name')}
@@ -51,3 +50,5 @@ class FeaturedTags extends ImmutablePureComponent {
   }
 
 }
+
+export default injectIntl(FeaturedTags);
