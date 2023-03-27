@@ -103,4 +103,3 @@ class Header extends ImmutablePureComponent {
 }
 
 export default injectIntl(Header);
-

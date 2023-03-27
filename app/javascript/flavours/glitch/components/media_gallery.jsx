@@ -407,4 +407,3 @@ class MediaGallery extends React.PureComponent {
 }
 
 export default injectIntl(MediaGallery);
-

@@ -76,4 +76,3 @@ class PinnedAccountsEditor extends ImmutablePureComponent {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(PinnedAccountsEditor));
-

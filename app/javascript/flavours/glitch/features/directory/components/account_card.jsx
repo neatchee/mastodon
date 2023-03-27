@@ -245,4 +245,3 @@ class AccountCard extends ImmutablePureComponent {
 }
 
 export default injectIntl(connect(makeMapStateToProps, mapDispatchToProps)(AccountCard));
-

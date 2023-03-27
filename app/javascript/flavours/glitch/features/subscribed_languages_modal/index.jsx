@@ -122,5 +122,4 @@ class SubscribedLanguagesModal extends ImmutablePureComponent {
 
 }
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(SubscribedLanguagesModal));

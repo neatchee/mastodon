@@ -153,4 +153,4 @@ class DirectTimeline extends React.PureComponent {
 
 }
 
-export default connect()(injectIntl(DirectTimeline));
+export default connect(mapStateToProps)(injectIntl(DirectTimeline));

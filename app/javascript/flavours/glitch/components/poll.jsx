@@ -235,4 +235,3 @@ class Poll extends ImmutablePureComponent {
 }
 
 export default injectIntl(Poll);
-

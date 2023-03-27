@@ -218,4 +218,4 @@ class ColumnHeader extends React.PureComponent {
 
 }
 
-export default injectIntl(ColumnHeader)
+export default injectIntl(ColumnHeader);

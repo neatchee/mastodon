@@ -67,4 +67,3 @@ class ActionBar extends React.PureComponent {
 }
 
 export default injectIntl(ActionBar);
-

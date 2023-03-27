@@ -83,6 +83,10 @@ const messages = defineMessages({
   },
 });
 
+const mapStateToProps = (state, { name }) => ({
+  checked: state.getIn(['compose', 'advanced_options', name]),
+});
+
 class ToggleOptionIntl extends ImmutablePureComponent {
 
   static propTypes = {
@@ -112,7 +116,7 @@ class ToggleOptionIntl extends ImmutablePureComponent {
 
 }
 
-const ToggleOption = connect((state, { name }) => ({ checked: state.getIn(['compose', 'advanced_options', name]) }))(ToggleOptionIntl);
+const ToggleOption = connect(mapStateToProps)(ToggleOptionIntl);
 
 class ComposerOptions extends ImmutablePureComponent {
 

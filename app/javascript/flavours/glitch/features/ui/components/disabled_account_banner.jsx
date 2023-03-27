@@ -89,5 +89,4 @@ class DisabledAccountBanner extends React.PureComponent {
 
 }
 
-
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(DisabledAccountBanner));

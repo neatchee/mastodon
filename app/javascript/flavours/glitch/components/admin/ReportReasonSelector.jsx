@@ -158,4 +158,3 @@ class ReportReasonSelector extends React.PureComponent {
 }
 
 export default injectIntl(ReportReasonSelector);
-

@@ -851,4 +851,3 @@ class Status extends ImmutablePureComponent {
 }
 
 export default injectIntl(Status);
-
