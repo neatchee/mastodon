@@ -7,12 +7,8 @@ import DropdownMenuContainer from '../../../containers/dropdown_menu_container';
 import { defineMessages, injectIntl } from 'react-intl';
 import { me, maxReactions } from '../../../initial_state';
 import classNames from 'classnames';
-<<<<<<< HEAD
 import { PERMISSION_MANAGE_USERS, PERMISSION_MANAGE_FEDERATION } from 'mastodon/permissions';
-=======
-import { PERMISSION_MANAGE_USERS } from 'mastodon/permissions';
 import EmojiPickerDropdown from '../../compose/containers/emoji_picker_dropdown_container';
->>>>>>> 7cbe6dc3e (rebase with upstream)
 
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
@@ -99,7 +95,7 @@ class ActionBar extends React.PureComponent {
 
   handleEmojiPick = data => {
     this.props.onReactionAdd(this.props.status.get('id'), data.native.replace(/:/g, ''));
-  }
+  };
 
   handleBookmarkClick = (e) => {
     this.props.onBookmark(this.props.status, e);
@@ -189,7 +185,7 @@ class ActionBar extends React.PureComponent {
     navigator.clipboard.writeText(url);
   };
 
-  handleNoOp = () => {} // hack for reaction add button
+  handleNoOp = () => {}; // hack for reaction add button
 
   render () {
     const { status, relationship, intl } = this.props;

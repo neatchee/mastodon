@@ -1,7 +1,6 @@
 ---
 de:
   simple_form:
-<<<<<<< HEAD
     glitch_only: glitch-soc
     hints:
       defaults:

@@ -7,6 +7,7 @@ import StatusContent from 'flavours/glitch/components/status_content';
 import MediaGallery from 'flavours/glitch/components/media_gallery';
 import AttachmentList from 'flavours/glitch/components/attachment_list';
 import { Link } from 'react-router-dom';
+import { injectIntl } from 'react-intl';
 import Card from './card';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import Video from 'flavours/glitch/features/video';
@@ -21,11 +22,7 @@ import PictureInPicturePlaceholder from 'flavours/glitch/components/picture_in_p
 import EditedTimestamp from 'flavours/glitch/components/edited_timestamp';
 import StatusReactions from 'flavours/glitch/components/status_reactions';
 
-<<<<<<< HEAD:app/javascript/flavours/glitch/features/status/components/detailed_status.jsx
 class DetailedStatus extends ImmutablePureComponent {
-=======
-export default class DetailedStatus extends ImmutablePureComponent {
->>>>>>> 669dd741a (Replace all date formatting to use native APIs (#1)):app/javascript/flavours/glitch/features/status/components/detailed_status.js
 
   static contextTypes = {
     router: PropTypes.object,
