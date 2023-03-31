@@ -22,7 +22,7 @@ const messages = defineMessages({
   featured_users: { id: 'navigation_bar.featured_users', defaultMessage: 'Featured users' },
 });
 
-class gettingStartedMisc extends ImmutablePureComponent {
+class GettingStartedMisc extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,
@@ -34,11 +34,11 @@ class gettingStartedMisc extends ImmutablePureComponent {
     dispatch: PropTypes.func.isRequired,
   };
 
-  openOnboardingModal = (e) => {
+  openOnboardingModal = (e) => { // eslint-disable-line no-unused-vars
     this.props.dispatch(openModal('ONBOARDING'));
   };
 
-  openFeaturedAccountsModal = (e) => {
+  openFeaturedAccountsModal = (e) => { // eslint-disable-line no-unused-vars
     this.props.dispatch(openModal('PINNED_ACCOUNTS_EDITOR'));
   };
 
@@ -67,4 +67,4 @@ class gettingStartedMisc extends ImmutablePureComponent {
 
 }
 
-export default connect()(injectIntl(gettingStartedMisc));
+export default connect()(injectIntl(GettingStartedMisc));
