@@ -20,8 +20,9 @@ import AnimatedNumber from 'flavours/glitch/components/animated_number';
 import PictureInPicturePlaceholder from 'flavours/glitch/components/picture_in_picture_placeholder';
 import EditedTimestamp from 'flavours/glitch/components/edited_timestamp';
 import StatusReactions from 'flavours/glitch/components/status_reactions';
+import { injectIntl } from 'react-intl';
 
-export default class DetailedStatus extends ImmutablePureComponent {
+class DetailedStatus extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
@@ -48,7 +49,6 @@ export default class DetailedStatus extends ImmutablePureComponent {
     onToggleMediaVisibility: PropTypes.func,
     onReactionAdd: PropTypes.func.isRequired,
     onReactionRemove: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
   };
 
   state = {
@@ -125,7 +125,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
 
   render () {
     const status = (this.props.status && this.props.status.get('reblog')) ? this.props.status.get('reblog') : this.props.status;
-    const { expanded, onToggleHidden, settings, pictureInPicture, intl } = this.props;
+    const { expanded, onToggleHidden, settings, pictureInPicture } = this.props;
     const outerStyle = { boxSizing: 'border-box' };
     const { compact } = this.props;
 
@@ -347,3 +347,5 @@ export default class DetailedStatus extends ImmutablePureComponent {
   }
 
 }
+
+export default injectIntl(DetailedStatus);

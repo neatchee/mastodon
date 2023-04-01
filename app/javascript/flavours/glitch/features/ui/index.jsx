@@ -11,7 +11,7 @@ import { debounce } from 'lodash';
 import { uploadCompose, resetCompose, changeComposeSpoilerness } from 'flavours/glitch/actions/compose';
 import { expandHomeTimeline } from 'flavours/glitch/actions/timelines';
 import { expandNotifications, notificationsSetVisibility } from 'flavours/glitch/actions/notifications';
-import { fetchServer } from 'flavours/glitch/actions/server';
+import { fetchServer, fetchServerTranslationLanguages } from 'flavours/glitch/actions/server';
 import { clearHeight } from 'flavours/glitch/actions/height_cache';
 import { changeLayout } from 'flavours/glitch/actions/app';
 import { synchronouslySubmitMarkers, submitMarkers, fetchMarkers } from 'flavours/glitch/actions/markers';
@@ -245,9 +245,6 @@ class SwitchingColumnsArea extends React.PureComponent {
 
 }
 
-export default @connect(mapStateToProps)
-@injectIntl
-@withRouter
 class UI extends React.Component {
 
   static contextTypes = {
@@ -420,6 +417,7 @@ class UI extends React.Component {
       this.props.dispatch(fetchMarkers());
       this.props.dispatch(expandHomeTimeline());
       this.props.dispatch(expandNotifications());
+      this.props.dispatch(fetchServerTranslationLanguages());
 
       setTimeout(() => this.props.dispatch(fetchServer()), 3000);
     }
@@ -683,3 +681,5 @@ class UI extends React.Component {
   }
 
 }
+
+export default connect(mapStateToProps)(injectIntl(withRouter(UI)));

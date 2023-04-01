@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import Icon from 'flavours/glitch/components/icon';
 import DropdownMenu from './containers/dropdown_menu_container';
 import { connect } from 'react-redux';
@@ -16,7 +16,6 @@ const mapDispatchToProps = (dispatch, { statusId }) => ({
 
 });
 
-export default @connect(null, mapDispatchToProps)
 class EditedTimestamp extends React.PureComponent {
 
   static propTypes = {
@@ -67,3 +66,5 @@ class EditedTimestamp extends React.PureComponent {
   }
 
 }
+
+export default connect(null, mapDispatchToProps)(injectIntl(EditedTimestamp));

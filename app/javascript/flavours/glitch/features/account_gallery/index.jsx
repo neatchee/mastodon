@@ -58,7 +58,6 @@ class LoadMoreMedia extends ImmutablePureComponent {
 
 }
 
-export default @connect(mapStateToProps)
 class AccountGallery extends ImmutablePureComponent {
 
   static propTypes = {
@@ -188,7 +187,7 @@ class AccountGallery extends ImmutablePureComponent {
     }
 
     return (
-      <Column ref={this.setColumnRef}>
+      <Column bindToDocument={!multiColumn} ref={this.setColumnRef}>
         <ProfileColumnHeader onClick={this.handleHeaderClick} multiColumn={multiColumn} />
 
         <ScrollContainer scrollKey='account_gallery'>
@@ -223,3 +222,5 @@ class AccountGallery extends ImmutablePureComponent {
   }
 
 }
+
+export default connect(mapStateToProps)(AccountGallery);

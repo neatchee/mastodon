@@ -53,7 +53,6 @@ RemoteHint.propTypes = {
   url: PropTypes.string.isRequired,
 };
 
-export default @connect(mapStateToProps)
 class Followers extends ImmutablePureComponent {
 
   static propTypes = {
@@ -149,7 +148,7 @@ class Followers extends ImmutablePureComponent {
     const remoteMessage = remote ? <RemoteHint url={remoteUrl} /> : null;
 
     return (
-      <Column ref={this.setRef}>
+      <Column bindToDocument={!multiColumn} ref={this.setRef}>
         <ProfileColumnHeader onClick={this.handleHeaderClick} multiColumn={multiColumn} />
 
         <ScrollableList
@@ -172,3 +171,5 @@ class Followers extends ImmutablePureComponent {
   }
 
 }
+
+export default connect(mapStateToProps)(Followers);
