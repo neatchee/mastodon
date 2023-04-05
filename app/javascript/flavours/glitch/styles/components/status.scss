@@ -84,13 +84,13 @@
 
     .emojione {
       transition-property: transform, filter;
-      transition-duration:0.08s;
+      transition-duration: 0.08s;
     }
-    
+
     &.status__content--zoom-emojis-on-hover .emojione:hover {
       transform: scale(1.8);
       filter: drop-shadow(0 0 3px #0c0c0c);
-      z-index:99;
+      z-index: 99;
     }
 
     & > ul,
@@ -361,7 +361,9 @@
     border-bottom-color: lighten($ui-base-color, 12%);
 
     .status__collapse-button.active {
-      background-image: linear-gradient(rgba(lighten($ui-base-color, 16%), 255) 0 0);
+      background-image: linear-gradient(
+        rgba(lighten($ui-base-color, 16%), 255) 0 0
+      );
     }
   }
 
@@ -446,7 +448,7 @@
         );
         pointer-events: none;
       }
-      
+
       .media-gallery {
         display: none;
       }
@@ -471,26 +473,34 @@
     }
 
     &.status-direct .status__collapse-button {
-      background-image: linear-gradient(rgba(lighten($ui-base-color, 12%), 255) 0 0);
-    
+      background-image: linear-gradient(
+        rgba(lighten($ui-base-color, 12%), 255) 0 0
+      );
+
       &:active,
       &:hover,
       &:focus {
-        background-image: linear-gradient(rgba(lighten($ui-base-color, 20%), 255) 0 0);
+        background-image: linear-gradient(
+          rgba(lighten($ui-base-color, 20%), 255) 0 0
+        );
       }
     }
-					  
+
     .status__collapse-button {
-      background-image: linear-gradient(rgba(lighten($ui-base-color, 4%), 255) 0 0);
+      background-image: linear-gradient(
+        rgba(lighten($ui-base-color, 4%), 255) 0 0
+      );
 
       &:active,
       &:hover,
       &:focus {
-        background-image: linear-gradient(rgba(lighten($ui-base-color, 12%), 255) 0 0);
+        background-image: linear-gradient(
+          rgba(lighten($ui-base-color, 12%), 255) 0 0
+        );
       }
     }
 
-    notification__message {
+    .notification__message {
       margin-bottom: 0;
     }
 
@@ -568,7 +578,9 @@
   }
 
   .status__collapse-button.active {
-    background-image: linear-gradient(rgba(lighten($ui-base-color, 8%), 255) 0 0);
+    background-image: linear-gradient(
+      rgba(lighten($ui-base-color, 8%), 255) 0 0
+    );
   }
 
   .status__collapse-button.active > .fa-angle-double-up {
@@ -767,7 +779,7 @@
 
 .status__display-name,
 .account__display-name {
-  strong {
+  .display-name strong {
     color: $primary-text-color;
   }
 }
@@ -782,12 +794,12 @@ a.status__display-name,
 .reply-indicator__display-name,
 .detailed-status__display-name,
 .account__display-name {
-  &:hover strong {
+  &:hover .display-name strong {
     text-decoration: underline;
   }
 }
 
-.account__display-name strong {
+.account__display-name .display-name strong {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;

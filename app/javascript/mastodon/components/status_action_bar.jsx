@@ -15,7 +15,7 @@ const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
   redraft: { id: 'status.redraft', defaultMessage: 'Delete & re-draft' },
   edit: { id: 'status.edit', defaultMessage: 'Edit' },
-  direct: { id: 'status.direct', defaultMessage: 'Direct message @{name}' },
+  direct: { id: 'status.direct', defaultMessage: 'Privately mention @{name}' },
   mention: { id: 'status.mention', defaultMessage: 'Mention @{name}' },
   mute: { id: 'account.mute', defaultMessage: 'Mute @{name}' },
   block: { id: 'account.block', defaultMessage: 'Block @{name}' },
@@ -130,8 +130,8 @@ class StatusActionBar extends ImmutablePureComponent {
   };
 
   handleEmojiPick = data => {
-      this.props.onReactionAdd(this.props.status.get('id'), data.native.replace(/:/g, ''), data.imageUrl);
-  }
+    this.props.onReactionAdd(this.props.status.get('id'), data.native.replace(/:/g, ''), data.imageUrl);
+  };
 
   handleReblogClick = e => {
     const { signedIn } = this.context.identity;
@@ -236,7 +236,7 @@ class StatusActionBar extends ImmutablePureComponent {
     this.props.onFilter();
   };
 
-  handleNoOp = () => {} // hack for reaction add button
+  handleNoOp = () => {}; // hack for reaction add button
 
   render () {
     const { status, relationship, intl, withDismiss, withCounters, scrollKey } = this.props;

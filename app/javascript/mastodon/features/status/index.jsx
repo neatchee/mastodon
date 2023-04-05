@@ -262,11 +262,11 @@ class Status extends ImmutablePureComponent {
     if (signedIn) {
       dispatch(addReaction(statusId, name, url));
     }
-  }
+  };
 
   handleReactionRemove = (statusId, name) => {
     this.props.dispatch(removeReaction(statusId, name));
-  }
+  };
 
   handlePin = (status) => {
     if (status.get('pinned')) {
@@ -646,7 +646,7 @@ class Status extends ImmutablePureComponent {
             {ancestors}
 
             <HotKeys handlers={handlers}>
-              <div className={classNames('focusable', 'detailed-status__wrapper')} tabIndex='0' aria-label={textForScreenReader(intl, status, false)}>
+              <div className={classNames('focusable', 'detailed-status__wrapper', `detailed-status__wrapper-${status.get('visibility')}`)} tabIndex={0} aria-label={textForScreenReader(intl, status, false)}>
                 <DetailedStatus
                   key={`details-${status.get('id')}`}
                   status={status}

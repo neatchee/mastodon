@@ -138,6 +138,7 @@ export const version = getMeta('version');
 export const visibleReactions = getMeta('visible_reactions');
 export const translationEnabled = getMeta('translation_enabled');
 export const languages = initialState?.languages;
+// @ts-expect-error
 export const statusPageUrl = getMeta('status_page_url');
 
 // Glitch-soc-specific settings
