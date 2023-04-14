@@ -5,7 +5,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import IconButton from 'flavours/glitch/components/icon_button';
 import Icon from 'flavours/glitch/components/icon';
-import { defineMessages, injectIntl, FormattedMessage, FormattedDate } from 'react-intl';
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { autoPlayGif, reduceMotion, disableSwiping, mascot } from 'flavours/glitch/initial_state';
 import elephantUIPlane from 'mastodon/../images/elephant_ui_plane.svg';
 import unicodeMapping from 'flavours/glitch/features/emoji/emoji_unicode_mapping_light';
@@ -436,7 +436,7 @@ class Announcements extends ImmutablePureComponent {
         <img className='announcements__mastodon' alt='' draggable='false' src={mascot || elephantUIPlane} />
 
         <div className='announcements__container'>
-          <ReactSwipeableViews animateHeight={!reduceMotion} adjustHeight={reduceMotion} index={index} onChangeIndex={this.handleChangeIndex}>
+          <ReactSwipeableViews animateHeight animateTransitions={!reduceMotion} index={index} onChangeIndex={this.handleChangeIndex}>
             {announcements.map((announcement, idx) => (
               <Announcement
                 key={announcement.get('id')}

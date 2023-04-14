@@ -161,7 +161,7 @@ class Video extends React.PureComponent {
   _setDimensions () {
     const width = this.player.offsetWidth;
 
-    if (width && width != this.state.containerWidth) {
+    if (width && width !== this.state.containerWidth) {
       if (this.props.cacheWidth) {
         this.props.cacheWidth(width);
       }
@@ -403,7 +403,7 @@ class Video extends React.PureComponent {
   }
 
   componentDidUpdate (prevProps) {
-    if (this.player && this.player.offsetWidth && this.player.offsetWidth != this.state.containerWidth && !this.state.fullscreen) {
+    if (this.player && this.player.offsetWidth && this.player.offsetWidth !== this.state.containerWidth && !this.state.fullscreen) {
       if (this.props.cacheWidth) this.props.cacheWidth(this.player.offsetWidth);
       this.setState({
         containerWidth: this.player.offsetWidth,
@@ -579,6 +579,7 @@ class Video extends React.PureComponent {
         className={computedClass}
         style={playerStyle}
         ref={this.setPlayerRef}
+        role='button'
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         onClick={this.handleClickRoot}
@@ -600,7 +601,7 @@ class Video extends React.PureComponent {
           preload={preload}
           loop
           role='button'
-          tabIndex='0'
+          tabIndex={0}
           aria-label={alt}
           title={alt}
           lang={lang}
@@ -629,7 +630,7 @@ class Video extends React.PureComponent {
 
             <span
               className={classNames('video-player__seek__handle', { active: dragging })}
-              tabIndex='0'
+              tabIndex={0}
               style={{ left: `${progress}%` }}
               onKeyDown={this.handleVideoKeyDown}
             />
@@ -645,7 +646,7 @@ class Video extends React.PureComponent {
 
                 <span
                   className={classNames('video-player__volume__handle')}
-                  tabIndex='0'
+                  tabIndex={0}
                   style={{ left: `${volume * 100}%` }}
                 />
               </div>

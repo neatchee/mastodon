@@ -2955,7 +2955,6 @@ $ui-header-height: 55px;
     width: 85%;
     height: 100%;
     pointer-events: none;
-    user-drag: none;
     user-select: none;
   }
 
@@ -4358,6 +4357,7 @@ a.status-card.compact:hover {
 .follow_requests-unlocked_explanation {
   background: darken($ui-base-color, 4%);
   contain: initial;
+  flex-grow: 0;
 }
 
 .error-column {

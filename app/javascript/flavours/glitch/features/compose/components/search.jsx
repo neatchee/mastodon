@@ -1,8 +1,6 @@
 //  Package imports.
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { connect } from 'react-redux';
 import {
   injectIntl,
   FormattedMessage,
@@ -147,7 +145,7 @@ class Search extends React.PureComponent {
           onBlur={this.handleBlur}
         />
 
-        <div role='button' tabIndex='0' className='search__icon' onClick={this.handleClear}>
+        <div role='button' tabIndex={0} className='search__icon' onClick={this.handleClear}>
           <Icon id='search' className={hasValue ? '' : 'active'} />
           <Icon id='times-circle' className={hasValue ? 'active' : ''} />
         </div>
