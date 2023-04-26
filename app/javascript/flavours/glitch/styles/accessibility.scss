@@ -24,8 +24,8 @@ $emojis-requiring-inversion: 'back' 'copyright' 'curly_loop' 'currency_exchange'
     position: absolute;
     content: '\F00C';
     font-size: 50%;
-    font-family: FontAwesome;
-    right: -0.55em;
+    font-family: FontAwesome, sans-serif;
+    inset-inline-end: -0.55em;
     top: -0.44em;
   }
 }

@@ -28,7 +28,7 @@ gem 'addressable', '~> 2.8'
 gem 'bootsnap', '~> 1.16.0', require: false
 gem 'browser'
 gem 'charlock_holmes', '~> 0.7.7'
-gem 'chewy', '~> 7.2'
+gem 'chewy', '~> 7.3'
 gem 'devise', '~> 4.9'
 gem 'devise-two-factor', '~> 4.0'
 
@@ -36,7 +36,7 @@ group :pam_authentication, optional: true do
   gem 'devise_pam_authenticatable2', '~> 9.2'
 end
 
-gem 'net-ldap', '~> 0.17'
+gem 'net-ldap', '~> 0.18'
 gem 'omniauth-cas', '~> 2.0'
 gem 'omniauth-saml', '~> 1.10'
 gem 'omniauth_openid_connect', '~> 0.6.1'
@@ -120,7 +120,7 @@ end
 group :test do
   gem 'capybara', '~> 3.39'
   gem 'climate_control'
-  gem 'faker', '~> 3.1'
+  gem 'faker', '~> 3.2'
   gem 'json-schema', '~> 3.0'
   gem 'rack-test', '~> 2.1'
   gem 'rails-controller-testing', '~> 1.0'
