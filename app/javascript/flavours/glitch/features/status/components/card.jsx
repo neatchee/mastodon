@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { FormattedMessage } from 'react-intl';
-import punycode from 'punycode';
 import classnames from 'classnames';
 import { decode as decodeIDNA } from 'flavours/glitch/utils/idna';
 import Icon from 'flavours/glitch/components/icon';
@@ -15,16 +14,6 @@ const getHostname = url => {
   const parser = document.createElement('a');
   parser.href = url;
   return parser.hostname;
-};
-
-const trim = (text, len) => {
-  const cut = text.indexOf(' ', len);
-
-  if (cut === -1) {
-    return text;
-  }
-
-  return text.slice(0, cut) + (text.length > len ? '…' : '');
 };
 
 const domParser = new DOMParser();
@@ -54,7 +43,6 @@ export default class Card extends React.PureComponent {
 
   static propTypes = {
     card: ImmutablePropTypes.map,
-    maxDescription: PropTypes.number,
     onOpenMedia: PropTypes.func.isRequired,
     compact: PropTypes.bool,
     defaultWidth: PropTypes.number,
@@ -63,7 +51,6 @@ export default class Card extends React.PureComponent {
   };
 
   static defaultProps = {
-    maxDescription: 50,
     compact: false,
   };
 
@@ -176,7 +163,7 @@ export default class Card extends React.PureComponent {
   }
 
   render () {
-    const { card, maxDescription, compact, defaultWidth } = this.props;
+    const { card, compact } = this.props;
     const { width, embedded, revealed } = this.state;
 
     if (card === null) {
@@ -195,7 +182,7 @@ export default class Card extends React.PureComponent {
     const description = (
       <div className='status-card__content' lang={language}>
         {title}
-        {!(horizontal || compact) && <p className='status-card__description'>{trim(card.get('description') || '', maxDescription)}</p>}
+        {!(horizontal || compact) && <p className='status-card__description' title={card.get('description')}>{card.get('description')}</p>}
         <span className='status-card__host'>{provider}</span>
       </div>
     );
