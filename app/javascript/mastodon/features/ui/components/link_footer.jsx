@@ -68,7 +68,7 @@ class LinkFooter extends React.PureComponent {
           {' '}
           <Link to='/about'><FormattedMessage id='footer.about' defaultMessage='About' /></Link>
           {' · '}
-          <a key='forums' href='https://sakurajima.social'>Calckey</a>
+          <a key='calckey' href='https://sakurajima.social'>Calckey</a>
           {' · '}
           <a key='forums' href='https://forums.sakurajima.moe'>Forums</a>
            {' · '}
