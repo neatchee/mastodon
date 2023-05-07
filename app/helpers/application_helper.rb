@@ -117,6 +117,10 @@ module ApplicationHelper
     content_tag(:i, nil, attributes.merge(class: class_names.join(' ')))
   end
 
+  def check_icon
+    content_tag(:svg, tag(:path, 'fill-rule': 'evenodd', 'clip-rule': 'evenodd', d: 'M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z'), xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 20 20', fill: 'currentColor')
+  end
+
   def visibility_icon(status)
     if status.public_visibility?
       fa_icon('globe', title: I18n.t('statuses.visibilities.public'))
@@ -151,20 +155,8 @@ module ApplicationHelper
     tag(:meta, content: content, property: property)
   end
 
-  def react_component(name, props = {}, &block)
-    if block.nil?
-      content_tag(:div, nil, data: { component: name.to_s.camelcase, props: Oj.dump(props) })
-    else
-      content_tag(:div, data: { component: name.to_s.camelcase, props: Oj.dump(props) }, &block)
-    end
-  end
-
-  def react_admin_component(name, props = {})
-    content_tag(:div, nil, data: { 'admin-component': name.to_s.camelcase, props: Oj.dump({ locale: I18n.locale }.merge(props)) })
-  end
-
   def body_classes
-    output = (@body_classes || '').split
+    output = body_class_string.split
     output << "flavour-#{current_flavour.parameterize}"
     output << "skin-#{current_skin.parameterize}"
     output << 'system-font' if current_account&.user&.setting_system_font_ui

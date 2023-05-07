@@ -55,7 +55,7 @@
  * @property {boolean=} delete_modal
  * @property {boolean=} disable_swiping
  * @property {string=} disabled_account_id
- * @property {boolean} display_media
+ * @property {string} display_media
  * @property {string} domain
  * @property {boolean=} expand_spoilers
  * @property {boolean} limited_federation_mode
@@ -88,6 +88,7 @@
  * @property {Record<string, Account>} accounts
  * @property {InitialStateLanguage[]} languages
  * @property {InitialStateMeta} meta
+ * @property {number} max_toot_chars
  */
 
 const element = document.getElementById('initial-state');

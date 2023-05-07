@@ -41,7 +41,7 @@ class SilentErrorBoundary extends React.Component {
 export const accountsCountRenderer = (displayNumber, pluralReady) => (
   <FormattedMessage
     id='trends.counter_by_accounts'
-    defaultMessage='{count, plural, one {{counter} person} other {{counter} people}} in the past {days, plural, one {day} other {{days} days}}'
+    defaultMessage='{count, plural, one {{counter} person} other {{counter} people}} in the past {days, plural, one {day} other {# days}}'
     values={{
       count: pluralReady,
       counter: <strong>{displayNumber}</strong>,
@@ -50,12 +50,14 @@ export const accountsCountRenderer = (displayNumber, pluralReady) => (
   />
 );
 
+// @ts-expect-error
 export const ImmutableHashtag = ({ hashtag }) => (
   <Hashtag
     name={hashtag.get('name')}
     href={hashtag.get('url')}
     to={`/tags/${hashtag.get('name')}`}
     people={hashtag.getIn(['history', 0, 'accounts']) * 1 + hashtag.getIn(['history', 1, 'accounts']) * 1}
+    // @ts-expect-error
     history={hashtag.get('history').reverse().map((day) => day.get('uses')).toArray()}
   />
 );
@@ -64,6 +66,7 @@ ImmutableHashtag.propTypes = {
   hashtag: ImmutablePropTypes.map.isRequired,
 };
 
+// @ts-expect-error
 const Hashtag = ({ name, href, to, people, uses, history, className, description, withGraph }) => (
   <div className={classNames('trends__item', className)}>
     <div className='trends__item__name'>

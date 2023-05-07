@@ -13,7 +13,7 @@ module Mastodon
     end
 
     def patch
-      1
+      2
     end
 
     def flags
@@ -21,7 +21,15 @@ module Mastodon
     end
 
     def suffix
+<<<<<<< HEAD
       '+glitch'
+=======
+      '+cat'
+    end
+
+    def suffix_version
+      '+1.0.4'
+>>>>>>> 9c4e0606d (Fix appearance/show.html.haml)
     end
 
     def to_a
