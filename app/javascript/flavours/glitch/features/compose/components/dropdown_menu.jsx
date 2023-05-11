@@ -76,6 +76,7 @@ export default class ComposerOptionsDropdownContent extends React.PureComponent 
     } = this.props;
 
     const { name } = this.props.items[i];
+
     e.preventDefault();  //  Prevents change in focus on click
     if (closeOnChange) {
       onClose();
@@ -165,7 +166,7 @@ export default class ComposerOptionsDropdownContent extends React.PureComponent 
         onClick={this.handleClick}
         onKeyDown={this.handleKeyDown}
         role='option'
-        aria-selected='true'
+        aria-selected={active}
         tabIndex={0}
         key={name}
         data-index={i}

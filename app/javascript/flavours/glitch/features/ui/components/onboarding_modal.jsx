@@ -187,11 +187,11 @@ class OnboardingModal extends React.PureComponent {
   componentWillMount() {
     const { myAccount, admin, domain, intl } = this.props;
     this.pages = [
-      <PageOne key='pageOne' acct={myAccount.get('acct')} domain={domain} />,
-      <PageTwo key='pageTwo' myAccount={myAccount} intl={intl} />,
-      <PageThree key='pageThree' myAccount={myAccount} intl={intl} />,
-      <PageFour key='pageFour' domain={domain} intl={intl} />,
-      <PageSix key='pageSix' admin={admin} domain={domain} />,
+      <PageOne key='1' acct={myAccount.get('acct')} domain={domain} />,
+      <PageTwo key='2' myAccount={myAccount} intl={intl} />,
+      <PageThree key='3' myAccount={myAccount} intl={intl} />,
+      <PageFour key='4' domain={domain} intl={intl} />,
+      <PageSix key='6' admin={admin} domain={domain} />,
     ];
   }
 

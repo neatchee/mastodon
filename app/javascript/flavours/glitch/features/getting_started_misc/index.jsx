@@ -34,11 +34,11 @@ class GettingStartedMisc extends ImmutablePureComponent {
     dispatch: PropTypes.func.isRequired,
   };
 
-  openOnboardingModal = (e) => { // eslint-disable-line no-unused-vars
+  openOnboardingModal = () => {
     this.props.dispatch(openModal('ONBOARDING'));
   };
 
-  openFeaturedAccountsModal = (e) => { // eslint-disable-line no-unused-vars
+  openFeaturedAccountsModal = () => {
     this.props.dispatch(openModal('PINNED_ACCOUNTS_EDITOR'));
   };
 

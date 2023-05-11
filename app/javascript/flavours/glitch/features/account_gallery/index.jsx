@@ -72,8 +72,8 @@ class AccountGallery extends ImmutablePureComponent {
     isLoading: PropTypes.bool,
     hasMore: PropTypes.bool,
     isAccount: PropTypes.bool,
-    multiColumn: PropTypes.bool,
     suspended: PropTypes.bool,
+    multiColumn: PropTypes.bool,
   };
 
   state = {

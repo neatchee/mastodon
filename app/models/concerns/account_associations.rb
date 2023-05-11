@@ -13,6 +13,7 @@ module AccountAssociations
     # Timelines
     has_many :statuses, inverse_of: :account, dependent: :destroy
     has_many :favourites, inverse_of: :account, dependent: :destroy
+    has_many :status_reactions, inverse_of: :account, dependent: :destroy
     has_many :bookmarks, inverse_of: :account, dependent: :destroy
     has_many :mentions, inverse_of: :account, dependent: :destroy
     has_many :notifications, inverse_of: :account, dependent: :destroy
@@ -68,5 +69,8 @@ module AccountAssociations
 
     # Account statuses cleanup policy
     has_one :statuses_cleanup_policy, class_name: 'AccountStatusesCleanupPolicy', inverse_of: :account, dependent: :destroy
+
+    # Imports
+    has_many :bulk_imports, inverse_of: :account, dependent: :delete_all
   end
 end

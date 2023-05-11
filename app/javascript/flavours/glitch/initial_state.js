@@ -82,6 +82,7 @@
  * @property {boolean} use_blurhash
  * @property {boolean=} use_pending_items
  * @property {string} version
+ * @property {number} visible_reactions
  * @property {boolean} translation_enabled
  * @property {number} visible_reactions
  * @property {string} status_page_url
@@ -97,6 +98,7 @@
  * @property {object} local_settings
  * @property {number} max_toot_chars
  * @property {number} poll_limits
+ * @property {number} max_reactions
  */
 
 const element = document.getElementById('initial-state');

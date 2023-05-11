@@ -49,7 +49,7 @@ import { initMuteModal } from '../../actions/mutes';
 import { initBlockModal } from '../../actions/blocks';
 import { initBoostModal } from '../../actions/boosts';
 import { initReport } from '../../actions/reports';
-import { makeCustomEmojiMap, makeGetStatus, makeGetPictureInPicture } from '../../selectors';
+import { makeGetStatus, makeGetPictureInPicture } from '../../selectors';
 import ScrollContainer from 'mastodon/containers/scroll_container';
 import ColumnHeader from '../../components/column_header';
 import StatusContainer from '../../containers/status_container';
@@ -155,7 +155,6 @@ const makeMapStateToProps = () => {
       askReplyConfirmation: state.getIn(['compose', 'text']).trim().length !== 0,
       domain: state.getIn(['meta', 'domain']),
       pictureInPicture: getPictureInPicture(state, { id: props.params.statusId }),
-      emojiMap: makeCustomEmojiMap(state),
     };
   };
 

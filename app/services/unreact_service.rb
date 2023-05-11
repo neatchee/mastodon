@@ -3,7 +3,7 @@
 class UnreactService < BaseService
   include Payloadable
 
-def call(account, status, emoji)
+  def call(account, status, emoji)
     name, domain = emoji.split('@')
     custom_emoji = CustomEmoji.find_by(shortcode: name, domain: domain)
     reaction = StatusReaction.find_by(account: account, status: status, name: name, custom_emoji: custom_emoji)

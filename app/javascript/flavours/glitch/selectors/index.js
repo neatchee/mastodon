@@ -1,4 +1,3 @@
-import escapeTextContentForBrowser from 'escape-html';
 import { createSelector } from 'reselect';
 import { List as ImmutableList, Map as ImmutableMap } from 'immutable';
 import { toServerSideType } from 'flavours/glitch/utils/filters';
@@ -148,11 +147,3 @@ export const getAccountHidden = createSelector([
 ], (hidden, followingOrRequested, isSelf) => {
   return hidden && !(isSelf || followingOrRequested);
 });
-
-export const makeCustomEmojiMap = createSelector(
-  [state => state.get('custom_emojis')],
-  items => items.reduce(
-    (map, emoji) => map.set(emoji.get('shortcode'), emoji),
-    ImmutableMap(),
-  ),
-);

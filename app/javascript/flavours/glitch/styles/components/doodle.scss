@@ -1,8 +1,6 @@
 $doodle-background: #d9e1e8;
 
 .doodle-modal {
-  @extend .boost-modal; /* stylelint-disable-line scss/at-extend-no-missing-placeholder */
-
   width: unset;
 }
 
@@ -18,11 +16,6 @@ $doodle-background: #d9e1e8;
 }
 
 .doodle-modal__action-bar {
-  @extend .boost-modal__action-bar; /* stylelint-disable-line scss/at-extend-no-missing-placeholder */
-
-  flex-wrap: wrap;
-  flex: 0 0 auto;
-
   .filler {
     flex-grow: 1;
     margin: 0;
