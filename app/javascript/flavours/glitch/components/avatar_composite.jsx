@@ -9,7 +9,6 @@ export default class AvatarComposite extends React.PureComponent {
     accounts: ImmutablePropTypes.list.isRequired,
     animate: PropTypes.bool,
     size: PropTypes.number.isRequired,
-    onAccountClick: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -83,7 +82,7 @@ export default class AvatarComposite extends React.PureComponent {
       <a
         href={account.get('url')}
         target='_blank'
-        onClick={this.props.onAccountClick(account.get('acct'))}
+        onClick={(e) => this.props.onAccountClick(account.get('acct'), e)}
         title={`@${account.get('acct')}`}
         key={account.get('id')}
       >

@@ -14,7 +14,6 @@ export default class DisplayName extends React.PureComponent {
     localDomain: PropTypes.string,
     others: ImmutablePropTypes.list,
     handleClick: PropTypes.func,
-    onAccountClick: PropTypes.func,
   };
 
   handleMouseEnter = ({ currentTarget }) => {
@@ -62,10 +61,9 @@ export default class DisplayName extends React.PureComponent {
     if (others && others.size > 0) {
       displayName = others.take(2).map(a => (
         <a
-          key={a.get('id')}
           href={a.get('url')}
           target='_blank'
-          onClick={onAccountClick(a.get('acct'))}
+          onClick={(e) => onAccountClick(a.get('acct'), e)}
           title={`@${a.get('acct')}`}
           rel='noopener noreferrer'
         >
@@ -80,7 +78,7 @@ export default class DisplayName extends React.PureComponent {
       }
 
       suffix = (
-        <a href={account.get('url')} target='_blank' onClick={onAccountClick(account.get('acct'))} rel='noopener noreferrer'>
+        <a href={account.get('url')} target='_blank' onClick={(e) => onAccountClick(account.get('acct'), e)} rel='noopener noreferrer'>
           <span className='display-name__account'>@{acct}</span>
         </a>
       );
