@@ -79,15 +79,7 @@ export default class AvatarComposite extends React.PureComponent {
     };
 
     return (
-      <a
-        href={account.get('url')}
-        target='_blank'
-        onClick={(e) => this.props.onAccountClick(account.get('acct'), e)}
-        title={`@${account.get('acct')}`}
-        key={account.get('id')}
-      >
-        <div style={style} data-avatar-of={`@${account.get('acct')}`} />
-      </a>
+      <div key={account.get('id')} style={style} data-avatar-of={`@${account.get('acct')}`} />
     );
   }
 
