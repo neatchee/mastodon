@@ -12,7 +12,7 @@ import { RelativeTimestamp } from './relative_timestamp';
 import Skeleton from 'flavours/glitch/components/skeleton';
 import { counterRenderer } from 'flavours/glitch/components/common_counter';
 import ShortNumber from 'flavours/glitch/components/short_number';
-import Icon from 'flavours/glitch/components/icon';
+import { Icon } from 'flavours/glitch/components/icon';
 import classNames from 'classnames';
 
 const messages = defineMessages({
