@@ -1,10 +1,14 @@
-import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { NavLink } from 'react-router-dom';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
-import Icon from 'flavours/glitch/components/icon';
+import { PureComponent } from 'react';
 
-class ActionBar extends React.PureComponent {
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+
+import { NavLink } from 'react-router-dom';
+
+import ImmutablePropTypes from 'react-immutable-proptypes';
+
+import { Icon } from 'flavours/glitch/components/icon';
+
+class ActionBar extends PureComponent {
 
   static propTypes = {
     account: ImmutablePropTypes.map.isRequired,

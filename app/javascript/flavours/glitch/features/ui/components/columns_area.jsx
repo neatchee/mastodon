@@ -1,11 +1,14 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import { Children, cloneElement } from 'react';
+
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
+
+import { supportsPassiveEvents } from 'detect-passive-events';
+
+import { scrollRight } from 'flavours/glitch/scroll';
+
 import BundleContainer from '../containers/bundle_container';
-import ColumnLoading from './column_loading';
-import DrawerLoading from './drawer_loading';
-import BundleColumnError from './bundle_column_error';
 import {
   Compose,
   Notifications,
@@ -18,12 +21,13 @@ import {
   BookmarkedStatuses,
   ListTimeline,
   Directory,
-} from '../../ui/util/async-components';
-import ComposePanel from './compose_panel';
-import NavigationPanel from './navigation_panel';
+} from '../util/async-components';
 
-import { supportsPassiveEvents } from 'detect-passive-events';
-import { scrollRight } from 'flavours/glitch/scroll';
+import BundleColumnError from './bundle_column_error';
+import ColumnLoading from './column_loading';
+import ComposePanel from './compose_panel';
+import DrawerLoading from './drawer_loading';
+import NavigationPanel from './navigation_panel';
 
 const componentMap = {
   'COMPOSE': Compose,
@@ -174,7 +178,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
           );
         })}
 
-        {React.Children.map(children, child => React.cloneElement(child, { multiColumn: true }))}
+        {Children.map(children, child => cloneElement(child, { multiColumn: true }))}
       </div>
     );
   }

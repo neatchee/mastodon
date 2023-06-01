@@ -1,24 +1,30 @@
-import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
-import Avatar from './avatar';
-import DisplayName from './display_name';
-import Permalink from './permalink';
-import IconButton from './icon_button';
+import React from 'react';
+
 import { defineMessages, injectIntl } from 'react-intl';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { me } from 'flavours/glitch/initial_state';
-import RelativeTimestamp from './relative_timestamp';
-import Skeleton from 'flavours/glitch/components/skeleton';
-import { counterRenderer } from 'flavours/glitch/components/common_counter';
-import ShortNumber from 'flavours/glitch/components/short_number';
-import Icon from 'flavours/glitch/components/icon';
+
 import classNames from 'classnames';
+
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
+
+import { counterRenderer } from 'flavours/glitch/components/common_counter';
+import { Icon } from 'flavours/glitch/components/icon';
+import ShortNumber from 'flavours/glitch/components/short_number';
+import { Skeleton } from 'flavours/glitch/components/skeleton';
+import { me } from 'flavours/glitch/initial_state';
+
+import { Avatar } from './avatar';
+import { DisplayName } from './display_name';
+import { IconButton } from './icon_button';
+import Permalink from './permalink';
+import { RelativeTimestamp } from './relative_timestamp';
+
 
 const messages = defineMessages({
   follow: { id: 'account.follow', defaultMessage: 'Follow' },
   unfollow: { id: 'account.unfollow', defaultMessage: 'Unfollow' },
-  requested: { id: 'account.requested', defaultMessage: 'Awaiting approval' },
+  requested: { id: 'account.requested', defaultMessage: 'Awaiting approval. Click to cancel follow request' },
   unblock: { id: 'account.unblock', defaultMessage: 'Unblock @{name}' },
   unmute: { id: 'account.unmute', defaultMessage: 'Unmute @{name}' },
   mute_notifications: { id: 'account.mute_notifications', defaultMessage: 'Mute notifications from @{name}' },

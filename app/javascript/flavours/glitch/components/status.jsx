@@ -1,29 +1,32 @@
-import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
-import StatusPrepend from './status_prepend';
+
+import { injectIntl, FormattedMessage } from 'react-intl';
+
+import classNames from 'classnames';
+
+import { List as ImmutableList } from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
+
+import { HotKeys } from 'react-hotkeys';
+
+import PictureInPicturePlaceholder from 'flavours/glitch/components/picture_in_picture_placeholder';
+import PollContainer from 'flavours/glitch/containers/poll_container';
+import NotificationOverlayContainer from 'flavours/glitch/features/notifications/containers/overlay_container';
+import { displayMedia, visibleReactions } from 'flavours/glitch/initial_state';
+import { autoUnfoldCW } from 'flavours/glitch/utils/content_warning';
+
+import Card from '../features/status/components/card';
+import Bundle from '../features/ui/components/bundle';
+import { MediaGallery, Video, Audio } from '../features/ui/util/async-components';
+
+import AttachmentList from './attachment_list';
+import StatusActionBar from './status_action_bar';
+import StatusContent from './status_content';
 import StatusHeader from './status_header';
 import StatusIcons from './status_icons';
-import StatusContent from './status_content';
-import StatusActionBar from './status_action_bar';
+import StatusPrepend from './status_prepend';
 import StatusReactions from './status_reactions';
-import AttachmentList from './attachment_list';
-import Card from '../features/status/components/card';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { MediaGallery, Video, Audio } from '../features/ui/util/async-components';
-import { HotKeys } from 'react-hotkeys';
-import NotificationOverlayContainer from 'flavours/glitch/features/notifications/containers/overlay_container';
-import classNames from 'classnames';
-import { autoUnfoldCW } from 'flavours/glitch/utils/content_warning';
-import PollContainer from 'flavours/glitch/containers/poll_container';
-import { displayMedia, visibleReactions } from 'flavours/glitch/initial_state';
-import PictureInPicturePlaceholder from 'flavours/glitch/components/picture_in_picture_placeholder';
-import { List as ImmutableList } from 'immutable';
-
-// We use the component (and not the container) since we do not want
-// to use the progress bar to show download progress
-import Bundle from '../features/ui/components/bundle';
 
 export const textForScreenReader = (intl, status, rebloggedByText = false, expanded = false) => {
   const displayName = status.getIn(['account', 'display_name']);
@@ -372,9 +375,7 @@ class Status extends ImmutablePureComponent {
             status.getIn(['reblog', 'id'], status.get('id'))
           }`;
         }
-        let state = { ...router.history.location.state };
-        state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
-        router.history.push(destination, state);
+        router.history.push(destination);
       }
       e.preventDefault();
     }
@@ -394,11 +395,12 @@ class Status extends ImmutablePureComponent {
 
   handleOpenVideo = (options) => {
     const { status } = this.props;
-    this.props.onOpenVideo(status.get('id'), status.getIn(['media_attachments', 0]), options);
+    this.props.onOpenVideo(status.get('id'), status.getIn(['media_attachments', 0]), status.get('language'), options);
   };
 
   handleOpenMedia = (media, index) => {
-    this.props.onOpenMedia(this.props.status.get('id'), media, index);
+    const { status } = this.props;
+    this.props.onOpenMedia(status.get('id'), media, index, status.get('language'));
   };
 
   handleHotkeyOpenMedia = e => {
@@ -445,16 +447,12 @@ class Status extends ImmutablePureComponent {
   };
 
   handleHotkeyOpen = () => {
-    let state = { ...this.context.router.history.location.state };
-    state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
     const status = this.props.status;
-    this.context.router.history.push(`/@${status.getIn(['account', 'acct'])}/${status.get('id')}`, state);
+    this.context.router.history.push(`/@${status.getIn(['account', 'acct'])}/${status.get('id')}`);
   };
 
   handleHotkeyOpenProfile = () => {
-    let state = { ...this.context.router.history.location.state };
-    state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
-    this.context.router.history.push(`/@${this.props.status.getIn(['account', 'acct'])}`, state);
+    this.context.router.history.push(`/@${this.props.status.getIn(['account', 'acct'])}`);
   };
 
   handleHotkeyMoveUp = e => {

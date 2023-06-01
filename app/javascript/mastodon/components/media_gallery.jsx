@@ -1,19 +1,26 @@
-import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
-import { is } from 'immutable';
-import IconButton from './icon_button';
+import { PureComponent } from 'react';
+
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+
 import classNames from 'classnames';
-import { autoPlayGif, cropImages, displayMedia, useBlurhash } from '../initial_state';
+
+import { is } from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+
 import { debounce } from 'lodash';
-import Blurhash from 'mastodon/components/blurhash';
+
+import { Blurhash } from 'mastodon/components/blurhash';
+
+import { autoPlayGif, cropImages, displayMedia, useBlurhash } from '../initial_state';
+
+import { IconButton } from './icon_button';
 
 const messages = defineMessages({
   toggle_visible: { id: 'media_gallery.toggle_visible', defaultMessage: '{number, plural, one {Hide image} other {Hide images}}' },
 });
 
-class Item extends React.PureComponent {
+class Item extends PureComponent {
 
   static propTypes = {
     attachment: ImmutablePropTypes.map.isRequired,
@@ -196,7 +203,7 @@ class Item extends React.PureComponent {
 
 }
 
-class MediaGallery extends React.PureComponent {
+class MediaGallery extends PureComponent {
 
   static propTypes = {
     sensitive: PropTypes.bool,
@@ -231,7 +238,7 @@ class MediaGallery extends React.PureComponent {
     window.removeEventListener('resize', this.handleResize);
   }
 
-  componentWillReceiveProps (nextProps) {
+  UNSAFE_componentWillReceiveProps (nextProps) {
     if (!is(nextProps.media, this.props.media) && nextProps.visible === undefined) {
       this.setState({ visible: displayMedia !== 'hide_all' && !nextProps.sensitive || displayMedia === 'show_all' });
     } else if (!is(nextProps.visible, this.props.visible) && nextProps.visible !== undefined) {
@@ -256,7 +263,7 @@ class MediaGallery extends React.PureComponent {
   };
 
   handleClick = (index) => {
-    this.props.onOpenMedia(this.props.media, index);
+    this.props.onOpenMedia(this.props.media, index, this.props.lang);
   };
 
   handleRef = c => {

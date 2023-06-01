@@ -1,10 +1,13 @@
+import { defineMessages } from 'react-intl';
+
 import axios from 'axios';
 import { throttle } from 'lodash';
-import { defineMessages } from 'react-intl';
+
 import api from 'flavours/glitch/api';
 import { search as emojiSearch } from 'flavours/glitch/features/emoji/emoji_mart_search_light';
 import { tagHistory } from 'flavours/glitch/settings';
 import { recoverHashtags } from 'flavours/glitch/utils/hashtag';
+
 import { showAlert, showAlertForError } from './alerts';
 import { useEmoji } from './emojis';
 import { importFetchedAccounts, importFetchedStatus } from './importer';
@@ -408,7 +411,10 @@ export function initMediaEditModal(id) {
       id,
     });
 
-    dispatch(openModal('FOCAL_POINT', { id }));
+    dispatch(openModal({
+      modalType: 'FOCAL_POINT',
+      modalProps: { id },
+    }));
   };
 }
 

@@ -1,13 +1,19 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import { PureComponent } from 'react';
+
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import { is } from 'immutable';
-import { throttle } from 'lodash';
+
 import classNames from 'classnames';
-import { isFullscreen, requestFullscreen, exitFullscreen } from '../ui/util/fullscreen';
+
+import { is } from 'immutable';
+
+import { throttle } from 'lodash';
+
+import { Blurhash } from 'flavours/glitch/components/blurhash';
+import { Icon } from 'flavours/glitch/components/icon';
 import { displayMedia, useBlurhash } from 'flavours/glitch/initial_state';
-import Icon from 'flavours/glitch/components/icon';
-import Blurhash from 'flavours/glitch/components/blurhash';
+
+import { isFullscreen, requestFullscreen, exitFullscreen } from '../ui/util/fullscreen';
 
 const messages = defineMessages({
   play: { id: 'video.play', defaultMessage: 'Play' },
@@ -94,7 +100,7 @@ export const fileNameFromURL = str => {
   return pathname.slice(index + 1);
 };
 
-class Video extends React.PureComponent {
+class Video extends PureComponent {
 
   static propTypes = {
     preview: PropTypes.string,
@@ -373,7 +379,7 @@ class Video extends React.PureComponent {
     }
   }
 
-  componentWillReceiveProps (nextProps) {
+  UNSAFE_componentWillReceiveProps (nextProps) {
     if (!is(nextProps.visible, this.props.visible) && nextProps.visible !== undefined) {
       this.setState({ revealed: nextProps.visible });
     }
@@ -476,7 +482,7 @@ class Video extends React.PureComponent {
   handleOpenVideo = () => {
     this.video.pause();
 
-    this.props.onOpenVideo({
+    this.props.onOpenVideo(this.props.lang, {
       startTime: this.video.currentTime,
       autoPlay: !this.state.paused,
       defaultVolume: this.state.volume,

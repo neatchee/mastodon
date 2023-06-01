@@ -22,24 +22,6 @@ Layout/ArgumentAlignment:
     - 'config/initializers/session_store.rb'
 
 # This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyleAlignWith, Severity.
-# SupportedStylesAlignWith: start_of_line, def
-Layout/DefEndAlignment:
-  Exclude:
-    - 'app/services/unreact_service.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-Layout/EmptyLineAfterMagicComment:
-  Exclude:
-    - 'app/models/status_reaction.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowForAlignment, AllowBeforeTrailingComments, ForceEqualSignAlignment.
-Layout/ExtraSpacing:
-  Exclude:
-    - 'config/initializers/omniauth.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowMultipleStyles, EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle.
 # SupportedHashRocketStyles: key, separator, table
 # SupportedColonStyles: key, separator, table
@@ -53,26 +35,11 @@ Layout/HashAlignment:
     - 'lib/sanitize_ext/sanitize_config.rb'
 
 # This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: Width, AllowedPatterns.
-Layout/IndentationWidth:
-  Exclude:
-    - 'app/services/unreact_service.rb'
-    - 'config/initializers/ffmpeg.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowDoxygenCommentStyle, AllowGemfileRubyComment.
 Layout/LeadingCommentSpace:
   Exclude:
     - 'config/application.rb'
     - 'config/initializers/omniauth.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces.
-# SupportedStyles: space, no_space
-# SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceBeforeBlockBraces:
-  Exclude:
-    - 'config/initializers/paperclip.rb'
 
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle.
@@ -81,27 +48,6 @@ Layout/SpaceInLambdaLiteral:
   Exclude:
     - 'config/environments/production.rb'
     - 'config/initializers/content_security_policy.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: space, no_space
-Layout/SpaceInsideStringInterpolation:
-  Exclude:
-    - 'config/initializers/webauthn.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: final_newline, final_blank_line
-Layout/TrailingEmptyLines:
-  Exclude:
-    - 'db/migrate/20221218015350_fix_foreign_keys_status_reactions.rb'
-    - 'spec/fabricators/status_reaction_fabricator.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowInHeredoc.
-Layout/TrailingWhitespace:
-  Exclude:
-    - 'config/initializers/paperclip.rb'
 
 # Configuration parameters: AllowedMethods, AllowedPatterns.
 Lint/AmbiguousBlockAssociation:
@@ -115,11 +61,6 @@ Lint/AmbiguousBlockAssociation:
     - 'spec/services/suspend_account_service_spec.rb'
     - 'spec/services/unsuspend_account_service_spec.rb'
     - 'spec/workers/scheduler/accounts_statuses_cleanup_scheduler_spec.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-Lint/AmbiguousOperatorPrecedence:
-  Exclude:
-    - 'config/initializers/rack_attack.rb'
 
 # Configuration parameters: AllowComments, AllowEmptyLambdas.
 Lint/EmptyBlock:
@@ -303,37 +244,6 @@ Naming/VariableNumber:
     - 'spec/services/activitypub/fetch_featured_collection_service_spec.rb'
 
 # This cop supports unsafe autocorrection (--autocorrect-all).
-Performance/MapCompact:
-  Exclude:
-    - 'app/lib/admin/metrics/dimension.rb'
-    - 'app/lib/admin/metrics/measure.rb'
-    - 'app/lib/feed_manager.rb'
-    - 'app/models/account.rb'
-    - 'app/models/account_statuses_cleanup_policy.rb'
-    - 'app/models/account_suggestions/setting_source.rb'
-    - 'app/models/account_suggestions/source.rb'
-    - 'app/models/follow_recommendation_filter.rb'
-    - 'app/models/notification.rb'
-    - 'app/models/user_role.rb'
-    - 'app/models/webhook.rb'
-    - 'app/services/process_mentions_service.rb'
-    - 'app/validators/existing_username_validator.rb'
-    - 'db/migrate/20200407202420_migrate_unavailable_inboxes.rb'
-    - 'spec/presenters/status_relationships_presenter_spec.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-Performance/RegexpMatch:
-  Exclude:
-    - 'app/lib/activitypub/activity/emoji_react.rb'
-    - 'app/lib/activitypub/activity/like.rb'
-
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: SafeMultiline.
-Performance/StartWith:
-  Exclude:
-    - 'app/lib/extractor.rb'
-
-# This cop supports unsafe autocorrection (--autocorrect-all).
 Performance/UnfreezeString:
   Exclude:
     - 'app/lib/rss/builder.rb'
@@ -472,29 +382,6 @@ RSpec/EmptyExampleGroup:
 # Configuration parameters: CountAsOne.
 RSpec/ExampleLength:
   Max: 22
-
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: method_call, block
-RSpec/ExpectChange:
-  Exclude:
-    - 'spec/controllers/admin/account_moderation_notes_controller_spec.rb'
-    - 'spec/controllers/admin/custom_emojis_controller_spec.rb'
-    - 'spec/controllers/admin/invites_controller_spec.rb'
-    - 'spec/controllers/admin/report_notes_controller_spec.rb'
-    - 'spec/controllers/concerns/accountable_concern_spec.rb'
-    - 'spec/controllers/invites_controller_spec.rb'
-    - 'spec/controllers/settings/two_factor_authentication/webauthn_credentials_controller_spec.rb'
-    - 'spec/models/admin/account_action_spec.rb'
-    - 'spec/services/suspend_account_service_spec.rb'
-    - 'spec/services/unsuspend_account_service_spec.rb'
-    - 'spec/workers/scheduler/accounts_statuses_cleanup_scheduler_spec.rb'
-
-RSpec/ExpectInHook:
-  Exclude:
-    - 'spec/controllers/api/v1/media_controller_spec.rb'
-    - 'spec/controllers/settings/applications_controller_spec.rb'
-    - 'spec/lib/status_filter_spec.rb'
 
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle.
@@ -648,59 +535,10 @@ RSpec/MultipleMemoizedHelpers:
 RSpec/NestedGroups:
   Max: 6
 
-# Configuration parameters: AllowedPatterns.
-# AllowedPatterns: ^expect_, ^assert_
-RSpec/NoExpectationExample:
-  Exclude:
-    - 'spec/controllers/auth/registrations_controller_spec.rb'
-    - 'spec/services/precompute_feed_service_spec.rb'
-
 RSpec/PendingWithoutReason:
   Exclude:
-    - 'spec/controllers/statuses_controller_spec.rb'
     - 'spec/models/account_spec.rb'
     - 'spec/models/status_reaction_spec.rb'
-
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: Strict, EnforcedStyle, AllowedExplicitMatchers.
-# SupportedStyles: inflected, explicit
-RSpec/PredicateMatcher:
-  Exclude:
-    - 'spec/controllers/api/v1/accounts/notes_controller_spec.rb'
-    - 'spec/models/user_spec.rb'
-    - 'spec/services/post_status_service_spec.rb'
-
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: Inferences.
-RSpec/Rails/InferredSpecType:
-  Exclude:
-    - 'spec/models/status_reaction_spec.rb'
-
-RSpec/RepeatedExample:
-  Exclude:
-    - 'spec/policies/status_policy_spec.rb'
-
-RSpec/RepeatedExampleGroupBody:
-  Exclude:
-    - 'spec/controllers/statuses_controller_spec.rb'
-
-RSpec/RepeatedExampleGroupDescription:
-  Exclude:
-    - 'spec/controllers/admin/reports/actions_controller_spec.rb'
-    - 'spec/policies/report_note_policy_spec.rb'
-
-RSpec/ScatteredSetup:
-  Exclude:
-    - 'spec/controllers/activitypub/followers_synchronizations_controller_spec.rb'
-    - 'spec/controllers/activitypub/outboxes_controller_spec.rb'
-    - 'spec/controllers/admin/disputes/appeals_controller_spec.rb'
-    - 'spec/controllers/auth/registrations_controller_spec.rb'
-    - 'spec/services/activitypub/process_account_service_spec.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-RSpec/SharedContext:
-  Exclude:
-    - 'spec/services/unsuspend_account_service_spec.rb'
 
 RSpec/StubbedMock:
   Exclude:
@@ -844,12 +682,6 @@ Rails/DuplicateAssociation:
     - 'app/serializers/activitypub/note_serializer.rb'
 
 # Configuration parameters: Include.
-# Include: app/**/*.rb, config/**/*.rb, lib/**/*.rb
-Rails/Exit:
-  Exclude:
-    - 'config/boot.rb'
-
-# Configuration parameters: Include.
 # Include: app/models/**/*.rb
 Rails/HasAndBelongsToMany:
   Exclude:
@@ -983,9 +815,9 @@ Rails/SkipsModelValidations:
     - 'db/post_migrate/20220617202502_migrate_roles.rb'
     - 'db/post_migrate/20221101190723_backfill_admin_action_logs.rb'
     - 'db/post_migrate/20221206114142_backfill_admin_action_logs_again.rb'
-    - 'lib/cli.rb'
-    - 'lib/mastodon/accounts_cli.rb'
-    - 'lib/mastodon/maintenance_cli.rb'
+    - 'lib/mastodon/cli/accounts.rb'
+    - 'lib/mastodon/cli/main.rb'
+    - 'lib/mastodon/cli/maintenance.rb'
     - 'spec/controllers/api/v1/admin/accounts_controller_spec.rb'
     - 'spec/lib/activitypub/activity/follow_spec.rb'
     - 'spec/services/follow_service_spec.rb'
@@ -1067,7 +899,7 @@ Rails/WhereExists:
     - 'app/validators/vote_validator.rb'
     - 'app/workers/move_worker.rb'
     - 'db/migrate/20190529143559_preserve_old_layout_for_existing_users.rb'
-    - 'lib/mastodon/email_domain_blocks_cli.rb'
+    - 'lib/mastodon/cli/email_domain_blocks.rb'
     - 'lib/tasks/tests.rake'
     - 'spec/controllers/api/v1/accounts/notes_controller_spec.rb'
     - 'spec/controllers/api/v1/tags_controller_spec.rb'
@@ -1129,7 +961,7 @@ Style/FormatStringToken:
   Exclude:
     - 'app/models/privacy_policy.rb'
     - 'config/initializers/devise.rb'
-    - 'lib/mastodon/maintenance_cli.rb'
+    - 'lib/mastodon/cli/maintenance.rb'
     - 'lib/paperclip/color_extractor.rb'
 
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -1577,9 +1409,9 @@ Style/GuardClause:
     - 'db/post_migrate/20220704024901_migrate_settings_to_user_roles.rb'
     - 'lib/devise/two_factor_ldap_authenticatable.rb'
     - 'lib/devise/two_factor_pam_authenticatable.rb'
-    - 'lib/mastodon/accounts_cli.rb'
-    - 'lib/mastodon/maintenance_cli.rb'
-    - 'lib/mastodon/media_cli.rb'
+    - 'lib/mastodon/cli/accounts.rb'
+    - 'lib/mastodon/cli/maintenance.rb'
+    - 'lib/mastodon/cli/media.rb'
     - 'lib/paperclip/attachment_extensions.rb'
     - 'lib/tasks/repo.rake'
 

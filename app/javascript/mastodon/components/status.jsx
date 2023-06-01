@@ -1,27 +1,32 @@
-import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
-import Avatar from './avatar';
-import AvatarOverlay from './avatar_overlay';
-import RelativeTimestamp from './relative_timestamp';
-import DisplayName from './display_name';
-import StatusContent from './status_content';
-import StatusActionBar from './status_action_bar';
-import StatusReactions from './status_reactions';
-import AttachmentList from './attachment_list';
-import Card from '../features/status/components/card';
+
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { MediaGallery, Video, Audio } from '../features/ui/util/async-components';
-import { HotKeys } from 'react-hotkeys';
+
 import classNames from 'classnames';
-import Icon from 'mastodon/components/icon';
-import { displayMedia, visibleReactions } from '../initial_state';
+
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
+
+import { HotKeys } from 'react-hotkeys';
+
+import { Icon }  from 'mastodon/components/icon';
 import PictureInPicturePlaceholder from 'mastodon/components/picture_in_picture_placeholder';
 
+import Card from '../features/status/components/card';
 // We use the component (and not the container) since we do not want
 // to use the progress bar to show download progress
 import Bundle from '../features/ui/components/bundle';
+import { MediaGallery, Video, Audio } from '../features/ui/util/async-components';
+import { displayMedia, visibleReactions } from '../initial_state';
+
+import AttachmentList from './attachment_list';
+import { Avatar } from './avatar';
+import { AvatarOverlay } from './avatar_overlay';
+import { DisplayName } from './display_name';
+import { RelativeTimestamp } from './relative_timestamp';
+import StatusActionBar from './status_action_bar';
+import StatusContent from './status_content';
+import StatusReactions from './status_reactions';
 
 export const textForScreenReader = (intl, status, rebloggedByText = false) => {
   const displayName = status.getIn(['account', 'display_name']);
@@ -55,7 +60,7 @@ export const defaultMediaVisibility = (status) => {
 const messages = defineMessages({
   public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },
   unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
-  private_short: { id: 'privacy.private.short', defaultMessage: 'Followers-only' },
+  private_short: { id: 'privacy.private.short', defaultMessage: 'Followers only' },
   direct_short: { id: 'privacy.direct.short', defaultMessage: 'Mentioned people only' },
   edited: { id: 'status.edited', defaultMessage: 'Edited {date}' },
 });
@@ -199,11 +204,12 @@ class Status extends ImmutablePureComponent {
 
   handleOpenVideo = (options) => {
     const status = this._properStatus();
-    this.props.onOpenVideo(status.get('id'), status.getIn(['media_attachments', 0]), options);
+    this.props.onOpenVideo(status.get('id'), status.getIn(['media_attachments', 0]), status.get('language'), options);
   };
 
   handleOpenMedia = (media, index) => {
-    this.props.onOpenMedia(this._properStatus().get('id'), media, index);
+    const status = this._properStatus();
+    this.props.onOpenMedia(status.get('id'), media, index, status.get('language'));
   };
 
   handleHotkeyOpenMedia = e => {
@@ -213,10 +219,11 @@ class Status extends ImmutablePureComponent {
     e.preventDefault();
 
     if (status.get('media_attachments').size > 0) {
+      const lang = status.get('language');
       if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
-        onOpenVideo(status.get('id'), status.getIn(['media_attachments', 0]), { startTime: 0 });
+        onOpenVideo(status.get('id'), status.getIn(['media_attachments', 0]), lang, { startTime: 0 });
       } else {
-        onOpenMedia(status.get('id'), status.get('media_attachments'), 0);
+        onOpenMedia(status.get('id'), status.get('media_attachments'), 0, lang);
       }
     }
   };
