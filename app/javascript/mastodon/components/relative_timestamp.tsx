@@ -53,7 +53,7 @@ const messages = defineMessages({
 });
 
 const dateFormatOptions = {
-  hourCycle: 'h23',
+  hour12: false,
   year: 'numeric',
   month: 'short',
   day: '2-digit',
@@ -269,7 +269,7 @@ class RelativeTimestamp extends Component<Props, States> {
     return (
       <time
         dateTime={timestamp}
-        title={date.toLocaleString(undefined, dateFormatOptions)}
+        title={intl.formatDate(date, dateFormatOptions)}
       >
         {relativeTime}
       </time>

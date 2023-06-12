@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+import { defineMessages, injectIntl, FormattedMessage, FormattedDate } from 'react-intl';
 
 import classNames from 'classnames';
 
@@ -337,29 +337,11 @@ class Announcement extends ImmutablePureComponent {
     const skipEndDate = hasTimeRange && startsAt.getDate() === endsAt.getDate() && startsAt.getMonth() === endsAt.getMonth() && startsAt.getFullYear() === endsAt.getFullYear();
     const skipTime = announcement.get('all_day');
 
-    const formattedStartsAt = startsAt?.toLocaleString(undefined, {
-      hourCycle: 'h23',
-      year: (skipYear || startsAt.getFullYear() === now.getFullYear()) ? undefined : 'numeric',
-      month: 'short',
-      day: '2-digit',
-      hour: skipTime ? undefined : '2-digit',
-      minute: skipTime ? undefined : '2-digit',
-    });
-
-    const formattedEndsAt = endsAt?.toLocaleString(undefined, {
-      hourCycle: 'h23',
-      year: (skipYear || startsAt.getFullYear() === now.getFullYear()) ? undefined : 'numeric',
-      month: skipEndDate ? undefined : 'short',
-      day: skipEndDate ? undefined : '2-digit',
-      hour: skipTime ? undefined : '2-digit',
-      minute: skipTime ? undefined : '2-digit',
-    });
-
     return (
       <div className='announcements__item'>
         <strong className='announcements__item__range'>
           <FormattedMessage id='announcement.announcement' defaultMessage='Announcement' />
-          {hasTimeRange && <span> · {formattedStartsAt} - {formattedEndsAt}</span>}
+          {hasTimeRange && <span> · <FormattedDate value={startsAt} hour12={false} year={(skipYear || startsAt.getFullYear() === now.getFullYear()) ? undefined : 'numeric'} month='short' day='2-digit' hour={skipTime ? undefined : '2-digit'} minute={skipTime ? undefined : '2-digit'} /> - <FormattedDate value={endsAt} hour12={false} year={(skipYear || endsAt.getFullYear() === now.getFullYear()) ? undefined : 'numeric'} month={skipEndDate ? undefined : 'short'} day={skipEndDate ? undefined : '2-digit'} hour={skipTime ? undefined : '2-digit'} minute={skipTime ? undefined : '2-digit'} /></span>}
         </strong>
 
         <Content announcement={announcement} />

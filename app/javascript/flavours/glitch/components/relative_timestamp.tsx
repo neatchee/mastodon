@@ -53,7 +53,7 @@ const messages = defineMessages({
 });
 
 const dateFormatOptions = {
-  hourCycle: 'h23',
+  hour12: false,
   year: 'numeric',
   month: 'short',
   day: '2-digit',
@@ -143,9 +143,9 @@ export const timeAgoString = (
       );
     }
   } else if (date.getFullYear() === year) {
-    relativeTime = date.toLocaleString(undefined, shortDateFormatOptions);
+    relativeTime = intl.formatDate(date, shortDateFormatOptions);
   } else {
-    relativeTime = date.toLocaleString(undefined, {
+    relativeTime = intl.formatDate(date, {
       ...shortDateFormatOptions,
       year: 'numeric',
     });
@@ -269,7 +269,7 @@ class RelativeTimestamp extends Component<Props, States> {
     return (
       <time
         dateTime={timestamp}
-        title={date.toLocaleString(undefined, dateFormatOptions)}
+        title={intl.formatDate(date, dateFormatOptions)}
       >
         {relativeTime}
       </time>

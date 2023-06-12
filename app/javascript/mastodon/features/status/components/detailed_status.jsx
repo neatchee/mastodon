@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
+import { injectIntl, defineMessages, FormattedDate, FormattedMessage } from 'react-intl';
 
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
@@ -306,7 +306,7 @@ class DetailedStatus extends ImmutablePureComponent {
 
           <div className='detailed-status__meta'>
             <a className='detailed-status__datetime' href={`/@${status.getIn(['account', 'acct'])}/${status.get('id')}`} target='_blank' rel='noopener noreferrer'>
-              {new Date(status.get('created_at')).toLocaleString(undefined, { hourCycle: 'h23', year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' })}
+              <FormattedDate value={new Date(status.get('created_at'))} hour12={false} year='numeric' month='short' day='2-digit' hour='2-digit' minute='2-digit' />
             </a>{edited}{visibilityLink}{applicationLink}{reblogLink} · {favouriteLink}
           </div>
         </div>
