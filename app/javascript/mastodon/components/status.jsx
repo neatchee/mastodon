@@ -28,13 +28,19 @@ import StatusActionBar from './status_action_bar';
 import StatusContent from './status_content';
 import StatusReactions from './status_reactions';
 
+const domParser = new DOMParser();
+
 export const textForScreenReader = (intl, status, rebloggedByText = false) => {
   const displayName = status.getIn(['account', 'display_name']);
 
+  const spoilerText = status.getIn(['translation', 'spoiler_text']) || status.get('spoiler_text');
+  const contentHtml = status.getIn(['translation', 'contentHtml']) || status.get('contentHtml');
+  const contentText = domParser.parseFromString(contentHtml, 'text/html').documentElement.textContent;
+
   const values = [
     displayName.length === 0 ? status.getIn(['account', 'acct']).split('@')[0] : displayName,
-    status.get('spoiler_text') && status.get('hidden') ? status.get('spoiler_text') : status.get('search_index').slice(status.get('spoiler_text').length),
-    new Date(status.get('created_at')).toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' }),
+    spoilerText && status.get('hidden') ? spoilerText : contentText,
+    intl.formatDate(status.get('created_at'), { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' }),
     status.getIn(['account', 'acct']),
   ];
 
@@ -204,12 +210,14 @@ class Status extends ImmutablePureComponent {
 
   handleOpenVideo = (options) => {
     const status = this._properStatus();
-    this.props.onOpenVideo(status.get('id'), status.getIn(['media_attachments', 0]), status.get('language'), options);
+    const lang = status.getIn(['translation', 'language']) || status.get('language');
+    this.props.onOpenVideo(status.get('id'), status.getIn(['media_attachments', 0]), lang, options);
   };
 
   handleOpenMedia = (media, index) => {
     const status = this._properStatus();
-    this.props.onOpenMedia(status.get('id'), media, index, status.get('language'));
+    const lang = status.getIn(['translation', 'language']) || status.get('language');
+    this.props.onOpenMedia(status.get('id'), media, index, lang);
   };
 
   handleHotkeyOpenMedia = e => {
@@ -219,7 +227,7 @@ class Status extends ImmutablePureComponent {
     e.preventDefault();
 
     if (status.get('media_attachments').size > 0) {
-      const lang = status.get('language');
+      const lang = status.getIn(['translation', 'language']) || status.get('language');
       if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
         onOpenVideo(status.get('id'), status.getIn(['media_attachments', 0]), lang, { startTime: 0 });
       } else {
@@ -425,6 +433,8 @@ class Status extends ImmutablePureComponent {
     if (pictureInPicture.get('inUse')) {
       media = <PictureInPicturePlaceholder />;
     } else if (status.get('media_attachments').size > 0) {
+      const language = status.getIn(['translation', 'language']) || status.get('language');
+
       if (this.props.muted) {
         media = (
           <AttachmentList
@@ -434,14 +444,15 @@ class Status extends ImmutablePureComponent {
         );
       } else if (status.getIn(['media_attachments', 0, 'type']) === 'audio') {
         const attachment = status.getIn(['media_attachments', 0]);
+        const description = attachment.getIn(['translation', 'description']) || attachment.get('description');
 
         media = (
           <Bundle fetchComponent={Audio} loading={this.renderLoadingAudioPlayer} >
             {Component => (
               <Component
                 src={attachment.get('url')}
-                alt={attachment.get('description')}
-                lang={status.get('language')}
+                alt={description}
+                lang={language}
                 poster={attachment.get('preview_url') || status.getIn(['account', 'avatar_static'])}
                 backgroundColor={attachment.getIn(['meta', 'colors', 'background'])}
                 foregroundColor={attachment.getIn(['meta', 'colors', 'foreground'])}
@@ -461,6 +472,7 @@ class Status extends ImmutablePureComponent {
         );
       } else if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
         const attachment = status.getIn(['media_attachments', 0]);
+        const description = attachment.getIn(['translation', 'description']) || attachment.get('description');
 
         media = (
           <Bundle fetchComponent={Video} loading={this.renderLoadingVideoPlayer} >
@@ -470,8 +482,8 @@ class Status extends ImmutablePureComponent {
                 frameRate={attachment.getIn(['meta', 'original', 'frame_rate'])}
                 blurhash={attachment.get('blurhash')}
                 src={attachment.get('url')}
-                alt={attachment.get('description')}
-                lang={status.get('language')}
+                alt={description}
+                lang={language}
                 inline
                 sensitive={status.get('sensitive')}
                 onOpenVideo={this.handleOpenVideo}
@@ -488,7 +500,7 @@ class Status extends ImmutablePureComponent {
             {Component => (
               <Component
                 media={status.get('media_attachments')}
-                lang={status.get('language')}
+                lang={language}
                 sensitive={status.get('sensitive')}
                 height={110}
                 onOpenMedia={this.handleOpenMedia}
