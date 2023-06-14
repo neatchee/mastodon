@@ -407,12 +407,6 @@ class UI extends Component {
 
     this.favicon = new Favico({ animation:'none' });
 
-    // On first launch, redirect to the follow recommendations page
-    if (signedIn && this.props.firstLaunch) {
-      this.context.router.history.replace('/start');
-      // TODO: this.props.dispatch(closeOnboarding());
-    }
-
     if (signedIn) {
       this.props.dispatch(fetchMarkers());
       this.props.dispatch(expandHomeTimeline());
