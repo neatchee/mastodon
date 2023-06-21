@@ -11,7 +11,7 @@ export type Search = string;
 /*
  * The 'skins' property does not exist in the application data.
  * This could be a potential area of refactoring or error handling.
- * The non-existence of 'skins' property is evident at [this location]{@link app/javascript/mastodon/features/emoji/emoji_compressed.js:121}.
+ * The non-existence of 'skins' property is evident at [this location]{@link app/javascript/flavours/glitch/features/emoji/emoji_compressed.js:121}.
  */
 export type Skins = null;
 
@@ -44,7 +44,7 @@ export type EmojiCompressed = [
 /*
  * `emoji_compressed.js` uses `babel-plugin-preval`, which makes it difficult to convert to TypeScript.
  * As a temporary solution, we are allowing a default export here to apply the TypeScript type `EmojiCompressed` to the JS file export.
- * - {@link app/javascript/mastodon/features/emoji/emoji_compressed.js}
+ * - {@link app/javascript/flavours/glitch/features/emoji/emoji_compressed.js}
  */
 declare const emojiCompressed: EmojiCompressed;
 

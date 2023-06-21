@@ -6,12 +6,6 @@ describe Sanitize::Config do
   shared_examples 'common HTML sanitization' do
     it 'keeps h1' do
       expect(Sanitize.fragment('<h1>Foo</h1>', subject)).to eq '<h1>Foo</h1>'
-  
-  describe '::MASTODON_STRICT' do
-    subject { Sanitize::Config::MASTODON_STRICT }
-
-    it 'converts h6 to p strong' do
-      expect(Sanitize.fragment('<h6>Foo</h6>', subject)).to eq '<p><strong>Foo</strong></p>'
     end
 
     it 'keeps ul' do
@@ -48,6 +42,10 @@ describe Sanitize::Config do
 
     it 'keeps a with supported scheme and no host' do
       expect(Sanitize.fragment('<a href="dweb:/a/foo">Test</a>', subject)).to eq '<a href="dweb:/a/foo" rel="nofollow noopener noreferrer" target="_blank">Test</a>'
+    end
+
+    it 'keeps title in abbr' do
+      expect(Sanitize.fragment('<abbr title="HyperText Markup Language">HTML</abbr>', subject)).to eq '<abbr title="HyperText Markup Language">HTML</abbr>'
     end
   end
 
