@@ -853,15 +853,6 @@ class Status extends ImmutablePureComponent {
             canReact={this.context.identity.signedIn}
           />
 
-          <StatusReactions
-            statusId={status.get('id')}
-            reactions={status.get('reactions')}
-            numVisible={visibleReactions}
-            addReaction={this.props.onReactionAdd}
-            removeReaction={this.props.onReactionRemove}
-            canReact={this.context.identity.signedIn}
-          />
-
           {!isCollapsed || !(muted || !settings.getIn(['collapsed', 'show_action_bar'])) ? (
             <StatusActionBar
               status={status}
