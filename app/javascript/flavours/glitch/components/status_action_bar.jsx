@@ -17,6 +17,7 @@ import EmojiPickerDropdown from '../features/compose/containers/emoji_picker_dro
 import { IconButton } from './icon_button';
 import { RelativeTimestamp } from './relative_timestamp';
 
+
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
   redraft: { id: 'status.redraft', defaultMessage: 'Delete & re-draft' },

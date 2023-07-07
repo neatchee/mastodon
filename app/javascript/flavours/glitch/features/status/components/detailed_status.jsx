@@ -52,9 +52,9 @@ class DetailedStatus extends ImmutablePureComponent {
       available: PropTypes.bool,
     }),
     onToggleMediaVisibility: PropTypes.func,
-    intl: PropTypes.object.isRequired,
     onReactionAdd: PropTypes.func.isRequired,
     onReactionRemove: PropTypes.func.isRequired,
+    intl: PropTypes.object.isRequired,
   };
 
   state = {

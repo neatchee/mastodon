@@ -50,7 +50,7 @@ import {
 } from '../actions/statuses';
 import Status from '../components/status';
 import { boostModal, deleteModal } from '../initial_state';
-import { makeGetStatus, makeGetPictureInPicture } from '../selectors';
+import { makeGetStatus, makeGetPictureInPicture} from '../selectors';
 
 const messages = defineMessages({
   deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
