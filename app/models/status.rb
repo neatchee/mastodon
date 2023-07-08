@@ -450,7 +450,7 @@ class Status < ApplicationRecord
   end
 
   def local_only_emoji
-    '👁'
+    ':dmo:'
   end
 
   def status_stat
