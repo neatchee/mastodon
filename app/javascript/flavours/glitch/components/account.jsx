@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import { defineMessages, injectIntl } from 'react-intl';
 
@@ -8,13 +7,13 @@ import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
-import { counterRenderer } from 'flavours/glitch/components/common_counter';
-import { Icon } from 'flavours/glitch/components/icon';
-import ShortNumber from 'flavours/glitch/components/short_number';
+import { ShortNumber}from 'flavours/glitch/components/short_number';
 import { Skeleton } from 'flavours/glitch/components/skeleton';
+import { VerifiedBadge } from 'flavours/glitch/components/verified_badge';
 import { me } from 'flavours/glitch/initial_state';
 
 import { Avatar } from './avatar';
+import { FollowersCounter } from './counters';
 import { DisplayName } from './display_name';
 import { IconButton } from './icon_button';
 import Permalink from './permalink';
@@ -32,26 +31,6 @@ const messages = defineMessages({
   mute: { id: 'account.mute', defaultMessage: 'Mute @{name}' },
   block: { id: 'account.block', defaultMessage: 'Block @{name}' },
 });
-
-class VerifiedBadge extends React.PureComponent {
-
-  static propTypes = {
-    link: PropTypes.string.isRequired,
-    verifiedAt: PropTypes.string.isRequired,
-  };
-
-  render () {
-    const { link } = this.props;
-
-    return (
-      <span className='verified-badge'>
-        <Icon id='check' className='verified-badge__mark' />
-        <span dangerouslySetInnerHTML={{ __html: link }} />
-      </span>
-    );
-  }
-
-}
 
 class Account extends ImmutablePureComponent {
 
@@ -189,7 +168,7 @@ class Account extends ImmutablePureComponent {
     const firstVerifiedField = account.get('fields').find(item => !!item.get('verified_at'));
 
     if (firstVerifiedField) {
-      verification = <>· <VerifiedBadge link={firstVerifiedField.get('value')} verifiedAt={firstVerifiedField.get('verified_at')} /></>;
+      verification = <VerifiedBadge link={firstVerifiedField.get('value')} verifiedAt={firstVerifiedField.get('verified_at')} />;
     }
 
     return small ? (
@@ -217,10 +196,14 @@ class Account extends ImmutablePureComponent {
               <Avatar account={account} size={size} />
             </div>
 
-            <div>
+            <div className='account__contents'>
               <DisplayName account={account} />
-              {!minimal && <><ShortNumber value={account.get('followers_count')} renderer={counterRenderer('followers')} /> {verification} {muteTimeRemaining}</>}
-            </div>
+              {!minimal && (
+                <div className='account__details'>
+                  <ShortNumber value={account.get('followers_count')} renderer={FollowersCounter} /> {verification} {muteTimeRemaining}
+                </div>
+              )}
+          </div>
           </Permalink>
           {buttons ?
             !minimal && (

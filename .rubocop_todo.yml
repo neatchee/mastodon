@@ -49,15 +49,6 @@ Layout/SpaceInLambdaLiteral:
     - 'config/environments/production.rb'
     - 'config/initializers/content_security_policy.rb'
 
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowedMethods, AllowedPatterns.
-Lint/AmbiguousBlockAssociation:
-  Exclude:
-    - 'spec/controllers/settings/two_factor_authentication/confirmations_controller_spec.rb'
-    - 'spec/controllers/settings/two_factor_authentication/otp_authentication_controller_spec.rb'
-    - 'spec/services/activitypub/process_status_update_service_spec.rb'
-    - 'spec/services/post_status_service_spec.rb'
-
 # Configuration parameters: AllowComments, AllowEmptyLambdas.
 Lint/EmptyBlock:
   Exclude:
@@ -106,11 +97,6 @@ Lint/NonLocalExitFromIterator:
 Lint/OrAssignmentToConstant:
   Exclude:
     - 'lib/sanitize_ext/sanitize_config.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-Lint/SendWithMixinArgument:
-  Exclude:
-    - 'config/application.rb'
 
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
@@ -171,29 +157,12 @@ Metrics/CyclomaticComplexity:
 Metrics/PerceivedComplexity:
   Max: 27
 
-Naming/AccessorMethodName:
-  Exclude:
-    - 'app/controllers/auth/sessions_controller.rb'
-
 # Configuration parameters: ExpectMatchingDefinition, CheckDefinitionPathHierarchy, CheckDefinitionPathHierarchyRoots, Regex, IgnoreExecutableScripts, AllowedAcronyms.
 # CheckDefinitionPathHierarchyRoots: lib, spec, test, src
 # AllowedAcronyms: CLI, DSL, ACL, API, ASCII, CPU, CSS, DNS, EOF, GUID, HTML, HTTP, HTTPS, ID, IP, JSON, LHS, QPS, RAM, RHS, RPC, SLA, SMTP, SQL, SSH, TCP, TLS, TTL, UDP, UI, UID, UUID, URI, URL, UTF8, VM, XML, XMPP, XSRF, XSS
 Naming/FileName:
   Exclude:
     - 'config/locales/sr-Latn.rb'
-
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: EnforcedStyleForLeadingUnderscores.
-# SupportedStylesForLeadingUnderscores: disallowed, required, optional
-Naming/MemoizedInstanceVariableName:
-  Exclude:
-    - 'app/controllers/api/v1/bookmarks_controller.rb'
-    - 'app/controllers/api/v1/favourites_controller.rb'
-    - 'app/controllers/concerns/rate_limit_headers.rb'
-    - 'app/lib/activitypub/activity.rb'
-    - 'app/services/resolve_url_service.rb'
-    - 'app/services/search_service.rb'
-    - 'config/initializers/rack_attack.rb'
 
 # Configuration parameters: EnforcedStyle, CheckMethodNames, CheckSymbols, AllowedIdentifiers, AllowedPatterns.
 # SupportedStyles: snake_case, normalcase, non_integer
@@ -404,45 +373,6 @@ RSpec/PendingWithoutReason:
   Exclude:
     - 'spec/models/account_spec.rb'
     - 'spec/models/status_reaction_spec.rb'
-
-RSpec/StubbedMock:
-  Exclude:
-    - 'spec/controllers/api/base_controller_spec.rb'
-    - 'spec/controllers/api/v1/media_controller_spec.rb'
-    - 'spec/controllers/auth/registrations_controller_spec.rb'
-    - 'spec/helpers/application_helper_spec.rb'
-    - 'spec/lib/status_filter_spec.rb'
-    - 'spec/lib/status_finder_spec.rb'
-    - 'spec/lib/webfinger_resource_spec.rb'
-    - 'spec/services/activitypub/process_collection_service_spec.rb'
-
-RSpec/SubjectDeclaration:
-  Exclude:
-    - 'spec/controllers/admin/domain_blocks_controller_spec.rb'
-    - 'spec/models/account_migration_spec.rb'
-    - 'spec/models/account_spec.rb'
-    - 'spec/models/relationship_filter_spec.rb'
-    - 'spec/models/user_role_spec.rb'
-    - 'spec/policies/account_moderation_note_policy_spec.rb'
-    - 'spec/policies/account_policy_spec.rb'
-    - 'spec/policies/backup_policy_spec.rb'
-    - 'spec/policies/custom_emoji_policy_spec.rb'
-    - 'spec/policies/domain_block_policy_spec.rb'
-    - 'spec/policies/email_domain_block_policy_spec.rb'
-    - 'spec/policies/instance_policy_spec.rb'
-    - 'spec/policies/invite_policy_spec.rb'
-    - 'spec/policies/relay_policy_spec.rb'
-    - 'spec/policies/report_note_policy_spec.rb'
-    - 'spec/policies/report_policy_spec.rb'
-    - 'spec/policies/settings_policy_spec.rb'
-    - 'spec/policies/tag_policy_spec.rb'
-    - 'spec/policies/user_policy_spec.rb'
-    - 'spec/services/activitypub/process_account_service_spec.rb'
-
-RSpec/SubjectStub:
-  Exclude:
-    - 'spec/services/unallow_domain_service_spec.rb'
-    - 'spec/validators/blacklisted_email_validator_spec.rb'
 
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Rails/ApplicationController:
@@ -1357,13 +1287,6 @@ Style/SafeNavigation:
     - 'app/models/status.rb'
 
 # This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'spec/services/activitypub/process_status_update_service_spec.rb'
-    - 'spec/validators/blacklisted_email_validator_spec.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: only_raise, only_fail, semantic
 Style/SignalException:
@@ -1375,21 +1298,6 @@ Style/SignalException:
 Style/SingleArgumentDig:
   Exclude:
     - 'lib/webpacker/manifest_extensions.rb'
-
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Style/SlicingWithRange:
-  Exclude:
-    - 'app/lib/emoji_formatter.rb'
-    - 'app/lib/text_formatter.rb'
-    - 'app/models/account_alias.rb'
-    - 'app/models/domain_block.rb'
-    - 'app/models/email_domain_block.rb'
-    - 'app/models/preview_card_provider.rb'
-    - 'app/validators/status_length_validator.rb'
-    - 'db/migrate/20190726175042_add_case_insensitive_index_to_tags.rb'
-    - 'lib/active_record/batches.rb'
-    - 'lib/mastodon/premailer_webpack_strategy.rb'
-    - 'lib/tasks/repo.rake'
 
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle.
