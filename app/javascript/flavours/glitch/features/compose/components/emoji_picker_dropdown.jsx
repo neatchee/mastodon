@@ -43,8 +43,8 @@ const notFoundFn = () => (
     <Emoji
       emoji='sleuth_or_spy'
       set='twitter'
-      size={32}
-      sheetSize={32}
+      size={33}
+      sheetSize={43}
       backgroundImageFn={backgroundImageFn}
     />
 
@@ -277,8 +277,8 @@ class EmojiPickerMenuImpl extends PureComponent {
     return (
       <div className={classNames('emoji-picker-dropdown__menu', { selecting: modifierOpen })} style={style} ref={this.setRef}>
         <EmojiPicker
-          perLine={8}
-          emojiSize={22}
+          perLine={7}
+          emojiSize={28}
           sheetSize={32}
           custom={buildCustomEmojis(custom_emojis)}
           color=''

@@ -7,7 +7,7 @@ import { changeSetting } from 'flavours/glitch/actions/settings';
 
 import EmojiPickerDropdown from '../components/emoji_picker_dropdown';
 
-const perLine = 8;
+const perLine = 7;
 const lines   = 2;
 
 const DEFAULTS = [
@@ -25,8 +25,6 @@ const DEFAULTS = [
   'weary',
   'sob',
   'sunglasses',
-  'heart',
-  'ok_hand',
 ];
 
 const getFrequentlyUsedEmojis = createSelector([

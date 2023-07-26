@@ -60,7 +60,6 @@ export default class LocalSettingsPage extends PureComponent {
     else if (onNavigate) return (
       <button
         onClick={handleClick}
-        tabIndex={0}
         className={finalClassName}
         title={title}
         aria-label={title}
