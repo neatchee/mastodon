@@ -34,7 +34,7 @@ const messages = defineMessages({
   reblog_private: { id: 'status.reblog_private', defaultMessage: 'Boost with original visibility' },
   cancel_reblog_private: { id: 'status.cancel_reblog_private', defaultMessage: 'Unboost' },
   cannot_reblog: { id: 'status.cannot_reblog', defaultMessage: 'This post cannot be boosted' },
-  favourite: { id: 'status.favourite', defaultMessage: 'Favourite' },
+  favourite: { id: 'status.favourite', defaultMessage: 'Favorite' },
   react: { id: 'status.react', defaultMessage: 'React' },
   bookmark: { id: 'status.bookmark', defaultMessage: 'Bookmark' },
   open: { id: 'status.open', defaultMessage: 'Expand this status' },

@@ -21,7 +21,6 @@ class UserSettings
   setting :visible_reactions, default: 6
 
   namespace :web do
-    setting :crop_images, default: true
     setting :advanced_layout, default: false
     setting :trends, default: true
     setting :use_blurhash, default: true
