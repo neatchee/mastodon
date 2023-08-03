@@ -13,7 +13,7 @@ $success-green: lighten(#3c754d, 8%);
 $base-overlay-background: $white !default;
 $valid-value-color: $success-green !default;
 
-$ui-base-color: #b5ccbe !default;
+$ui-base-color:  #b5ccbe !default;
 $ui-base-lighter-color: #d7e2d7;
 $ui-primary-color: #f4fce8;
 $ui-secondary-color: $classic-base-color !default;
@@ -52,8 +52,7 @@ $ui-button-tertiary-border-color: $blurple-300 !default;
 $ui-button-tertiary-focus-background-color: $blurple-600 !default;
 $ui-button-tertiary-focus-color: $white !default;
 
-$ui-button-destructive-background-color: $red-500 !default;
-$ui-button-destructive-focus-background-color: $red-600 !default;
+$ui-button-destructive-background-color: $red-500 !default; $ui-button-destructive-focus-background-color: $red-600 !default;
 
 // Newly added colors
 $account-background-color: $white !default;
