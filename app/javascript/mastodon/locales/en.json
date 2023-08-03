@@ -617,12 +617,8 @@
   "status.edited": "Edited {date}",
   "status.edited_x_times": "Edited {count, plural, one {{count} time} other {{count} times}}",
   "status.embed": "Embed",
-<<<<<<< HEAD
-  "status.favourite": "Favourite",
-  "status.react": "React",
-=======
   "status.favourite": "Favorite",
->>>>>>> glitch-soc/main
+  "status.react": "React",
   "status.filter": "Filter this post",
   "status.filtered": "Filtered",
   "status.hide": "Hide post",
