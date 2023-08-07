@@ -194,6 +194,7 @@ waha.desupost.soy,suspend,false,false,"Ableism, racism, transmisia",false
 vipgirlfriend.xxx,silence,true,false,Un-CWed NSFW,false
 sleepy.cafe,suspend,false,false,Transphobia,false
 rdrama.cc,suspend,false,false,"Hate speech, ""free speech"", trolling",false
+smartcraft.me,suspend,false,false,"ArtiBlock: alt fedi (poa.st,salastil.com)",false
 wake.st,suspend,false,false,Paedophilia and lolicon apologist,false
 wei.mentalswarf.com,suspend,false,false,nazi soapbox instance,false
 whinge.town,suspend,false,false,Federates with the usual suspects,false
@@ -379,16 +380,11 @@ affiliates.social,suspend,false,false,Dedicated affiliate marketing server,false
 f.haeder.net,suspend,false,false,Transphobia,false
 zztails.gay,suspend,false,false,"""Free speech"" instance, Racism",false
 social.shrimpcam.pw,suspend,false,false,Block circumvention,false
-ruinouspowe.rs,suspend,false,false,"CSAM, hate speech",false
 rodent.life,suspend,false,false,lolicon,false
 gentoo.live,suspend,false,false,"CSAM, hate speech",false
 skinheads.network,suspend,false,false,"CSAM, hate speech",false
 shota.house,suspend,false,false,"",false
-misskey.io,noop,true,false,Insufficient moderation capacity,false
-asbestos.cafe,suspend,false,false,MAGA / anti-vaxx,false
-cybercriminal.eu,suspend,true,true,"Spam, fascism, trolling",false
 minidisc.tokyo,suspend,false,false,"Harassment, ""free speech""",true
-cdrom.tokyo,suspend,false,false,"Harassment, ""free speech""",true
 plague.ee,suspend,false,false,Alt of banned instance,false
 boks.moe,suspend,false,false,"Hate speech, ""free speech"", trolling",false
 shrimpposter.club,suspend,false,false,Alt of banned instance,false
@@ -414,6 +410,9 @@ anemoneya.me,suspend,false,false,"",false
 angrytoday.com,suspend,false,false,"",false
 annihilation.social,suspend,false,false,"",false
 badly.co,suspend,false,false,"",false
+cybercriminal.eu,suspend,false,false,Fediblock spam/abuse,false
+misskey.io,noop,true,false,Insufficient moderation capacity,false
+owncast.cdrom.tokyo,suspend,false,false,Lolicon,false
 beepboop.ga,suspend,false,false,"",false
 bgzashtita.es,suspend,false,false,"",false
 bibly.com,suspend,false,false,"",false
@@ -577,3 +576,57 @@ mapsupport.de,suspend,false,false,Paedophilia,false
 clew.lol,suspend,false,false,Unmoderated racism,false
 ortodogs.info,suspend,false,false,"Unmoderated racism/slurs, ""free speech""",false
 seikora.one,silence,true,false,Uncensored and unattributed pornography,false
+ai.wiki,suspend,false,false,Bot farm,false
+artalley.masto.host,suspend,false,false,ArtiBlock: dni (baraag.net),false
+curiouscabbit.social,suspend,false,false,"ArtiBlock: dni (baraag.net,aethy.com)",false
+misskey.heonian.org,suspend,false,false,"ArtiBlock: dni (rot.gives,breastmilk.club,disqordia.space,outerkosm.us,shota.house)",false
+akko.quad.moe,suspend,false,false,"ArtiBlock: alt-fedi (shigusegubu.club,sleepy.cafe,suya.place,miniwa.moe,cawfee.club,kotobank.ch)",false
+masto.quad.moe,suspend,false,false,"ArtiBlock: alt-fedi (shigusegubu.club,sleepy.cafe,suya.place,miniwa.moe,cawfee.club,kotobank.ch)",false
+social.troplo.com,suspend,false,false,"ArtiBlock: alt-fedi (rdrama.cc,starnix.network,shitposter.club,refusal.biz,plus.st,asbestos.cafe,hidamari.apartments,leafposter.club,lizards.live)",false
+troplo.com,suspend,false,false,"ArtiBlock: alt-fedi (rdrama.cc,starnix.network,shitposter.club,refusal.biz,plus.st,asbestos.cafe,hidamari.apartments,leafposter.club,lizards.live)",false
+worm.pink,suspend,false,false,Fediblock spam/abuse,false
+asbestos.cafe,suspend,false,false,Fediblock spam/abuse,false
+disqordia.space,suspend,false,false,Racism masquerading as trans defenders,false
+blog.mapsupport.club,suspend,false,false,Paedophilia,false
+xarxamontgri.masto.host,suspend,false,false,Lack of moderation,false
+ani.9tail.net,suspend,false,false,ArtiBlock: alt-fedi,false
+tw.9tail.net,suspend,false,false,ArtiBlock: alt-fedi,false
+social.9tail.net,suspend,false,false,ArtiBlock: alt-fedi,false
+bbs.9tail.net,suspend,false,false,ArtiBlock: alt-fedi,false
+pleroma.lyricaltokarev.fun,suspend,false,false,"ArtiBlock: alt-fedi (poa.st,blob.cat,shitposter.club,asbestos.cafe,bae.st,sleepy.cafe)",false
+reisen.church,suspend,false,false,"ArtiBlock: alt fedi (shitposter.club,borg.social,getimiskon.xyz,udongein.xyz,waifuism.life,silliness.observer,ebin.club,miniwa.moe,asbestos.cafe,rot.gives)",false
+shotatube.xyz,suspend,false,false,ArtiBlock: alt-fedi,false
+social.kemonololi.com,suspend,false,false,"ArtiBlock: dni (aethy.com,baraag.net)",false
+mapsupport.club,suspend,false,false,"",false
+9tail.net,suspend,false,false,"",false
+messurrection.com,suspend,false,false,"",false
+outerkosm.us,suspend,true,true,Tolerant of hate instances,false
+tsukihi.me,silence,false,false,Misinformation and harassment,false
+loli.exposed,suspend,false,false,CSAM,false
+lewdieheaven.com,suspend,false,false,Paedophilia,false
+press.coop,silence,false,false,Very spammy; limited to keep the federated timeline readable,false
+techhub.social,silence,false,false,Temporary limit during spam campaign,false
+fediverse.bbad.com,suspend,false,false,"Hate speech, ""free speech"", trolling",false
+headpat.cafe,suspend,false,false,Lolicon,false
+den.raccoon.quest,suspend,false,false,Lolicon,false
+threads.net,suspend,false,false,Meta; suspended preemptively based on public statements regarding data usage,false
+super-gay.co,silence,false,false,Unmoderated extreme sexual language without CWs; more power to 'em but that's not what this community wants in the feeds,false
+plasmatrap.com,suspend,false,false,Harassment,false
+comp.lain.la,suspend,false,false,"Harassment, channers",false
+body.social,noop,true,false,Nudist community that does not require images marked sensitive,false
+h5q.net,suspend,false,false,CSAM,false
+thoughtful.social,suspend,false,false,Spam,false
+sm.shaw.app,suspend,false,false,Transmisia,false
+stop.voring.me,silence,false,false,"Poorly moderated, federates with known baddies",false
+firefish.social,silence,false,false,"Official instance for Firefish project, the lead dev of which has engaged in harassment and associates with known bad actors",false
+usualsuspects.lol,suspend,false,false,FediNuke,false
+retardedniggers.forsale,suspend,false,false,FediNuke,false
+plagu.ee,suspend,false,false,FediNuke,false
+onionfarms.org,suspend,false,false,FediNuke,false
+norwoodzero.net,suspend,false,false,FediNuke,false
+marsey.moe,suspend,false,false,FediNuke,false
+makemysarcophagus.com,suspend,false,false,FediNuke,false
+decayable.ink,suspend,false,false,FediNuke,false
+boymoder.biz,suspend,false,false,FediNuke,false
+bassam.social,suspend,false,false,FediNuke,false
+adachi.party,suspend,false,false,FediNuke,false
