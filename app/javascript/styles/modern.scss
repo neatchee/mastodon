@@ -4423,11 +4423,7 @@ body:not(.flavour-glitch)
   #mastodon .status__action-bar .icon-button {
     margin: 0 !important;
     justify-content: center;
-    padding: 0.7em !important;
-  }
-
-  #mastodon .status__action-bar .icon-button:first-child {
-    margin-inline-start: -10px !important;
+    padding-top: 0.7em !important;
   }
 
   #mastodon .icon-button:after {

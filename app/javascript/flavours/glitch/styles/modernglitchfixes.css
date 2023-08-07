@@ -258,3 +258,12 @@ body.app-body.flavour-glitch > #mastodon .character-counter__wrapper {
     max-width: unset !important;
   }
 }
+
+body.app-body.flavour-glitch > #mastodon .notification__message > span,
+.notification__message > span > span,
+.status__prepend > span,
+.status__prepend > span > span {
+  display: unset !important;
+  flex-wrap: unset !important;
+  gap: unset !important;
+}
