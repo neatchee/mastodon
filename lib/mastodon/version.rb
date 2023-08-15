@@ -9,19 +9,19 @@ module Mastodon
     end
 
     def minor
-      1
+      2
     end
 
     def patch
-      5
+      0
     end
 
     def flags
-      ''
+      ENV.fetch('MASTODON_VERSION_FLAGS', '-beta1')
     end
 
     def suffix
-      '+glitch+urusai+sakura'
+      "+glitch+urusai+sakura#{ENV.fetch('MASTODON_VERSION_SUFFIX', '')}"
     end
 
     def to_a

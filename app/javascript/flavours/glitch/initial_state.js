@@ -84,6 +84,7 @@
  * @property {boolean=} use_pending_items
  * @property {string} version
  * @property {number} visible_reactions
+ * @property {string} sso_redirect
  * @property {boolean} translation_enabled
  * @property {number} visible_reactions
  * @property {string} status_page_url
@@ -166,6 +167,7 @@ export const version = getMeta('version');
 export const visibleReactions = getMeta('visible_reactions');
 export const languages = initialState?.languages;
 export const statusPageUrl = getMeta('status_page_url');
+export const sso_redirect = getMeta('sso_redirect');
 
 // Glitch-soc-specific settings
 export const maxChars = (initialState && initialState.max_toot_chars) || 500;
