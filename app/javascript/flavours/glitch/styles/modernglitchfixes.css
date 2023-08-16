@@ -89,11 +89,6 @@ body.app-body.flavour-glitch > #mastodon .reactions-bar button {
   border-radius: 6px !important;
   padding-block: 2px;
 }
-@media (pointer: coarse) {
-  body.app-body.flavour-glitch > #mastodon .reactions-bar button {
-    padding: 8px 10px !important;
-  }
-}
 
 body.app-body.flavour-glitch > #mastodon .reactions-bar:empty {
   display: none;
