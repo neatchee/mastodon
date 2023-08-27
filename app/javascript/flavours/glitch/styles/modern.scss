@@ -3742,16 +3742,6 @@ body:not(.flavour-glitch)
     .announcements__container {
     width: 100% !important;
   }
-
-  .layout-single-column #mastodon .tabs-bar__wrapper .announcements__mastodon,
-  .layout-single-column
-    #mastodon
-    .column-back-button--slim
-    .column-back-button
-    .announcements__mastodon {
-    z-index: -1;
-    position: relative;
-  }
 }
 
 @media (width >=890px) and (width >=1320px) {

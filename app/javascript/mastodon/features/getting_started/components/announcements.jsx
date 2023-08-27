@@ -12,13 +12,12 @@ import TransitionMotion from 'react-motion/lib/TransitionMotion';
 import spring from 'react-motion/lib/spring';
 import ReactSwipeableViews from 'react-swipeable-views';
 
-import elephantUIPlane from 'mastodon/../images/elephant_ui_plane.svg';
 import { AnimatedNumber } from 'mastodon/components/animated_number';
 import { Icon }  from 'mastodon/components/icon';
 import { IconButton } from 'mastodon/components/icon_button';
 import EmojiPickerDropdown from 'mastodon/features/compose/containers/emoji_picker_dropdown_container';
 import unicodeMapping from 'mastodon/features/emoji/emoji_unicode_mapping_light';
-import { autoPlayGif, reduceMotion, disableSwiping, mascot } from 'mastodon/initial_state';
+import { autoPlayGif, reduceMotion, disableSwiping } from 'mastodon/initial_state';
 import { assetHost } from 'mastodon/utils/config';
 
 const messages = defineMessages({
@@ -420,8 +419,6 @@ class Announcements extends ImmutablePureComponent {
 
     return (
       <div className='announcements'>
-        <img className='announcements__mastodon' alt='' draggable='false' src={mascot || elephantUIPlane} />
-
         <div className='announcements__container'>
           <ReactSwipeableViews animateHeight animateTransitions={!reduceMotion} index={index} onChangeIndex={this.handleChangeIndex}>
             {announcements.map((announcement, idx) => (
