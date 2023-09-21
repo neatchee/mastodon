@@ -63,3 +63,8 @@ yarn-debug.log
 
 # Ignore Docker option files
 docker-compose.override.yml
+
+# Ignore some local files for Urusai
+import_emoji.rb
+log.txt
+public.old/
