@@ -247,6 +247,7 @@ glowers.club,suspend,false,false,BlocklistsImport,false
 librem.one,suspend,false,false,Lack of moderation oversight for harmful ideologies,false
 twtr.plus,silence,false,false,Twitter relay,false
 beefyboys.win,suspend,false,false,"Hate speech, ""free speech"", trolling",false
+redplanetlabs.com,suspend,false,false,Spam,false
 honey.church,suspend,false,false,BlocklistsImport,false
 ihatebeinga.live,suspend,false,false,BlocklistsImport,false
 inex.rocks,suspend,false,false,BlocklistsImport,false
@@ -374,7 +375,6 @@ refusal.biz,suspend,false,false,"Racism, antisemitism",false
 weeaboo.space,suspend,false,false,"Federates with known hate and lolicon instances, ""Free Speech""",false
 udongein.xyz,silence,false,false,Insufficient moderation policies; doesn't defederate hate instances,false
 mastinator.com,suspend,false,false,Public indexing and copying of follower-only posts,false
-fediverse.dotnet00.dev,noop,true,false,"",false
 squid.kids,suspend,false,false,Antisemitism ,false
 affiliates.social,suspend,false,false,Dedicated affiliate marketing server,false
 f.haeder.net,suspend,false,false,Transphobia,false
@@ -413,6 +413,7 @@ badly.co,suspend,false,false,"",false
 cybercriminal.eu,suspend,false,false,Fediblock spam/abuse,false
 misskey.io,noop,true,false,Insufficient moderation capacity,false
 owncast.cdrom.tokyo,suspend,false,false,Lolicon,false
+fediverse.dotnet00.dev,noop,true,false,"",false
 beepboop.ga,suspend,false,false,"",false
 bgzashtita.es,suspend,false,false,"",false
 bibly.com,suspend,false,false,"",false
@@ -630,3 +631,38 @@ decayable.ink,suspend,false,false,FediNuke,false
 boymoder.biz,suspend,false,false,FediNuke,false
 bassam.social,suspend,false,false,FediNuke,false
 adachi.party,suspend,false,false,FediNuke,false
+amazonaws.com,suspend,false,false,"",false
+app.github.dev,suspend,false,false,"",false
+cloud.okteto.net,suspend,false,false,"",false
+cloud.scaleway.com,suspend,false,false,"",false
+cloudapp.azure.com,suspend,false,false,"",false
+cloudplane.app,suspend,false,false,"",false
+deno.dev,suspend,false,false,"",false
+elestio.app,suspend,false,false,"",false
+gitpod.io,suspend,false,false,"",false
+grid.tf,suspend,false,false,"",false
+instances.scw.cloud,suspend,false,false,"",false
+lhr.life,suspend,false,false,"",false
+lhrtunnel.link,suspend,false,false,"",false
+loca.lt,suspend,false,false,"",false
+localhost.run,suspend,false,false,"",false
+localtunnel.me,suspend,false,false,"",false
+ngrok-free.app,suspend,false,false,"",false
+ngrok.io,suspend,false,false,"",false
+nrk.cloud,suspend,false,false,"",false
+openshiftapps.com,suspend,false,false,"",false
+pktriot.net,suspend,false,false,"",false
+rsc.cdn77.org,suspend,false,false,"",false
+trycloudflare.com,suspend,false,false,"",false
+vienna1.greenedgecloud.com,suspend,false,false,"",false
+vps.ovh.ca,suspend,false,false,"",false
+lab.nyanide.com,suspend,false,false,"""Free speech"", hate-speech, grooming, misgendering, racism, fascism",false
+burggit.moe,suspend,false,false,Lolicon,false
+twi.social,suspend,false,false,CSAM,false
+neomobius.com,suspend,false,false,"CSAM, unmoderated pornography",false
+fosstodon.org,silence,false,false,"Insufficient moderation, moderation actions in support of hate groups",false
+pettanko.art,suspend,false,false,CSAM,false
+quietplace.xyz,suspend,false,false,Rules forbidding LGBT support; lolicon,false
+rqd2.net,suspend,false,false,"""MAP"" support therefore CSAM",false
+tech.lgbt,silence,false,true,Moderation and leadership not aligned with our community values,false
+artisan.chat,silence,false,true,Moderation and leadership not aligned with our community values,false
