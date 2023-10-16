@@ -12,6 +12,14 @@
   }
 }
 
+.account__note
+{
+ color: $darker-text-color !important;
+}
+
+.follow-recommendations-account .icon-button {
+  color: $link-color !important;
+}
 .compose-form .autosuggest-input label .autosuggest-textarea__textarea,
 .compose-form .autosuggest-textarea label .autosuggest-textarea__textarea {
   background: $ui-base-lighter-color !important;
