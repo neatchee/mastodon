@@ -109,7 +109,7 @@ class LinkFooter extends React.PureComponent {
           {DividingCircle}
           <a href={source_url} rel='noopener noreferrer' target='_blank'><FormattedMessage id='footer.source_code' defaultMessage='View source code' /></a>
           {DividingCircle}
-          <span class='version'>v{version}</span>
+          <span className='version'>v{version}</span>
         </p>
       </div>
     );

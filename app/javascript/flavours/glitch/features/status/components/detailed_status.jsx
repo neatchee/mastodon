@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { injectIntl, FormattedDate } from 'react-intl';
 
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
@@ -22,6 +22,7 @@ import VisibilityIcon from 'flavours/glitch/components/status_visibility_icon';
 import PollContainer from 'flavours/glitch/containers/poll_container';
 import Audio from 'flavours/glitch/features/audio';
 import Video from 'flavours/glitch/features/video';
+import { WithRouterPropTypes } from 'flavours/glitch/utils/react_router';
 
 import scheduleIdleTask from '../../ui/util/schedule_idle_task';
 
@@ -30,7 +31,6 @@ import Card from './card';
 class DetailedStatus extends ImmutablePureComponent {
 
   static contextTypes = {
-    router: PropTypes.object,
     identity: PropTypes.object,
   };
 
@@ -55,6 +55,7 @@ class DetailedStatus extends ImmutablePureComponent {
     onReactionAdd: PropTypes.func.isRequired,
     onReactionRemove: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
+    ...WithRouterPropTypes,
   };
 
   state = {
@@ -62,18 +63,18 @@ class DetailedStatus extends ImmutablePureComponent {
   };
 
   handleAccountClick = (e) => {
-    if (e.button === 0 && !(e.ctrlKey || e.altKey || e.metaKey) && this.context.router) {
+    if (e.button === 0 && !(e.ctrlKey || e.altKey || e.metaKey) && this.props.history) {
       e.preventDefault();
-      this.context.router.history.push(`/@${this.props.status.getIn(['account', 'acct'])}`);
+      this.props.history.push(`/@${this.props.status.getIn(['account', 'acct'])}`);
     }
 
     e.stopPropagation();
   };
 
   parseClick = (e, destination) => {
-    if (e.button === 0 && !(e.ctrlKey || e.altKey || e.metaKey) && this.context.router) {
+    if (e.button === 0 && !(e.ctrlKey || e.altKey || e.metaKey) && this.props.history) {
       e.preventDefault();
-      this.context.router.history.push(destination);
+      this.props.history.push(destination);
     }
 
     e.stopPropagation();
@@ -254,7 +255,7 @@ class DetailedStatus extends ImmutablePureComponent {
 
     if (!['unlisted', 'public'].includes(status.get('visibility'))) {
       reblogLink = null;
-    } else if (this.context.router) {
+    } else if (this.props.history) {
       reblogLink = (
         <>
           {' · '}
@@ -280,7 +281,7 @@ class DetailedStatus extends ImmutablePureComponent {
       );
     }
 
-    if (this.context.router) {
+    if (this.props.history) {
       favouriteLink = (
         <Link to={`/@${status.getIn(['account', 'acct'])}/${status.get('id')}/favourites`} className='detailed-status__link'>
           <Icon id='star' />
@@ -354,4 +355,4 @@ class DetailedStatus extends ImmutablePureComponent {
 
 }
 
-export default injectIntl(DetailedStatus);
+export default withRouter(injectIntl(DetailedStatus));

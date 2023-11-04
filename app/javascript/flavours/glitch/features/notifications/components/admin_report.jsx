@@ -1,19 +1,18 @@
-//  Package imports.
 import PropTypes from 'prop-types';
 
 import { FormattedMessage } from 'react-intl';
 
 import classNames from 'classnames';
+import { withRouter } from 'react-router-dom';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
 import { HotKeys } from 'react-hotkeys';
 
-
-// Our imports.
 import { Icon } from 'flavours/glitch/components/icon';
 import Permalink from 'flavours/glitch/components/permalink';
+import { WithRouterPropTypes } from 'flavours/glitch/utils/react_router';
 
 import NotificationOverlayContainer from '../containers/overlay_container';
 
@@ -28,6 +27,7 @@ class AdminReport extends ImmutablePureComponent {
     notification: ImmutablePropTypes.map.isRequired,
     unread: PropTypes.bool,
     report: ImmutablePropTypes.map.isRequired,
+    ...WithRouterPropTypes,
   };
 
   handleMoveUp = () => {
@@ -45,15 +45,15 @@ class AdminReport extends ImmutablePureComponent {
   };
 
   handleOpenProfile = () => {
-    const { notification } = this.props;
-    this.context.router.history.push(`/@${notification.getIn(['account', 'acct'])}`);
+    const { history, notification } = this.props;
+    history.push(`/@${notification.getIn(['account', 'acct'])}`);
   };
 
   handleMention = e => {
     e.preventDefault();
 
-    const { notification, onMention } = this.props;
-    onMention(notification.get('account'), this.context.router.history);
+    const { history, notification, onMention } = this.props;
+    onMention(notification.get('account'), history);
   };
 
   getHandlers () {
@@ -112,4 +112,4 @@ class AdminReport extends ImmutablePureComponent {
 
 }
 
-export default AdminReport;
+export default withRouter(AdminReport);

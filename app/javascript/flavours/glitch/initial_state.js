@@ -83,7 +83,6 @@
  * @property {boolean} use_blurhash
  * @property {boolean=} use_pending_items
  * @property {string} version
- * @property {number} visible_reactions
  * @property {string} sso_redirect
  * @property {boolean} translation_enabled
  * @property {number} visible_reactions
@@ -97,6 +96,7 @@ const initialPath = document.querySelector("head meta[name=initialPath]")?.getAt
 /** @type {boolean} */
 export const hasMultiColumnPath = initialPath === '/'
   || initialPath === '/getting-started'
+  || initialPath === '/home'
   || initialPath.startsWith('/deck');
 
 /**
