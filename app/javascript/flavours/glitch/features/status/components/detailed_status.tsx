@@ -30,6 +30,7 @@ import { IconLogo } from 'flavours/glitch/components/logo';
 import MediaGallery from 'flavours/glitch/components/media_gallery';
 import { Permalink } from 'flavours/glitch/components/permalink';
 import { MentionsPlaceholder } from 'flavours/glitch/components/status/legacy/mentions_placeholder';
+import StatusReactions from 'flavours/glitch/components/status/legacy/reactions';
 import { VisibilityIcon } from 'flavours/glitch/components/visibility_icon';
 import { Audio } from 'flavours/glitch/features/audio';
 import { CollectionPreviewCard } from 'flavours/glitch/features/collections/components/collection_preview_card';
@@ -69,6 +70,8 @@ export const DetailedStatus: React.FC<{
   pictureInPicture: any;
   onToggleHidden?: (status: any) => void;
   onToggleMediaVisibility?: () => void;
+  onReactionAdd?: (status: any, name: string, url: string) => void;
+  onReactionRemove?: (status: any, name: string) => void;
   ancestors?: number;
   multiColumn?: boolean;
   expanded: boolean;
@@ -86,6 +89,8 @@ export const DetailedStatus: React.FC<{
   pictureInPicture,
   onToggleMediaVisibility,
   onToggleHidden,
+  onReactionAdd,
+  onReactionRemove,
   ancestors = 0,
   multiColumn = false,
   expanded,
@@ -554,6 +559,14 @@ export const DetailedStatus: React.FC<{
 
         {/* This is a glitch-soc addition to have a placeholder */}
         {!expanded && <MentionsPlaceholder status={status} />}
+
+        <StatusReactions
+          statusId={status.get('id')}
+          reactions={status.get('reactions')}
+          addReaction={onReactionAdd}
+          removeReaction={onReactionRemove}
+          canReact={signedIn}
+        />
 
         <div className='detailed-status__meta'>
           <div className='detailed-status__meta__line'>

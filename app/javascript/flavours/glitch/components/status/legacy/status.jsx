@@ -19,7 +19,7 @@ import Card from '@/flavours/glitch/features/status/components/card';
 import Bundle from '@/flavours/glitch/features/ui/components/bundle';
 import { MediaGallery, Video, Audio } from '@/flavours/glitch/features/ui/util/async-components';
 import { SensitiveMediaContext } from '@/flavours/glitch/features/ui/util/sensitive_media_context';
-import { displayMedia } from '@/flavours/glitch/initial_state';
+import { displayMedia, visibleReactions } from '@/flavours/glitch/initial_state';
 import { CollectionPreviewCard } from '@/flavours/glitch/features/collections/components/collection_preview_card';
 import { compareUrls } from '@/flavours/glitch/utils/compare_urls';
 import AttachmentList from '@/flavours/glitch/components/attachment_list';
@@ -34,6 +34,7 @@ import StatusActionBar from './action_bar';
 import StatusContent from './content';
 import StatusIcons from './icons';
 import StatusPrepend from './prepend';
+import StatusReactions from './reactions';
 
 const domParser = new DOMParser();
 
@@ -101,6 +102,8 @@ class Status extends ImmutablePureComponent {
     onDelete: PropTypes.func,
     onDirect: PropTypes.func,
     onMention: PropTypes.func,
+    onReactionAdd: PropTypes.func,
+    onReactionRemove: PropTypes.func,
     onPin: PropTypes.func,
     onOpenMedia: PropTypes.func,
     onOpenVideo: PropTypes.func,
@@ -685,6 +688,7 @@ class Status extends ImmutablePureComponent {
     if (this.props.prepend && account) {
       const notifKind = {
         favourite: 'favourited',
+        reaction: 'reacted',
         reblog: 'boosted',
         reblogged_by: 'boosted',
         status: 'posted',
@@ -780,6 +784,15 @@ class Status extends ImmutablePureComponent {
 
             {/* This is a glitch-soc addition to have a placeholder */}
             {!expanded && <MentionsPlaceholder status={status} />}
+
+            <StatusReactions
+              statusId={status.get('id')}
+              reactions={status.get('reactions')}
+              numVisible={visibleReactions}
+              addReaction={this.props.onReactionAdd}
+              removeReaction={this.props.onReactionRemove}
+              canReact={this.context.identity.signedIn}
+            />
 
             {(showActions && !isQuotedPost) &&
               <StatusActionBar
