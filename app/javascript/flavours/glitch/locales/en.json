@@ -160,6 +160,5 @@
   "status.local_only": "Only visible from your instance",
   "status.react": "React",
   "status.uncollapse": "Uncollapse",
-  "suggestions.dismiss": "Dismiss suggestion",
-  "tooltips.reactions": "Reactions"
+  "suggestions.dismiss": "Dismiss suggestion"
 }
