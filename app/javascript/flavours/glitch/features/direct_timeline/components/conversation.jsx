@@ -229,15 +229,15 @@ export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown, se
             </div>
           </div>
 
-            <StatusContent
-              status={lastStatus}
-              parseClick={parseClick}
-              expanded={sharedCWState ? lastStatus.get('hidden') : isExpanded}
-              onExpandedToggle={handleShowMore}
-              collapsible
-              media={media}
-              zoomEmojisOnHover={settings.get('zoom_emojis_on_hover')}
-            />
+          <StatusContent
+            status={lastStatus}
+            parseClick={parseClick}
+            expanded={sharedCWState ? lastStatus.get('hidden') : isExpanded}
+            onExpandedToggle={handleShowMore}
+            collapsible
+            media={media}
+            zoomEmojisOnHover={settings.get('zoom_emojis_on_hover')}
+          />
 
           <div className='status__action-bar'>
             <IconButton className='status__action-bar-button' title={intl.formatMessage(messages.reply)} icon='reply' iconComponent={ReplyIcon} onClick={handleReply} />
@@ -266,4 +266,5 @@ Conversation.propTypes = {
   scrollKey: PropTypes.string,
   onMoveUp: PropTypes.func,
   onMoveDown: PropTypes.func,
+  settings: ImmutablePropTypes.map.isRequired
 };
