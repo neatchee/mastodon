@@ -165,7 +165,6 @@ export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown, se
     if (lastStatus.get('spoiler_text')) {
       setExpanded(!expanded);
     }
-
   }, [dispatch, lastStatus, expanded]);
 
   if (lastStatus === null) {
