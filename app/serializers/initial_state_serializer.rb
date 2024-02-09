@@ -6,7 +6,7 @@ class InitialStateSerializer < ActiveModel::Serializer
   attributes :meta, :compose, :accounts,
              :media_attachments, :settings,
              :max_toot_chars, :poll_limits,
-             :languages
+             :languages, :max_reactions
 
   attribute :critical_updates_pending, if: -> { object&.role&.can?(:view_devops) && SoftwareUpdate.check_enabled? }
 
@@ -15,6 +15,10 @@ class InitialStateSerializer < ActiveModel::Serializer
 
   def max_toot_chars
     StatusLengthValidator::MAX_CHARS
+  end
+
+  def max_reactions
+    StatusReactionValidator::LIMIT
   end
 
   def poll_limits
@@ -46,6 +50,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:default_content_type] = object_account_user.setting_default_content_type
       store[:system_emoji_font] = object_account_user.setting_system_emoji_font
       store[:show_trends]       = Setting.trends && object_account_user.setting_trends
+      store[:visible_reactions] = object_account_user.setting_visible_reactions
     else
       store[:auto_play_gif] = Setting.auto_play_gif
       store[:display_media] = Setting.display_media

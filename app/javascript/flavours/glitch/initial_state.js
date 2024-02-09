@@ -24,6 +24,7 @@
  * @property {boolean} limited_federation_mode
  * @property {string} locale
  * @property {string | null} mascot
+ * @property {number} max_reactions
  * @property {string=} me
  * @property {string=} moved_to_account_id
  * @property {string=} owner
@@ -44,6 +45,7 @@
  * @property {boolean} use_blurhash
  * @property {boolean=} use_pending_items
  * @property {string} version
+ * @property {number} visible_reactions
  * @property {string} sso_redirect
  * @property {boolean} translation_enabled
  * @property {string} status_page_url
@@ -68,6 +70,7 @@ export const hasMultiColumnPath = initialPath === '/'
  * @property {object} local_settings
  * @property {number} max_toot_chars
  * @property {number} poll_limits
+ * @property {number} max_reactions
  */
 
 const element = document.getElementById('initial-state');
@@ -104,6 +107,7 @@ export const expandSpoilers = getMeta('expand_spoilers');
 export const forceSingleColumn = !getMeta('advanced_layout');
 export const limitedFederationMode = getMeta('limited_federation_mode');
 export const mascot = getMeta('mascot');
+export const maxReactions = (initialState && initialState.max_reactions) || 1;
 export const me = getMeta('me');
 export const movedToAccountId = getMeta('moved_to_account_id');
 export const owner = getMeta('owner');
@@ -123,6 +127,7 @@ export const unfollowModal = getMeta('unfollow_modal');
 export const useBlurhash = getMeta('use_blurhash');
 export const usePendingItems = getMeta('use_pending_items');
 export const version = getMeta('version');
+export const visibleReactions = getMeta('visible_reactions');
 export const languages = initialState?.languages;
 export const criticalUpdatesPending = initialState?.critical_updates_pending;
 export const statusPageUrl = getMeta('status_page_url');
