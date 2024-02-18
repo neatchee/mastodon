@@ -49,6 +49,7 @@ class Form::AdminSettings
     app_icon
     favicon
     reject_pattern
+    reject_blurhash
   ).freeze
 
   INTEGER_KEYS = %i(
