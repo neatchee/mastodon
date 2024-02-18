@@ -774,6 +774,7 @@ ja:
           approved: 登録には承認が必要
           none: 誰にも許可しない
           open: 誰でも登録可
+        warning_hint: モデレーションチームがスパムや悪意のある登録を迅速に処理できる自信がない限り、サインアップを承認制にすることをお勧めします。
       reject_blurhash:
         desc_html: Create Activityの添付画像を検査するblurhashを設定し、一致する場合はActivityを拒否します
         title: 拒否画像ハッシュ
