@@ -25,20 +25,23 @@ body.app-body.flavour-glitch > #mastodon .notification__message > span,
   display: none;
 }
 
-#mastodon
-  .compose-form
-  .compose-form__highlightable
-  .compose-form__submit
-  button,
-#mastodon
-  .compose-form
-  .compose-form__highlightable
-  > .compose-form__footer
-  .compose-form__buttons
-  button {
-  padding: 3px;
-}
-
 body.app-body.flavour-glitch > #mastodon .reactions-bar button:not(.active) {
   background: lighten($ui-base-color, 12%);
+}
+
+#mastodon .compose-form > .navigation-bar {
+  margin-top: 10px !important;
+}
+
+#mastodon .compose-form {
+  gap: 10px !important;
+}
+
+body.app-body.flavour-glitch
+  > #mastodon
+  .reactions-bar
+  .emoji-picker-dropdown
+  button {
+  margin-left: 5px;
+  padding: 6px;
 }
