@@ -86,10 +86,6 @@ export default class ColumnSettings extends PureComponent {
           </section>
         )}
 
-        <div className='column-settings__row'>
-          <ClearColumnButton onClick={onClear} />
-        </div>
-
         <section role='group' aria-labelledby='notifications-grouping'>
           <span id='notifications-grouping' className='column-settings__section'>
             <FormattedMessage id='notifications.column_settings.notification_grouping.category' defaultMessage='Notification Grouping' />
