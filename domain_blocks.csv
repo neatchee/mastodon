@@ -14,6 +14,7 @@ berserker.town,suspend,false,false,"Federating with 'free speech' instances, hos
 *.bigguys.club,suspend,false,false,"Neo-nazis, harassment",false
 bikeshed.party,suspend,false,false,"Harassment, federating with Gab, etc.",false
 blob.cat,suspend,false,false,"freespeechextremist.com association, federating with Kiwifarms",false
+dev.brighteon.social,suspend,false,false,Disinformation ,false
 busshi.moe,suspend,false,false,Allows lolicon,false
 cachapa.moe,suspend,false,false,Racism,false
 carnivore.social,suspend,false,false,"Conspiracies, MAGA / truthsocial crowd",false
@@ -38,6 +39,7 @@ d-fens.systems,suspend,false,false,kiwifarms,false
 dickkickextremist.xyz,suspend,false,false,"Federates with instances that violate our CoC/ToS such as Gab, etc.",false
 djsumdog.com,suspend,false,false,"Antivax, harassment",false
 dlf.social,suspend,false,false,Paedophilia,false
+eientei.org,suspend,false,false,"non-moderated homophobia, transphobia & anti-semitism",false
 eveningzoo.club,suspend,false,false,"free speech, conspiracy theory, racism, antisemitism, fascism",false
 fedi.absturztau.be,suspend,false,false,"freespeechextremist.com association, federating with Kiwifarms",false
 fedi.app,suspend,false,false,Data mining instance,false
@@ -46,7 +48,6 @@ fedi.intkos.link,suspend,false,false,"Free speech, antisemitism",false
 fedi.pawlicker.com,suspend,false,false,"transphobia, racism, kiwifarms, loli, conspiracy theories",false
 fightbig.tech,suspend,false,false,"Free speech instance, far-right ideology",false
 fr13nd5.com,suspend,false,false,Federates with the usual suspects,false
-dev.brighteon.social,suspend,false,false,Disinformation ,false
 freeatlantis.com,suspend,false,false,"ableism, nationalism, right-wing rhetoric and conspiracy theories",false
 freecumextremist.com,suspend,false,false,Alt kiwifarms instance,false
 freespeechextremist.com,suspend,false,false,Hate speech,false
@@ -98,6 +99,7 @@ kiwifarms.is,suspend,false,false,"Transphobia, doxxing, harassment",false
 kiwifarms.net,suspend,false,false,"Transphobia, doxxing, harassment",false
 kissl*lis.com,suspend,false,false,loli,false
 micca.xyz,suspend,false,false,Trolling + harassment,false
+milker.cafe,suspend,false,false,Antisemitism,false
 mk.disqordia.space,suspend,false,false,racism + channer stuff,false
 monads.online,suspend,false,false,Racism + harassment,false
 mstdn.foxfam.club,suspend,false,false,Alt-right + islamaphobia + xenophobia,false
@@ -144,12 +146,12 @@ quitter.pw,suspend,false,false,alt-right,false
 rage.lol,suspend,false,false,Free speech instance + members with nazi affiliation + members that advocate genocide and eugenics,false
 rakket.app,suspend,false,false,Nazis + harassment,false
 rape.lol,suspend,false,false,The URL is self-explanatory.,false
-milker.cafe,suspend,false,false,Antisemitism,false
 rapemeat.shop,suspend,false,false,pro-rape,false
 rapemeat.solutions,suspend,false,false,Pro-rape,false
 raplst.town,suspend,false,false,Glorifies sexual assault,false
 rawr-xd.club,suspend,false,false,Loli,false
 rcsocial.net,suspend,false,false,Homophobia + federating with Gab,false
+rdrama.cc,suspend,false,false,"Hate speech, ""free speech"", trolling",false
 ryona.agency,suspend,false,false,Transphobia,false
 seal.cafe,suspend,false,false,Antisemitism + racism + free speech + harassment,false
 sealion.club,suspend,false,false,'Free speech',false
@@ -161,6 +163,7 @@ shitpost.poridge.club,suspend,false,false,Free speech,false
 shortstackran.ch,suspend,false,false,racism + homophobia,false
 shrine.moe,suspend,false,false,Loli + racism,false
 skippers-bin.com,suspend,false,false,Lolicon + abusive behaviour,false
+sleepy.cafe,suspend,false,false,Transphobia,false
 slothy.win,suspend,false,false,Soapbox instance + mocking pronouns,false
 sneed.shop,suspend,false,false,Racism + antisemitism + fascism,false
 sneed.social,suspend,false,false,Racism + antisemitism + fascism,false
@@ -189,12 +192,10 @@ toot.canberrasocial.net,suspend,false,false,Racism + free speech instance,false
 truthsocial.co.in,suspend,false,false,truthsocial,false
 truthsocialpro.org,suspend,false,false,Trump instance,false
 tucson.claims,suspend,false,false,"Conspiracy theories, federating with known nazi affiliated instances",false
+varishangout.net,suspend,false,false,"Lolicon, racism",false
+vipgirlfriend.xxx,silence,true,false,Un-CWed NSFW,false
 vuju.com,suspend,false,false,Free speech,false
 waha.desupost.soy,suspend,false,false,"Ableism, racism, transmisia",false
-vipgirlfriend.xxx,silence,true,false,Un-CWed NSFW,false
-sleepy.cafe,suspend,false,false,Transphobia,false
-rdrama.cc,suspend,false,false,"Hate speech, ""free speech"", trolling",false
-smartcraft.me,suspend,false,false,"ArtiBlock: alt fedi (poa.st,salastil.com)",false
 wake.st,suspend,false,false,Paedophilia and lolicon apologist,false
 wei.mentalswarf.com,suspend,false,false,nazi soapbox instance,false
 whinge.town,suspend,false,false,Federates with the usual suspects,false
@@ -205,11 +206,13 @@ yggdrasil.social,suspend,false,false,"TERF instance, homophobia",false
 youjo.love,suspend,false,false,"pedophilia, holocaust denial, antivax",false
 zetamu.club,suspend,false,false,pedophilia,false
 quitter.im,silence,false,false,alt-right,false
+twtr.plus,silence,false,false,Twitter relay,false
 artalley.social,silence,false,false,Silenced for accusations of hosting/defending underage sexual art,false
 horny.enby.space,silence,false,false,Un-CWed NSFW,false
 kinky.business,silence,false,false,Un-CWed NSFW,false
 porntoot.com,silence,false,false,Un-CWed NSFW,false
 stars.eroaward.com,silence,false,false,NSFW adverts,false
+librem.one,suspend,false,false,Lack of moderation oversight for harmful ideologies,false
 2.distsn.org,suspend,false,false,BlocklistsImport,false
 434.earth,suspend,false,false,BlocklistsImport,false
 7td.org,suspend,false,false,BlocklistsImport,false
@@ -220,6 +223,7 @@ albin.social,suspend,false,false,BlocklistsImport,false
 anime.website,suspend,false,false,BlocklistsImport,false
 archivefedifor.fundefinitely-not-archivefedifor.funfuck-man-i-just-want-like-one-friend.xyz,suspend,false,false,BlocklistsImport,false
 aria.company,suspend,false,false,BlocklistsImport,false
+beefyboys.win,suspend,false,false,"Hate speech, ""free speech"", trolling",false
 beehub.org,suspend,false,false,BlocklistsImport,false
 bigguys.club,suspend,false,false,BlocklistsImport,false
 buckeye.social,suspend,false,false,BlocklistsImport,false
@@ -244,10 +248,6 @@ gendercritical.club,suspend,false,false,BlocklistsImport,false
 gendercritical.space,suspend,false,false,BlocklistsImport,false
 glittersluts.club,suspend,false,false,BlocklistsImport,false
 glowers.club,suspend,false,false,BlocklistsImport,false
-librem.one,suspend,false,false,Lack of moderation oversight for harmful ideologies,false
-twtr.plus,silence,false,false,Twitter relay,false
-beefyboys.win,suspend,false,false,"Hate speech, ""free speech"", trolling",false
-redplanetlabs.com,suspend,false,false,Spam,false
 honey.church,suspend,false,false,BlocklistsImport,false
 ihatebeinga.live,suspend,false,false,BlocklistsImport,false
 inex.rocks,suspend,false,false,BlocklistsImport,false
@@ -269,6 +269,7 @@ pleroma.comfy.moe,suspend,false,false,BlocklistsImport,false
 pleroma.rareome.ga,suspend,false,false,BlocklistsImport,false
 pl.lifeweb.cc,suspend,false,false,BlocklistsImport,false
 pl.smuglo.li,suspend,false,false,BlocklistsImport,false
+pl.valkyrie.world,suspend,false,false,No moderation policies,false
 princess.cat,suspend,false,false,BlocklistsImport,false
 quey.org,suspend,false,false,BlocklistsImport,false
 rapefeminists.network,suspend,false,false,BlocklistsImport,false
@@ -282,6 +283,7 @@ social.culturewar.us,suspend,false,false,BlocklistsImport,false
 social.foxfam.club,suspend,false,false,BlocklistsImport,false
 social.librem.onelibrem.one,suspend,false,false,BlocklistsImport,false
 social.quodverum.com,suspend,false,false,BlocklistsImport,false
+social.snopyta.org,suspend,false,false,"Lolicon, far-right content",false
 social.sphere.com.ai,suspend,false,false,BlocklistsImport,false
 societal.co,suspend,false,false,BlocklistsImport,false
 socnet.supes.com,suspend,false,false,BlocklistsImport,false
@@ -298,7 +300,7 @@ wagesofsinisdeath.com,suspend,false,false,BlocklistsImport,false
 waifuappreciation.club,suspend,false,false,BlocklistsImport,false
 weedis.life,suspend,false,false,BlocklistsImport,false
 wetfish.space,suspend,false,false,BlocklistsImport,false
-pl.valkyrie.world,suspend,false,false,No moderation policies,false
+wolfgirl.bar,suspend,false,false,"Racism, antisemitism",false
 x0f.org,suspend,false,false,BlocklistsImport,false
 xn--xn6r8h-xg0c.tk,suspend,false,false,BlocklistsImport,false
 beta.birdsite.live,silence,false,false,Twitter relay,false
@@ -308,12 +310,9 @@ gyutte.site,suspend,false,false,Lolicon,false
 social.076.ne.jp,suspend,false,false,"Racism, lolicon",false
 asimon.org,suspend,false,false,"Racism, lolicon",false
 mast.ohbutt.com,suspend,true,true,Troll server,false
-social.snopyta.org,suspend,false,false,"Lolicon, far-right content",false
-varishangout.net,suspend,false,false,"Lolicon, racism",false
-miss.mouse.services,suspend,false,false,"Federated with known hate and troll instances, violent imagery with no CW, etc",false
 pl.comfysnug.space,suspend,true,false,"No moderation policies beyond ""no cp"", boosts content from known-bad instances",false
+miss.mouse.services,suspend,false,false,"Federated with known hate and troll instances, violent imagery with no CW, etc",false
 hidamari.apartments,suspend,false,false,openly promoting violent ideologies,false
-eientei.org,suspend,false,false,"non-moderated homophobia, transphobia & anti-semitism",false
 childpawn.shop,suspend,false,false,paedophilia,false
 activitypub-troll.cf,suspend,false,false,Public server trolling farm,false
 *.acitivitypub-troll.cf,suspend,false,false,Public server trolling farm,false
@@ -322,6 +321,7 @@ misskey-forkbomb.cf,suspend,false,false,Public server trolling farm,false
 *.repl.co,suspend,false,false,Public server trolling farm,false
 repl.co,suspend,false,false,Public server trolling farm,false
 onevery.ignorelist.com,suspend,false,false,Spam,false
+refusal.biz,suspend,false,false,"Racism, antisemitism",false
 fandom.community,silence,true,false,"Lolicon, insufficient moderation of NSFW media",false
 social.4f9e1738.ignorelist.com,suspend,true,true,Recursion attack,false
 *.ignorelist.com,suspend,false,false,Recursion attack,false
@@ -353,7 +353,6 @@ trumpislovetrumpis.life,suspend,false,false,"facism, racism",false
 skyshanty.xyz,suspend,false,false,HomoMisia,false
 privex.social,suspend,false,false,"fashism, harassment",false
 wiki-tube.de,suspend,false,false,"AntiSemitism, conspiracism, covid denial",false
-wolfgirl.bar,suspend,false,false,"Racism, antisemitism",false
 animalliberation.social,suspend,false,false,"racism, AntiSemitism, TransMisia",false
 slash.cl,suspend,false,false,national socialism,false
 poster.place,suspend,false,false,"racism, queermisia",false
@@ -371,10 +370,10 @@ anti-degeneracy.club,suspend,false,false,TransMisia,false
 fbxl.net,suspend,false,false,admin wish,false
 alive.bar,suspend,false,false,national socialism,false
 pleroma.foxfam.club,suspend,false,false,Alt of banned instance,false
-refusal.biz,suspend,false,false,"Racism, antisemitism",false
 weeaboo.space,suspend,false,false,"Federates with known hate and lolicon instances, ""Free Speech""",false
 udongein.xyz,silence,false,false,Insufficient moderation policies; doesn't defederate hate instances,false
 mastinator.com,suspend,false,false,Public indexing and copying of follower-only posts,false
+fediverse.dotnet00.dev,noop,true,false,"",false
 squid.kids,suspend,false,false,Antisemitism ,false
 affiliates.social,suspend,false,false,Dedicated affiliate marketing server,false
 f.haeder.net,suspend,false,false,Transphobia,false
@@ -383,8 +382,11 @@ social.shrimpcam.pw,suspend,false,false,Block circumvention,false
 rodent.life,suspend,false,false,lolicon,false
 gentoo.live,suspend,false,false,"CSAM, hate speech",false
 skinheads.network,suspend,false,false,"CSAM, hate speech",false
-shota.house,suspend,false,false,"",false
+misskey.io,noop,true,false,Insufficient moderation capacity,false
+asbestos.cafe,suspend,false,false,Fediblock spam/abuse,false
+cybercriminal.eu,suspend,false,false,Fediblock spam/abuse,false
 minidisc.tokyo,suspend,false,false,"Harassment, ""free speech""",true
+owncast.cdrom.tokyo,suspend,false,false,Lolicon,false
 plague.ee,suspend,false,false,Alt of banned instance,false
 boks.moe,suspend,false,false,"Hate speech, ""free speech"", trolling",false
 shrimpposter.club,suspend,false,false,Alt of banned instance,false
@@ -400,6 +402,7 @@ ignorelist.com,suspend,false,false,"",false
 mastertibbles.co.uk,suspend,false,false,"",false
 obo.sh,suspend,false,false,"",false
 scots.network,suspend,false,false,"",false
+shota.house,suspend,false,false,"",false
 4aem.com,suspend,false,false,"",false
 5dollah.click,suspend,false,false,"",false
 8777.ch,suspend,false,false,"",false
@@ -410,10 +413,6 @@ anemoneya.me,suspend,false,false,"",false
 angrytoday.com,suspend,false,false,"",false
 annihilation.social,suspend,false,false,"",false
 badly.co,suspend,false,false,"",false
-cybercriminal.eu,suspend,false,false,Fediblock spam/abuse,false
-misskey.io,noop,true,false,Insufficient moderation capacity,false
-owncast.cdrom.tokyo,suspend,false,false,Lolicon,false
-fediverse.dotnet00.dev,noop,true,false,"",false
 beepboop.ga,suspend,false,false,"",false
 bgzashtita.es,suspend,false,false,"",false
 bibly.com,suspend,false,false,"",false
@@ -548,7 +547,7 @@ skinheads.uk,suspend,false,false,"",false
 skinnyver.se,suspend,false,false,"",false
 smuglo.li,suspend,false,false,"",false
 starnix.network,suspend,false,false,"",false
-stereophonic.space,suspend,false,false,"",false
+stereophonic.space,silence,false,false,"",false
 syspxl.xyz,suspend,false,false,"",false
 takesama.com,suspend,false,false,"",false
 theapex.social,suspend,false,false,"",false
@@ -585,8 +584,8 @@ akko.quad.moe,suspend,false,false,"ArtiBlock: alt-fedi (shigusegubu.club,sleepy.
 masto.quad.moe,suspend,false,false,"ArtiBlock: alt-fedi (shigusegubu.club,sleepy.cafe,suya.place,miniwa.moe,cawfee.club,kotobank.ch)",false
 social.troplo.com,suspend,false,false,"ArtiBlock: alt-fedi (rdrama.cc,starnix.network,shitposter.club,refusal.biz,plus.st,asbestos.cafe,hidamari.apartments,leafposter.club,lizards.live)",false
 troplo.com,suspend,false,false,"ArtiBlock: alt-fedi (rdrama.cc,starnix.network,shitposter.club,refusal.biz,plus.st,asbestos.cafe,hidamari.apartments,leafposter.club,lizards.live)",false
+smartcraft.me,suspend,false,false,"ArtiBlock: alt fedi (poa.st,salastil.com)",false
 worm.pink,suspend,false,false,Fediblock spam/abuse,false
-asbestos.cafe,suspend,false,false,Fediblock spam/abuse,false
 disqordia.space,suspend,false,false,Racism masquerading as trans defenders,false
 blog.mapsupport.club,suspend,false,false,Paedophilia,false
 xarxamontgri.masto.host,suspend,false,false,Lack of moderation,false
@@ -602,7 +601,6 @@ mapsupport.club,suspend,false,false,"",false
 9tail.net,suspend,false,false,"",false
 messurrection.com,suspend,false,false,"",false
 outerkosm.us,suspend,true,true,Tolerant of hate instances,false
-tsukihi.me,silence,false,false,Misinformation and harassment,false
 loli.exposed,suspend,false,false,CSAM,false
 lewdieheaven.com,suspend,false,false,Paedophilia,false
 press.coop,silence,false,false,Very spammy; limited to keep the federated timeline readable,false
@@ -620,17 +618,17 @@ thoughtful.social,suspend,false,false,Spam,false
 sm.shaw.app,suspend,false,false,Transmisia,false
 stop.voring.me,silence,false,false,"Poorly moderated, federates with known baddies",false
 firefish.social,silence,false,false,"Official instance for Firefish project, the lead dev of which has engaged in harassment and associates with known bad actors",false
-usualsuspects.lol,suspend,false,false,FediNuke,false
-retardedniggers.forsale,suspend,false,false,FediNuke,false
-plagu.ee,suspend,false,false,FediNuke,false
-onionfarms.org,suspend,false,false,FediNuke,false
-norwoodzero.net,suspend,false,false,FediNuke,false
-marsey.moe,suspend,false,false,FediNuke,false
-makemysarcophagus.com,suspend,false,false,FediNuke,false
-decayable.ink,suspend,false,false,FediNuke,false
-boymoder.biz,suspend,false,false,FediNuke,false
-bassam.social,suspend,false,false,FediNuke,false
 adachi.party,suspend,false,false,FediNuke,false
+bassam.social,suspend,false,false,FediNuke,false
+boymoder.biz,suspend,false,false,FediNuke,false
+decayable.ink,suspend,false,false,FediNuke,false
+makemysarcophagus.com,suspend,false,false,FediNuke,false
+marsey.moe,suspend,false,false,FediNuke,false
+norwoodzero.net,suspend,false,false,FediNuke,false
+onionfarms.org,suspend,false,false,FediNuke,false
+plagu.ee,suspend,false,false,FediNuke,false
+retardedniggers.forsale,suspend,false,false,FediNuke,false
+usualsuspects.lol,suspend,false,false,FediNuke,false
 amazonaws.com,suspend,false,false,"",false
 app.github.dev,suspend,false,false,"",false
 cloud.okteto.net,suspend,false,false,"",false
@@ -660,9 +658,129 @@ lab.nyanide.com,suspend,false,false,"""Free speech"", hate-speech, grooming, mis
 burggit.moe,suspend,false,false,Lolicon,false
 twi.social,suspend,false,false,CSAM,false
 neomobius.com,suspend,false,false,"CSAM, unmoderated pornography",false
+redplanetlabs.com,suspend,false,false,Spam,false
 fosstodon.org,silence,false,false,"Insufficient moderation, moderation actions in support of hate groups",false
 pettanko.art,suspend,false,false,CSAM,false
 quietplace.xyz,suspend,false,false,Rules forbidding LGBT support; lolicon,false
 rqd2.net,suspend,false,false,"""MAP"" support therefore CSAM",false
-tech.lgbt,silence,false,true,Moderation and leadership not aligned with our community values,false
 artisan.chat,silence,false,true,Moderation and leadership not aligned with our community values,false
+rkgk.moe,suspend,false,false,"Lolicon, anti-lgbtq",false
+supernets.social,suspend,false,false,"Racism, transphobia, hate speech",false
+paravielfalt.zone,suspend,false,false,CSAM,false
+social.isekco.re,suspend,false,false,Self identified MAP instance,false
+cunnyborea.space,suspend,false,false,"Racism, CSAM",false
+cunny.gay,suspend,false,false,"Transphobia, CSAM",false
+youjo.observer,suspend,false,false,CAAM,false
+onlypa.ws,suspend,false,false,CSAM,false
+loli.church,suspend,false,false,Lolicon,false
+otr.rocks,suspend,false,false,"Racism, transphobia",false
+cubhub.social,suspend,false,false,"Sexualization of minors, ABDL",false
+icunny.co,suspend,false,false,Lolicon,false
+nnia.cc,suspend,false,false,MAP/lolicon,false
+ntfy.sh,suspend,false,false,Server flood,false
+childlove.space,suspend,false,false,"",false
+childlove.su,suspend,false,false,"",false
+nationalist.social,suspend,false,false,"",false
+lewdieheaven.vip,suspend,false,false,"",false
+kasumi.loliimuotolove.com,suspend,false,false,"",false
+serpent.skin,suspend,false,false,"",false
+troll.social,suspend,false,false,"Troll instance, insufficient moderation",false
+tooters.fun,suspend,false,false,Pro-contact MAP,false
+tooters.wtf,suspend,false,false,Pro-contact MAP,false
+lit.tlespace.xyz,suspend,false,false,Lolicon local bubble,false
+tummy.town,suspend,false,false,Lolicon,false
+oddballs.online,suspend,false,false,Pedo/MAP bubble,false
+emmaverse.void.rehab,suspend,false,false,Resource abuse/ddos,false
+void.rehab,silence,false,false,Irresponsible admin behavior (fedi resource abuse),false
+layer02.net,suspend,false,false,Alt-fedi,false
+cunnyborea.top,suspend,false,false,CSAM/Lolicon,false
+nicecrew.tv,suspend,false,false,racism + homophobia,false
+alterracloud.com,suspend,false,false,"Harassment, suicide bait",false
+mashtodon.alterracloud.com,suspend,false,false,"Harassment, suicide bait",false
+nyanide.alterracloud.com,suspend,false,false,"Harassment, suicide bait",false
+rosiemma.online,suspend,false,false,Harassment,false
+m.mxin.moe,suspend,false,false,Malicious discord spam,false
+dw.n1l.dev,suspend,false,false,Spam,false
+social.cutefunny.net,suspend,false,false,Insufficient moderation,false
+tootnet.nl,silence,false,false,Spam,false
+kernkraft.social,silence,false,false,Spam,false
+portside.social,silence,false,false,"",false
+onlybsds.com,silence,true,false,Spam (2024-02-15),false
+cmm.fyi,silence,true,false,Spam (2024-02-15),false
+forestver.se,silence,true,false,Spam (2024-02-15),false
+scfzfilm.org,silence,true,false,Spam (2024-02-15),true
+airwaves.social,silence,true,false,Spam (2024-02-15),false
+mastodon-swiss.org,silence,true,false,Spam (2024-02-15),false
+fusionpros.social,silence,true,false,Spam (2024-02-15),false
+kokuusa.club,silence,true,false,Spam (2024-02-15),false
+games.retrotalk.live,silence,true,false,Spam (2024-02-15),false
+groupsebelah.com,silence,true,false,Spam (2024-02-15),false
+edusocial.it,silence,true,false,Spam (2024-02-15),false
+educhat.social,silence,true,false,Spam (2024-02-15),false
+cherryberry.pink,silence,true,false,Spam (2024-02-15),false
+9kb.me,silence,true,false,Spam (2024-02-15),false
+mastodon.thedirtydis.co,silence,true,false,Spam (2024-02-15),false
+kommunismus.social,silence,true,false,Spam (2024-02-15),false
+estrogen.cat,silence,true,false,Spam (2024-02-15),false
+bondsdogs.com,silence,true,false,Spam (2024-02-15),false
+forum-lucifer.com,silence,true,false,Spam (2024-02-15),false
+neuroscience-mastodon.com,silence,true,false,Spam (2024-02-15),false
+mastodon.svgun.ru,silence,true,false,Spam (2024-02-15),false
+devsrv.farhan.codes,silence,true,false,Spam (2024-02-15),false
+game-tecx.de,silence,true,false,Spam (2024-02-15),false
+phyrexia.ru,silence,true,false,Spam (2024-02-15),false
+sensitive.hostdon.ne.jp,silence,true,false,Spam (2024-02-15),false
+neuss.social,silence,false,false,Spam,false
+aether.run,silence,true,false,Spam (2024-02-18),false
+besties.com,silence,true,false,Spam (2024-02-18),false
+bhre.social,silence,true,false,Spam (2024-02-18),false
+discourse.helenprejean.org,silence,true,false,Spam (2024-02-18),false
+don.neet.co.jp,silence,true,false,Spam (2024-02-18),false
+electroverse.tech,silence,true,false,Spam (2024-02-18),false
+entomophagy.world,silence,true,false,Spam (2024-02-18),false
+hdty.in,silence,true,false,Spam (2024-02-18),false
+i.transmit.love,silence,true,false,Spam (2024-02-18),false
+lllsecurity.com,silence,true,false,Spam (2024-02-18),false
+mastadon.astuto.cc,silence,true,false,Spam (2024-02-18),false
+mastodon.dermarcus.de,silence,true,false,Spam (2024-02-18),false
+mastodon.integrata-stiftung.de,silence,true,false,Spam (2024-02-18),false
+mentalhealth-masto.com,silence,true,false,Spam (2024-02-18),false
+molaguay.xyz,silence,true,false,Spam (2024-02-18),false
+nasface.cz,silence,true,false,Spam (2024-02-18),false
+owo.town,silence,true,false,Spam (2024-02-18),false
+tambayan.us,silence,true,false,Spam (2024-02-18),false
+tcpcat.net,silence,true,false,Spam (2024-02-18),false
+tut.andreer.no,silence,true,false,Spam (2024-02-18),false
+waterlily.tokyo,silence,true,false,Spam (2024-02-18),false
+cuyes.mooo.com,silence,true,false,Spam (2024-02-18),false
+mastodon.education,silence,true,false,Spam,false
+mastodon-ero.xyz,silence,true,false,Spam,false
+america.social,silence,false,false,Spam (2024-02-21),false
+archaeology.social,silence,false,false,Spam (2024-02-21),false
+bigballchunkyverse.online,silence,false,false,Spam (2024-02-21),false
+closednetwork.social,silence,false,false,Spam (2024-02-21),false
+detmi.social,silence,false,false,Spam (2024-02-21),false
+library.love,silence,false,false,Spam (2024-02-21),false
+m.techsocial.site,silence,false,false,Spam (2024-02-21),false
+mastodon.conquestuniverse.com,silence,false,false,Spam (2024-02-21),false
+mastodon.io.seg.br,silence,false,false,Spam (2024-02-21),false
+mastodon.snmsoc.org,silence,false,false,Spam (2024-02-21),false
+pkm.social,silence,false,false,Spam (2024-02-21),false
+prf.me,silence,false,false,Spam (2024-02-21),false
+qa.social,silence,false,false,Spam (2024-02-21),false
+s-h.social,silence,false,false,Spam (2024-02-21),false
+teamhydra.social,silence,false,false,Spam (2024-02-21),false
+themeparks.social,silence,false,false,Spam (2024-02-21),false
+toot.poedelwitz.de,silence,false,false,Spam (2024-02-21),false
+toot.quest,silence,false,false,Spam (2024-02-21),false
+wpmastodon.es,silence,false,false,Spam (2024-02-21),false
+zenzone.social,silence,false,false,Spam (2024-02-21),false
+contentnation.net,suspend,false,false,Fedi scraper,false
+nekosat.work,suspend,false,false,a.gup.pe spam,false
+clown.university,suspend,false,false,Pro-contact MAP,false
+theblab.org,suspend,false,false,"Gab refugees, ""free speech"" ",false
+cutiecluster.cc,suspend,false,false,Contact neatchee for details,false
+peertube.biz,suspend,false,false,Neonazi content,false
+comics.peertube.biz,suspend,false,false,Neonazi content,false
+fsebugoutzone.org,suspend,false,false,"""Free speech"", new home for freespeechextremists",false
+fedi.servantsofallah.cc,suspend,false,false,Transphobia,false
