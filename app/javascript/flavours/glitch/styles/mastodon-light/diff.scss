@@ -80,6 +80,7 @@ html {
 }
 
 .search__input,
+.search__popout,
 .setting-text,
 .report-dialog-modal__textarea,
 .audio-player {
@@ -447,7 +448,8 @@ html {
 .directory__tag > div,
 .card > a,
 .page-header,
-.compose-form .compose-form__warning {
+.compose-form,
+.compose-form__warning {
   box-shadow: none;
 }
 
@@ -559,6 +561,10 @@ html {
 
 .compose-form .autosuggest-textarea__textarea,
 .compose-form__highlightable,
+.search__input,
+.search__popout,
+.emoji-mart-search input,
+.language-dropdown__dropdown .emoji-mart-search input,
 .poll__option input[type='text'] {
   background: darken($ui-base-color, 10%);
 }
