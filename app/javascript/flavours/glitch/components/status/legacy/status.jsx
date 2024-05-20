@@ -9,6 +9,7 @@ import { ImmutablePureComponent } from 'react-immutable-pure-component';
 
 import { Hotkeys } from '@/flavours/glitch/components/hotkeys';
 import { PictureInPicturePlaceholder } from './picture_in_picture_placeholder';
+import { identityContextPropShape, withIdentity } from 'flavours/glitch/identity_context';
 import { withOptionalRouter, WithOptionalRouterPropTypes } from 'flavours/glitch/utils/react_router';
 
 import { autoUnfoldCW } from 'flavours/glitch/utils/content_warning';
@@ -85,6 +86,7 @@ class Status extends ImmutablePureComponent {
   static contextType = SensitiveMediaContext;
 
   static propTypes = {
+    identity: identityContextPropShape,
     containerId: PropTypes.string,
     id: PropTypes.string,
     status: ImmutablePropTypes.map,
@@ -484,6 +486,7 @@ class Status extends ImmutablePureComponent {
       onOpenMedia,
       notification,
       history,
+      identity,
       ...other
     } = this.props;
     let attachments = null;
@@ -791,7 +794,7 @@ class Status extends ImmutablePureComponent {
               numVisible={visibleReactions}
               addReaction={this.props.onReactionAdd}
               removeReaction={this.props.onReactionRemove}
-              canReact={this.context.identity.signedIn}
+              canReact={this.props.identity.signedIn}
             />
 
             {(showActions && !isQuotedPost) &&
@@ -811,4 +814,4 @@ class Status extends ImmutablePureComponent {
 
 }
 
-export default withOptionalRouter(injectIntl(Status));
+export default withOptionalRouter(injectIntl((withIdentity(Status))));
