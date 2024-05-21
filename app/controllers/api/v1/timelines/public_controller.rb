@@ -18,11 +18,11 @@ class Api::V1::Timelines::PublicController < Api::V1::Timelines::BaseController
   end
 
   def load_statuses
-    cached_public_statuses_page
+    preloaded_public_statuses_page
   end
 
-  def cached_public_statuses_page
-    cache_collection(public_statuses, Status)
+  def preloaded_public_statuses_page
+    preload_collection(public_statuses, Status)
   end
 
   def public_statuses
@@ -42,7 +42,7 @@ class Api::V1::Timelines::PublicController < Api::V1::Timelines::BaseController
       only_media: truthy_param?(:only_media),
       allow_local_only: truthy_param?(:allow_local_only),
       with_replies: truthy_param?(:local) ? Setting.show_replies_in_local_timelines : Setting.show_replies_in_federated_timelines,
-      with_reblogs: truthy_param?(:local) ? Setting.show_reblogs_in_local_timelines : Setting.show_reblogs_in_federated_timelines,
+      with_reblogs: truthy_param?(:local) ? Setting.show_reblogs_in_local_timelines : Setting.show_reblogs_in_federated_timelines
     )
   end
 
