@@ -30,6 +30,7 @@ import { DisplayName } from '../../../components/display_name';
 import MediaGallery from '../../../components/media_gallery';
 import StatusContent from '../../../components/status_content';
 import StatusReactions from '../../../components/status_reactions';
+import { visibleReactions } from '../../../initial_state';
 import Audio from '../../audio';
 import scheduleIdleTask from '../../ui/util/schedule_idle_task';
 import Video from '../../video';
@@ -390,13 +391,15 @@ export const DetailedStatus: React.FC<{
         {/* This is a glitch-soc addition to have a placeholder */}
         {!expanded && <MentionsPlaceholder status={status} />}
 
-        <StatusReactions
-          statusId={status.get('id')}
-          reactions={status.get('reactions')}
-          addReaction={onReactionAdd}
-          removeReaction={onReactionRemove}
-          canReact={signedIn}
-        />
+        {visibleReactions && visibleReactions > 0 && (
+          <StatusReactions
+            statusId={status.get('id')}
+            reactions={status.get('reactions')}
+            addReaction={onReactionAdd}
+            removeReaction={onReactionRemove}
+            canReact={signedIn}
+          />
+        )}
 
         <div className='detailed-status__meta'>
           <div className='detailed-status__meta__line'>
