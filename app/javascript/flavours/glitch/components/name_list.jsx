@@ -1,7 +1,10 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+import React from 'react';
+
 import { injectIntl } from 'react-intl';
+
+import ImmutablePropTypes from 'react-immutable-proptypes';
+
 
 /**
  * Displays a single account (or label) as a link.
@@ -24,15 +27,27 @@ class NameLink extends React.PureComponent {
   };
 
   render() {
-    const { href, children } = this.props;
-    return (
-      <a
-        href={href}
-        className='status__display-name'
-        onClick={this.handleClick}
-        dangerouslySetInnerHTML={{ __html: children }}
-      />
-    );
+    const { account, href, children } = this.props;
+    if (typeof account !== "undefined") {    
+      return (
+        <a
+          href={href}
+          className='status__display-name'
+          onClick={this.handleClick}
+          data-hover-card-account={account.get('id')}
+          dangerouslySetInnerHTML={{ __html: children }}
+        />
+      );
+    } else {
+      return (
+        <a
+          href={href}
+          className='status__display-name'
+          onClick={this.handleClick}
+          dangerouslySetInnerHTML={{ __html: children }}
+        />
+      );
+    } 
   }
 
 }
