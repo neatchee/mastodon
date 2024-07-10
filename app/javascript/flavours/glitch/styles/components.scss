@@ -1160,6 +1160,14 @@ body > [data-popper-placement] {
 
 .status__quote {
   margin-bottom: 0.5em;
+  .quote-display-name {
+    .icon {
+      margin-left: -3px;
+      margin-right: 3px;
+      margin-bottom: 2px;
+      vertical-align: middle;
+    }
+  }
 }
 
 .reply-indicator {
