@@ -1158,6 +1158,10 @@ body > [data-popper-placement] {
   overflow: visible;
 }
 
+.status__quote {
+  margin-bottom: 0.5em;
+}
+
 .reply-indicator {
   display: grid;
   grid-template-columns: 46px minmax(0, 1fr);
