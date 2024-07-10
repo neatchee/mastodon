@@ -22,6 +22,7 @@ export const NavigationBar = () => {
   const intl = useIntl();
   const account = useSelector(state => state.getIn(['accounts', me]));
   const isReplying = useSelector(state => !!state.getIn(['compose', 'in_reply_to']));
+  const isQuoting = useSelector(state => !!state.getIn(['compose', 'quote_id']));
 
   const handleCancelClick = useCallback(() => {
     dispatch(cancelReplyCompose());
@@ -30,7 +31,7 @@ export const NavigationBar = () => {
   return (
     <div className='navigation-bar'>
       <Account account={account} minimal />
-      {isReplying ? <IconButton title={intl.formatMessage(messages.cancel)} iconComponent={CloseIcon} onClick={handleCancelClick} /> : <ActionBar />}
+      {(isReplying || isQuoting) ? <IconButton title={intl.formatMessage(messages.cancel)} iconComponent={CloseIcon} onClick={handleCancelClick} /> : <ActionBar />}
     </div>
   );
 };
