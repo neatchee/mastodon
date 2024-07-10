@@ -1249,6 +1249,11 @@ body > [data-popper-placement] {
   }
 }
 
+.reply-indicator__quote {
+  padding-inline-start: 10px;
+  border-inline-start: 3px solid $darker-text-color;
+}
+
 .edit-indicator {
   border-radius: 4px 4px 0 0;
   background: color.adjust($ui-base-color, $lightness: 4%);
