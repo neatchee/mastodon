@@ -33,7 +33,7 @@ class Notification < ApplicationRecord
   }.freeze
 
   # `set_group_key!` needs to be updated if this list changes
-  GROUPABLE_NOTIFICATION_TYPES = %i(favourite reblog follow).freeze
+  GROUPABLE_NOTIFICATION_TYPES = %i(favourite reaction reblog follow).freeze
   MAXIMUM_GROUP_SPAN_HOURS = 12
 
   # Please update app/javascript/api_types/notification.ts if you change this
@@ -138,7 +138,7 @@ class Notification < ApplicationRecord
     return if filtered? || Notification::GROUPABLE_NOTIFICATION_TYPES.exclude?(type)
 
     type_prefix = case type
-                  when :favourite, :reblog
+                  when :favourite, :reaction, :reblog
                     [type, target_status&.id].join('-')
                   when :follow
                     type
