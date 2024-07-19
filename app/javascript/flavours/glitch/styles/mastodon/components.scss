@@ -10846,6 +10846,10 @@ noscript {
     color: var(--color-text-favourite-highlight);
   }
 
+  &--reaction &__icon {
+    color: $blurple-300;
+  }
+
   &--reblog &__icon {
     color: var(--color-text-success);
   }
