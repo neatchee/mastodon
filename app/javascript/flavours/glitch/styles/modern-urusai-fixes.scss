@@ -62,3 +62,29 @@ body.app-body.flavour-glitch
 .layout-single-column .tabs-bar__wrapper .announcements__pagination {
   bottom: 0 !important;
 }
+
+@media (width <= 889px) {
+  @supports selector(.foxxo:has(.waf)) {
+    .columns-area__panels__pane--navigational a svg {
+      height: unset !important;
+      width: unset !important;
+    }
+  }
+}
+
+body.app-body.flavour-glitch
+  > #mastodon
+  .collapsed
+  .status__content
+  p:not(:last-child) {
+  margin-top: 0.4em;
+}
+
+body.app-body.flavour-glitch > #mastodon .compose-form__submit {
+  position: unset !important;
+  margin-top: unset !important;
+}
+
+body.app-body.flavour-glitch > #mastodon .collapsed .status__content {
+  padding: 12px 14px !important;
+}
