@@ -157,7 +157,7 @@ class Notification < ApplicationRecord
         .with_recursive(
           grouped_notifications: [
             query
-              .select('notifications.*', "ARRAY[COALESCE(notifications.group_key, 'ungrouped-' || notifications.id)] groups")
+              .select('notifications.*', "ARRAY[COALESCE(notifications.group_key, 'ungrouped-' || notifications.id)] AS groups")
               .limit(1),
             query
               .joins('CROSS JOIN grouped_notifications')
@@ -185,7 +185,7 @@ class Notification < ApplicationRecord
         .with_recursive(
           grouped_notifications: [
             query
-              .select('notifications.*', "ARRAY[COALESCE(notifications.group_key, 'ungrouped-' || notifications.id)] groups")
+              .select('notifications.*', "ARRAY[COALESCE(notifications.group_key, 'ungrouped-' || notifications.id)] AS groups")
               .limit(1),
             query
               .joins('CROSS JOIN grouped_notifications')

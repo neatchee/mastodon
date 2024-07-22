@@ -95,7 +95,7 @@ const makeMapStateToProps = () => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
 
-  onReply (status, router) {
+  onReply (status) {
     const getStatus = makeGetStatus();
 
     dispatch((_, getState) => {
@@ -111,11 +111,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
             message: intl.formatMessage(messages.replyMessage),
             confirm: intl.formatMessage(messages.replyConfirm),
             onDoNotAsk: () => dispatch(changeLocalSetting(['confirm_before_clearing_draft'], false)),
-            onConfirm: () => dispatch(replyCompose(status, router, rebloggedBy)),
+            onConfirm: () => dispatch(replyCompose(status, rebloggedBy)),
           },
         }));
       } else {
-        dispatch(replyCompose(status, router, rebloggedBy));
+        dispatch(replyCompose(status, rebloggedBy));
       }
     });
   },
@@ -197,23 +197,23 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     }));
   },
 
-  onDelete (status, history, withRedraft = false) {
+  onDelete (status, withRedraft = false) {
     const { intl } = ownProps;
     if (!deleteModal) {
-      dispatch(deleteStatus(status.get('id'), history, withRedraft));
+      dispatch(deleteStatus(status.get('id'), withRedraft));
     } else {
       dispatch(openModal({
         modalType: 'CONFIRM',
         modalProps: {
           message: intl.formatMessage(withRedraft ? messages.redraftMessage : messages.deleteMessage),
           confirm: intl.formatMessage(withRedraft ? messages.redraftConfirm : messages.deleteConfirm),
-          onConfirm: () => dispatch(deleteStatus(status.get('id'), history, withRedraft)),
+          onConfirm: () => dispatch(deleteStatus(status.get('id'), withRedraft)),
         },
       }));
     }
   },
 
-  onEdit (status, history) {
+  onEdit (status) {
     const { intl } = ownProps;
     dispatch((_, getState) => {
       let state = getState();
@@ -223,11 +223,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
           modalProps: {
             message: intl.formatMessage(messages.editMessage),
             confirm: intl.formatMessage(messages.editConfirm),
-            onConfirm: () => dispatch(editStatus(status.get('id'), history)),
+            onConfirm: () => dispatch(editStatus(status.get('id'))),
           },
         }));
       } else {
-        dispatch(editStatus(status.get('id'), history));
+        dispatch(editStatus(status.get('id')));
       }
     });
   },
@@ -240,12 +240,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     }
   },
 
-  onDirect (account, router) {
-    dispatch(directCompose(account, router));
+  onDirect (account) {
+    dispatch(directCompose(account));
   },
 
-  onMention (account, router) {
-    dispatch(mentionCompose(account, router));
+  onMention (account) {
+    dispatch(mentionCompose(account));
   },
 
   onOpenMedia (statusId, media, index, lang) {
