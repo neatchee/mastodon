@@ -6,10 +6,10 @@ import { FormattedMessage } from 'react-intl';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-import AddReactionIcon from '@/material-icons/400-24px/add_reaction.svg?react';
 import EditIcon from '@/material-icons/400-24px/edit.svg?react';
 import HomeIcon from '@/material-icons/400-24px/home-fill.svg?react';
 import InsertChartIcon from '@/material-icons/400-24px/insert_chart.svg?react';
+import MoodIcon from '@/material-icons/400-24px/mood.svg?react';
 import PushPinIcon from '@/material-icons/400-24px/push_pin.svg?react';
 import RepeatIcon from '@/material-icons/400-24px/repeat.svg?react';
 import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
@@ -26,6 +26,7 @@ export default class StatusPrepend extends PureComponent {
     accounts: ImmutablePropTypes.listOf(ImmutablePropTypes.map.isRequired),
     parseClick: PropTypes.func.isRequired,
     notificationId: PropTypes.number,
+    children: PropTypes.node,
   };
 
   handleClick = (acct, e) => {
@@ -93,7 +94,7 @@ export default class StatusPrepend extends PureComponent {
         <FormattedMessage
           id='notification.reaction'
           defaultMessage='{name} reacted to your status'
-          values={{ name : linkifiedAccounts }}
+          values={{ name: linkifiedAccounts }}
         />
       );
     case 'reblog':
@@ -124,7 +125,7 @@ export default class StatusPrepend extends PureComponent {
         return (
           <FormattedMessage
             id='notification.poll'
-            defaultMessage='A poll you have voted in has ended'
+            defaultMessage='A poll you voted in has ended'
           />
         );
       }
@@ -142,7 +143,7 @@ export default class StatusPrepend extends PureComponent {
 
   render () {
     const { Message } = this;
-    const { type } = this.props;
+    const { type, children } = this.props;
 
     let iconId, iconComponent;
 
@@ -152,8 +153,8 @@ export default class StatusPrepend extends PureComponent {
       iconComponent = StarIcon;
       break;
     case 'reaction':
-      iconId = 'add_reaction';
-      iconComponent = AddReactionIcon;
+      iconId = 'mood';
+      iconComponent = MoodIcon;
       break;
     case 'featured':
       iconId = 'thumb-tack';
@@ -180,14 +181,13 @@ export default class StatusPrepend extends PureComponent {
 
     return !type ? null : (
       <aside className={type === 'reblogged_by' || type === 'featured' ? 'status__prepend' : 'notification__message'}>
-        <div className={type === 'reblogged_by' || type === 'featured' ? 'status__prepend-icon-wrapper' : 'notification__favourite-icon-wrapper'}>
-          <Icon
-            className={`status__prepend-icon ${type === 'favourite' ? 'star-icon' : ''}`}
-            id={iconId}
-            icon={iconComponent}
-          />
-        </div>
+        <Icon
+          className={`status__prepend-icon ${type === 'favourite' ? 'star-icon' : ''}`}
+          id={iconId}
+          icon={iconComponent}
+        />
         <Message />
+        {children}
       </aside>
     );
   }

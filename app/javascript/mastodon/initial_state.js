@@ -15,6 +15,7 @@
  * @property {boolean=} boost_modal
  * @property {boolean=} delete_modal
  * @property {boolean=} disable_swiping
+ * @property {boolean=} disable_hover_cards
  * @property {string=} disabled_account_id
  * @property {string} display_media
  * @property {string} domain
@@ -22,7 +23,6 @@
  * @property {boolean} limited_federation_mode
  * @property {string} locale
  * @property {string | null} mascot
- * @property {number} max_reactions
  * @property {string=} me
  * @property {string=} moved_to_account_id
  * @property {string=} owner
@@ -39,13 +39,20 @@
  * @property {string} title
  * @property {boolean} show_trends
  * @property {boolean} trends_as_landing_page
- * @property {boolean} unfollow_modal
  * @property {boolean} use_blurhash
  * @property {boolean=} use_pending_items
  * @property {string} version
- * @property {number} visible_reactions
  * @property {boolean} translation_enabled
  * @property {string} sso_redirect
+ */
+
+/**
+ * @typedef Role
+ * @property {string} id
+ * @property {string} name
+ * @property {string} permissions
+ * @property {string} color
+ * @property {boolean} highlighted
  */
 
 /**
@@ -54,8 +61,7 @@
  * @property {InitialStateLanguage[]} languages
  * @property {boolean=} critical_updates_pending
  * @property {InitialStateMeta} meta
- * @property {number} max_toot_chars
- * @property {number} max_reactions
+ * @property {Role?} role
  */
 
 const element = document.getElementById('initial-state');
@@ -82,6 +88,7 @@ export const autoPlayGif = getMeta('auto_play_gif');
 export const boostModal = getMeta('boost_modal');
 export const deleteModal = getMeta('delete_modal');
 export const disableSwiping = getMeta('disable_swiping');
+export const disableHoverCards = getMeta('disable_hover_cards');
 export const disabledAccountId = getMeta('disabled_account_id');
 export const displayMedia = getMeta('display_media');
 export const domain = getMeta('domain');
@@ -89,7 +96,6 @@ export const expandSpoilers = getMeta('expand_spoilers');
 export const forceSingleColumn = !getMeta('advanced_layout');
 export const limitedFederationMode = getMeta('limited_federation_mode');
 export const mascot = getMeta('mascot');
-export const maxReactions = (initialState && initialState.max_reactions) || 1;
 export const me = getMeta('me');
 export const movedToAccountId = getMeta('moved_to_account_id');
 export const owner = getMeta('owner');
@@ -105,11 +111,9 @@ export const source_url = getMeta('source_url');
 export const timelinePreview = getMeta('timeline_preview');
 export const title = getMeta('title');
 export const trendsAsLanding = getMeta('trends_as_landing_page');
-export const unfollowModal = getMeta('unfollow_modal');
 export const useBlurhash = getMeta('use_blurhash');
 export const usePendingItems = getMeta('use_pending_items');
 export const version = getMeta('version');
-export const visibleReactions = getMeta('visible_reactions');
 export const translationEnabled = getMeta('translation_enabled');
 export const languages = initialState?.languages;
 export const criticalUpdatesPending = initialState?.critical_updates_pending;
@@ -117,7 +121,11 @@ export const criticalUpdatesPending = initialState?.critical_updates_pending;
 export const statusPageUrl = getMeta('status_page_url');
 export const sso_redirect = getMeta('sso_redirect');
 
-// Glitch-soc-specific settings
-export const maxChars = (initialState && initialState.max_toot_chars) || 500;
+/**
+ * @returns {string | undefined}
+ */
+export function getAccessToken() {
+  return getMeta('access_token');
+}
 
 export default initialState;

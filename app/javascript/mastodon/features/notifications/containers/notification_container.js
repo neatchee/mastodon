@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 
-import { initBoostModal } from '../../../actions/boosts';
 import { mentionCompose } from '../../../actions/compose';
 import {
   reblog,
@@ -8,6 +7,7 @@ import {
   unreblog,
   unfavourite,
 } from '../../../actions/interactions';
+import { openModal } from '../../../actions/modal';
 import {
   hideStatus,
   revealStatus,
@@ -34,22 +34,22 @@ const makeMapStateToProps = () => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onMention: (account, router) => {
-    dispatch(mentionCompose(account, router));
+  onMention: (account) => {
+    dispatch(mentionCompose(account));
   },
 
   onModalReblog (status, privacy) {
-    dispatch(reblog(status, privacy));
+    dispatch(reblog({ statusId: status.get('id'), visibility: privacy }));
   },
 
   onReblog (status, e) {
     if (status.get('reblogged')) {
-      dispatch(unreblog(status));
+      dispatch(unreblog({ statusId: status.get('id') }));
     } else {
       if (e.shiftKey || !boostModal) {
         this.onModalReblog(status);
       } else {
-        dispatch(initBoostModal({ status, onReblog: this.onModalReblog }));
+        dispatch(openModal({ modalType: 'BOOST', modalProps: { status, onReblog: this.onModalReblog } }));
       }
     }
   },

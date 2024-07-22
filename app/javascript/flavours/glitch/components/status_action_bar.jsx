@@ -22,6 +22,7 @@ import RepeatActiveIcon from '@/svg-icons/repeat_active.svg?react';
 import RepeatDisabledIcon from '@/svg-icons/repeat_disabled.svg';
 import RepeatPrivateIcon from '@/svg-icons/repeat_private.svg';
 import RepeatPrivateActiveIcon from '@/svg-icons/repeat_private_active.svg?react';
+import { identityContextPropShape, withIdentity } from 'flavours/glitch/identity_context';
 import { PERMISSION_MANAGE_USERS, PERMISSION_MANAGE_FEDERATION } from 'flavours/glitch/permissions';
 import { accountAdminLink, statusAdminLink } from 'flavours/glitch/utils/backend_links';
 import { WithRouterPropTypes } from 'flavours/glitch/utils/react_router';
@@ -71,12 +72,8 @@ const messages = defineMessages({
 });
 
 class StatusActionBar extends ImmutablePureComponent {
-
-  static contextTypes = {
-    identity: PropTypes.object,
-  };
-
   static propTypes = {
+    identity: identityContextPropShape,
     status: ImmutablePropTypes.map.isRequired,
     onReply: PropTypes.func,
     onFavourite: PropTypes.func,
@@ -113,10 +110,10 @@ class StatusActionBar extends ImmutablePureComponent {
   ];
 
   handleReplyClick = () => {
-    const { signedIn } = this.context.identity;
+    const { signedIn } = this.props.identity;
 
     if (signedIn) {
-      this.props.onReply(this.props.status, this.props.history);
+      this.props.onReply(this.props.status);
     } else {
       this.props.onInteractionModal('reply', this.props.status);
     }
@@ -129,7 +126,7 @@ class StatusActionBar extends ImmutablePureComponent {
   };
 
   handleFavouriteClick = (e) => {
-    const { signedIn } = this.context.identity;
+    const { signedIn } = this.props.identity;
 
     if (signedIn) {
       this.props.onFavourite(this.props.status, e);
@@ -143,7 +140,7 @@ class StatusActionBar extends ImmutablePureComponent {
   };
 
   handleReblogClick = e => {
-    const { signedIn } = this.context.identity;
+    const { signedIn } = this.props.identity;
 
     if (signedIn) {
       this.props.onReblog(this.props.status, e);
@@ -157,15 +154,15 @@ class StatusActionBar extends ImmutablePureComponent {
   };
 
   handleDeleteClick = () => {
-    this.props.onDelete(this.props.status, this.props.history);
+    this.props.onDelete(this.props.status);
   };
 
   handleRedraftClick = () => {
-    this.props.onDelete(this.props.status, this.props.history, true);
+    this.props.onDelete(this.props.status, true);
   };
 
   handleEditClick = () => {
-    this.props.onEdit(this.props.status, this.props.history);
+    this.props.onEdit(this.props.status);
   };
 
   handlePinClick = () => {
@@ -173,11 +170,11 @@ class StatusActionBar extends ImmutablePureComponent {
   };
 
   handleMentionClick = () => {
-    this.props.onMention(this.props.status.get('account'), this.props.history);
+    this.props.onMention(this.props.status.get('account'));
   };
 
   handleDirectClick = () => {
-    this.props.onDirect(this.props.status.get('account'), this.props.history);
+    this.props.onDirect(this.props.status.get('account'));
   };
 
   handleMuteClick = () => {
@@ -221,8 +218,8 @@ class StatusActionBar extends ImmutablePureComponent {
 
   render () {
     const { status, intl, withDismiss, withCounters, showReplyCount, scrollKey } = this.props;
-    const { permissions, signedIn } = this.context.identity;
-    
+    const { permissions, signedIn } = this.props.identity;
+
     const mutingConversation = status.get('muted');
     const publicStatus       = ['public', 'unlisted'].includes(status.get('visibility'));
     const pinnableStatus     = ['public', 'unlisted', 'private'].includes(status.get('visibility'));
@@ -333,16 +330,6 @@ class StatusActionBar extends ImmutablePureComponent {
     );
 
     const canReact = permissions && status.get('reactions').filter(r => r.get('count') > 0 && r.get('me')).size < maxReactions;
-    const reactButton = (
-      <IconButton
-        className='status__action-bar-button'
-        onClick={this.handleNoOp} // EmojiPickerDropdown handles that
-        title={intl.formatMessage(messages.react)}
-        disabled={!canReact}
-        icon='add_reaction'
-        iconComponent={AddReactionIcon}
-      />
-    );
 
     return (
       <div className='status__action-bar'>
@@ -357,11 +344,7 @@ class StatusActionBar extends ImmutablePureComponent {
         />
         <IconButton className={classNames('status__action-bar-button', { reblogPrivate })} disabled={!publicStatus && !reblogPrivate} active={status.get('reblogged')} title={reblogTitle} icon={reblogIcon} iconComponent={reblogIconComponent} onClick={this.handleReblogClick} counter={withCounters ? status.get('reblogs_count') : undefined} />
         <IconButton className='status__action-bar-button star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' iconComponent={status.get('favourited') ? StarIcon : StarBorderIcon} onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
-        {
-          permissions
-            ? <EmojiPickerDropdown className='status__action-bar-button' onPickEmoji={this.handleEmojiPick} button={reactButton} disabled={!canReact} />
-            : reactButton
-        }
+        <EmojiPickerDropdown className='status__action-bar-button' onPickEmoji={this.handleEmojiPick} title={intl.formatMessage(messages.react)} icon={AddReactionIcon} disabled={!canReact} />
         <IconButton className='status__action-bar-button bookmark-icon' disabled={!signedIn} active={status.get('bookmarked')} title={intl.formatMessage(messages.bookmark)} icon='bookmark' iconComponent={status.get('bookmarked') ? BookmarkIcon : BookmarkBorderIcon} onClick={this.handleBookmarkClick} />
 
         {filterButton}
@@ -379,7 +362,7 @@ class StatusActionBar extends ImmutablePureComponent {
 
         <div className='status__action-bar-spacer' />
         <a href={status.get('url')} className='status__relative-time' target='_blank' rel='noopener'>
-          <RelativeTimestamp timestamp={status.get('created_at')} />{status.get('edited_at') && <abbr title={intl.formatMessage(messages.edited, { date: intl.formatDate(status.get('edited_at'), { hour12: false, year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }) })}> *</abbr>}
+          <RelativeTimestamp timestamp={status.get('created_at')} />{status.get('edited_at') && <abbr title={intl.formatMessage(messages.edited, { date: intl.formatDate(status.get('edited_at'), { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }) })}> *</abbr>}
         </a>
       </div>
     );
@@ -387,4 +370,4 @@ class StatusActionBar extends ImmutablePureComponent {
 
 }
 
-export default withRouter(injectIntl(StatusActionBar));
+export default withRouter(withIdentity(injectIntl(StatusActionBar)));

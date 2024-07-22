@@ -14,6 +14,7 @@ export default class StatusHeader extends PureComponent {
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
     friends: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
+    avatarSize: PropTypes.number,
     parseClick: PropTypes.func.isRequired,
   };
 
@@ -33,38 +34,34 @@ export default class StatusHeader extends PureComponent {
     const {
       status,
       friends,
+      avatarSize,
     } = this.props;
 
     const account = status.get('account');
 
     let statusAvatar;
     if (friends === undefined || friends === null || !friends.get(0)) {
-      statusAvatar = <Avatar account={account} size={46} />;
+      statusAvatar = <Avatar account={account} size={avatarSize} />;
     } else {
       statusAvatar = <AvatarOverlay account={account} friend={friends.get(0)} />;
     }
 
     return (
-      <div className='status__info__account'>
-        <a
-          href={account.get('url')}
-          target='_blank'
-          className='status__avatar'
-          onClick={this.handleAccountClick}
-          rel='noopener noreferrer'
-        >
+      <a
+        href={account.get('url')}
+        className='status__display-name'
+        target='_blank'
+        onClick={this.handleAccountClick}
+        rel='noopener noreferrer'
+        title={status.getIn(['account', 'acct'])}
+        data-hover-card-account={status.getIn(['account', 'id'])}
+      >
+        <div className='status__avatar'>
           {statusAvatar}
-        </a>
-        <a
-          href={account.get('url')}
-          target='_blank'
-          className='status__display-name'
-          onClick={this.handleAccountClick}
-          rel='noopener noreferrer'
-        >
-          <DisplayName account={account} />
-        </a>
-      </div>
+        </div>
+
+        <DisplayName account={account} />
+      </a>
     );
   }
 

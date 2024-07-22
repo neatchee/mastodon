@@ -1,10 +1,11 @@
 import { Map as ImmutableMap, List as ImmutableList, OrderedSet as ImmutableOrderedSet, fromJS } from 'immutable';
 
+import { timelineDelete } from 'flavours/glitch/actions/timelines_typed';
+
 import {
   COMPOSE_MOUNT,
   COMPOSE_UNMOUNT,
   COMPOSE_CHANGE,
-  COMPOSE_CYCLE_ELEFRIEND,
   COMPOSE_REPLY,
   COMPOSE_REPLY_CANCEL,
   COMPOSE_DIRECT,
@@ -34,6 +35,7 @@ import {
   COMPOSE_SPOILER_TEXT_CHANGE,
   COMPOSE_VISIBILITY_CHANGE,
   COMPOSE_LANGUAGE_CHANGE,
+  COMPOSE_COMPOSING_CHANGE,
   COMPOSE_CONTENT_TYPE_CHANGE,
   COMPOSE_EMOJI_INSERT,
   COMPOSE_UPLOAD_CHANGE_REQUEST,
@@ -43,31 +45,23 @@ import {
   COMPOSE_RESET,
   COMPOSE_POLL_ADD,
   COMPOSE_POLL_REMOVE,
-  COMPOSE_POLL_OPTION_ADD,
   COMPOSE_POLL_OPTION_CHANGE,
-  COMPOSE_POLL_OPTION_REMOVE,
   COMPOSE_POLL_SETTINGS_CHANGE,
   INIT_MEDIA_EDIT_MODAL,
   COMPOSE_CHANGE_MEDIA_DESCRIPTION,
   COMPOSE_CHANGE_MEDIA_FOCUS,
+  COMPOSE_CHANGE_MEDIA_ORDER,
   COMPOSE_SET_STATUS,
   COMPOSE_FOCUS,
 } from '../actions/compose';
 import { REDRAFT } from '../actions/statuses';
 import { STORE_HYDRATE } from '../actions/store';
-import { TIMELINE_DELETE } from '../actions/timelines';
 import { me, defaultContentType } from '../initial_state';
 import { recoverHashtags } from '../utils/hashtag';
 import { unescapeHTML } from '../utils/html';
 import { overwrite } from '../utils/js_helpers';
 import { privacyPreference } from '../utils/privacy_preference';
 import { uuid } from '../uuid';
-
-const totalElefriends = 3;
-
-// ~4% chance you'll end up with an unexpected friend
-// glitch-soc/mastodon repo created_at date: 2017-04-20T21:55:28Z
-const glitchProbability = 1 - 0.0420215528;
 
 const initialState = ImmutableMap({
   mounted: 0,
@@ -76,7 +70,6 @@ const initialState = ImmutableMap({
     threaded_mode: false,
   }),
   sensitive: false,
-  elefriend: Math.random() < glitchProbability ? Math.floor(Math.random() * totalElefriends) : totalElefriends,
   spoiler: false,
   spoiler_text: '',
   privacy: null,
@@ -87,9 +80,10 @@ const initialState = ImmutableMap({
   caretPosition: null,
   preselectDate: null,
   in_reply_to: null,
+  is_composing: false,
   is_submitting: false,
-  is_uploading: false,
   is_changing_upload: false,
+  is_uploading: false,
   progress: 0,
   isUploadingThumbnail: false,
   thumbnailProgress: 0,
@@ -255,7 +249,7 @@ function removeMedia(state, mediaId) {
 
 const insertSuggestion = (state, position, token, completion, path) => {
   return state.withMutations(map => {
-    map.updateIn(path, oldText => `${oldText.slice(0, position)}${completion}${completion[0] === ':' ? '\u200B' : ' '}${oldText.slice(position + token.length)}`);
+    map.updateIn(path, oldText => `${oldText.slice(0, position)}${completion} ${oldText.slice(position + token.length)}`);
     map.set('suggestion_token', null);
     map.set('suggestions', ImmutableList());
     if (path.length === 1 && path[0] === 'text') {
@@ -297,17 +291,15 @@ const sortHashtagsByUse = (state, tags) => {
   return sorted;
 };
 
-const insertEmoji = (state, position, emojiData) => {
+const insertEmoji = (state, position, emojiData, needsSpace) => {
   const oldText = state.get('text');
-  const needSpaceBefore = ![undefined, ' ', '\n'].includes(oldText[position - 1]);
-  const needSpaceAfter = ![' ', '\n'].includes(oldText[position]);
-  const emoji = `${needSpaceBefore ? ' ' : ''}${emojiData.native}${needSpaceAfter ? ' ' : ''}`;
+  const emoji = needsSpace ? ' ' + emojiData.native : emojiData.native;
 
-  return state.withMutations(map => {
-    map.update('text', oldText => `${oldText.slice(0, position)}${emoji}${oldText.slice(position)}`);
-    map.set('focusDate', new Date());
-    map.set('caretPosition', position + emoji.length);
-    map.set('idempotencyKey', uuid());
+  return state.merge({
+    text: `${oldText.slice(0, position)}${emoji} ${oldText.slice(position)}`,
+    focusDate: new Date(),
+    caretPosition: position + emoji.length + 1,
+    idempotencyKey: uuid(),
   });
 };
 
@@ -369,6 +361,18 @@ const updateSuggestionTags = (state, token) => {
   });
 };
 
+const updatePoll = (state, index, value, maxOptions) => state.updateIn(['poll', 'options'], options => {
+  const tmp = options.set(index, value).filterNot(x => x.trim().length === 0);
+
+  if (tmp.size === 0) {
+    return tmp.push('').push('');
+  } else if (tmp.size < maxOptions) {
+    return tmp.push('');
+  }
+
+  return tmp;
+});
+
 export default function compose(state = initialState, action) {
   switch(action.type) {
   case STORE_HYDRATE:
@@ -376,7 +380,9 @@ export default function compose(state = initialState, action) {
   case COMPOSE_MOUNT:
     return state.set('mounted', state.get('mounted') + 1);
   case COMPOSE_UNMOUNT:
-    return state.set('mounted', Math.max(state.get('mounted') - 1, 0));
+    return state
+      .set('mounted', Math.max(state.get('mounted') - 1, 0))
+      .set('is_composing', false);
   case COMPOSE_ADVANCED_OPTIONS_CHANGE:
     return state
       .set('advanced_options', state.get('advanced_options').set(action.option, !!overwrite(!state.getIn(['advanced_options', action.option]), action.value)))
@@ -394,8 +400,8 @@ export default function compose(state = initialState, action) {
       map.set('spoiler', !state.get('spoiler'));
       map.set('idempotencyKey', uuid());
 
-      if (!state.get('sensitive') && state.get('media_attachments').size >= 1) {
-        map.set('sensitive', true);
+      if (state.get('media_attachments').size >= 1 && !state.get('default_sensitive')) {
+        map.set('sensitive', !state.get('spoiler'));
       }
     });
   case COMPOSE_SPOILER_TEXT_CHANGE:
@@ -414,9 +420,8 @@ export default function compose(state = initialState, action) {
     return state
       .set('text', action.text)
       .set('idempotencyKey', uuid());
-  case COMPOSE_CYCLE_ELEFRIEND:
-    return state
-      .set('elefriend', (state.get('elefriend') + 1) % totalElefriends);
+  case COMPOSE_COMPOSING_CHANGE:
+    return state.set('is_composing', action.value);
   case COMPOSE_REPLY:
     return state.withMutations(map => {
       map.set('id', null);
@@ -550,16 +555,16 @@ export default function compose(state = initialState, action) {
     return updateSuggestionTags(state, action.token);
   case COMPOSE_TAG_HISTORY_UPDATE:
     return state.set('tagHistory', fromJS(action.tags));
-  case TIMELINE_DELETE:
-    if (action.id === state.get('in_reply_to')) {
+  case timelineDelete.type:
+    if (action.payload.statusId === state.get('in_reply_to')) {
       return state.set('in_reply_to', null);
-    } else if (action.id === state.get('id')) {
+    } else if (action.payload.statusId === state.get('id')) {
       return state.set('id', null);
     } else {
       return state;
     }
   case COMPOSE_EMOJI_INSERT:
-    return insertEmoji(state, action.position, action.emoji);
+    return insertEmoji(state, action.position, action.emoji, action.needsSpace);
   case COMPOSE_UPLOAD_CHANGE_SUCCESS:
     return state
       .set('is_changing_upload', false)
@@ -648,18 +653,22 @@ export default function compose(state = initialState, action) {
     return state.set('poll', initialPoll);
   case COMPOSE_POLL_REMOVE:
     return state.set('poll', null);
-  case COMPOSE_POLL_OPTION_ADD:
-    return state.updateIn(['poll', 'options'], options => options.push(action.title));
   case COMPOSE_POLL_OPTION_CHANGE:
-    return state.setIn(['poll', 'options', action.index], action.title);
-  case COMPOSE_POLL_OPTION_REMOVE:
-    return state.updateIn(['poll', 'options'], options => options.delete(action.index));
+    return updatePoll(state, action.index, action.title, action.maxOptions);
   case COMPOSE_POLL_SETTINGS_CHANGE:
     return state.update('poll', poll => poll.set('expires_in', action.expiresIn).set('multiple', action.isMultiple));
   case COMPOSE_LANGUAGE_CHANGE:
     return state.set('language', action.language);
   case COMPOSE_FOCUS:
     return state.set('focusDate', new Date()).update('text', text => text.length > 0 ? text : action.defaultText);
+  case COMPOSE_CHANGE_MEDIA_ORDER:
+    return state.update('media_attachments', list => {
+      const indexA = list.findIndex(x => x.get('id') === action.a);
+      const moveItem = list.get(indexA);
+      const indexB = list.findIndex(x => x.get('id') === action.b);
+
+      return list.splice(indexA, 1).splice(indexB, 0, moveItem);
+    });
   default:
     return state;
   }

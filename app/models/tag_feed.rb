@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TagFeed < PublicFeed
-  LIMIT_PER_MODE = 4
+  LIMIT_PER_MODE = (ENV['MAX_FEED_HASHTAGS'] || 4).to_i
 
   # @param [Tag] tag
   # @param [Account] account
@@ -34,7 +34,7 @@ class TagFeed < PublicFeed
     scope.merge!(account_filters_scope) if account?
     scope.merge!(media_only_scope) if media_only?
 
-    scope.cache_ids.to_a_paginated_by_id(limit, max_id: max_id, since_id: since_id, min_id: min_id)
+    scope.to_a_paginated_by_id(limit, max_id: max_id, since_id: since_id, min_id: min_id)
   end
 
   private

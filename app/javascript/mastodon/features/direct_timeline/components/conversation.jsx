@@ -108,14 +108,14 @@ export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown }) 
           modalProps: {
             message: intl.formatMessage(messages.replyMessage),
             confirm: intl.formatMessage(messages.replyConfirm),
-            onConfirm: () => dispatch(replyCompose(lastStatus, history)),
+            onConfirm: () => dispatch(replyCompose(lastStatus)),
           },
         }));
       } else {
-        dispatch(replyCompose(lastStatus, history));
+        dispatch(replyCompose(lastStatus));
       }
     });
-  }, [dispatch, lastStatus, history, intl]);
+  }, [dispatch, lastStatus, intl]);
 
   const handleDelete = useCallback(() => {
     dispatch(deleteConversation(id));
@@ -163,7 +163,7 @@ export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown }) 
   menu.push({ text: intl.formatMessage(messages.delete), action: handleDelete });
 
   const names = accounts.map(a => (
-    <Link to={`/@${a.get('acct')}`} key={a.get('id')} title={a.get('acct')}>
+    <Link to={`/@${a.get('acct')}`} key={a.get('id')} data-hover-card-account={a.get('id')}>
       <bdi>
         <strong
           className='display-name__html'

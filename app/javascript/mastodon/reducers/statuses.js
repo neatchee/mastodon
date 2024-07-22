@@ -1,12 +1,10 @@
 import { Map as ImmutableMap, fromJS } from 'immutable';
 
+import { timelineDelete } from 'mastodon/actions/timelines_typed';
+
 import { STATUS_IMPORT, STATUSES_IMPORT } from '../actions/importer';
 import { normalizeStatusTranslation } from '../actions/importer/normalizer';
 import {
-  REBLOG_REQUEST,
-  REBLOG_FAIL,
-  UNREBLOG_REQUEST,
-  UNREBLOG_FAIL,
   FAVOURITE_REQUEST,
   FAVOURITE_FAIL,
   UNFAVOURITE_REQUEST,
@@ -15,12 +13,11 @@ import {
   BOOKMARK_FAIL,
   UNBOOKMARK_REQUEST,
   UNBOOKMARK_FAIL,
-  REACTION_UPDATE,
-  REACTION_ADD_FAIL,
-  REACTION_REMOVE_FAIL,
-  REACTION_ADD_REQUEST,
-  REACTION_REMOVE_REQUEST,
 } from '../actions/interactions';
+import {
+  reblog,
+  unreblog,
+} from '../actions/interactions_typed';
 import {
   STATUS_MUTE_SUCCESS,
   STATUS_UNMUTE_SUCCESS,
@@ -32,7 +29,6 @@ import {
   STATUS_FETCH_REQUEST,
   STATUS_FETCH_FAIL,
 } from '../actions/statuses';
-import { TIMELINE_DELETE } from '../actions/timelines';
 
 const importStatus = (state, status) => state.set(status.id, fromJS(status));
 
@@ -46,43 +42,6 @@ const deleteStatus = (state, id, references) => {
 
   return state.delete(id);
 };
-
-const updateReaction = (state, id, name, updater) => state.update(
-  id,
-  status => status.update(
-    'reactions',
-    reactions => {
-      const index = reactions.findIndex(reaction => reaction.get('name') === name);
-      if (index > -1) {
-        return reactions.update(index, reaction => updater(reaction));
-      } else {
-        return reactions.push(updater(fromJS({ name, count: 0 })));
-      }
-    },
-  ),
-);
-
-const updateReactionCount = (state, reaction) => updateReaction(state, reaction.status_id, reaction.name, x => x.set('count', reaction.count));
-
-// The url parameter is only used when adding a new custom emoji reaction
-// (one that wasn't in the reactions list before) because we don't have its
-// URL yet.  In all other cases, it's undefined.
-const addReaction = (state, id, name, url) => updateReaction(
-  state,
-  id,
-  name,
-  x => x.set('me', true)
-    .update('count', n => n + 1)
-    .update('url', old => old ? old : url)
-    .update('static_url', old => old ? old : url),
-);
-
-const removeReaction = (state, id, name) => updateReaction(
-  state,
-  id,
-  name,
-  x => x.set('me', false).update('count', n => n - 1),
-);
 
 const statusTranslateSuccess = (state, id, translation) => {
   return state.withMutations(map => {
@@ -107,6 +66,7 @@ const statusTranslateUndo = (state, id) => {
 
 const initialState = ImmutableMap();
 
+/** @type {import('@reduxjs/toolkit').Reducer<typeof initialState>} */
 export default function statuses(state = initialState, action) {
   switch(action.type) {
   case STATUS_FETCH_REQUEST:
@@ -133,22 +93,6 @@ export default function statuses(state = initialState, action) {
     return state.get(action.status.get('id')) === undefined ? state : state.setIn([action.status.get('id'), 'bookmarked'], false);
   case UNBOOKMARK_FAIL:
     return state.get(action.status.get('id')) === undefined ? state : state.setIn([action.status.get('id'), 'bookmarked'], true);
-  case REBLOG_REQUEST:
-    return state.setIn([action.status.get('id'), 'reblogged'], true);
-  case REBLOG_FAIL:
-    return state.get(action.status.get('id')) === undefined ? state : state.setIn([action.status.get('id'), 'reblogged'], false);
-  case UNREBLOG_REQUEST:
-    return state.setIn([action.status.get('id'), 'reblogged'], false);
-  case UNREBLOG_FAIL:
-    return state.get(action.status.get('id')) === undefined ? state : state.setIn([action.status.get('id'), 'reblogged'], true);
-  case REACTION_UPDATE:
-    return updateReactionCount(state, action.reaction);
-  case REACTION_ADD_REQUEST:
-  case REACTION_REMOVE_FAIL:
-    return addReaction(state, action.id, action.name, action.url);
-  case REACTION_REMOVE_REQUEST:
-  case REACTION_ADD_FAIL:
-    return removeReaction(state, action.id, action.name);
   case STATUS_MUTE_SUCCESS:
     return state.setIn([action.id, 'muted'], true);
   case STATUS_UNMUTE_SUCCESS:
@@ -171,13 +115,22 @@ export default function statuses(state = initialState, action) {
     });
   case STATUS_COLLAPSE:
     return state.setIn([action.id, 'collapsed'], action.isCollapsed);
-  case TIMELINE_DELETE:
-    return deleteStatus(state, action.id, action.references);
+  case timelineDelete.type:
+    return deleteStatus(state, action.payload.statusId, action.payload.references);
   case STATUS_TRANSLATE_SUCCESS:
     return statusTranslateSuccess(state, action.id, action.translation);
   case STATUS_TRANSLATE_UNDO:
     return statusTranslateUndo(state, action.id);
   default:
-    return state;
+    if(reblog.pending.match(action))
+      return state.setIn([action.meta.arg.statusId, 'reblogged'], true);
+    else if(reblog.rejected.match(action))
+      return state.get(action.meta.arg.statusId) === undefined ? state : state.setIn([action.meta.arg.statusId, 'reblogged'], false);
+    else if(unreblog.pending.match(action))
+      return state.setIn([action.meta.arg.statusId, 'reblogged'], false);
+    else if(unreblog.rejected.match(action))
+      return state.get(action.meta.arg.statusId) === undefined ? state : state.setIn([action.meta.arg.statusId, 'reblogged'], true);
+    else
+      return state;
   }
 }

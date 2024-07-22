@@ -22,7 +22,8 @@ import Card from '../features/status/components/card';
 // to use the progress bar to show download progress
 import Bundle from '../features/ui/components/bundle';
 import { MediaGallery, Video, Audio } from '../features/ui/util/async-components';
-import { displayMedia, visibleReactions } from '../initial_state';
+import { SensitiveMediaContext } from '../features/ui/util/sensitive_media_context';
+import { displayMedia } from '../initial_state';
 
 import { Avatar } from './avatar';
 import { AvatarOverlay } from './avatar_overlay';
@@ -31,7 +32,6 @@ import { getHashtagBarForStatus } from './hashtag_bar';
 import { RelativeTimestamp } from './relative_timestamp';
 import StatusActionBar from './status_action_bar';
 import StatusContent from './status_content';
-import StatusReactions from './status_reactions';
 import { VisibilityIcon } from './visibility_icon';
 
 const domParser = new DOMParser();
@@ -71,17 +71,15 @@ export const defaultMediaVisibility = (status) => {
 
 const messages = defineMessages({
   public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },
-  unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
-  private_short: { id: 'privacy.private.short', defaultMessage: 'Followers only' },
-  direct_short: { id: 'privacy.direct.short', defaultMessage: 'Mentioned people only' },
+  unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Quiet public' },
+  private_short: { id: 'privacy.private.short', defaultMessage: 'Followers' },
+  direct_short: { id: 'privacy.direct.short', defaultMessage: 'Specific people' },
   edited: { id: 'status.edited', defaultMessage: 'Edited {date}' },
 });
 
 class Status extends ImmutablePureComponent {
 
-  static contextTypes = {
-    identity: PropTypes.object,
-  };
+  static contextType = SensitiveMediaContext;
 
   static propTypes = {
     status: ImmutablePropTypes.map,
@@ -96,8 +94,6 @@ class Status extends ImmutablePureComponent {
     onDelete: PropTypes.func,
     onDirect: PropTypes.func,
     onMention: PropTypes.func,
-    onReactionAdd: PropTypes.func,
-    onReactionRemove: PropTypes.func,
     onPin: PropTypes.func,
     onOpenMedia: PropTypes.func,
     onOpenVideo: PropTypes.func,
@@ -120,8 +116,9 @@ class Status extends ImmutablePureComponent {
     cacheMediaWidth: PropTypes.func,
     cachedMediaWidth: PropTypes.number,
     scrollKey: PropTypes.string,
+    skipPrepend: PropTypes.bool,
+    avatarSize: PropTypes.number,
     deployPictureInPicture: PropTypes.func,
-    emojiMap: ImmutablePropTypes.map.isRequired,
     pictureInPicture: ImmutablePropTypes.contains({
       inUse: PropTypes.bool,
       available: PropTypes.bool,
@@ -141,19 +138,21 @@ class Status extends ImmutablePureComponent {
   ];
 
   state = {
-    showMedia: defaultMediaVisibility(this.props.status),
-    statusId: undefined,
+    showMedia: defaultMediaVisibility(this.props.status) && !(this.context?.hideMediaByDefault),
     forceFilter: undefined,
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.status && nextProps.status.get('id') !== prevState.statusId) {
-      return {
-        showMedia: defaultMediaVisibility(nextProps.status),
-        statusId: nextProps.status.get('id'),
-      };
-    } else {
-      return null;
+  componentDidUpdate (prevProps) {
+    // This will potentially cause a wasteful redraw, but in most cases `Status` components are used
+    // with a `key` directly depending on their `id`, preventing re-use of the component across
+    // different IDs.
+    // But just in case this does change, reset the state on status change.
+
+    if (this.props.status?.get('id') !== prevProps.status?.get('id')) {
+      this.setState({
+        showMedia: defaultMediaVisibility(this.props.status) && !(this.context?.hideMediaByDefault),
+        forceFilter: undefined,
+      });
     }
   }
 
@@ -269,7 +268,7 @@ class Status extends ImmutablePureComponent {
 
   handleHotkeyReply = e => {
     e.preventDefault();
-    this.props.onReply(this._properStatus(), this.props.history);
+    this.props.onReply(this._properStatus());
   };
 
   handleHotkeyFavourite = () => {
@@ -282,7 +281,7 @@ class Status extends ImmutablePureComponent {
 
   handleHotkeyMention = e => {
     e.preventDefault();
-    this.props.onMention(this._properStatus().get('account'), this.props.history);
+    this.props.onMention(this._properStatus().get('account'));
   };
 
   handleHotkeyOpen = () => {
@@ -356,7 +355,7 @@ class Status extends ImmutablePureComponent {
   };
 
   render () {
-    const { intl, hidden, featured, unread, showThread, scrollKey, pictureInPicture, previousId, nextInReplyToId, rootId } = this.props;
+    const { intl, hidden, featured, unread, showThread, scrollKey, pictureInPicture, previousId, nextInReplyToId, rootId, skipPrepend, avatarSize = 46 } = this.props;
 
     let { status, account, ...other } = this.props;
 
@@ -428,7 +427,7 @@ class Status extends ImmutablePureComponent {
       prepend = (
         <div className='status__prepend'>
           <div className='status__prepend-icon-wrapper'><Icon id='retweet' icon={RepeatIcon} className='status__prepend-icon' /></div>
-          <FormattedMessage id='status.reblogged_by' defaultMessage='{name} boosted' values={{ name: <a onClick={this.handlePrependAccountClick} data-id={status.getIn(['account', 'id'])} href={`/@${status.getIn(['account', 'acct'])}`} className='status__display-name muted'><bdi><strong dangerouslySetInnerHTML={display_name_html} /></bdi></a> }} />
+          <FormattedMessage id='status.reblogged_by' defaultMessage='{name} boosted' values={{ name: <a onClick={this.handlePrependAccountClick} data-id={status.getIn(['account', 'id'])} data-hover-card-account={status.getIn(['account', 'id'])} href={`/@${status.getIn(['account', 'acct'])}`} className='status__display-name muted'><bdi><strong dangerouslySetInnerHTML={display_name_html} /></bdi></a> }} />
         </div>
       );
 
@@ -449,7 +448,7 @@ class Status extends ImmutablePureComponent {
       prepend = (
         <div className='status__prepend'>
           <div className='status__prepend-icon-wrapper'><Icon id='reply' icon={ReplyIcon} className='status__prepend-icon' /></div>
-          <FormattedMessage id='status.replied_to' defaultMessage='Replied to {name}' values={{ name: <a onClick={this.handlePrependAccountClick} data-id={status.getIn(['account', 'id'])} href={`/@${status.getIn(['account', 'acct'])}`} className='status__display-name muted'><bdi><strong dangerouslySetInnerHTML={display_name_html} /></bdi></a> }} />
+          <FormattedMessage id='status.replied_to' defaultMessage='Replied to {name}' values={{ name: <a onClick={this.handlePrependAccountClick} data-id={status.getIn(['account', 'id'])} data-hover-card-account={status.getIn(['account', 'id'])} href={`/@${status.getIn(['account', 'acct'])}`} className='status__display-name muted'><bdi><strong dangerouslySetInnerHTML={display_name_html} /></bdi></a> }} />
         </div>
       );
     }
@@ -542,7 +541,7 @@ class Status extends ImmutablePureComponent {
     }
 
     if (account === undefined || account === null) {
-      statusAvatar = <Avatar account={status.get('account')} size={46} />;
+      statusAvatar = <Avatar account={status.get('account')} size={avatarSize} />;
     } else {
       statusAvatar = <AvatarOverlay account={status.get('account')} friend={account} />;
     }
@@ -553,7 +552,7 @@ class Status extends ImmutablePureComponent {
     return (
       <HotKeys handlers={handlers}>
         <div className={classNames('status__wrapper', `status__wrapper-${status.get('visibility')}`, { 'status__wrapper-reply': !!status.get('in_reply_to_id'), unread, focusable: !this.props.muted })} tabIndex={this.props.muted ? null : 0} data-featured={featured ? 'true' : null} aria-label={textForScreenReader(intl, status, rebloggedByText)} ref={this.handleRef} data-nosnippet={status.getIn(['account', 'noindex'], true) || undefined}>
-          {prepend}
+          {!skipPrepend && prepend}
 
           <div className={classNames('status', `status-${status.get('visibility')}`, { 'status-reply': !!status.get('in_reply_to_id'), 'status--in-thread': !!rootId, 'status--first-in-thread': previousId && (!connectUp || connectToRoot), muted: this.props.muted })} data-id={status.get('id')}>
             {(connectReply || connectUp || connectToRoot) && <div className={classNames('status__line', { 'status__line--full': connectReply, 'status__line--first': !status.get('in_reply_to_id') && !connectToRoot })} />}
@@ -562,10 +561,10 @@ class Status extends ImmutablePureComponent {
             <div onClick={this.handleClick} className='status__info'>
               <a href={`/@${status.getIn(['account', 'acct'])}/${status.get('id')}`} className='status__relative-time' target='_blank' rel='noopener noreferrer'>
                 <span className='status__visibility-icon'><VisibilityIcon visibility={status.get('visibility')} /></span>
-                <RelativeTimestamp timestamp={status.get('created_at')} />{status.get('edited_at') && <abbr title={intl.formatMessage(messages.edited, { date: intl.formatDate(status.get('edited_at'), { hour12: false, year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }) })}> *</abbr>}
+                <RelativeTimestamp timestamp={status.get('created_at')} />{status.get('edited_at') && <abbr title={intl.formatMessage(messages.edited, { date: intl.formatDate(status.get('edited_at'), { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }) })}> *</abbr>}
               </a>
 
-              <a onClick={this.handleAccountClick} href={`/@${status.getIn(['account', 'acct'])}`} title={status.getIn(['account', 'acct'])} className='status__display-name' target='_blank' rel='noopener noreferrer'>
+              <a onClick={this.handleAccountClick} href={`/@${status.getIn(['account', 'acct'])}`} title={status.getIn(['account', 'acct'])} data-hover-card-account={status.getIn(['account', 'id'])} className='status__display-name' target='_blank' rel='noopener noreferrer'>
                 <div className='status__avatar'>
                   {statusAvatar}
                 </div>
@@ -587,15 +586,6 @@ class Status extends ImmutablePureComponent {
 
             {media}
 
-            <StatusReactions
-              statusId={status.get('id')}
-              reactions={status.get('reactions')}
-              numVisible={visibleReactions}
-              addReaction={this.props.onReactionAdd}
-              removeReaction={this.props.onReactionRemove}
-              canReact={this.context.identity.signedIn}
-            />
-            
             {expanded && hashtagBar}
 
             <StatusActionBar scrollKey={scrollKey} status={status} account={account} onFilter={matchedFilters ? this.handleFilterClick : null} {...other} />

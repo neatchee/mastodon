@@ -22,12 +22,12 @@ import RepeatActiveIcon from '@/svg-icons/repeat_active.svg?react';
 import RepeatDisabledIcon from '@/svg-icons/repeat_disabled.svg?react';
 import RepeatPrivateIcon from '@/svg-icons/repeat_private.svg?react';
 import RepeatPrivateActiveIcon from '@/svg-icons/repeat_private_active.svg?react';
+import { identityContextPropShape, withIdentity } from 'mastodon/identity_context';
 import { PERMISSION_MANAGE_USERS, PERMISSION_MANAGE_FEDERATION } from 'mastodon/permissions';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 
 import DropdownMenuContainer from '../containers/dropdown_menu_container';
-import EmojiPickerDropdown from '../features/compose/containers/emoji_picker_dropdown_container';
-import { me, maxReactions } from '../initial_state';
+import { me } from '../initial_state';
 
 import { IconButton } from './icon_button';
 
@@ -48,7 +48,6 @@ const messages = defineMessages({
   cancel_reblog_private: { id: 'status.cancel_reblog_private', defaultMessage: 'Unboost' },
   cannot_reblog: { id: 'status.cannot_reblog', defaultMessage: 'This post cannot be boosted' },
   favourite: { id: 'status.favourite', defaultMessage: 'Favorite' },
-  react: { id: 'status.react', defaultMessage: 'React' },
   bookmark: { id: 'status.bookmark', defaultMessage: 'Bookmark' },
   removeBookmark: { id: 'status.remove_bookmark', defaultMessage: 'Remove bookmark' },
   open: { id: 'status.open', defaultMessage: 'Expand this status' },
@@ -76,17 +75,12 @@ const mapStateToProps = (state, { status }) => ({
 });
 
 class StatusActionBar extends ImmutablePureComponent {
-
-  static contextTypes = {
-    identity: PropTypes.object,
-  };
-
   static propTypes = {
+    identity: identityContextPropShape,
     status: ImmutablePropTypes.map.isRequired,
-    relationship: ImmutablePropTypes.map,
+    relationship: ImmutablePropTypes.record,
     onReply: PropTypes.func,
     onFavourite: PropTypes.func,
-    onReactionAdd: PropTypes.func,
     onReblog: PropTypes.func,
     onDelete: PropTypes.func,
     onDirect: PropTypes.func,
@@ -121,10 +115,10 @@ class StatusActionBar extends ImmutablePureComponent {
   ];
 
   handleReplyClick = () => {
-    const { signedIn } = this.context.identity;
+    const { signedIn } = this.props.identity;
 
     if (signedIn) {
-      this.props.onReply(this.props.status, this.props.history);
+      this.props.onReply(this.props.status);
     } else {
       this.props.onInteractionModal('reply', this.props.status);
     }
@@ -139,7 +133,7 @@ class StatusActionBar extends ImmutablePureComponent {
   };
 
   handleFavouriteClick = () => {
-    const { signedIn } = this.context.identity;
+    const { signedIn } = this.props.identity;
 
     if (signedIn) {
       this.props.onFavourite(this.props.status);
@@ -148,12 +142,8 @@ class StatusActionBar extends ImmutablePureComponent {
     }
   };
 
-  handleEmojiPick = data => {
-    this.props.onReactionAdd(this.props.status.get('id'), data.native.replace(/:/g, ''), data.imageUrl);
-  };
-
   handleReblogClick = e => {
-    const { signedIn } = this.context.identity;
+    const { signedIn } = this.props.identity;
 
     if (signedIn) {
       this.props.onReblog(this.props.status, e);
@@ -167,15 +157,15 @@ class StatusActionBar extends ImmutablePureComponent {
   };
 
   handleDeleteClick = () => {
-    this.props.onDelete(this.props.status, this.props.history);
+    this.props.onDelete(this.props.status);
   };
 
   handleRedraftClick = () => {
-    this.props.onDelete(this.props.status, this.props.history, true);
+    this.props.onDelete(this.props.status, true);
   };
 
   handleEditClick = () => {
-    this.props.onEdit(this.props.status, this.props.history);
+    this.props.onEdit(this.props.status);
   };
 
   handlePinClick = () => {
@@ -183,11 +173,11 @@ class StatusActionBar extends ImmutablePureComponent {
   };
 
   handleMentionClick = () => {
-    this.props.onMention(this.props.status.get('account'), this.props.history);
+    this.props.onMention(this.props.status.get('account'));
   };
 
   handleDirectClick = () => {
-    this.props.onDirect(this.props.status.get('account'), this.props.history);
+    this.props.onDirect(this.props.status.get('account'));
   };
 
   handleMuteClick = () => {
@@ -216,7 +206,7 @@ class StatusActionBar extends ImmutablePureComponent {
     const { status, onBlockDomain } = this.props;
     const account = status.get('account');
 
-    onBlockDomain(account.get('acct').split('@')[1]);
+    onBlockDomain(account);
   };
 
   handleUnblockDomain = () => {
@@ -255,11 +245,9 @@ class StatusActionBar extends ImmutablePureComponent {
     this.props.onFilter();
   };
 
-  handleNoOp = () => {}; // hack for reaction add button
-
   render () {
     const { status, relationship, intl, withDismiss, withCounters, scrollKey } = this.props;
-    const { signedIn, permissions } = this.context.identity;
+    const { signedIn, permissions } = this.props.identity;
 
     const publicStatus       = ['public', 'unlisted'].includes(status.get('visibility'));
     const pinnableStatus     = ['public', 'unlisted', 'private'].includes(status.get('visibility'));
@@ -394,28 +382,12 @@ class StatusActionBar extends ImmutablePureComponent {
     );
 
     const isReply = status.get('in_reply_to_account_id') === status.getIn(['account', 'id']);
-    const canReact = signedIn && status.get('reactions').filter(r => r.get('count') > 0 && r.get('me')).size < maxReactions;
-    const reactButton = (
-      <IconButton
-        className='status__action-bar-button'
-        onClick={this.handleNoOp} // EmojiPickerDropdown handles that
-        title={intl.formatMessage(messages.react)}
-        disabled={!canReact}
-        icon='plus'
-        iconComponent={ReactIcon}
-      />
-    );
 
     return (
       <div className='status__action-bar'>
         <IconButton className='status__action-bar__button' title={replyTitle} icon={isReply ? 'reply' : replyIcon} iconComponent={isReply ? ReplyIcon : replyIconComponent} onClick={this.handleReplyClick} counter={status.get('replies_count')} />
         <IconButton className={classNames('status__action-bar__button', { reblogPrivate })} disabled={!publicStatus && !reblogPrivate} active={status.get('reblogged')} title={reblogTitle} icon='retweet' iconComponent={reblogIconComponent} onClick={this.handleReblogClick} counter={withCounters ? status.get('reblogs_count') : undefined} />
         <IconButton className='status__action-bar__button star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' iconComponent={status.get('favourited') ? StarIcon : StarBorderIcon} onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
-        {
-          signedIn
-            ? <EmojiPickerDropdown className='status__action-bar-button' onPickEmoji={this.handleEmojiPick} button={reactButton} disabled={!canReact} />
-            : reactButton
-        }
         <IconButton className='status__action-bar__button bookmark-icon' disabled={!signedIn} active={status.get('bookmarked')} title={intl.formatMessage(messages.bookmark)} icon='bookmark' iconComponent={status.get('bookmarked') ? BookmarkIcon : BookmarkBorderIcon} onClick={this.handleBookmarkClick} />
 
         {filterButton}
@@ -435,4 +407,4 @@ class StatusActionBar extends ImmutablePureComponent {
 
 }
 
-export default withRouter(connect(mapStateToProps)(injectIntl(StatusActionBar)));
+export default withRouter(withIdentity(connect(mapStateToProps)(injectIntl(StatusActionBar))));

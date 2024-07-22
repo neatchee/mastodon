@@ -3,7 +3,6 @@ import { defineMessages, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 
 import { initBlockModal } from 'flavours/glitch/actions/blocks';
-import { initBoostModal } from 'flavours/glitch/actions/boosts';
 import {
   replyCompose,
   mentionCompose,
@@ -96,7 +95,7 @@ const makeMapStateToProps = () => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
 
-  onReply (status, router) {
+  onReply (status) {
     const getStatus = makeGetStatus();
 
     dispatch((_, getState) => {
@@ -112,20 +111,20 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
             message: intl.formatMessage(messages.replyMessage),
             confirm: intl.formatMessage(messages.replyConfirm),
             onDoNotAsk: () => dispatch(changeLocalSetting(['confirm_before_clearing_draft'], false)),
-            onConfirm: () => dispatch(replyCompose(status, router, rebloggedBy)),
+            onConfirm: () => dispatch(replyCompose(status, rebloggedBy)),
           },
         }));
       } else {
-        dispatch(replyCompose(status, router, rebloggedBy));
+        dispatch(replyCompose(status, rebloggedBy));
       }
     });
   },
 
   onModalReblog (status, privacy) {
     if (status.get('reblogged')) {
-      dispatch(unreblog(status));
+      dispatch(unreblog({ statusId: status.get('id') }));
     } else {
-      dispatch(reblog(status, privacy));
+      dispatch(reblog({ statusId: status.get('id'), visibility: privacy }));
     }
   },
 
@@ -133,11 +132,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch((_, getState) => {
       let state = getState();
       if (state.getIn(['local_settings', 'confirm_boost_missing_media_description']) && status.get('media_attachments').some(item => !item.get('description')) && !status.get('reblogged')) {
-        dispatch(initBoostModal({ status, onReblog: this.onModalReblog, missingMediaDescription: true }));
+        dispatch(openModal({ modalType: 'BOOST', modalProps: { status, onReblog: this.onModalReblog, missingMediaDescription: true } }));
       } else if (e.shiftKey || !boostModal) {
         this.onModalReblog(status);
       } else {
-        dispatch(initBoostModal({ status, onReblog: this.onModalReblog }));
+        dispatch(openModal({ modalType: 'BOOST', modalProps: { status, onReblog: this.onModalReblog } }));
       }
     });
   },
@@ -198,23 +197,23 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     }));
   },
 
-  onDelete (status, history, withRedraft = false) {
+  onDelete (status, withRedraft = false) {
     const { intl } = ownProps;
     if (!deleteModal) {
-      dispatch(deleteStatus(status.get('id'), history, withRedraft));
+      dispatch(deleteStatus(status.get('id'), withRedraft));
     } else {
       dispatch(openModal({
         modalType: 'CONFIRM',
         modalProps: {
           message: intl.formatMessage(withRedraft ? messages.redraftMessage : messages.deleteMessage),
           confirm: intl.formatMessage(withRedraft ? messages.redraftConfirm : messages.deleteConfirm),
-          onConfirm: () => dispatch(deleteStatus(status.get('id'), history, withRedraft)),
+          onConfirm: () => dispatch(deleteStatus(status.get('id'), withRedraft)),
         },
       }));
     }
   },
 
-  onEdit (status, history) {
+  onEdit (status) {
     const { intl } = ownProps;
     dispatch((_, getState) => {
       let state = getState();
@@ -224,11 +223,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
           modalProps: {
             message: intl.formatMessage(messages.editMessage),
             confirm: intl.formatMessage(messages.editConfirm),
-            onConfirm: () => dispatch(editStatus(status.get('id'), history)),
+            onConfirm: () => dispatch(editStatus(status.get('id'))),
           },
         }));
       } else {
-        dispatch(editStatus(status.get('id'), history));
+        dispatch(editStatus(status.get('id')));
       }
     });
   },
@@ -241,12 +240,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     }
   },
 
-  onDirect (account, router) {
-    dispatch(directCompose(account, router));
+  onDirect (account) {
+    dispatch(directCompose(account));
   },
 
-  onMention (account, router) {
-    dispatch(mentionCompose(account, router));
+  onMention (account) {
+    dispatch(mentionCompose(account));
   },
 
   onOpenMedia (statusId, media, index, lang) {
@@ -300,7 +299,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   deployPictureInPicture (status, type, mediaProps) {
     dispatch((_, getState) => {
       if (getState().getIn(['local_settings', 'media', 'pop_in_player'])) {
-        dispatch(deployPictureInPicture(status.get('id'), status.getIn(['account', 'id']), type, mediaProps));
+        dispatch(deployPictureInPicture({statusId: status.get('id'), accountId: status.getIn(['account', 'id']), playerType: type, props: mediaProps}));
       }
     });
   },

@@ -9,6 +9,8 @@ import { NonceProvider } from 'react-select';
 import AsyncSelect from 'react-select/async';
 import Toggle from 'react-toggle';
 
+import { maxFeedHashtags } from 'flavours/glitch/initial_state';
+
 import SettingToggle from '../../notifications/components/setting_toggle';
 
 const messages = defineMessages({
@@ -46,9 +48,9 @@ class ColumnSettings extends PureComponent {
   onSelect = mode => value => {
     const oldValue = this.tags(mode);
 
-    // Prevent changes that add more than 4 tags, but allow removing
-    // tags that were already added before
-    if ((value.length > 4) && !(value < oldValue)) {
+    // Prevent changes that add more than the number of configured
+    // tags, but allow removing tags that were already added before
+    if ((value.length > maxFeedHashtags) && !(value < oldValue)) {
       return;
     }
 
@@ -107,28 +109,28 @@ class ColumnSettings extends PureComponent {
     const { settings, onChange } = this.props;
 
     return (
-      <div>
-        <div className='column-settings__row'>
-          <div className='setting-toggle'>
-            <Toggle id='hashtag.column_settings.tag_toggle' onChange={this.onToggle} checked={this.state.open} />
+      <div className='column-settings'>
+        <section>
+          <div className='column-settings__row'>
+            <SettingToggle settings={settings} settingPath={['local']} onChange={onChange} label={<FormattedMessage id='community.column_settings.local_only' defaultMessage='Local only' />} />
 
-            <span className='setting-toggle__label'>
-              <FormattedMessage id='hashtag.column_settings.tag_toggle' defaultMessage='Include additional tags in this column' />
-            </span>
+            <div className='setting-toggle'>
+              <Toggle id='hashtag.column_settings.tag_toggle' onChange={this.onToggle} checked={this.state.open} />
+
+              <span className='setting-toggle__label'>
+                <FormattedMessage id='hashtag.column_settings.tag_toggle' defaultMessage='Include additional tags in this column' />
+              </span>
+            </div>
           </div>
-        </div>
 
-        {this.state.open && (
-          <div className='column-settings__hashtags'>
-            {this.modeSelect('any')}
-            {this.modeSelect('all')}
-            {this.modeSelect('none')}
-          </div>
-        )}
-
-        <div className='column-settings__row'>
-          <SettingToggle settings={settings} settingPath={['local']} onChange={onChange} label={<FormattedMessage id='community.column_settings.local_only' defaultMessage='Local only' />} />
-        </div>
+          {this.state.open && (
+            <div className='column-settings__hashtags'>
+              {this.modeSelect('any')}
+              {this.modeSelect('all')}
+              {this.modeSelect('none')}
+            </div>
+          )}
+        </section>
       </div>
     );
   }

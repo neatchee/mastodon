@@ -3,10 +3,9 @@ import { useCallback } from 'react';
 import { FormattedMessage, useIntl, defineMessages } from 'react-intl';
 
 import { Helmet } from 'react-helmet';
-import { Link, Switch, Route, useHistory } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-
 
 
 import illustration from '@/images/elephant_ui_conversation.svg';
@@ -35,11 +34,10 @@ const Onboarding = () => {
   const account = useAppSelector(state => state.getIn(['accounts', me]));
   const dispatch = useDispatch();
   const intl = useIntl();
-  const history = useHistory();
 
   const handleComposeClick = useCallback(() => {
-    dispatch(focusCompose(history, intl.formatMessage(messages.template)));
-  }, [dispatch, intl, history]);
+    dispatch(focusCompose(intl.formatMessage(messages.template)));
+  }, [dispatch, intl]);
 
   return (
     <Column>

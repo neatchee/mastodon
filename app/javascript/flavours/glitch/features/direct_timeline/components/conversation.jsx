@@ -126,14 +126,14 @@ export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown, se
           modalProps: {
             message: intl.formatMessage(messages.replyMessage),
             confirm: intl.formatMessage(messages.replyConfirm),
-            onConfirm: () => dispatch(replyCompose(lastStatus, history)),
+            onConfirm: () => dispatch(replyCompose(lastStatus)),
           },
         }));
       } else {
-        dispatch(replyCompose(lastStatus, history));
+        dispatch(replyCompose(lastStatus));
       }
     });
-  }, [dispatch, lastStatus, history, intl]);
+  }, [dispatch, lastStatus, intl]);
 
   const handleDelete = useCallback(() => {
     dispatch(deleteConversation(id));
@@ -165,7 +165,6 @@ export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown, se
     if (lastStatus.get('spoiler_text')) {
       setExpanded(!expanded);
     }
-
   }, [dispatch, lastStatus, expanded]);
 
   if (lastStatus === null) {
@@ -188,7 +187,7 @@ export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown, se
   menu.push({ text: intl.formatMessage(messages.delete), action: handleDelete });
 
   const names = accounts.map(a => (
-    <Permalink to={`/@${a.get('acct')}`} href={a.get('url')} key={a.get('id')} title={a.get('acct')}>
+    <Permalink to={`/@${a.get('acct')}`} href={a.get('url')} key={a.get('id')} data-hover-card-account={a.get('id')}>
       <bdi>
         <strong
           className='display-name__html'
