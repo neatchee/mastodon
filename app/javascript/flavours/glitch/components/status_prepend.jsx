@@ -16,29 +16,19 @@ import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
 import { Icon } from 'flavours/glitch/components/icon';
 import { me } from 'flavours/glitch/initial_state';
 
-import NameList from './name_list';
-
 export default class StatusPrepend extends PureComponent {
 
   static propTypes = {
     type: PropTypes.string.isRequired,
-    status: ImmutablePropTypes.map.isRequired,
-    accounts: ImmutablePropTypes.listOf(ImmutablePropTypes.map.isRequired),
+    account: ImmutablePropTypes.map.isRequired,
     parseClick: PropTypes.func.isRequired,
     notificationId: PropTypes.number,
     children: PropTypes.node,
   };
 
-  handleClick = (acct, e) => {
-    const { status, parseClick } = this.props;
-
-    if (!acct) {
-      const originalAuthor = status.getIn(['reblog', 'account', 'acct'], status.getIn(['account', 'acct']));
-      const originalStatusId = status.getIn(['reblog', 'id'], status.get('id'));
-      parseClick(e, `/@${originalAuthor}/${originalStatusId}` + this.getUrlSuffix());
-    } else {
-      parseClick(e, `/@${acct.get('acct')}`);
-    }
+  handleClick = (e) => {
+    const { account, parseClick } = this.props;
+    parseClick(e, `/@${account.get('acct')}`);
   };
 
   getUrlSuffix = () => {
@@ -54,18 +44,20 @@ export default class StatusPrepend extends PureComponent {
   };
 
   Message = () => {
-    const { type, accounts, status } = this.props;
-
-    const viewMoreHref = status.get('url') + this.getUrlSuffix();
+    const { type, account } = this.props;
 
     const linkifiedAccounts = (
-      <span>
-        <NameList
-          accounts={accounts}
-          viewMoreHref={viewMoreHref}
-          onClick={this.handleClick}
+      <a
+        onClick={this.handleClick}
+        href={account.get('url')}
+        className='status__display-name'
+      >
+        <b
+          dangerouslySetInnerHTML={{
+            __html : account.get('display_name_html') || account.get('username'),
+          }}
         />
-      </span>
+      </a>
     );
 
     switch (type) {
