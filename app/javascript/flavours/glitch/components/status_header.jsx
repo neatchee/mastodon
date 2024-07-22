@@ -14,6 +14,7 @@ export default class StatusHeader extends PureComponent {
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
     friends: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
+    avatarSize: PropTypes.number,
     parseClick: PropTypes.func.isRequired,
   };
 
@@ -33,13 +34,14 @@ export default class StatusHeader extends PureComponent {
     const {
       status,
       friends,
+      avatarSize,
     } = this.props;
 
     const account = status.get('account');
 
     let statusAvatar;
     if (friends === undefined || friends === null || !friends.get(0)) {
-      statusAvatar = <Avatar account={account} size={46} />;
+      statusAvatar = <Avatar account={account} size={avatarSize} />;
     } else {
       statusAvatar = <AvatarOverlay account={account} friend={friends.get(0)} />;
     }
