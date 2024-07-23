@@ -4,7 +4,6 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 
 import classNames from 'classnames';
 
-import { List as ImmutableList } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 

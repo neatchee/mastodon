@@ -45,18 +45,20 @@ export default class StatusPrepend extends PureComponent {
 
   Message = () => {
     const { type, account } = this.props;
-
-    const linkifiedAccounts = (
+    let link = (
       <a
         onClick={this.handleClick}
         href={account.get('url')}
         className='status__display-name'
+        data-hover-card-account={account.get('id')}
       >
-        <b
-          dangerouslySetInnerHTML={{
-            __html : account.get('display_name_html') || account.get('username'),
-          }}
-        />
+        <bdi>
+          <strong
+            dangerouslySetInnerHTML={{
+              __html : account.get('display_name_html') || account.get('username'),
+            }}
+          />
+        </bdi>
       </a>
     );
 
@@ -70,7 +72,7 @@ export default class StatusPrepend extends PureComponent {
         <FormattedMessage
           id='status.reblogged_by'
           defaultMessage='{name} boosted'
-          values={{ name : linkifiedAccounts }}
+          values={{ name : link }}
         />
       );
     case 'favourite':
@@ -78,7 +80,7 @@ export default class StatusPrepend extends PureComponent {
         <FormattedMessage
           id='notification.favourite'
           defaultMessage='{name} favourited your status'
-          values={{ name : linkifiedAccounts }}
+          values={{ name : link }}
         />
       );
     case 'reaction':
@@ -86,7 +88,7 @@ export default class StatusPrepend extends PureComponent {
         <FormattedMessage
           id='notification.reaction'
           defaultMessage='{name} reacted to your status'
-          values={{ name: linkifiedAccounts }}
+          values={{ name: link }}
         />
       );
     case 'reblog':
@@ -94,7 +96,7 @@ export default class StatusPrepend extends PureComponent {
         <FormattedMessage
           id='notification.reblog'
           defaultMessage='{name} boosted your status'
-          values={{ name : linkifiedAccounts }}
+          values={{ name : link }}
         />
       );
     case 'status':
@@ -102,11 +104,11 @@ export default class StatusPrepend extends PureComponent {
         <FormattedMessage
           id='notification.status'
           defaultMessage='{name} just posted'
-          values={{ name: linkifiedAccounts }}
+          values={{ name: link }}
         />
       );
     case 'poll':
-      if (me === accounts.get(0).get('id')) {
+      if (me === account.get('id')) {
         return (
           <FormattedMessage
             id='notification.own_poll'
@@ -126,7 +128,7 @@ export default class StatusPrepend extends PureComponent {
         <FormattedMessage
           id='notification.update'
           defaultMessage='{name} edited a post'
-          values={{ name: linkifiedAccounts }}
+          values={{ name: link }}
         />
       );
     }
