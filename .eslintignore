@@ -10,4 +10,5 @@
 /spec/**
 /tmp/**
 /vendor/**
+/app/javascript/flavours/glitch/locales/**
 !.eslintrc.js
