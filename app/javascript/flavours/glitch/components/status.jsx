@@ -4,7 +4,6 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 
 import classNames from 'classnames';
 
-import { List as ImmutableList } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
@@ -83,7 +82,7 @@ class Status extends ImmutablePureComponent {
     containerId: PropTypes.string,
     id: PropTypes.string,
     status: ImmutablePropTypes.map,
-    account: PropTypes.oneOfType([ImmutablePropTypes.record, ImmutablePropTypes.listOf(ImmutablePropTypes.record)]),
+    account: ImmutablePropTypes.record,
     previousId: PropTypes.string,
     nextInReplyToId: PropTypes.string,
     rootId: PropTypes.string,
@@ -560,8 +559,6 @@ class Status extends ImmutablePureComponent {
     let media = contentMedia;
     let mediaIcons = contentMediaIcons;
 
-    const accounts = ImmutableList.isList(account) ? account : ImmutableList.of(account);
-
     if (settings.getIn(['content_warnings', 'media_outside'])) {
       media = extraMedia;
       mediaIcons = extraMediaIcons;
@@ -760,7 +757,7 @@ class Status extends ImmutablePureComponent {
       'data-status-by': `@${status.getIn(['account', 'acct'])}`,
     };
 
-    if (this.props.prepend && accounts) {
+    if (this.props.prepend && account) {
       const notifKind = {
         favourite: 'favourited',
         reaction: 'reacted',
@@ -769,13 +766,12 @@ class Status extends ImmutablePureComponent {
         status: 'posted',
       }[this.props.prepend];
 
-      selectorAttribs[`data-${notifKind}-by`] = accounts.map(acct => `@${acct.get('acct')}`).join(',');
+      selectorAttribs[`data-${notifKind}-by`] = `@${account.get('acct')}`;
 
       prepend = (
         <StatusPrepend
           type={this.props.prepend}
-          status={status}
-          accounts={accounts}
+          account={account}
           parseClick={parseClick}
           notificationId={this.props.notificationId}
         >
@@ -791,7 +787,7 @@ class Status extends ImmutablePureComponent {
     if (this.props.prepend === 'reblog') {
       rebloggedByText = intl.formatMessage(
         { id: 'status.reblogged_by', defaultMessage: '{name} boosted' },
-        { name: new Intl.ListFormat(intl.locale, { type: 'conjunction' }).format(accounts.map(acct => acct.get('acct'))) },
+        { name: account.get('acct') },
       );
     }
 
@@ -822,7 +818,7 @@ class Status extends ImmutablePureComponent {
               <header className='status__info'>
                 <StatusHeader
                   status={status}
-                  friends={accounts}
+                  friend={account}
                   collapsed={isCollapsed}
                   parseClick={parseClick}
                   avatarSize={avatarSize}
