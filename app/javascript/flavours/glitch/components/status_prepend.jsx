@@ -16,29 +16,19 @@ import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
 import { Icon } from 'flavours/glitch/components/icon';
 import { me } from 'flavours/glitch/initial_state';
 
-import NameList from './name_list';
-
 export default class StatusPrepend extends PureComponent {
 
   static propTypes = {
     type: PropTypes.string.isRequired,
-    status: ImmutablePropTypes.map.isRequired,
-    accounts: ImmutablePropTypes.listOf(ImmutablePropTypes.map.isRequired),
+    account: ImmutablePropTypes.map.isRequired,
     parseClick: PropTypes.func.isRequired,
     notificationId: PropTypes.number,
     children: PropTypes.node,
   };
 
-  handleClick = (acct, e) => {
-    const { status, parseClick } = this.props;
-
-    if (!acct) {
-      const originalAuthor = status.getIn(['reblog', 'account', 'acct'], status.getIn(['account', 'acct']));
-      const originalStatusId = status.getIn(['reblog', 'id'], status.get('id'));
-      parseClick(e, `/@${originalAuthor}/${originalStatusId}` + this.getUrlSuffix());
-    } else {
-      parseClick(e, `/@${acct.get('acct')}`);
-    }
+  handleClick = (e) => {
+    const { account, parseClick } = this.props;
+    parseClick(e, `/@${account.get('acct')}`);
   };
 
   getUrlSuffix = () => {
@@ -54,18 +44,22 @@ export default class StatusPrepend extends PureComponent {
   };
 
   Message = () => {
-    const { type, accounts, status } = this.props;
-
-    const viewMoreHref = status.get('url') + this.getUrlSuffix();
-
-    const linkifiedAccounts = (
-      <span>
-        <NameList
-          accounts={accounts}
-          viewMoreHref={viewMoreHref}
-          onClick={this.handleClick}
-        />
-      </span>
+    const { type, account } = this.props;
+    let link = (
+      <a
+        onClick={this.handleClick}
+        href={account.get('url')}
+        className='status__display-name'
+        data-hover-card-account={account.get('id')}
+      >
+        <bdi>
+          <strong
+            dangerouslySetInnerHTML={{
+              __html : account.get('display_name_html') || account.get('username'),
+            }}
+          />
+        </bdi>
+      </a>
     );
 
     switch (type) {
@@ -78,7 +72,7 @@ export default class StatusPrepend extends PureComponent {
         <FormattedMessage
           id='status.reblogged_by'
           defaultMessage='{name} boosted'
-          values={{ name : linkifiedAccounts }}
+          values={{ name : link }}
         />
       );
     case 'favourite':
@@ -86,7 +80,7 @@ export default class StatusPrepend extends PureComponent {
         <FormattedMessage
           id='notification.favourite'
           defaultMessage='{name} favourited your status'
-          values={{ name : linkifiedAccounts }}
+          values={{ name : link }}
         />
       );
     case 'reaction':
@@ -94,7 +88,7 @@ export default class StatusPrepend extends PureComponent {
         <FormattedMessage
           id='notification.reaction'
           defaultMessage='{name} reacted to your status'
-          values={{ name: linkifiedAccounts }}
+          values={{ name: link }}
         />
       );
     case 'reblog':
@@ -102,7 +96,7 @@ export default class StatusPrepend extends PureComponent {
         <FormattedMessage
           id='notification.reblog'
           defaultMessage='{name} boosted your status'
-          values={{ name : linkifiedAccounts }}
+          values={{ name : link }}
         />
       );
     case 'status':
@@ -110,11 +104,11 @@ export default class StatusPrepend extends PureComponent {
         <FormattedMessage
           id='notification.status'
           defaultMessage='{name} just posted'
-          values={{ name: linkifiedAccounts }}
+          values={{ name: link }}
         />
       );
     case 'poll':
-      if (me === accounts.get(0).get('id')) {
+      if (me === account.get('id')) {
         return (
           <FormattedMessage
             id='notification.own_poll'
@@ -134,7 +128,7 @@ export default class StatusPrepend extends PureComponent {
         <FormattedMessage
           id='notification.update'
           defaultMessage='{name} edited a post'
-          values={{ name: linkifiedAccounts }}
+          values={{ name: link }}
         />
       );
     }

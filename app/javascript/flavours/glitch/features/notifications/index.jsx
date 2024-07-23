@@ -83,7 +83,6 @@ const mapStateToProps = state => ({
   lastReadId: state.getIn(['settings', 'notifications', 'showUnread']) ? state.getIn(['notifications', 'readMarkerId']) : '0',
   canMarkAsRead: state.getIn(['settings', 'notifications', 'showUnread']) && state.getIn(['notifications', 'readMarkerId']) !== '0' && getNotifications(state).some(item => item !== null && compareId(item.get('id'), state.getIn(['notifications', 'readMarkerId'])) > 0),
   needsNotificationPermission: state.getIn(['settings', 'notifications', 'alerts']).includes(true) && state.getIn(['notifications', 'browserSupport']) && state.getIn(['notifications', 'browserPermission']) === 'default' && !state.getIn(['settings', 'notifications', 'dismissPermissionBanner']),
-  grouping: state.getIn(['settings', 'notifications', 'grouping']),
 });
 
 /* glitch */
@@ -113,7 +112,6 @@ class Notifications extends PureComponent {
     lastReadId: PropTypes.string,
     canMarkAsRead: PropTypes.bool,
     needsNotificationPermission: PropTypes.bool,
-    grouping: ImmutablePropTypes.map,
   };
 
   static defaultProps = {
@@ -218,56 +216,8 @@ class Notifications extends PureComponent {
     this.props.dispatch(submitMarkers({ immediate: true }));
   };
 
-  /**
-   * Gets the list of notifications, grouped up (as per user settings) such that multiple users' interactions on the same
-   * post are collapsed into a single notification.
-   */
-  getGroupedNotifications() {
-    const { notifications, grouping } = this.props;
-    const groupedNotifications = [];
-
-    // if grouping is { "favourite": true, "reblog": false, "foo": true, "bar": false }
-    // then typesToGroup is [ "favourite", "foo" ]
-    const typesToGroup = grouping.reduce((acc, enabled, groupBy) => enabled ? acc.push(groupBy) : acc, ImmutableList.of());
-
-    // for each notification....
-    for (const notif of notifications) {
-
-      // `null` is used to signify that there is a "loading gap" in the notifications. We make sure that these loading gaps persist.
-      if (!notif) {
-        groupedNotifications.push(notif);
-        continue;
-      }
-
-      // Make sure that we only group up notifications of the provided types.
-      if (typesToGroup.includes(notif.get('type'))) {
-
-        // Get an already existing notification to collapse into
-        const matchingNotifIdx = groupedNotifications.findIndex(
-          other => other?.get('type') === notif.get('type') && other?.get('status') === notif.get('status'),
-        );
-        const matchingNotif = groupedNotifications[matchingNotifIdx];
-
-        // Collapse this notifcation into the existing notification if it exists,
-        // otherwise push it as a new notification.
-        if (matchingNotif) {
-          groupedNotifications[matchingNotifIdx] = matchingNotif.update(
-            'account',
-            ImmutableList(),
-            accounts => accounts.push(notif.get('account')),
-          );
-        } else {
-          groupedNotifications.push(notif.update('account', singleAccount => ImmutableList.of(singleAccount)));
-        }
-      } else {
-        groupedNotifications.push(notif);
-      }
-    }
-    return ImmutableList(groupedNotifications);
-  }
-
   render () {
-    const { intl, isLoading, isUnread, columnId, multiColumn, hasMore, numPending, showFilterBar, lastReadId, canMarkAsRead, needsNotificationPermission } = this.props;
+    const { intl, notifications, isLoading, isUnread, columnId, multiColumn, hasMore, numPending, showFilterBar, lastReadId, canMarkAsRead, needsNotificationPermission } = this.props;
     const { notifCleaningActive } = this.props;
     const { animatingNCD } = this.state;
     const pinned = !!columnId;
@@ -279,8 +229,6 @@ class Notifications extends PureComponent {
     const filterBarContainer = (signedIn && showFilterBar)
       ? (<FilterBarContainer />)
       : null;
-
-    const notifications = this.getGroupedNotifications();
 
     if (isLoading && this.scrollableContent) {
       scrollableContent = this.scrollableContent;
