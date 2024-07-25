@@ -155,7 +155,5 @@
   "status.is_poll": "This toot is a poll",
   "status.local_only": "Only visible from your instance",
   "status.react": "React",
-  "status.uncollapse": "Uncollapse",
-  "suggestions.dismiss": "Dismiss suggestion",
-  "tooltips.reactions": "Reactions"
+  "status.uncollapse": "Uncollapse"
 }
