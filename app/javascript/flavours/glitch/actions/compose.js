@@ -132,6 +132,18 @@ export function replyCompose(status, statusRebloggedBy) {
   };
 }
 
+export function replyComposeById(statusId) {
+  return (dispatch, getState) => {
+    const state = getState();
+    const status = state.statuses.get(statusId);
+
+    if (status) {
+      const account = state.accounts.get(status.get('account'));
+      dispatch(replyCompose(status.set('account', account)));
+    }
+  };
+}
+
 export function cancelReplyCompose() {
   return {
     type: COMPOSE_REPLY_CANCEL,
@@ -161,6 +173,12 @@ export function mentionCompose(account) {
     });
 
     ensureComposeIsVisible(getState);
+  };
+}
+
+export function mentionComposeById(accountId) {
+  return (dispatch, getState) => {
+    dispatch(mentionCompose(getState().accounts.get(accountId)));
   };
 }
 

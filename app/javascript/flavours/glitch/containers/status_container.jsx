@@ -12,11 +12,9 @@ import {
   initAddFilter,
 } from 'flavours/glitch/actions/filters';
 import {
-  reblog,
-  favourite,
+  toggleReblog,
+  toggleFavourite,
   bookmark,
-  unreblog,
-  unfavourite,
   unbookmark,
   pin,
   unpin,
@@ -32,14 +30,13 @@ import {
   muteStatus,
   unmuteStatus,
   deleteStatus,
-  hideStatus,
-  revealStatus,
+  toggleStatusSpoilers,
   editStatus,
   translateStatus,
   undoStatusTranslation,
 } from 'flavours/glitch/actions/statuses';
 import Status from 'flavours/glitch/components/status';
-import { boostModal, favouriteModal, deleteModal } from 'flavours/glitch/initial_state';
+import { deleteModal } from 'flavours/glitch/initial_state';
 import { makeGetStatus, makeGetPictureInPicture } from 'flavours/glitch/selectors';
 
 import { showAlertForError } from '../actions/alerts';
@@ -120,25 +117,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     });
   },
 
-  onModalReblog (status, privacy) {
-    if (status.get('reblogged')) {
-      dispatch(unreblog({ statusId: status.get('id') }));
-    } else {
-      dispatch(reblog({ statusId: status.get('id'), visibility: privacy }));
-    }
-  },
-
   onReblog (status, e) {
-    dispatch((_, getState) => {
-      let state = getState();
-      if (state.getIn(['local_settings', 'confirm_boost_missing_media_description']) && status.get('media_attachments').some(item => !item.get('description')) && !status.get('reblogged')) {
-        dispatch(openModal({ modalType: 'BOOST', modalProps: { status, onReblog: this.onModalReblog, missingMediaDescription: true } }));
-      } else if (e.shiftKey || !boostModal) {
-        this.onModalReblog(status);
-      } else {
-        dispatch(openModal({ modalType: 'BOOST', modalProps: { status, onReblog: this.onModalReblog } }));
-      }
-    });
+    dispatch(toggleReblog(status.get('id'), e.shiftKey));
   },
 
   onBookmark (status) {
@@ -149,26 +129,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     }
   },
 
-  onModalFavourite (status) {
-    dispatch(favourite(status));
-  },
-
   onFavourite (status, e) {
-    if (status.get('favourited')) {
-      dispatch(unfavourite(status));
-    } else {
-      if (e.shiftKey || !favouriteModal) {
-        this.onModalFavourite(status);
-      } else {
-        dispatch(openModal({
-          modalType: 'FAVOURITE',
-          modalProps: {
-            status,
-            onFavourite: this.onModalFavourite,
-          },
-        }));
-      }
-    }
+    dispatch(toggleFavourite(status.get('id'), e.shiftKey));
   },
 
   onPin (status) {
@@ -289,11 +251,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
 
   onToggleHidden (status) {
-    if (status.get('hidden')) {
-      dispatch(revealStatus(status.get('id')));
-    } else {
-      dispatch(hideStatus(status.get('id')));
-    }
+    dispatch(toggleStatusSpoilers(status.get('id')));
   },
 
   deployPictureInPicture (status, type, mediaProps) {

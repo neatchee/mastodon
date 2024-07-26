@@ -32,12 +32,10 @@ import {
   directCompose,
 } from '../../actions/compose';
 import {
-  favourite,
-  unfavourite,
+  toggleFavourite,
   bookmark,
   unbookmark,
-  reblog,
-  unreblog,
+  toggleReblog,
   pin,
   unpin,
   addReaction,
@@ -61,7 +59,7 @@ import {
 import ColumnHeader from '../../components/column_header';
 import { textForScreenReader, defaultMediaVisibility } from '../../components/status';
 import StatusContainer from '../../containers/status_container';
-import { boostModal, favouriteModal, deleteModal } from '../../initial_state';
+import { deleteModal } from '../../initial_state';
 import { makeGetStatus, makeGetPictureInPicture } from '../../selectors';
 import Column from '../ui/components/column';
 import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from '../ui/util/fullscreen';
@@ -270,30 +268,13 @@ class Status extends ImmutablePureComponent {
     this.setState({ showMedia: !this.state.showMedia });
   };
 
-  handleModalFavourite = (status) => {
-    this.props.dispatch(favourite(status));
-  };
 
   handleFavouriteClick = (status, e) => {
     const { dispatch } = this.props;
     const { signedIn } = this.props.identity;
 
     if (signedIn) {
-      if (status.get('favourited')) {
-        dispatch(unfavourite(status));
-      } else {
-        if ((e && e.shiftKey) || !favouriteModal) {
-          this.handleModalFavourite(status);
-        } else {
-          dispatch(openModal({
-            modalType: 'FAVOURITE',
-            modalProps: {
-              status,
-              onFavourite: this.handleModalFavourite,
-            },
-          }));
-        }
-      }
+      dispatch(toggleFavourite(status.get('id'), e && e.shiftKey));
     } else {
       dispatch(openModal({
         modalType: 'INTERACTION',
@@ -357,28 +338,12 @@ class Status extends ImmutablePureComponent {
     }
   };
 
-  handleModalReblog = (status, privacy) => {
-    const { dispatch } = this.props;
-
-    if (status.get('reblogged')) {
-      dispatch(unreblog({ statusId: status.get('id') }));
-    } else {
-      dispatch(reblog({ statusId: status.get('id'), visibility: privacy }));
-    }
-  };
-
   handleReblogClick = (status, e) => {
-    const { settings, dispatch } = this.props;
+    const { dispatch } = this.props;
     const { signedIn } = this.props.identity;
 
     if (signedIn) {
-      if (settings.get('confirm_boost_missing_media_description') && status.get('media_attachments').some(item => !item.get('description')) && !status.get('reblogged')) {
-        dispatch(openModal({ modalType: 'BOOST', modalProps: { status, onReblog: this.handleModalReblog, missingMediaDescription: true } }));
-      } else if ((e && e.shiftKey) || !boostModal) {
-        this.handleModalReblog(status);
-      } else {
-        dispatch(openModal({ modalType: 'BOOST', modalProps: { status, onReblog: this.handleModalReblog } }));
-      }
+      dispatch(toggleReblog(status.get('id'), e && e.shiftKey));
     } else {
       dispatch(openModal({
         modalType: 'INTERACTION',
