@@ -88,3 +88,10 @@ body.app-body.flavour-glitch > #mastodon .compose-form__submit {
 body.app-body.flavour-glitch > #mastodon .collapsed .status__content {
   padding: 12px 14px !important;
 }
+
+@media (width <= 889px) {
+  .tabs-bar__wrapper {
+    top: -1px !important;
+    z-index: 3 !important;
+  }
+}
