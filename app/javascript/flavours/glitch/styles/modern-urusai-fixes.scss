@@ -95,3 +95,8 @@ body.app-body.flavour-glitch > #mastodon .collapsed .status__content {
     z-index: 3 !important;
   }
 }
+
+body.app-body.flavour-glitch > #mastodon .notification-group,
+body.app-body.flavour-glitch > #mastodon .notification-ungrouped {
+  border-bottom: 1px solid var(--background-border-color) !important;
+}
