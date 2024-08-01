@@ -25,14 +25,15 @@ const messages = defineMessages({
 export const ConfirmReplyModal: React.FC<
   {
     status: Status;
+    rebloggedBy: string;
   } & BaseConfirmationModalProps
-> = ({ status, onClose }) => {
+> = ({ status, rebloggedBy, onClose }) => {
   const intl = useIntl();
   const dispatch = useAppDispatch();
 
   const onConfirm = useCallback(() => {
-    dispatch(replyCompose(status));
-  }, [dispatch, status]);
+    dispatch(replyCompose(status, rebloggedBy));
+  }, [dispatch, status, rebloggedBy]);
 
   return (
     <ConfirmationModal
