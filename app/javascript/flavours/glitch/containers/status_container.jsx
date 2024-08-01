@@ -1,5 +1,3 @@
-import { defineMessages, injectIntl } from 'react-intl';
-
 import { connect } from 'react-redux';
 
 import { initBlockModal } from 'flavours/glitch/actions/blocks';
@@ -21,7 +19,6 @@ import {
   addReaction,
   removeReaction,
 } from 'flavours/glitch/actions/interactions';
-import { changeLocalSetting } from 'flavours/glitch/actions/local_settings';
 import { openModal } from 'flavours/glitch/actions/modal';
 import { initMuteModal } from 'flavours/glitch/actions/mutes';
 import { deployPictureInPicture } from 'flavours/glitch/actions/picture_in_picture';
@@ -40,21 +37,6 @@ import { deleteModal } from 'flavours/glitch/initial_state';
 import { makeGetStatus, makeGetPictureInPicture } from 'flavours/glitch/selectors';
 
 import { showAlertForError } from '../actions/alerts';
-
-const messages = defineMessages({
-  deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
-  deleteMessage: { id: 'confirmations.delete.message', defaultMessage: 'Are you sure you want to delete this status?' },
-  redraftConfirm: { id: 'confirmations.redraft.confirm', defaultMessage: 'Delete & redraft' },
-  redraftMessage: { id: 'confirmations.redraft.message', defaultMessage: 'Are you sure you want to delete this status and re-draft it? Favorites and boosts will be lost, and replies to the original post will be orphaned.' },
-  replyConfirm: { id: 'confirmations.reply.confirm', defaultMessage: 'Reply' },
-  replyMessage: { id: 'confirmations.reply.message', defaultMessage: 'Replying now will overwrite the message you are currently composing. Are you sure you want to proceed?' },
-  editConfirm: { id: 'confirmations.edit.confirm', defaultMessage: 'Edit' },
-  editMessage: { id: 'confirmations.edit.message', defaultMessage: 'Editing now will overwrite the message you are currently composing. Are you sure you want to proceed?' },
-  unfilterConfirm: { id: 'confirmations.unfilter.confirm', defaultMessage: 'Show' },
-  author: { id: 'confirmations.unfilter.author', defaultMessage: 'Author' },
-  matchingFilters: { id: 'confirmations.unfilter.filters', defaultMessage: 'Matching {count, plural, one {filter} other {filters}}' },
-  editFilter: { id: 'confirmations.unfilter.edit_filter', defaultMessage: 'Edit filter' },
-});
 
 const makeMapStateToProps = () => {
   const getStatus = makeGetStatus();
@@ -96,21 +78,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     const getStatus = makeGetStatus();
 
     dispatch((_, getState) => {
-      const { intl } = ownProps;
       let state = getState();
       const statusFromState = getStatus(state, ownProps);
       const rebloggedBy = statusFromState.get('reblog') ? statusFromState.get('account') : undefined;
 
       if (state.getIn(['local_settings', 'confirm_before_clearing_draft']) && state.getIn(['compose', 'text']).trim().length !== 0) {
-        dispatch(openModal({
-          modalType: 'CONFIRM',
-          modalProps: {
-            message: intl.formatMessage(messages.replyMessage),
-            confirm: intl.formatMessage(messages.replyConfirm),
-            onDoNotAsk: () => dispatch(changeLocalSetting(['confirm_before_clearing_draft'], false)),
-            onConfirm: () => dispatch(replyCompose(status, rebloggedBy)),
-          },
-        }));
+        dispatch(openModal({ modalType: 'CONFIRM_REPLY', modalProps: { status, rebloggedBy } }));
       } else {
         dispatch(replyCompose(status, rebloggedBy));
       }
@@ -160,34 +133,18 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
 
   onDelete (status, withRedraft = false) {
-    const { intl } = ownProps;
     if (!deleteModal) {
       dispatch(deleteStatus(status.get('id'), withRedraft));
     } else {
-      dispatch(openModal({
-        modalType: 'CONFIRM',
-        modalProps: {
-          message: intl.formatMessage(withRedraft ? messages.redraftMessage : messages.deleteMessage),
-          confirm: intl.formatMessage(withRedraft ? messages.redraftConfirm : messages.deleteConfirm),
-          onConfirm: () => dispatch(deleteStatus(status.get('id'), withRedraft)),
-        },
-      }));
+      dispatch(openModal({ modalType: 'CONFIRM_DELETE_STATUS', modalProps: { statusId: status.get('id'), withRedraft } }));
     }
   },
 
   onEdit (status) {
-    const { intl } = ownProps;
     dispatch((_, getState) => {
       let state = getState();
       if (state.getIn(['compose', 'text']).trim().length !== 0) {
-        dispatch(openModal({
-          modalType: 'CONFIRM',
-          modalProps: {
-            message: intl.formatMessage(messages.editMessage),
-            confirm: intl.formatMessage(messages.editConfirm),
-            onConfirm: () => dispatch(editStatus(status.get('id'))),
-          },
-        }));
+        dispatch(openModal({ modalType: 'CONFIRM_EDIT_STATUS', modalProps: { statusId: status.get('id') } }));
       } else {
         dispatch(editStatus(status.get('id')));
       }
@@ -275,4 +232,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 });
 
-export default injectIntl(connect(makeMapStateToProps, mapDispatchToProps)(Status));
+export default connect(makeMapStateToProps, mapDispatchToProps)(Status);
