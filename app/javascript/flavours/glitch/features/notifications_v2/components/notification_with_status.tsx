@@ -101,7 +101,6 @@ export const NotificationWithStatus: React.FC<{
         </div>
 
         <Status
-          // @ts-expect-error -- <Status> is not yet typed
           id={statusId}
           contextType='notifications'
           withDismiss
