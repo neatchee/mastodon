@@ -26,6 +26,7 @@ import type { NotificationGap } from 'flavours/glitch/reducers/notification_grou
 import {
   selectUnreadNotificationGroupsCount,
   selectPendingNotificationGroupsCount,
+  selectAnyPendingNotification,
 } from 'flavours/glitch/selectors/notifications';
 import {
   selectNeedsNotificationPermission,
@@ -95,7 +96,7 @@ export const Notifications: React.FC<{
 
   const lastReadId = useAppSelector((s) =>
     selectSettingsNotificationsShowUnread(s)
-      ? s.notificationGroups.lastReadId
+      ? s.notificationGroups.readMarkerId
       : '0',
   );
 
@@ -105,11 +106,13 @@ export const Notifications: React.FC<{
     selectUnreadNotificationGroupsCount,
   );
 
+  const anyPendingNotification = useAppSelector(selectAnyPendingNotification);
+
   const isUnread = unreadNotificationsCount > 0;
 
   const canMarkAsRead =
     useAppSelector(selectSettingsNotificationsShowUnread) &&
-    unreadNotificationsCount > 0;
+    anyPendingNotification;
 
   const needsNotificationPermission = useAppSelector(
     selectNeedsNotificationPermission,

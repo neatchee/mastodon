@@ -403,7 +403,7 @@ body > [data-popper-placement] {
   &__suggestions {
     box-shadow: var(--dropdown-shadow);
     background: $ui-base-color;
-    border: 1px solid lighten($ui-base-color, 14%);
+    border: 1px solid var(--background-border-color);
     border-radius: 0 0 4px 4px;
     color: $secondary-text-color;
     font-size: 14px;
@@ -7373,7 +7373,7 @@ a.status-card {
   display: flex;
   flex-shrink: 0;
 
-  @media screen and (max-width: $no-gap-breakpoint) {
+  @media screen and (max-width: $no-gap-breakpoint - 1px) {
     border-right: 0;
     border-left: 0;
   }
@@ -8095,16 +8095,17 @@ noscript {
       .verified {
         border: 1px solid rgba($valid-value-color, 0.5);
         margin-top: -1px;
+        margin-inline: -1px;
 
         &:first-child {
           border-top-left-radius: 4px;
           border-top-right-radius: 4px;
-          margin-top: 0;
         }
 
         &:last-child {
           border-bottom-left-radius: 4px;
           border-bottom-right-radius: 4px;
+          margin-bottom: -1px;
         }
 
         dt,
@@ -8785,10 +8786,13 @@ noscript {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--background-border-color);
-  border-top: 0;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
+
+  @media screen and (min-width: $no-gap-breakpoint) {
+    border: 1px solid var(--background-border-color);
+    border-top: 0;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
 }
 
 .story {
@@ -10621,6 +10625,25 @@ noscript {
       &:active {
         text-decoration: none;
       }
+    }
+  }
+
+  &__note {
+    &-label {
+      color: $dark-text-color;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    dd {
+      white-space: pre-line;
+      color: $secondary-text-color;
+      overflow: hidden;
+      line-clamp: 3; // Not yet supported in browers
+      display: -webkit-box; // The next 3 properties are needed
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
     }
   }
 
