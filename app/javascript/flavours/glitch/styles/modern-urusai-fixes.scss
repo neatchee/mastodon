@@ -100,3 +100,7 @@ body.app-body.flavour-glitch > #mastodon .notification-group,
 body.app-body.flavour-glitch > #mastodon .notification-ungrouped {
   border-bottom: 1px solid var(--background-border-color) !important;
 }
+
+.status__action-bar {
+  margin-bottom: unset !important;
+}
