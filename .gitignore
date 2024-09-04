@@ -72,6 +72,9 @@ docker-compose.override.yml
 # Ignore dotenv .local files
 .env*.local
 
+# Ignore local-only rspec configuration
+.rspec-local
+
 # Ignore some local files for Urusai
 import_emoji.rb
 log.txt

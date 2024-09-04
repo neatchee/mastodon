@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'The /.well-known/webfinger endpoint' do
+RSpec.describe 'The /.well-known/webfinger endpoint' do
   subject(:perform_request!) { get webfinger_url(resource: resource) }
 
   let(:alternate_domains) { [] }
@@ -129,9 +129,11 @@ describe 'The /.well-known/webfinger endpoint' do
     end
 
     it 'returns links for the internal account' do
-      json = body_as_json
-      expect(json[:subject]).to eq 'acct:mastodon.internal@cb6e6126.ngrok.io'
-      expect(json[:aliases]).to eq ['https://cb6e6126.ngrok.io/actor']
+      expect(body_as_json)
+        .to include(
+          subject: 'acct:mastodon.internal@cb6e6126.ngrok.io',
+          aliases: ['https://cb6e6126.ngrok.io/actor']
+        )
     end
   end
 

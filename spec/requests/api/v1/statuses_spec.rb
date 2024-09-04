@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe '/api/v1/statuses' do
+RSpec.describe '/api/v1/statuses' do
   context 'with an oauth token' do
     let(:user)  { Fabricate(:user) }
     let(:client_app) { Fabricate(:application, name: 'Test app', website: 'http://testapp.com') }
@@ -154,7 +154,7 @@ describe '/api/v1/statuses' do
           subject
 
           expect(response).to have_http_status(422)
-          expect(body_as_json[:unexpected_accounts].map { |a| a.slice(:id, :acct) }).to eq [{ id: bob.id.to_s, acct: bob.acct }]
+          expect(body_as_json[:unexpected_accounts].map { |a| a.slice(:id, :acct) }).to match [{ id: bob.id.to_s, acct: bob.acct }]
         end
       end
 

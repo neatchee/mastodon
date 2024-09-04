@@ -7599,7 +7599,7 @@ a.status-card {
   }
 }
 
-.radio-button.checked::before {
+.radio-button__input.checked::before {
   position: absolute;
   left: 2px;
   top: 2px;
