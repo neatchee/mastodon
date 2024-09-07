@@ -48,12 +48,29 @@ RSpec.describe Admin::AccountsController do
     end
 
     def accounts_table_rows
-      Nokogiri::Slop(response.body).css('table.accounts-table tr')
+      response.parsed_body.css('table.accounts-table tr')
     end
   end
 
   describe 'GET #show' do
     let(:current_user) { Fabricate(:user, role: UserRole.find_by(name: 'Admin')) }
+
+    describe 'account moderation notes' do
+      let(:account) { Fabricate(:account) }
+
+      it 'includes moderation notes' do
+        note1 = Fabricate(:account_moderation_note, target_account: account)
+        note2 = Fabricate(:account_moderation_note, target_account: account)
+
+        get :show, params: { id: account.id }
+        expect(response).to have_http_status(200)
+
+        moderation_notes = assigns(:moderation_notes).to_a
+
+        expect(moderation_notes.size).to be 2
+        expect(moderation_notes).to eq [note1, note2]
+      end
+    end
 
     context 'with a remote account' do
       let(:account) { Fabricate(:account, domain: 'example.com') }
