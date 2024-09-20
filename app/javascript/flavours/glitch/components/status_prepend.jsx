@@ -87,7 +87,7 @@ export default class StatusPrepend extends PureComponent {
       return (
         <FormattedMessage
           id='notification.reaction'
-          defaultMessage='{name} reacted to your post'
+          defaultMessage='{name} reacted to your status'
           values={{ name: link }}
         />
       );
@@ -175,11 +175,13 @@ export default class StatusPrepend extends PureComponent {
 
     return !type ? null : (
       <aside className={type === 'reblogged_by' || type === 'featured' ? 'status__prepend' : 'notification__message'}>
-        <Icon
-          className={`status__prepend-icon ${type === 'favourite' ? 'star-icon' : ''}`}
-          id={iconId}
-          icon={iconComponent}
-        />
+        <div className='status__prepend__icon'>
+          <Icon
+            className={type === 'favourite' ? 'star-icon' : null}
+            id={iconId}
+            icon={iconComponent}
+          />
+        </div>
         <Message />
         {children}
       </aside>
