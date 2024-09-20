@@ -44,7 +44,6 @@
  * @property {string} version
  * @property {boolean} translation_enabled
  * @property {string} sso_redirect
- * @property {boolean} force_grouped_notifications
  */
 
 /**
@@ -121,7 +120,6 @@ export const criticalUpdatesPending = initialState?.critical_updates_pending;
 // @ts-expect-error
 export const statusPageUrl = getMeta('status_page_url');
 export const sso_redirect = getMeta('sso_redirect');
-export const forceGroupedNotifications = getMeta('force_grouped_notifications');
 
 /**
  * @returns {string | undefined}
