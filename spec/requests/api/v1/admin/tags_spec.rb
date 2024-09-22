@@ -24,6 +24,8 @@ RSpec.describe 'Tags' do
       subject
 
       expect(response).to have_http_status(200)
+      expect(response.content_type)
+        .to start_with('application/json')
     end
 
     context 'when there are no tags' do
@@ -73,14 +75,12 @@ RSpec.describe 'Tags' do
     it_behaves_like 'forbidden for wrong scope', 'write:statuses'
     it_behaves_like 'forbidden for wrong role', ''
 
-    it 'returns http success' do
+    it 'returns http success and expected tag content' do
       subject
 
       expect(response).to have_http_status(200)
-    end
-
-    it 'returns expected tag content' do
-      subject
+      expect(response.content_type)
+        .to start_with('application/json')
 
       expect(response.parsed_body[:id].to_i).to eq(tag.id)
       expect(response.parsed_body[:name]).to eq(tag.name)
@@ -91,6 +91,8 @@ RSpec.describe 'Tags' do
         get '/api/v1/admin/tags/-1', headers: headers
 
         expect(response).to have_http_status(404)
+        expect(response.content_type)
+          .to start_with('application/json')
       end
     end
   end
@@ -107,14 +109,12 @@ RSpec.describe 'Tags' do
     it_behaves_like 'forbidden for wrong scope', 'admin:read'
     it_behaves_like 'forbidden for wrong role', ''
 
-    it 'returns http success' do
+    it 'returns http success and updates tag' do
       subject
 
       expect(response).to have_http_status(200)
-    end
-
-    it 'returns updated tag' do
-      subject
+      expect(response.content_type)
+        .to start_with('application/json')
 
       expect(response.parsed_body[:id].to_i).to eq(tag.id)
       expect(response.parsed_body[:name]).to eq(tag.name.upcase)
@@ -127,6 +127,8 @@ RSpec.describe 'Tags' do
         subject
 
         expect(response).to have_http_status(422)
+        expect(response.content_type)
+          .to start_with('application/json')
       end
     end
 
@@ -135,6 +137,8 @@ RSpec.describe 'Tags' do
         get '/api/v1/admin/tags/-1', headers: headers
 
         expect(response).to have_http_status(404)
+        expect(response.content_type)
+          .to start_with('application/json')
       end
     end
   end

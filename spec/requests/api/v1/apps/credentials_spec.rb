@@ -17,6 +17,8 @@ RSpec.describe 'Credentials' do
         subject
 
         expect(response).to have_http_status(200)
+        expect(response.content_type)
+          .to start_with('application/json')
 
         expect(response.parsed_body).to match(
           a_hash_including(
@@ -36,6 +38,8 @@ RSpec.describe 'Credentials' do
         subject
 
         expect(response).to have_http_status(200)
+        expect(response.content_type)
+          .to start_with('application/json')
 
         expect(response.parsed_body[:client_id]).to_not be_present
         expect(response.parsed_body[:client_secret]).to_not be_present
@@ -47,14 +51,12 @@ RSpec.describe 'Credentials' do
       let(:token)   { Fabricate(:accessible_access_token, application: application) }
       let(:headers) { { 'Authorization' => "Bearer #{token.token}" } }
 
-      it 'returns http success' do
+      it 'returns http success and returns app information' do
         subject
 
         expect(response).to have_http_status(200)
-      end
-
-      it 'returns the app information correctly' do
-        subject
+        expect(response.content_type)
+          .to start_with('application/json')
 
         expect(response.parsed_body).to match(
           a_hash_including(
@@ -78,6 +80,8 @@ RSpec.describe 'Credentials' do
         subject
 
         expect(response).to have_http_status(401)
+        expect(response.content_type)
+          .to start_with('application/json')
       end
     end
 
@@ -90,6 +94,8 @@ RSpec.describe 'Credentials' do
         subject
 
         expect(response).to have_http_status(401)
+        expect(response.content_type)
+          .to start_with('application/json')
       end
 
       it 'returns the error in the json response' do
@@ -108,14 +114,12 @@ RSpec.describe 'Credentials' do
       let(:token)   { Fabricate(:accessible_access_token, application: application) }
       let(:headers) { { 'Authorization' => "Bearer #{token.token}-invalid" } }
 
-      it 'returns http authorization error' do
+      it 'returns http authorization error with json error' do
         subject
 
         expect(response).to have_http_status(401)
-      end
-
-      it 'returns the error in the json response' do
-        subject
+        expect(response.content_type)
+          .to start_with('application/json')
 
         expect(response.parsed_body).to match(
           a_hash_including(
