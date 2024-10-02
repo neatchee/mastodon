@@ -13,12 +13,14 @@ class NotificationMailer < ApplicationMailer
   before_action :set_account, only: [:follow, :favourite, :reaction, :reblog, :follow_request]
   after_action :set_list_headers!
 
+  before_deliver :verify_functional_user
+
   default to: -> { email_address_with_name(@user.email, @me.username) }
 
   layout 'mailer'
 
   def mention
-    return unless @user.functional? && @status.present?
+    return if @status.blank?
 
     locale_for_account(@me) do
       mail subject: default_i18n_subject(name: @status.account.acct)
@@ -26,15 +28,13 @@ class NotificationMailer < ApplicationMailer
   end
 
   def follow
-    return unless @user.functional?
-
     locale_for_account(@me) do
       mail subject: default_i18n_subject(name: @account.acct)
     end
   end
 
   def favourite
-    return unless @user.functional? && @status.present?
+    return if @status.blank?
 
     locale_for_account(@me) do
       mail subject: default_i18n_subject(name: @account.acct)
@@ -45,13 +45,12 @@ class NotificationMailer < ApplicationMailer
     return unless @user.functional? && @status.present?
 
     locale_for_account(@me) do
-      thread_by_conversation(@status.conversation)
       mail subject: default_i18n_subject(name: @account.acct)
     end
   end
 
   def reblog
-    return unless @user.functional? && @status.present?
+    return if @status.blank?
 
     locale_for_account(@me) do
       mail subject: default_i18n_subject(name: @account.acct)
@@ -59,8 +58,6 @@ class NotificationMailer < ApplicationMailer
   end
 
   def follow_request
-    return unless @user.functional?
-
     locale_for_account(@me) do
       mail subject: default_i18n_subject(name: @account.acct)
     end
@@ -82,6 +79,10 @@ class NotificationMailer < ApplicationMailer
 
   def set_account
     @account = @notification.from_account
+  end
+
+  def verify_functional_user
+    throw(:abort) unless @user.functional?
   end
 
   def set_list_headers!
