@@ -46,8 +46,6 @@ class Form::AdminSettings
     status_page_url
     captcha_enabled
     authorized_fetch
-    reject_pattern
-    reject_blurhash
     app_icon
     favicon
   ).freeze
