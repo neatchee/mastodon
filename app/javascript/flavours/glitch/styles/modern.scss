@@ -625,8 +625,8 @@ a:focus-visible,
 
 .compose-form .compose-form__upload__warning {
   position: relative;
-  flex-grow: 1;
   display: flex;
+  flex-grow: 1;
 }
 
 .compose-form .compose-form__upload__warning button {
@@ -2366,9 +2366,9 @@ a:focus-visible,
   background: var(--elevated-color);
   border-radius: var(--radius);
   overflow: hidden;
+  display: flex;
   flex-grow: 1;
   margin: 10px;
-  display: flex;
   flex-direction: column;
 }
 @media (width <= 890px) {
