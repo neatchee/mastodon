@@ -27,19 +27,19 @@ html {
 .error-column,
 .regeneration-indicator {
   background: $ui-base-lighter-color;
-  border: 1px solid lighten($ui-base-color, 8%);
+  border: 1px solid color.adjust($ui-base-color, $lightness: 8%);
   border-top: 0;
 }
 
 .column > .scrollable.about {
-  border-top: 1px solid lighten($ui-base-color, 8%);
+  border-top: 1px solid color.adjust($ui-base-color, $lightness: 8%);
 }
 
 .about__meta,
 .about__section__title,
 .interaction-modal {
   background: $white;
-  border: 1px solid lighten($ui-base-color, 8%);
+  border: 1px solid color.adjust($ui-base-color, $lightness: 8%);
 }
 
 .rules-list li::before {
@@ -47,18 +47,18 @@ html {
 }
 
 .directory__card__img {
-  background: lighten($ui-base-color, 12%);
+  background: color.adjust($ui-base-color, $lightness: 12%);
 }
 
 .filter-form {
   background: $white;
-  border-bottom: 1px solid lighten($ui-base-color, 8%);
+  border-bottom: 1px solid color.adjust($ui-base-color, $lightness: 8%);
 }
 
 .column-back-button,
 .column-header {
   background: $white;
-  border: 1px solid lighten($ui-base-color, 8%);
+  border: 1px solid color.adjust($ui-base-color, $lightness: 8%);
 
   @media screen and (max-width: $no-gap-breakpoint) {
     border-top: 0;
@@ -105,7 +105,7 @@ html {
 .confirmation-modal__cancel-button,
 .mute-modal__cancel-button,
 .block-modal__cancel-button {
-  color: lighten($ui-base-color, 26%);
+  color: color.adjust($ui-base-color, $lightness: 26%);
 
   &:hover,
   &:focus,
@@ -115,15 +115,15 @@ html {
 }
 
 .column-subheading {
-  background: darken($ui-base-color, 4%);
-  border-bottom: 1px solid lighten($ui-base-color, 8%);
+  background: color.adjust($ui-base-color, $lightness: -4%);
+  border-bottom: 1px solid color.adjust($ui-base-color, $lightness: 8%);
 }
 
 .getting-started,
 .scrollable {
   .column-link {
     background: $white;
-    border-bottom: 1px solid lighten($ui-base-color, 8%);
+    border-bottom: 1px solid color.adjust($ui-base-color, $lightness: 8%);
 
     &:hover,
     &:active,
@@ -134,8 +134,8 @@ html {
 }
 
 .getting-started .navigation-bar {
-  border-top: 1px solid lighten($ui-base-color, 8%);
-  border-bottom: 1px solid lighten($ui-base-color, 8%);
+  border-top: 1px solid color.adjust($ui-base-color, $lightness: 8%);
+  border-bottom: 1px solid color.adjust($ui-base-color, $lightness: 8%);
 
   @media screen and (max-width: $no-gap-breakpoint) {
     border-top: 0;
@@ -146,7 +146,7 @@ html {
 .setting-text,
 .report-dialog-modal__textarea,
 .audio-player {
-  border: 1px solid lighten($ui-base-color, 8%);
+  border: 1px solid color.adjust($ui-base-color, $lightness: 8%);
 }
 
 .report-dialog-modal .dialog-option .poll__input {
@@ -166,14 +166,14 @@ html {
 }
 
 .notification__filter-bar {
-  border: 1px solid lighten($ui-base-color, 8%);
+  border: 1px solid color.adjust($ui-base-color, $lightness: 8%);
   border-top: 0;
 }
 
 .drawer__header,
 .drawer__inner {
   background: $white;
-  border: 1px solid lighten($ui-base-color, 8%);
+  border: 1px solid color.adjust($ui-base-color, $lightness: 8%);
 }
 
 .drawer__inner__mastodon {
@@ -188,7 +188,7 @@ html {
 
 // Change the background colors of statuses
 .focusable:focus {
-  background: lighten($white, 4%);
+  background: color.adjust($white, $lightness: 4%);
 }
 
 .detailed-status,
@@ -203,7 +203,7 @@ html {
 
   &:hover,
   &:focus {
-    background: lighten($ui-base-color, 4%);
+    background: color.adjust($ui-base-color, $lightness: 4%);
   }
 }
 
@@ -235,11 +235,11 @@ html {
 
 .compare-history-modal .report-modal__target,
 .report-dialog-modal .poll__option.dialog-option {
-  border-bottom-color: lighten($ui-base-color, 4%);
+  border-bottom-color: color.adjust($ui-base-color, $lightness: 4%);
 }
 
 .report-dialog-modal__container {
-  border-top-color: lighten($ui-base-color, 4%);
+  border-top-color: color.adjust($ui-base-color, $lightness: 4%);
 }
 
 // Change the background colors of modals
@@ -261,7 +261,7 @@ html {
 .picture-in-picture__footer,
 .reactions-bar__item {
   background: $white;
-  border: 1px solid lighten($ui-base-color, 8%);
+  border: 1px solid color.adjust($ui-base-color, $lightness: 8%);
 }
 
 .reactions-bar__item:hover,
@@ -272,7 +272,11 @@ html {
 
 .reactions-bar__item.active {
   background-color: mix($white, $ui-highlight-color, 80%);
-  border-color: mix(lighten($ui-base-color, 8%), $ui-highlight-color, 80%);
+  border-color: mix(
+    color.adjust($ui-base-color, $lightness: 8%),
+    $ui-highlight-color,
+    80%
+  );
 }
 
 .media-modal__overlay .picture-in-picture__footer {
@@ -294,16 +298,16 @@ html {
 }
 
 .report-modal__comment {
-  border-right-color: lighten($ui-base-color, 8%);
+  border-right-color: color.adjust($ui-base-color, $lightness: 8%);
 }
 
 .report-modal__container {
-  border-top-color: lighten($ui-base-color, 8%);
+  border-top-color: color.adjust($ui-base-color, $lightness: 8%);
 }
 
 .column-header__collapsible-inner {
-  background: darken($ui-base-color, 4%);
-  border: 1px solid lighten($ui-base-color, 8%);
+  background: color.adjust($ui-base-color, $lightness: -4%);
+  border: 1px solid color.adjust($ui-base-color, $lightness: 8%);
   border-bottom: 0;
 }
 
@@ -318,7 +322,7 @@ html {
 }
 
 .flash-message.warning {
-  color: lighten($gold-star, 16%);
+  color: color.adjust($gold-star, $lightness: 16%);
 }
 
 .boost-modal__action-bar,
@@ -327,14 +331,14 @@ html {
 .block-modal__action-bar,
 .onboarding-modal__paginator,
 .error-modal__footer {
-  background: darken($ui-base-color, 6%);
+  background: color.adjust($ui-base-color, $lightness: -6%);
 
   .onboarding-modal__nav,
   .error-modal__nav {
     &:hover,
     &:focus,
     &:active {
-      background-color: darken($ui-base-color, 12%);
+      background-color: color.adjust($ui-base-color, $lightness: -12%);
     }
   }
 }
@@ -345,10 +349,10 @@ html {
 
 .embed-modal .embed-modal__container .embed-modal__html {
   background: $white;
-  border: 1px solid lighten($ui-base-color, 8%);
+  border: 1px solid color.adjust($ui-base-color, $lightness: 8%);
 
   &:focus {
-    border-color: lighten($ui-base-color, 12%);
+    border-color: color.adjust($ui-base-color, $lightness: 12%);
     background: $white;
   }
 }
@@ -358,12 +362,12 @@ html {
 }
 
 .react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
-  background: darken($ui-secondary-color, 10%);
+  background: color.adjust($ui-secondary-color, $lightness: -10%);
 }
 
 .react-toggle.react-toggle--checked:hover:not(.react-toggle--disabled)
   .react-toggle-track {
-  background: lighten($ui-highlight-color, 10%);
+  background: color.adjust($ui-highlight-color, $lightness: 10%);
 }
 
 // Change the default color used for the text in an empty column or on the error column
@@ -376,7 +380,7 @@ html {
 // Change the default colors used on some parts of the profile pages
 .activity-stream-tabs {
   background: $account-background-color;
-  border-bottom-color: lighten($ui-base-color, 8%);
+  border-bottom-color: color.adjust($ui-base-color, $lightness: 8%);
 }
 
 .nothing-here,
@@ -384,7 +388,7 @@ html {
 .directory__tag > a,
 .directory__tag > div {
   background: $white;
-  border: 1px solid lighten($ui-base-color, 8%);
+  border: 1px solid color.adjust($ui-base-color, $lightness: 8%);
 
   @media screen and (max-width: $no-gap-breakpoint) {
     border-left: 0;
@@ -400,15 +404,15 @@ html {
   input[type='password'],
   textarea {
     &:hover {
-      border-color: lighten($ui-base-color, 12%);
+      border-color: color.adjust($ui-base-color, $lightness: 12%);
     }
   }
 }
 
 .picture-in-picture-placeholder {
   background: $white;
-  border-color: lighten($ui-base-color, 8%);
-  color: lighten($ui-base-color, 8%);
+  border-color: color.adjust($ui-base-color, $lightness: 8%);
+  color: color.adjust($ui-base-color, $lightness: 8%);
 }
 
 .directory__tag > a {
@@ -427,12 +431,12 @@ html {
   &__toolbar,
   &__row,
   .nothing-here {
-    border-color: lighten($ui-base-color, 8%);
+    border-color: color.adjust($ui-base-color, $lightness: 8%);
   }
 }
 
 .activity-stream {
-  border: 1px solid lighten($ui-base-color, 8%);
+  border: 1px solid color.adjust($ui-base-color, $lightness: 8%);
 
   &--under-tabs {
     border-top: 0;
@@ -444,7 +448,7 @@ html {
     .detailed-status.light,
     .more.light,
     .status.light {
-      border-bottom-color: lighten($ui-base-color, 8%);
+      border-bottom-color: color.adjust($ui-base-color, $lightness: 8%);
     }
   }
 
@@ -543,9 +547,9 @@ html {
 }
 
 .mute-modal select {
-  border: 1px solid lighten($ui-base-color, 8%);
+  border: 1px solid color.adjust($ui-base-color, $lightness: 8%);
   background: $simple-background-color
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.933 18.467' height='19.698' width='15.929'><path d='M3.467 14.967l-3.393-3.5H14.86l-3.392 3.5c-1.866 1.925-3.666 3.5-4 3.5-.335 0-2.135-1.575-4-3.5zm.266-11.234L7.467 0 11.2 3.733l3.733 3.734H0l3.733-3.734z' fill='#{hex-color(lighten($ui-base-color, 8%))}'/></svg>")
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.933 18.467' height='19.698' width='15.929'><path d='M3.467 14.967l-3.393-3.5H14.86l-3.392 3.5c-1.866 1.925-3.666 3.5-4 3.5-.335 0-2.135-1.575-4-3.5zm.266-11.234L7.467 0 11.2 3.733l3.733 3.734H0l3.733-3.734z' fill='#{hex-color(color.adjust($ui-base-color, $lightness: 8%))}'/></svg>")
     no-repeat right 8px center / auto 16px;
 }
 
@@ -557,15 +561,15 @@ html {
   &:not([disabled]) {
     &:hover,
     &:focus {
-      background: darken($ui-secondary-color, 10%);
+      background: color.adjust($ui-secondary-color, $lightness: -10%);
     }
 
     &.active {
-      background-color: darken($ui-highlight-color, 2%);
+      background-color: color.adjust($ui-highlight-color, $lightness: -2%);
 
       &:hover,
       &:focus {
-        background: lighten($ui-highlight-color, 10%);
+        background: color.adjust($ui-highlight-color, $lightness: 10%);
       }
     }
   }
@@ -573,16 +577,16 @@ html {
 
 .glitch.local-settings {
   background: $ui-base-color;
-  border: 1px solid lighten($ui-base-color, 8%);
+  border: 1px solid color.adjust($ui-base-color, $lightness: 8%);
 }
 
 .glitch.local-settings__navigation {
-  background: darken($ui-base-color, 8%);
+  background: color.adjust($ui-base-color, $lightness: -8%);
 }
 
 .glitch.local-settings__navigation__item {
-  background: darken($ui-base-color, 8%);
-  border-bottom: 1px lighten($ui-base-color, 8%) solid;
+  background: color.adjust($ui-base-color, $lightness: -8%);
+  border-bottom: 1px color.adjust($ui-base-color, $lightness: 8%) solid;
 
   &:hover {
     background: $ui-base-color;
@@ -612,8 +616,8 @@ html {
 
 .status.collapsed .status__content::after {
   background: linear-gradient(
-    rgba(darken($ui-base-color, 13%), 0),
-    rgba(darken($ui-base-color, 13%), 1)
+    rgba(color.adjust($ui-base-color, $lightness: -13%), 0),
+    rgba(color.adjust($ui-base-color, $lightness: -13%), 1)
   );
 }
 
@@ -645,13 +649,13 @@ html {
 }
 
 .compose-form .spoiler-input__input {
-  color: lighten($ui-highlight-color, 8%);
+  color: color.adjust($ui-highlight-color, $lightness: 8%);
 }
 
 .compose-form .autosuggest-textarea__textarea,
 .compose-form__highlightable,
 .poll__option input[type='text'] {
-  background: darken($ui-base-color, 10%);
+  background: color.adjust($ui-base-color, $lightness: -10%);
 }
 
 .inline-follow-suggestions {

@@ -2483,7 +2483,7 @@ body {
       @include win95-border-slight-inset();
       filter: saturate(1.8) brightness(1.1);
       border-radius: 0px;
-      background: darken($win95-bg, 9.09%);
+      background: color.adjust($win95-bg, $lightness: -9.09%);
     }
   }
   .public-account-header__extra__links {

@@ -20,8 +20,8 @@ $action-button-color: #f89887;
 $link-color: #fa9c85;
 
 $inverted-text-color: #eee0dd;
-$lighter-text-color: darken(#eee0dd, 6%) !default;
-$light-text-color: darken(#eee0dd, 40%) !default;
+$lighter-text-color: color.adjust(#eee0dd, $lightness: -6%) !default;
+$light-text-color: color.adjust(#eee0dd, $lightness: -40%) !default;
 
 // Buttons
 $red-600: #b7253d !default; // Deep Carmine

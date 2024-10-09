@@ -26,7 +26,7 @@ body.app-body.flavour-glitch > #mastodon .notification__message > span,
 }
 
 body.app-body.flavour-glitch > #mastodon .reactions-bar button:not(.active) {
-  background: lighten($ui-base-color, 12%);
+  background: color.adjust($ui-base-color, $lightness: 12%);
 }
 
 #mastodon .compose-form > .navigation-bar {
