@@ -42,7 +42,7 @@ class NotificationMailer < ApplicationMailer
   end
 
   def reaction
-    return unless @user.functional? && @status.present?
+    return if @status.blank?
 
     locale_for_account(@me) do
       mail subject: default_i18n_subject(name: @account.acct)
@@ -94,7 +94,7 @@ class NotificationMailer < ApplicationMailer
   end
 
   def thread_by_conversation!
-    return if @status.conversation.nil?
+    return if @status&.conversation.nil?
 
     conversation_message_id = "<conversation-#{@status.conversation.id}.#{@status.conversation.created_at.to_date}@#{Rails.configuration.x.local_domain}>"
 
