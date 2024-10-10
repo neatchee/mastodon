@@ -659,7 +659,6 @@ burggit.moe,suspend,false,false,Lolicon,false
 twi.social,suspend,false,false,CSAM,false
 neomobius.com,suspend,false,false,"CSAM, unmoderated pornography",false
 redplanetlabs.com,suspend,false,false,Spam,false
-fosstodon.org,silence,false,false,"Insufficient moderation, moderation actions in support of hate groups",false
 pettanko.art,suspend,false,false,CSAM,false
 quietplace.xyz,suspend,false,false,Rules forbidding LGBT support; lolicon,false
 rqd2.net,suspend,false,false,"""MAP"" support therefore CSAM",false
@@ -747,34 +746,18 @@ mastodon.integrata-stiftung.de,silence,true,false,Spam (2024-02-18),false
 mentalhealth-masto.com,silence,true,false,Spam (2024-02-18),false
 molaguay.xyz,silence,true,false,Spam (2024-02-18),false
 nasface.cz,silence,true,false,Spam (2024-02-18),false
-owo.town,silence,true,false,Spam (2024-02-18),false
 tambayan.us,silence,true,false,Spam (2024-02-18),false
 tcpcat.net,silence,true,false,Spam (2024-02-18),false
 tut.andreer.no,silence,true,false,Spam (2024-02-18),false
-waterlily.tokyo,silence,true,false,Spam (2024-02-18),false
 cuyes.mooo.com,silence,true,false,Spam (2024-02-18),false
-mastodon.education,silence,true,false,Spam,false
 mastodon-ero.xyz,silence,true,false,Spam,false
 america.social,silence,false,false,Spam (2024-02-21),false
 archaeology.social,silence,false,false,Spam (2024-02-21),false
-bigballchunkyverse.online,silence,false,false,Spam (2024-02-21),false
-closednetwork.social,silence,false,false,Spam (2024-02-21),false
-detmi.social,silence,false,false,Spam (2024-02-21),false
-library.love,silence,false,false,Spam (2024-02-21),false
 m.techsocial.site,silence,false,false,Spam (2024-02-21),false
-mastodon.conquestuniverse.com,silence,false,false,Spam (2024-02-21),false
 mastodon.io.seg.br,silence,false,false,Spam (2024-02-21),false
-mastodon.snmsoc.org,silence,false,false,Spam (2024-02-21),false
-pkm.social,silence,false,false,Spam (2024-02-21),false
-prf.me,silence,false,false,Spam (2024-02-21),false
-qa.social,silence,false,false,Spam (2024-02-21),false
 s-h.social,silence,false,false,Spam (2024-02-21),false
-teamhydra.social,silence,false,false,Spam (2024-02-21),false
-themeparks.social,silence,false,false,Spam (2024-02-21),false
 toot.poedelwitz.de,silence,false,false,Spam (2024-02-21),false
-toot.quest,silence,false,false,Spam (2024-02-21),false
 wpmastodon.es,silence,false,false,Spam (2024-02-21),false
-zenzone.social,silence,false,false,Spam (2024-02-21),false
 contentnation.net,suspend,false,false,Fedi scraper,false
 nekosat.work,suspend,false,false,a.gup.pe spam,false
 clown.university,suspend,false,false,Pro-contact MAP,false
@@ -784,3 +767,30 @@ peertube.biz,suspend,false,false,Neonazi content,false
 comics.peertube.biz,suspend,false,false,Neonazi content,false
 fsebugoutzone.org,suspend,false,false,"""Free speech"", new home for freespeechextremists",false
 fedi.servantsofallah.cc,suspend,false,false,Transphobia,false
+bsky.brid.gy,silence,false,false,Incompatible moderation,false
+sacred.harpy.faith,suspend,false,false,Federates with poa.st,false
+misskey.yandere.love,suspend,false,false,"Troll, racism",false
+fedi.furfag.biz,suspend,false,false,Federates with poa.st,false
+parcero.bond,suspend,false,false,"Racism, insufficient moderation, likely troll instance",false
+eepy.express,silence,false,false,MAP/lolicon,false
+kousaka.moe,silence,false,false,Serial harassment and block evasion,false
+momostr.pink,suspend,false,false,Nostr bridge without consent,false
+fetch.mostr.net,suspend,false,false,Nostr bridge without consent,false
+goyim.social,suspend,false,false,"Anti-semitism, racism, ""white pride""",false
+rayci.st,suspend,false,false,"Racism, transphobia, hate speech",false
+xn--vusz0j.life,suspend,false,false,Lolicon,false
+awakari.com,suspend,false,false,Scraper,false
+thoughtcrimes.top,suspend,false,false,Lolicon/Pedophilia,false
+imouto.exposed,suspend,false,false,"Lolicon, ""MAP""",false
+absolutelyproprietary.org,suspend,false,false,Racism,false
+caekis.love,suspend,false,false,Racism,false
+fediverse-lite.com,suspend,false,false,"Fundamentalism, homophobia",false
+mesugaki.xyz,suspend,false,false,Federates with DNI (pedo instances),false
+filly.love,suspend,false,false,Federates with DNI (pedo instances),false
+cutiegarden.org,suspend,false,false,CSAM/lolicon,false
+cutiegarden.rip,suspend,false,false,CSAM/lolicon,false
+fedi.cutiegarden.org,suspend,false,false,CSAM/lolicon,false
+fedi.cutiegarden.rip,suspend,false,false,CSAM/lolicon,false
+loli.rodeo,suspend,false,false,Lolicon,false
+lolicon.monster,suspend,false,false,Lolicon,false
+armpit.space,suspend,false,false,DNI participant,false
