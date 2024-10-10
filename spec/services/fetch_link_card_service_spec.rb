@@ -307,9 +307,9 @@ RSpec.describe FetchLinkCardService do
     let(:status) do
       Fabricate(:status, account: Fabricate(:account, domain: 'example.com'), text: <<-TEXT)
       Habt ihr ein paar gute Links zu <a>foo</a>
-      #<span class="tag"><a href="https://quitter.se/tag/wannacry" target="_blank" rel="tag noopener noreferrer" title="https://quitter.se/tag/wannacry">Wannacry</a></span> herumfliegen?
-      Ich will mal unter <br> <a href="http://example.com/not-found" target="_blank" rel="noopener noreferrer" title="http://example.com/not-found">http://example.com/not-found</a> was sammeln. !
-      <a href="http://sn.jonkman.ca/group/416/id" target="_blank" rel="noopener noreferrer" title="http://sn.jonkman.ca/group/416/id">security</a>&nbsp;
+      #<span class="tag"><a href="https://quitter.se/tag/wannacry" target="_blank" rel="tag noopener" title="https://quitter.se/tag/wannacry">Wannacry</a></span> herumfliegen?
+      Ich will mal unter <br> <a href="http://example.com/not-found" target="_blank" rel="noopener" title="http://example.com/not-found">http://example.com/not-found</a> was sammeln. !
+      <a href="http://sn.jonkman.ca/group/416/id" target="_blank" rel="noopener" title="http://sn.jonkman.ca/group/416/id">security</a>&nbsp;
       TEXT
     end
 

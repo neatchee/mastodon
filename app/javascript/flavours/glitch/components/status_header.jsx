@@ -52,7 +52,7 @@ export default class StatusHeader extends PureComponent {
         className='status__display-name'
         target='_blank'
         onClick={this.handleAccountClick}
-        rel='noopener noreferrer'
+        rel='noopener'
         title={status.getIn(['account', 'acct'])}
         data-hover-card-account={status.getIn(['account', 'id'])}
       >

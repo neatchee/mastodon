@@ -187,7 +187,7 @@ export const MediaItem: React.FC<{
         href={`/@${acct}/${statusId}`}
         onClick={handleClick}
         target='_blank'
-        rel='noopener noreferrer'
+        rel='noopener'
       >
         {thumbnail}
       </a>

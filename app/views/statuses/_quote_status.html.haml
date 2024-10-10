@@ -1,5 +1,5 @@
 .status.quote-status{ dataurl: ActivityPub::TagManager.instance.url_for(status) }
-  = link_to ActivityPub::TagManager.instance.url_for(status.account), class: 'status__display-name u-url', target: stream_link_target, rel: 'noopener noreferrer' do
+  = link_to ActivityPub::TagManager.instance.url_for(status.account), class: 'status__display-name u-url', target: stream_link_target, rel: 'noopener' do
     .status__avatar
       %div
         - if prefers_autoplay?

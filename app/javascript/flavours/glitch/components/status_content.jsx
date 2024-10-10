@@ -202,7 +202,7 @@ class StatusContent extends PureComponent {
         link.classList.add('unhandled-link');
 
         link.setAttribute('target', '_blank');
-        link.setAttribute('rel', 'noopener nofollow noreferrer');
+        link.setAttribute('rel', 'noopener nofollow');
 
         try {
           if (tagLinks && isLinkMisleading(link)) {
@@ -395,7 +395,7 @@ class StatusContent extends PureComponent {
               </span>
             </bdi>
             <div>
-              <a href={quoteStatus.get('url')} target='_blank' rel='noopener noreferrer' dangerouslySetInnerHTML={quoteStatusContent} />
+              <a href={quoteStatus.get('url')} target='_blank' rel='noopener' dangerouslySetInnerHTML={quoteStatusContent} />
             </div>
           </blockquote>
         </div>

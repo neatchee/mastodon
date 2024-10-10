@@ -311,7 +311,7 @@ export const DetailedStatus: React.FC<{
           className='detailed-status__application'
           href={status.getIn(['application', 'website'])}
           target='_blank'
-          rel='noopener noreferrer'
+          rel='noopener'
         >
           {status.getIn(['application', 'name'])}
         </a>
@@ -427,7 +427,7 @@ export const DetailedStatus: React.FC<{
               className='detailed-status__datetime'
               href={status.get('url')}
               target='_blank'
-              rel='noopener noreferrer'
+              rel='noopener'
             >
               <FormattedDate
                 value={new Date(status.get('created_at') as string)}
