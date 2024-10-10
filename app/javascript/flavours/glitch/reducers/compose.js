@@ -9,6 +9,8 @@ import {
   COMPOSE_REPLY,
   COMPOSE_REPLY_CANCEL,
   COMPOSE_DIRECT,
+  COMPOSE_QUOTE,
+  COMPOSE_QUOTE_CANCEL,
   COMPOSE_MENTION,
   COMPOSE_SUBMIT_REQUEST,
   COMPOSE_SUBMIT_SUCCESS,
@@ -81,6 +83,7 @@ const initialState = ImmutableMap({
   caretPosition: null,
   preselectDate: null,
   in_reply_to: null,
+  quote_id: null,
   is_composing: false,
   is_submitting: false,
   is_changing_upload: false,
@@ -174,6 +177,7 @@ function clearAll(state) {
     map.set('is_submitting', false);
     map.set('is_changing_upload', false);
     map.set('in_reply_to', null);
+    map.set('quote_id', null);
     map.update(
       'advanced_options',
       map => map.mergeWith(overwrite, state.get('default_advanced_options')),
@@ -363,6 +367,51 @@ const updateSuggestionTags = (state, token) => {
   });
 };
 
+const updateWithReply = (state, action) => {
+  // doesn't support QT&reply
+  const isQuote = action.type === COMPOSE_QUOTE;
+  const parentStatusId = action.status.get('id');
+
+  return state.withMutations(map => {
+    map.set('id', null);
+    map.set('privacy', privacyPreference(action.status.get('visibility'), state.get('default_privacy')));
+    map.update(
+      'advanced_options',
+      map => map.merge(new ImmutableMap({ do_not_federate: !!action.status.get('local_only') })),
+    );
+    map.set('focusDate', new Date());
+    map.set('caretPosition', null);
+    map.set('preselectDate', new Date());
+    map.set('idempotencyKey', uuid());
+
+    if (action.status.get('spoiler_text').length > 0) {
+      let spoilerText = action.status.get('spoiler_text');
+      if (action.prependCWRe && !spoilerText.match(/^(re|qt)[: ]/i)) {
+        spoilerText = isQuote ? `QT: ${spoilerText}` : `re: ${spoilerText}`;
+      }
+      map.set('spoiler', true);
+      map.set('spoiler_text', spoilerText);
+    } else {
+      map.set('spoiler', false);
+      map.set('spoiler_text', '');
+    }
+
+    if (isQuote) {
+      map.set('in_reply_to', null);
+      map.set('quote_id', parentStatusId);
+      map.set('text', '');
+    } else {
+      map.set('in_reply_to', parentStatusId);
+      map.set('quote_id', null);
+      map.set('text', statusToTextMentions(state, action.status, action.statusRebloggedBy));
+
+      if (action.status.get('language')) {
+        map.set('language', action.status.get('language'));
+      }
+    }
+  });
+};
+
 const updatePoll = (state, index, value, maxOptions) => state.updateIn(['poll', 'options'], options => {
   const tmp = options.set(index, value).filterNot(x => x.trim().length === 0);
 
@@ -425,46 +474,17 @@ export default function compose(state = initialState, action) {
   case COMPOSE_COMPOSING_CHANGE:
     return state.set('is_composing', action.value);
   case COMPOSE_REPLY:
-    return state.withMutations(map => {
-      map.set('id', null);
-      map.set('in_reply_to', action.status.get('id'));
-      map.set('text', statusToTextMentions(state, action.status, action.statusRebloggedBy));
-      map.set('privacy', privacyPreference(action.status.get('visibility'), state.get('default_privacy')));
-      map.update(
-        'advanced_options',
-        map => map.merge(new ImmutableMap({ do_not_federate: !!action.status.get('local_only') })),
-      );
-      map.set('focusDate', new Date());
-      map.set('caretPosition', null);
-      map.set('preselectDate', new Date());
-      map.set('idempotencyKey', uuid());
-
-      map.update('media_attachments', list => list.filter(media => media.get('unattached')));
-
-      if (action.status.get('language') && !action.status.has('translation')) {
-        map.set('language', action.status.get('language'));
-      } else {
-        map.set('language', state.get('default_language'));
-      }
-
-      if (action.status.get('spoiler_text').length > 0) {
-        let spoiler_text = action.status.get('spoiler_text');
-        if (action.prependCWRe && !spoiler_text.match(/^re[: ]/i)) {
-          spoiler_text = 're: '.concat(spoiler_text);
-        }
-        map.set('spoiler', true);
-        map.set('spoiler_text', spoiler_text);
-      } else {
-        map.set('spoiler', false);
-        map.set('spoiler_text', '');
-      }
-    });
+  case COMPOSE_QUOTE:
+    return updateWithReply(state, action);
   case COMPOSE_REPLY_CANCEL:
     state = state.setIn(['advanced_options', 'threaded_mode'], false);
+    // eslint-disable-next-line no-fallthrough -- fall-through to `COMPOSE_RESET` is intended
+  case COMPOSE_QUOTE_CANCEL:
     // eslint-disable-next-line no-fallthrough -- fall-through to `COMPOSE_RESET` is intended
   case COMPOSE_RESET:
     return state.withMutations(map => {
       map.set('in_reply_to', null);
+      map.set('quote_id', null);
       if (defaultContentType) map.set('content_type', defaultContentType);
       map.set('text', '');
       map.set('spoiler', false);

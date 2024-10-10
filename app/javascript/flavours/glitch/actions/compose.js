@@ -88,6 +88,9 @@ export const COMPOSE_CHANGE_MEDIA_ORDER       = 'COMPOSE_CHANGE_MEDIA_ORDER';
 export const COMPOSE_SET_STATUS = 'COMPOSE_SET_STATUS';
 export const COMPOSE_FOCUS = 'COMPOSE_FOCUS';
 
+export const COMPOSE_QUOTE        = 'COMPOSE_QUOTE';
+export const COMPOSE_QUOTE_CANCEL = 'COMPOSE_QUOTE_CANCEL';
+
 const messages = defineMessages({
   uploadErrorLimit: { id: 'upload_error.limit', defaultMessage: 'File upload limit exceeded.' },
   open: { id: 'compose.published.open', defaultMessage: 'Open' },
@@ -148,6 +151,27 @@ export function replyComposeById(statusId) {
 export function cancelReplyCompose() {
   return {
     type: COMPOSE_REPLY_CANCEL,
+  };
+}
+
+export function quoteCompose(status, statusRebloggedBy) {
+  return (dispatch, getState) => {
+    const prependCWRe = getState().getIn(['local_settings', 'prepend_cw_re']);
+    const mentionReblogger = getState().getIn(['local_settings', 'mention_reblogger']);
+    dispatch({
+      type: COMPOSE_QUOTE,
+      status: status,
+      statusRebloggedBy: mentionReblogger ? statusRebloggedBy : undefined,
+      prependCWRe: prependCWRe,
+    });
+
+    ensureComposeIsVisible(getState);
+  };
+}
+
+export function cancelQuoteCompose() {
+  return {
+    type: COMPOSE_QUOTE_CANCEL,
   };
 }
 
@@ -239,6 +263,7 @@ export function submitCompose(overridePrivacy = null) {
         status,
         content_type: getState().getIn(['compose', 'content_type']),
         in_reply_to_id: getState().getIn(['compose', 'in_reply_to'], null),
+        quote_id: getState().getIn(['compose', 'quote_id'], null),
         media_ids: media.map(item => item.get('id')),
         media_attributes,
         sensitive: getState().getIn(['compose', 'sensitive']) || (spoilerText.length > 0 && media.size !== 0),
