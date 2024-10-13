@@ -45,3 +45,9 @@ $ui-button-tertiary-color: $blurple-300 !default;
 $ui-button-tertiary-border-color: $blurple-300 !default;
 $ui-button-tertiary-focus-background-color: $blurple-600 !default;
 $ui-button-tertiary-focus-color: #eee0dd !default;
+
+body {
+  --dropdown-background-color: #38303e;
+  --background-color: #2a232e;
+  --background-color-tint: #38303e;
+}

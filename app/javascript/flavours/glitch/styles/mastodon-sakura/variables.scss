@@ -79,3 +79,8 @@ $account-background-color: $white !default;
 }
 
 $emojis-requiring-inversion: 'chains';
+body {
+  --dropdown-background-color: #feeeed;
+  --background-color: #f1d6dc;
+  --background-color-tint: #feeeed;
+}

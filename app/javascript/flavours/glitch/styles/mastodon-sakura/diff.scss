@@ -409,6 +409,14 @@ html {
   }
 }
 
+.compose-form .autosuggest-textarea__textarea, .compose-form__highlightable, .poll__option input[type=text] {
+  background: $ui-base-lighter-color !important;
+}
+
+.search__input {
+  background: $ui-base-lighter-color;
+}
+
 .picture-in-picture-placeholder {
   background: $white;
   border-color: color.adjust($ui-base-color, $lightness: 8%);
@@ -526,6 +534,11 @@ html {
   svg {
     fill: $white;
   }
+}
+
+.button.button-tertiary {
+  border: 1px solid $classic-highlight-color !important;
+  color: $classic-highlight-color !important;
 }
 
 .notification__filter-bar button.active::after,
