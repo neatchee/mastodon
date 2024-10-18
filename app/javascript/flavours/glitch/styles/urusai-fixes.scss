@@ -8,3 +8,7 @@
 .announcements__container {
   width: 100% !important;
 }
+
+.status__wrapper.collapsed .status__content {
+  overflow: visible !important;
+}
