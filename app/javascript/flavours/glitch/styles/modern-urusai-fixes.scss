@@ -94,6 +94,10 @@ body.app-body.flavour-glitch > #mastodon .notification-ungrouped {
 
 .status__action-bar {
   margin-bottom: unset !important;
+
+  .emoji-picker-dropdown {
+    width: 100% !important;
+  }
 }
 
 @media (width <= 889px) {
