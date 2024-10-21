@@ -9,9 +9,11 @@ Added features:
   - Enlarge emoji in post content on mouse-over/tap
 - Collapsed post improvements
   - show > 1 line for better visual parsing
-  - customize height of posts to trigger lengthy toot collapse, etc)
-- Option to merge boosts and favorites into a single notification for the same status
+  - ~~customize height of posts to trigger lengthy toot collapse, etc)~~ (Implemented upstream!)
+- ~~Option to merge boosts and favorites into a single notification for the same status~~ (Implemented upstream!)
 - Emoji reactions!
+- Quote posts
+- Gif picker
 - Other minor fixes/improvements
 
 So here's the deal: we all work on this code, and anyone who uses that does so absolutely at their own risk. can you dig it?
