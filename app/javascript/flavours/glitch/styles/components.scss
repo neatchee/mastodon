@@ -1160,6 +1160,7 @@ body > [data-popper-placement] {
 
 .status__quote {
   margin-bottom: 0.5em;
+
   .quote-display-name {
     .icon {
       margin-left: -3px;
@@ -1420,9 +1421,9 @@ body > [data-popper-placement] {
 }
 
 .status__content__spoiler-link {
-  display: inline-flex; // glitch: media icon in spoiler button
+  display: inline-block;
   border-radius: 2px;
-  background: $action-button-color; // glitch: design used in more places
+  background: transparent;
   border: 0;
   color: $inverted-text-color;
   font-weight: 700;
@@ -1432,23 +1433,6 @@ body > [data-popper-placement] {
   line-height: 20px;
   cursor: pointer;
   vertical-align: top;
-  align-items: center; // glitch: content indicator
-
-  &:hover {
-    // glitch: design used in more places
-    background: color.adjust($action-button-color, $lightness: 7%);
-    text-decoration: none;
-  }
-
-  .status__content__spoiler-icon {
-    display: inline-block;
-    margin-inline-start: 5px;
-    border-inline-start: 1px solid currentColor;
-    padding: 0;
-    padding-inline-start: 4px;
-    width: 16px;
-    height: 16px;
-  }
 }
 
 .status__wrapper--filtered {
@@ -1971,6 +1955,14 @@ body > [data-popper-placement] {
   .status__prepend {
     padding: 0;
     margin-bottom: 16px;
+  }
+
+  .content-warning {
+    margin-bottom: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .logo {
@@ -11705,19 +11697,21 @@ noscript {
 }
 
 .content-warning {
+  display: block;
   box-sizing: border-box;
   background: rgba($ui-highlight-color, 0.05);
   color: $secondary-text-color;
-  border-top: 1px solid;
-  border-bottom: 1px solid;
-  border-color: rgba($ui-highlight-color, 0.15);
+  border: 1px solid rgba($ui-highlight-color, 0.15);
+  border-radius: 8px;
   padding: 8px (5px + 8px);
   position: relative;
   font-size: 15px;
   line-height: 22px;
+  cursor: pointer;
 
   p {
     margin-bottom: 8px;
+    font-weight: 500;
   }
 
   .link-button {
@@ -11726,32 +11720,23 @@ noscript {
     font-weight: 500;
   }
 
-  &::before,
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    height: 100%;
-    background: url('~images/warning-stripes.svg') repeat-y;
-    width: 5px;
-    top: 0;
+  &--filter {
+    color: $darker-text-color;
+
+    p {
+      font-weight: normal;
+    }
+
+    .filter-name {
+      font-weight: 500;
+      color: $secondary-text-color;
+    }
   }
 
-  &::before {
-    border-start-start-radius: 4px;
-    border-end-start-radius: 4px;
-    inset-inline-start: 0;
-  }
-
-  &::after {
-    border-start-end-radius: 4px;
-    border-end-end-radius: 4px;
-    inset-inline-end: 0;
-  }
-
-  &--filter::before,
-  &--filter::after {
-    background-image: url('~images/filter-stripes.svg');
+  .status__content__spoiler-icon {
+    float: inline-end;
+    width: 20px;
+    height: 20px;
   }
 }
 

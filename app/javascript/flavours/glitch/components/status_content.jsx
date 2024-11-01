@@ -417,7 +417,7 @@ class StatusContent extends PureComponent {
       )).reduce((aggregate, item) => [...aggregate, item, ' '], []);
 
       let spoilerIcons = [];
-      if (hidden && mediaIcons) {
+      if (mediaIcons) {
         const mediaComponents = {
           'link': LinkIcon,
           'picture-o': ImageIcon,
