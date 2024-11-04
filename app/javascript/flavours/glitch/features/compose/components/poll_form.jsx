@@ -141,13 +141,16 @@ export const PollForm = () => {
       <div className='compose-form__poll__footer'>
         <Select label={intl.formatMessage(messages.duration)} options={[
           { value: 300, label: intl.formatMessage(messages.minutes, { number: 5 })},
+          { value: 1800, label: intl.formatMessage(messages.minutes, { number: 10 })},
           { value: 1800, label: intl.formatMessage(messages.minutes, { number: 30 })},
           { value: 3600, label: intl.formatMessage(messages.hours, { number: 1 })},
+          { value: 21600, label: intl.formatMessage(messages.hours, { number: 3 })},
           { value: 21600, label: intl.formatMessage(messages.hours, { number: 6 })},
           { value: 43200, label: intl.formatMessage(messages.hours, { number: 12 })},
           { value: 86400, label: intl.formatMessage(messages.days, { number: 1 })},
           { value: 259200, label: intl.formatMessage(messages.days, { number: 3 })},
           { value: 604800, label: intl.formatMessage(messages.days, { number: 7 })},
+          { value: 604800, label: intl.formatMessage(messages.days, { number: 30 })},
         ]} value={expiresIn} onChange={handleDurationChange} />
 
         <div className='compose-form__poll__footer__sep' />
