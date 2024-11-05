@@ -46,11 +46,7 @@ body.app-body.flavour-glitch
   padding: 6px;
 }
 
-.layout-single-column
-  .column-back-button--slim
-  .column-back-button
-  .announcements__pagination,
-.layout-single-column .tabs-bar__wrapper .announcements__pagination {
+.announcements .announcements__container .announcements__pagination {
   bottom: 0 !important;
 }
 
