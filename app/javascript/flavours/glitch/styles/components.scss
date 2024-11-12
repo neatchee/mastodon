@@ -1883,7 +1883,8 @@ body > [data-popper-placement] {
 
 .status__wrapper-direct,
 .notification-ungrouped--direct,
-.notification-group--direct {
+.notification-group--direct,
+.notification-group--annual-report {
   background: rgba($ui-highlight-color, 0.05);
 
   &:focus {
@@ -2971,6 +2972,7 @@ a.account__display-name {
       flex: 0 1 auto;
       display: flex;
       flex-direction: column;
+      contain: inline-size layout paint style;
 
       @media screen and (min-width: $no-gap-breakpoint) {
         max-width: 600px;
@@ -4267,6 +4269,7 @@ input.glitch-setting-text {
   overflow: hidden;
   border: 1px solid var(--background-border-color);
   border-radius: 8px;
+  contain: inline-size layout paint style;
 
   &.bottomless {
     border-radius: 8px 8px 0 0;
@@ -6282,7 +6285,8 @@ a.status-card {
   inset-inline-start: 0;
   inset-inline-end: 0;
   bottom: 0;
-  background: rgba($base-overlay-background, 0.7);
+  opacity: 0.9;
+  background: $base-overlay-background;
   transition: background 0.5s;
 }
 
@@ -6309,6 +6313,7 @@ a.status-card {
   pointer-events: auto;
   user-select: text;
   display: flex;
+  max-width: 100vw;
 
   @media screen and (width <= $mobile-breakpoint) {
     margin-top: auto;

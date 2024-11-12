@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { throttle, escapeRegExp } from 'lodash';
 
 import QuoteIcon from '@/material-icons/400-24px/format_quote-fill.svg?react';
+import InsertChartIcon from '@/material-icons/400-24px/insert_chart.svg?react';
 import PersonAddIcon from '@/material-icons/400-24px/person_add.svg?react';
 import RepeatIcon from '@/material-icons/400-24px/repeat.svg?react';
 import ReplyIcon from '@/material-icons/400-24px/reply.svg?react';
@@ -341,7 +342,7 @@ class InteractionModal extends React.PureComponent {
   static propTypes = {
     displayNameHtml: PropTypes.string,
     url: PropTypes.string,
-    type: PropTypes.oneOf(['reply', 'reblog', 'favourite', 'follow', 'quote']),
+    type: PropTypes.oneOf(['reply', 'reblog', 'favourite', 'follow', 'vote', 'quote']),
     onSignupClick: PropTypes.func.isRequired,
     signupUrl: PropTypes.string.isRequired,
   };
@@ -377,6 +378,11 @@ class InteractionModal extends React.PureComponent {
       icon = <Icon id='user-plus' icon={PersonAddIcon} />;
       title = <FormattedMessage id='interaction_modal.title.follow' defaultMessage='Follow {name}' values={{ name }} />;
       actionDescription = <FormattedMessage id='interaction_modal.description.follow' defaultMessage='With an account on Mastodon, you can follow {name} to receive their posts in your home feed.' values={{ name }} />;
+      break;
+    case 'vote':
+      icon = <Icon id='tasks' icon={InsertChartIcon} />;
+      title = <FormattedMessage id='interaction_modal.title.vote' defaultMessage="Vote in {name}'s poll" values={{ name }} />;
+      actionDescription = <FormattedMessage id='interaction_modal.description.vote' defaultMessage='With an account on Mastodon, you can vote in this poll.' />;
       break;
     case 'quote':
       icon = <Icon id='quote' icon={QuoteIcon} />;

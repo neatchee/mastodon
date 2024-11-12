@@ -27,16 +27,23 @@ module FormattingHelper
   module_function :extract_status_plain_text
 
   def status_content_format(status)
-    base = html_aware_format(status.text, status.local?, preloaded_accounts: [status.account] + (status.respond_to?(:active_mentions) ? status.active_mentions.map(&:account) : []), content_type: status.content_type)
+    MastodonOTELTracer.in_span('HtmlAwareFormatter rendering') do |span|
+      span.add_attributes(
+        'app.formatter.content.type' => 'status',
+        'app.formatter.content.origin' => status.local? ? 'local' : 'remote'
+      )
 
-    if status.quote? && status.local?
-      after_html = begin
-        "<span class=\"quote-inline\"><a href=\"#{status.quote.to_log_permalink}\" class=\"status-link unhandled-link\" target=\"_blank\">#{status.quote.to_log_permalink}</a></span>"
-      end.html_safe # rubocop:disable Rails/OutputSafety
+      base = html_aware_format(status.text, status.local?, preloaded_accounts: [status.account] + (status.respond_to?(:active_mentions) ? status.active_mentions.map(&:account) : []), content_type: status.content_type)
 
-      base + after_html
-    else
-      base
+      if status.quote? && status.local?
+        after_html = begin
+          "<span class=\"quote-inline\"><a href=\"#{status.quote.to_log_permalink}\" class=\"status-link unhandled-link\" target=\"_blank\">#{status.quote.to_log_permalink}</a></span>"
+        end.html_safe # rubocop:disable Rails/OutputSafety
+
+        base + after_html
+      else
+        base
+      end
     end
   end
 
@@ -49,7 +56,14 @@ module FormattingHelper
   end
 
   def account_bio_format(account)
-    html_aware_format(account.note, account.local?)
+    MastodonOTELTracer.in_span('HtmlAwareFormatter rendering') do |span|
+      span.add_attributes(
+        'app.formatter.content.type' => 'account_bio',
+        'app.formatter.content.origin' => account.local? ? 'local' : 'remote'
+      )
+
+      html_aware_format(account.note, account.local?)
+    end
   end
 
   def account_field_value_format(field, with_rel_me: true)
