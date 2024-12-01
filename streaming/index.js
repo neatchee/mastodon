@@ -104,6 +104,8 @@ const CHANNEL_NAMES = [
   'public:media',
   'public:local',
   'public:local:media',
+  'public:bubble',
+  'public:bubble:media',
   'public:remote',
   'public:remote:media',
   'hashtag',
@@ -424,6 +426,8 @@ const startServer = async () => {
       return onlyMedia ? 'public:media' : 'public';
     case '/api/v1/streaming/public/local':
       return onlyMedia ? 'public:local:media' : 'public:local';
+    case '/api/v1/streaming/public/bubble':
+      return onlyMedia ? 'public:bubble:media' : 'public:bubble';
     case '/api/v1/streaming/public/remote':
       return onlyMedia ? 'public:remote:media' : 'public:remote';
     case '/api/v1/streaming/hashtag':
@@ -1104,6 +1108,13 @@ const startServer = async () => {
     case 'public:local':
       resolveFeed('public', 'timeline:public:local', { needsFiltering: true, allowLocalOnly: true });
       break;
+    case 'public:bubble':
+      resolve({
+        channelIds: ['timeline:public:bubble'],
+        options: { needsFiltering: true, allowLocalOnly: false },
+      });
+
+      break;
     case 'public:remote':
       resolveFeed('public', 'timeline:public:remote', { needsFiltering: true, allowLocalOnly: false });
       break;
@@ -1115,6 +1126,13 @@ const startServer = async () => {
       break;
     case 'public:local:media':
       resolveFeed('public', 'timeline:public:local:media', { needsFiltering: true, allowLocalOnly: true });
+      break;
+    case 'public:bubble:media':
+      resolve({
+        channelIds: ['timeline:public:bubble:media'],
+        options: { needsFiltering: true, allowLocalOnly: false },
+      });
+
       break;
     case 'public:remote:media':
       resolveFeed('public', 'timeline:public:remote:media', { needsFiltering: true, allowLocalOnly: false });
