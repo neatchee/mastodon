@@ -35,7 +35,7 @@
   "confirmations.missing_media_description.edit": "Edit media",
   "confirmations.missing_media_description.message": "At least one media attachment is lacking a description. Consider describing all media attachments for the visually impaired before sending your toot.",
   "direct.group_by_conversations": "Group by conversation",
-  "dismissable_banner.bubble_timeline": "These are the most recent public posts from people on the social web whose accounts are on other servers selected by {domain}.",
+  "dismissable_banner.bubble_timeline": "These are the most recent public posts from people on the fediverse whose accounts are on other servers selected by {domain}.",
   "empty_column.bubble": "The bubble timeline is currently empty, but something might show up here soon!",
   "favourite_modal.favourite": "Favourite post?",
   "federation.federated.long": "Allow this post to reach other servers",
