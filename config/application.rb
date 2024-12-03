@@ -115,7 +115,6 @@ module Mastodon
       Doorkeeper::Application.include ApplicationExtension
       Doorkeeper::AccessGrant.include AccessGrantExtension
       Doorkeeper::AccessToken.include AccessTokenExtension
-      Doorkeeper::OAuth::PreAuthorization.include OauthPreAuthorizationExtension
       Devise::FailureApp.include AbstractController::Callbacks
       Devise::FailureApp.include Localized
     end
