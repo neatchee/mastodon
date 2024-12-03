@@ -154,6 +154,8 @@ class FanOutOnWriteService < BaseService
     elsif !is_reply || Setting.show_replies_in_federated_timelines
       broadcast_to.call('timeline:public:remote')
     end
+
+    broadcast_to.call('timeline:public:bubble') if @status.bubble?
   end
 
   def deliver_to_conversation!
