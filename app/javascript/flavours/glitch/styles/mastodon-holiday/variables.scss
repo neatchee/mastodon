@@ -65,16 +65,16 @@ $account-background-color: $white !default;
 @function darken($color, $amount) {
   @return hsl(
     color.channel($color, 'hue', $space: hsl),
-    saturation($color),
-    lightness($color) + $amount
+    color.channel($color, 'saturation', $space: hsl),
+    color.channel($color, 'lightness', $space: hsl) + $amount
   );
 }
 
 @function lighten($color, $amount) {
   @return hsl(
     color.channel($color, 'hue', $space: hsl),
-    saturation($color),
-    lightness($color) - $amount
+    color.channel($color, 'saturation', $space: hsl),
+    color.channel($color, 'lightness', $space: hsl) - $amount
   );
 }
 

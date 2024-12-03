@@ -129,11 +129,11 @@
 
 .compare-history-modal .report-modal__target,
 .report-dialog-modal .poll__option.dialog-option {
-  border-bottom-color: lighten($ui-base-color, 4%);
+  border-bottom-color: color.adjust($ui-base-color, $lightness: 4%);
 }
 
 .report-dialog-modal__container {
-  border-top-color: lighten($ui-base-color, 4%);
+  border-top-color: color.adjust($ui-base-color, $lightness: 4%);
 }
 
 .reactions-bar__item:hover,

@@ -1167,7 +1167,7 @@ body > [data-popper-placement] {
 
 .edit-indicator {
   border-radius: 4px 4px 0 0;
-  background: lighten($ui-base-color, 4%);
+  background: color.adjust($ui-base-color, $lightness: 4%);
   padding: 12px;
   overflow-y: auto;
   flex: 0 0 auto;
@@ -1801,7 +1801,11 @@ body > [data-popper-placement] {
   &:focus {
     .detailed-status,
     .detailed-status__action-bar {
-      background: mix(lighten($ui-base-color, 4%), $ui-highlight-color, 95%);
+      background: mix(
+        color.adjust($ui-base-color, $lightness: 4%),
+        $ui-highlight-color,
+        95%
+      );
     }
   }
 
@@ -3201,7 +3205,7 @@ $ui-header-logo-wordmark-width: 99px;
 }
 
 .copy-paste-text {
-  background: lighten($ui-base-color, 4%);
+  background: color.adjust($ui-base-color, $lightness: 4%);
   border-radius: 8px;
   border: 1px solid var(--background-border-color);
   padding: 16px;
@@ -4696,7 +4700,7 @@ a.status-card {
       }
 
       &:focus {
-        background: lighten($ui-base-color, 4%);
+        background: color.adjust($ui-base-color, $lightness: 4%);
       }
 
       @media screen and (width <= 600px) {
@@ -8531,7 +8535,7 @@ noscript {
 
   &__footer {
     border-radius: 0 0 4px 4px;
-    background: lighten($ui-base-color, 4%);
+    background: color.adjust($ui-base-color, $lightness: 4%);
     padding: 10px;
     padding-top: 12px;
     display: flex;
@@ -8540,7 +8544,7 @@ noscript {
 
   &__header {
     border-radius: 4px 4px 0 0;
-    background: lighten($ui-base-color, 4%);
+    background: color.adjust($ui-base-color, $lightness: 4%);
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -9022,7 +9026,7 @@ noscript {
 
     &.focused &__input {
       border-color: $highlight-text-color;
-      background: lighten($ui-base-color, 4%);
+      background: color.adjust($ui-base-color, $lightness: 4%);
     }
 
     &.invalid &__input {
@@ -9302,7 +9306,7 @@ noscript {
 
   hr {
     border: 0;
-    border-top: 1px solid lighten($ui-base-color, 4%);
+    border-top: 1px solid color.adjust($ui-base-color, $lightness: 4%);
     margin-top: 3em;
     margin-bottom: 3em;
   }
@@ -9515,7 +9519,7 @@ noscript {
       width: 100%;
       height: auto;
       aspect-ratio: 1.9;
-      background: lighten($ui-base-color, 4%);
+      background: color.adjust($ui-base-color, $lightness: 4%);
       border-radius: 8px;
       margin-bottom: 30px;
     }
