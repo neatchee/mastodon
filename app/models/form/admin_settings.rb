@@ -35,6 +35,7 @@ class Form::AdminSettings
     trending_status_cw
     show_domain_blocks
     show_domain_blocks_rationale
+    show_bubble_domains
     allow_referrer_origin
     noindex
     outgoing_spoilers
@@ -98,6 +99,7 @@ class Form::AdminSettings
 
   DESCRIPTION_LIMIT = 200
   DOMAIN_BLOCK_AUDIENCES = %w(disabled users all).freeze
+  BUBBLE_DOMAIN_AUDIENCES = %w(disabled users all).freeze
   REGISTRATION_MODES = %w(open approved none).freeze
 
   attr_accessor(*KEYS)
@@ -108,6 +110,7 @@ class Form::AdminSettings
   validates :bootstrap_timeline_accounts, existing_username: { multiple: true }, if: -> { defined?(@bootstrap_timeline_accounts) }
   validates :show_domain_blocks, inclusion: { in: DOMAIN_BLOCK_AUDIENCES }, if: -> { defined?(@show_domain_blocks) }
   validates :show_domain_blocks_rationale, inclusion: { in: DOMAIN_BLOCK_AUDIENCES }, if: -> { defined?(@show_domain_blocks_rationale) }
+  validates :show_bubble_domains, inclusion: { in: BUBBLE_DOMAIN_AUDIENCES }, if: -> { defined?(@show_bubble_domains) }
   validates :media_cache_retention_period, :content_cache_retention_period, :backups_retention_period, numericality: { only_integer: true }, allow_blank: true, if: -> { defined?(@media_cache_retention_period) || defined?(@content_cache_retention_period) || defined?(@backups_retention_period) }
   validates :min_age, numericality: { only_integer: true }, allow_blank: true, if: -> { defined?(@min_age) }
   validates :site_short_description, length: { maximum: DESCRIPTION_LIMIT }, if: -> { defined?(@site_short_description) }
