@@ -8240,9 +8240,9 @@ noscript {
         }
 
         path:last-child {
-          stroke: lighten(
+          stroke: color.adjust(
             color.adjust($ui-base-color, $lightness: 12%),
-            6%
+            $lightness: 6%
           ) !important;
         }
       }
