@@ -62,5 +62,5 @@ body {
   --rich-text-text-color: rgba(114, 47, 83, 100%);
   --rich-text-decorations-color: rgba(255, 175, 212, 100%);
   --input-placeholder-color: #{color.adjust($dark-text-color, $alpha: -0.5)};
-  --input-background-color: #{darken($ui-base-color, 10%)};
+  --input-background-color: #{color.adjust($ui-base-color, $lightness: -10%)};
 }
