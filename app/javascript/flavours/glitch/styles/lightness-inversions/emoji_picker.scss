@@ -1,0 +1,11 @@
+.emoji-mart-anchor {
+  &:hover {
+    color: color.adjust($darker-text-color, $lightness: -4%) !important;
+  }
+}
+
+.emoji-mart-anchor-selected {
+  &:hover {
+    color: color.adjust($highlight-text-color, $lightness: -4%) !important;
+  }
+}

@@ -1,0 +1,491 @@
+.button {
+  &.button-secondary {
+    &:active,
+    &:focus,
+    &:hover {
+      border-color: color.adjust($highlight-text-color, $lightness: -4%) !important;
+      color: color.adjust($highlight-text-color, $lightness: -4%) !important;
+    }
+  }
+}
+
+.icon-button {
+  &:hover,
+  &:active,
+  &:focus {
+    color: color.adjust($action-button-color, $lightness: -7%) !important;
+  }
+
+  &.disabled {
+    color: color.adjust($action-button-color, $lightness: -13%) !important;
+  }
+
+  &.inverted {
+    &:hover,
+    &:active,
+    &:focus {
+      color: color.adjust($lighter-text-color, $lightness: -7%) !important;
+    }
+  
+    &.disabled {
+      color: color.adjust($lighter-text-color, $lightness: -7%) !important;
+    }
+  }
+
+  &.active {
+    &.disabled {
+      color: color.adjust($highlight-text-color, $lightness: -13%) !important;
+    }
+  }
+}
+
+.compose-form {
+  &__poll {
+    &__footer {
+      &__sep {
+        background: color.adjust($ui-base-color, $lightness: -8%) !important;
+      }
+    }
+  }
+}
+
+.reply-indicator {
+  &__line {
+    &::before {
+      background: color.adjust($ui-base-color, $lightness: -8%) !important;
+    }
+  }
+}
+
+.edit-indicator {
+  background: color.adjust($ui-base-color, $lightness: -4%) !important;
+  border-bottom: 0.5px solid color.adjust($ui-base-color, $lightness: -8%) !important;
+}
+
+.status__wrapper--filtered {
+  &__button {
+    color: color.adjust($ui-highlight-color, $lightness: -8%) !important;
+  }
+}
+
+.status {
+  &.light {
+    .status__content {
+      &__spoiler-link {
+        &:hover,
+        &:focus {
+          background: color.adjust($ui-primary-color, $lightness: -8%) !important;
+        }
+      }
+    }
+  }
+
+  &__line {
+    border-inline-start: 2px solid color.adjust($ui-base-color, $lightness: -8%) !important;
+  }
+}
+
+.status-check-box__status {
+  .detailed-status__display-name {
+    color: color.adjust($inverted-text-color, $lightness: -16%) !important;
+  }
+}
+
+.detailed-status__wrapper-direct {
+  &:focus {
+    .detailed-status,
+    .detailed-status__action-bar {
+      background: mix(
+        color.adjust($ui-base-color, $lightness: -4%),
+        $ui-highlight-color,
+        95%
+      ) !important;
+    }
+  }
+}
+
+.detailed-status__wrapper-direct {
+  .detailed-status__action-bar {
+    border-top-color: mix(
+      color.adjust($ui-base-color, $lightness: -8%),
+      $ui-highlight-color,
+      95%
+    ) !important;
+  }
+}
+
+.copy-paste-text {
+  background: color.adjust($ui-base-color, $lightness: -4%) !important;
+}
+
+.drawer__inner__mastodon {
+  background: var(--background-color)
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 234.80078 31.757813" width="234.80078" height="31.757812"><path d="M19.599609 0c-1.05 0-2.10039.375-2.90039 1.125L0 16.925781v14.832031h234.80078V17.025391l-16.5-15.900391c-1.6-1.5-4.20078-1.5-5.80078 0l-13.80078 13.099609c-1.6 1.5-4.19883 1.5-5.79883 0L179.09961 1.125c-1.6-1.5-4.19883-1.5-5.79883 0L159.5 14.224609c-1.6 1.5-4.20078 1.5-5.80078 0L139.90039 1.125c-1.6-1.5-4.20078-1.5-5.80078 0l-13.79883 13.099609c-1.6 1.5-4.20078 1.5-5.80078 0L100.69922 1.125c-1.600001-1.5-4.198829-1.5-5.798829 0l-13.59961 13.099609c-1.6 1.5-4.200781 1.5-5.800781 0L61.699219 1.125c-1.6-1.5-4.198828-1.5-5.798828 0L42.099609 14.224609c-1.6 1.5-4.198828 1.5-5.798828 0L22.5 1.125C21.7.375 20.649609 0 19.599609 0z" fill="#{hex-color(color.adjust($ui-base-color, $lightness: -4%))}"/></svg>')
+    no-repeat bottom / 100% auto !important;
+}
+
+.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background: color.adjust($ui-primary-color, $lightness: -5%) !important;
+}
+
+.react-toggle.react-toggle--checked:hover:not(.react-toggle--disabled)
+  .react-toggle-track {
+  background: color.adjust($ui-highlight-color, $lightness: -5%) !important;
+}
+
+.keyboard-shortcuts {
+  kbd {
+    background-color: color.adjust($ui-base-color, $lightness: -8%) !important;
+    border: 1px solid color.adjust($ui-base-color, $lightness: -4%) !important;
+  }
+}
+
+.status-card__image {
+  background: color.adjust($ui-base-color, $lightness: -8%) !important;
+}
+
+.timeline-hint {
+  a {
+    &:hover,
+    &:focus,
+    &:active {
+      text-decoration: underline !important;
+      color: color.adjust($highlight-text-color, $lightness: -4%) !important;
+    }
+  }
+}
+
+.column-header__select-row {
+  &__mode-button {
+    &:hover {
+      color: color.adjust($highlight-text-color, $lightness: -6%) !important;
+    }
+  }
+}
+
+.column-header__button {
+  &:hover {
+    color: color.adjust($darker-text-color, $lightness: -4%) !important;
+  }
+}
+
+.pillbar-button {
+  background-color: color.adjust($ui-base-color, $lightness: -8%) !important;
+
+  &:not([disabled]) {
+    &:hover,
+    &:focus {
+      background-color: color.adjust($ui-base-color, $lightness: -10%) !important;
+    }
+
+    &.active {
+      background-color: color.adjust($ui-highlight-color, $lightness: -2%) !important;
+    }
+  }
+}
+
+.notification__dismiss-overlay {
+  .wrappy {
+    background: color.adjust($ui-base-color, $lightness: -8%) !important;
+    border-inline-start: 1px solid color.adjust($ui-base-color, $lightness: -20%) !important;
+  }
+}
+
+.circular-progress {
+  color: color.adjust($ui-base-color, $lightness: -26%) !important;
+}
+
+.modal-container--preloader {
+  background: color.adjust($ui-base-color, $lightness: -8%) !important;
+}
+
+.column-settings__hashtags {
+  .column-select {
+    &__control {
+      &::placeholder {
+        color: color.adjust($darker-text-color, $lightness: -4%) !important;
+      }
+
+      &:focus {
+        background: color.adjust($ui-base-color, $lightness: -4%) !important;
+      }
+    }
+
+    &__multi-value {
+      background: color.adjust($ui-base-color, $lightness: -8%) !important;
+
+      &__remove {
+        &:hover,
+        &:active,
+        &:focus {
+          background: color.adjust($ui-base-color, $lightness: -12%) !important;
+          color: color.adjust($darker-text-color, $lightness: -4%) !important;
+        }
+      }
+    }
+
+    &__dropdown-indicator {
+      &:hover,
+      &:active,
+      &:focus {
+        color: color.adjust($dark-text-color, $lightness: -4%) !important;
+      }
+    }
+
+    &__indicator-separator {
+      background-color: color.adjust($ui-base-color, $lightness: -8%) !important;
+    }
+
+    &__option {
+      &--is-focused,
+      &--is-selected {
+        background: color.adjust($ui-secondary-color, $lightness: -10%) !important;
+      }
+    }
+  }
+}
+
+.account__action-bar {
+  border-top: 1px solid color.adjust($ui-base-color, $lightness: -8%) !important;
+  border-bottom: 1px solid color.adjust($ui-base-color, $lightness: -8%) !important;
+}
+
+.account__action-bar__tab {
+  border-inline-start: 1px solid color.adjust($ui-base-color, $lightness: -8%) !important;
+}
+
+.report-modal__target {
+  select {
+    background: $simple-background-color
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.933 18.467' height='19.698' width='15.929'><path d='M3.467 14.967l-3.393-3.5H14.86l-3.392 3.5c-1.866 1.925-3.666 3.5-4 3.5-.335 0-2.135-1.575-4-3.5zm.266-11.234L7.467 0 11.2 3.733l3.733 3.734H0l3.733-3.734z' fill='#{hex-color(color.adjust($simple-background-color, $lightness: -14%))}'/></svg>")
+      no-repeat right 8px center / auto 16px !important;
+    border: 1px solid color.adjust($simple-background-color, $lightness: -14%) !important;
+  }
+}
+
+.video-player {
+  &__spoiler {
+    &.active {
+      &:hover,
+      &:active,
+      &:focus {
+        color: color.adjust($darker-text-color, $lightness: -7%) !important;
+      }
+    }
+  }
+
+  &__volume {
+    &__current {
+      background: color.adjust($ui-highlight-color, $lightness: -8%) !important;
+    }
+
+    &__handle {
+      background: color.adjust($ui-highlight-color, $lightness: -8%) !important;
+    }
+  }
+
+  &__seek {
+    &__progress,
+    &__buffer {
+      background: color.adjust($ui-highlight-color, $lightness: -8%) !important;
+    }
+
+    &__handle {
+      background: color.adjust($ui-highlight-color, $lightness: -8%) !important;
+    }
+  }
+}
+
+.account__header {
+  &__image {
+    background: color.adjust($ui-base-color, $lightness: -4%) !important;
+  }
+
+  &__bio {
+    .account__header__fields {
+      a {
+        color: color.adjust($ui-highlight-color, $lightness: -8%) !important;
+      }
+    }
+  }
+}
+
+.trends {
+  &__item {
+    &__sparkline {
+      path:last-child {
+        stroke: color.adjust($highlight-text-color, $lightness: -6%) !important !important;
+      }
+    }
+
+    &--requires-review {
+      .trends__item__sparkline {
+        path:last-child {
+          stroke: color.adjust($gold-star, $lightness: -6%) !important !important;
+        }
+      }
+    }
+
+    &--disabled {
+      .trends__item__name {
+        color: color.adjust($ui-base-color, $lightness: -12%) !important;
+
+        a {
+          color: color.adjust($ui-base-color, $lightness: -12%) !important;
+        }
+      }
+
+      .trends__item__current {
+        color: color.adjust($ui-base-color, $lightness: -12%) !important;
+      }
+
+      .trends__item__sparkline {
+        path:first-child {
+          fill: rgba(
+            color.adjust($ui-base-color, $lightness: -12%),
+            0.25
+          ) !important !important;
+        }
+
+        path:last-child {
+          stroke: color.adjust(
+            color.adjust($ui-base-color, $lightness: -12%),
+            $lightness: -6%
+          ) !important !important;
+        }
+      }
+    }
+  }
+}
+
+.conversation {
+  &:focus {
+    background: color.adjust($ui-base-color, $lightness: -2%) !important;
+  }
+}
+
+.announcements {
+  background: color.adjust($ui-base-color, $lightness: -8%) !important;
+}
+
+.reactions-bar {
+  &__item {
+    background: color.adjust($ui-base-color, $lightness: -12%) !important;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: color.adjust($ui-base-color, $lightness: -16%) !important;
+      color: color.adjust($darker-text-color, $lightness: -4%) !important;
+    }
+
+    &.active {
+      background-color: mix(
+        color.adjust($ui-base-color, $lightness: -12%),
+        $ui-highlight-color,
+        80%
+      ) !important;
+      color: color.adjust($highlight-text-color, $lightness: -8%) !important;
+    }
+  }
+
+  .emoji-button {
+    &:hover,
+    &:active,
+    &:focus {
+      color: color.adjust($darker-text-color, $lightness: -4%) !important;
+    }
+  }
+}
+
+.picture-in-picture {
+  &__footer {
+    background: color.adjust($ui-base-color, $lightness: -4%) !important;
+  }
+
+  &__header {
+    background: color.adjust($ui-base-color, $lightness: -4%) !important;
+  }
+}
+
+.picture-in-picture-placeholder {
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: color.adjust($ui-base-color, $lightness: -12%) !important;
+  }
+}
+
+.explore__search-header {
+  background: color.adjust($ui-base-color, $lightness: -4%) !important;
+}
+
+.interaction-modal {
+  &__login {
+    &__input {
+      input {
+        &::placeholder {
+          color: color.adjust($darker-text-color, $lightness: -4%) !important;
+        }
+      }
+    }
+
+    &.focused &__input {
+      background: color.adjust($ui-base-color, $lightness: -4%) !important;
+    }
+  }
+}
+
+.copypaste {
+  input {
+    background: color.adjust($ui-base-color, $lightness: -8%) !important;
+
+    &:focus {
+      background: color.adjust($ui-base-color, $lightness: -4%) !important;
+    }
+  }
+}
+
+.prose {
+  code {
+    background: color.adjust($ui-base-color, $lightness: -8%) !important;
+  }
+
+  hr {
+    border-top: 1px solid color.adjust($ui-base-color, $lightness: -4%) !important;
+  }
+}
+
+.about {
+  &__header {
+    &__hero {
+      background: color.adjust($ui-base-color, $lightness: -4%) !important;
+    }
+  }
+
+  &__domain-blocks,
+  &__bubble-domains {
+    &__domain {
+      &:nth-child(2n) {
+        background: color.adjust($ui-base-color, $lightness: -4%) !important;
+      }
+    }
+  }
+}
+
+.notification-bar {
+  border: 1px solid
+    rgba(color.adjust($classic-base-color, $lightness: -4%), 0.85) !important;
+}
+
+.inline-follow-suggestions {
+  &__body {
+    &__scroll-button {
+      &:active {
+        .inline-follow-suggestions__body__scroll-button__icon {
+          background: color.adjust($ui-highlight-color, $lightness: -4%) !important;
+        }
+      }
+    }
+  }
+}

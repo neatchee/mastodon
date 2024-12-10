@@ -1,0 +1,13 @@
+.dashboard {
+  &__quick-access {
+    &.positive {
+      background: color.adjust($ui-base-color, $lightness: -4%) !important;
+      color: $valid-value-color !important;
+    }
+
+    &.negative {
+      background: color.adjust($ui-base-color, $lightness: -4%) !important;
+      color: $error-value-color !important;
+    }
+  }
+}

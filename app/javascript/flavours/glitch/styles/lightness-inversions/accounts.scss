@@ -1,0 +1,52 @@
+.card {
+  &__bar {
+    img {
+        background: color.adjust($ui-base-color, $lightness: -8%) !important;
+    }
+  }
+}
+
+.simple_form .not_recommended {
+  color: color.adjust($error-red, $lightness: -12%) !important;
+  background-color: rgba(color.adjust($error-red, $lightness: -12%), 0.1) !important;
+  border-color: rgba(color.adjust($error-red, $lightness: -12%), 0.5) !important;
+}
+
+.simple_form .glitch_only {
+  color: color.adjust($warning-red, $lightness: -12%) !important;
+  background-color: rgba(color.adjust($warning-red, $lightness: -12%), 0.1) !important;
+  border-color: rgba(color.adjust($warning-red, $lightness: -12%), 0.5) !important;
+}
+
+.account__header__fields {
+  border-top: 1px solid color.adjust($ui-base-color, $lightness: -12%) !important;
+  border-bottom: 1px solid color.adjust($ui-base-color, $lightness: -12%) !important;
+  dl {
+    border-bottom: 1px solid color.adjust($ui-base-color, $lightness: -12%) !important;
+  }
+  dt {
+    background: rgba(color.adjust($ui-base-color, $lightness: -8%), 0.5) !important;
+  }
+}
+
+.batch-table__row--muted {
+  color: color.adjust($ui-base-color, $lightness: -26%) !important;
+}
+
+.batch-table__row--muted .pending-account__header,
+.batch-table__row--muted .accounts-table,
+.batch-table__row--muted .name-tag {
+  &,
+  a,
+  strong {
+    color: color.adjust($ui-base-color, $lightness: -26%) !important;
+  }
+}
+
+.batch-table__row--muted .accounts-table {
+  tbody td.accounts-table__extra,
+  &__count,
+  &__count small {
+    color: color.adjust($ui-base-color, $lightness: -26%) !important;
+  }
+}

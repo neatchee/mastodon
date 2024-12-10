@@ -1,0 +1,17 @@
+:root {
+  --dropdown-border-color: #{color.adjust($ui-base-color, $lightness: -4%)} !important;
+  --modal-background-color: #{rgba(
+      color.adjust($ui-base-color, $lightness: -8%),
+      0.7
+    )} !important;
+  --modal-border-color: #{color.adjust($ui-base-color, $lightness: -4%)} !important;
+  --background-border-color: #{color.adjust($ui-base-color, $lightness: -4%)} !important;
+  --background-color: #{color.adjust($ui-base-color, $lightness: -8%)} !important;
+  --background-color-tint: #{rgba(
+      color.adjust($ui-base-color, $lightness: -8%),
+      0.9
+    )} !important;
+  --surface-background-color: #{color.adjust($ui-base-color, $lightness: -4%)} !important;
+  --error-background-color: #{color.adjust($error-red, $lightness: -16%)} !important;
+  --error-active-background-color: #{color.adjust($error-red, $lightness: -12%)} !important;
+}

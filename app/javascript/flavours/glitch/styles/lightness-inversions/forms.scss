@@ -1,0 +1,49 @@
+.simple_form {
+  .hint {
+    code {
+      background: color.adjust($ui-base-color, $lightness: -12%) !important;
+    }
+  }
+
+  .required abbr {
+    text-decoration: none !important;
+    color: color.adjust($error-value-color, $lightness: -12%) !important;
+  }
+
+  input[type='text'],
+  input[type='number'],
+  input[type='email'],
+  input[type='password'],
+  input[type='datetime-local'] {
+    &:focus:invalid:not(:placeholder-shown),
+    &:required:invalid:not(:placeholder-shown) {
+      border-color: color.adjust($error-red, $lightness: -12%) !important;
+    }
+  }
+
+  .input.field_with_errors {
+    label {
+      color: color.adjust($error-red, $lightness: -12%) !important;
+    }
+
+    input[type='text'],
+    input[type='number'],
+    input[type='email'],
+    input[type='password'],
+    input[type='datetime-local'],
+    textarea,
+    select {
+      border-color: color.adjust($error-red, $lightness: -12%) !important;
+    }
+
+    .error {
+      color: color.adjust($error-red, $lightness: -12%) !important;
+    }
+  }
+
+  select {
+    background: $ui-base-color
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.933 18.467' height='19.698' width='15.929'><path d='M3.467 14.967l-3.393-3.5H14.86l-3.392 3.5c-1.866 1.925-3.666 3.5-4 3.5-.335 0-2.135-1.575-4-3.5zm.266-11.234L7.467 0 11.2 3.733l3.733 3.734H0l3.733-3.734z' fill='#{hex-color(color.adjust($ui-base-color, $lightness: -12%))}'/></svg>")
+      no-repeat right 8px center / auto 14px !important;
+  }
+}

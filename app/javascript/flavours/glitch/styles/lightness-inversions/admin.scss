@@ -1,0 +1,122 @@
+.admin-wrapper {
+  .sidebar {
+    &__toggle {
+      border-bottom: 1px solid color.adjust($ui-base-color, $lightness: -4%) !important;
+    }
+  }
+
+  .content {
+    &__heading {
+      &__tabs {
+        a {
+          &:hover,
+          &:focus,
+          &:active {
+            background: color.adjust($ui-base-color, $lightness: -4%) !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.filters {
+  .filter-subset {
+    a {
+      &:hover {
+        border-bottom: 2px solid color.adjust($ui-base-color, $lightness: -5%) !important;
+      }
+    }
+  }
+}
+
+a.name-tag,
+.name-tag,
+a.inline-name-tag,
+.inline-name-tag {
+  &.suspended {
+    .username {
+      color: color.adjust($error-red, $lightness: -12%) !important;
+    }
+  }
+}
+
+.speech-bubble {
+  &.negative {
+    border-left-color: color.adjust($error-red, $lightness: -12%) !important;
+  }
+}
+
+.filters-list__item {
+  &.expired {
+    .expiration {
+      color: color.adjust($error-red, $lightness: -12%) !important;
+    }
+  }
+}
+
+.sparkline {
+  &__graph {
+    path:last-child {
+      stroke: color.adjust($highlight-text-color, $lightness: -6%) !important !important;
+    }
+  }
+}
+
+.skeleton {
+  background-image: linear-gradient(
+    90deg,
+    color.adjust($ui-base-color, $lightness: -8%),
+    color.adjust($ui-base-color, $lightness: -12%),
+    color.adjust($ui-base-color, $lightness: -8%)
+  ) !important;
+}
+
+.dimension {
+  &__item {
+    border-bottom: 1px solid color.adjust($ui-base-color, $lightness: -4%) !important;
+  }
+}
+
+.report-reason-selector {
+  &__category {
+    border-bottom: 1px solid color.adjust($ui-base-color, $lightness: -8%) !important;
+  }
+}
+
+.account-card {
+  &__header {
+    img {
+      background: color.adjust($ui-base-color, $lightness: -8%) !important;
+    }
+  }
+
+  &__title {
+    &__avatar {
+      img,
+      .account__avatar {
+        background-color: color.adjust($ui-base-color, $lightness: -8%) !important;
+      }
+    }
+  }
+}
+
+.availability-indicator {
+  &__graphic {
+    &__item {
+      background: color.adjust($ui-base-color, $lightness: -8%) !important;
+    }
+  }
+}
+
+.history {
+  &__entry {
+    .status {
+      border: 1px solid color.adjust($ui-base-color, $lightness: -4%) !important;
+    }
+  }
+}
+
+.status__card {
+  border: 1px solid color.adjust($ui-base-color, $lightness: -4%) !important;
+}

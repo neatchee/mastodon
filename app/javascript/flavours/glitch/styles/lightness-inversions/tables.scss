@@ -1,0 +1,11 @@
+.batch-table {
+  &__select-all {
+    button {
+      &:hover,
+      &:focus,
+      &:active {
+        background: color.adjust($ui-base-color, $lightness: -8%) !important;
+      }
+    }
+  }
+}

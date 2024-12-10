@@ -1,0 +1,4 @@
+.error-boundary,
+.app-holder noscript {
+  color: color.adjust($error-red, $lightness: -4%) !important;
+}

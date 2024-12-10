@@ -1,0 +1,36 @@
+.poll {
+  &__chart {
+    background: color.adjust($ui-primary-color, $lightness: -5%) !important;
+  }
+
+  progress {
+    &::-moz-progress-bar {
+      background: color.adjust($ui-primary-color, $lightness: -5%) !important;
+    }
+
+    &::-webkit-progress-value {
+      background: color.adjust($ui-primary-color, $lightness: -5%) !important;
+    }
+  }
+
+  &__input {
+    &:active,
+    &:focus,
+    &:hover {
+      border-color: color.adjust($valid-value-color, $lightness: -15%) !important;
+    }
+  }
+
+  &__link {
+    &:active,
+    &:focus {
+      background-color: rgba($dark-text-color, 0.1) !important;
+    }
+  }
+}
+
+.muted .poll {
+  &__chart {
+    background: rgba(color.adjust($ui-primary-color, $lightness: -14%), 0.7) !important;
+  }
+}
