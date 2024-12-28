@@ -28,19 +28,6 @@ const initialState = ImmutableMap({
     media_outside: false,
     shared_state : false,
   }),
-  collapsed : ImmutableMap({
-    enabled     : true,
-    auto        : ImmutableMap({
-      all              : false,
-      notifications    : true,
-      lengthy          : true,
-      reblogs          : false,
-      replies          : false,
-      media            : false,
-      height           : 500,
-    }),
-    show_action_bar : true,
-  }),
   media     : ImmutableMap({
     letterbox        : true,
     fullwidth        : true,
