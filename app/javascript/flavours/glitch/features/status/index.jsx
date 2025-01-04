@@ -516,6 +516,10 @@ class Status extends ImmutablePureComponent {
     this.props.history.push(`/@${this.props.status.getIn(['account', 'acct'])}`);
   };
 
+  handleHotkeyTranslate = () => {
+    this.handleTranslate(this.props.status);
+  };
+
   handleMoveUp = id => {
     const { status, ancestorsIds, descendantsIds } = this.props;
 
@@ -708,6 +712,7 @@ class Status extends ImmutablePureComponent {
       toggleHidden: this.handleToggleHidden,
       toggleSensitive: this.handleHotkeyToggleSensitive,
       openMedia: this.handleHotkeyOpenMedia,
+      onTranslate: this.handleHotkeyTranslate,
     };
 
     return (

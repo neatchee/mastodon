@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '>= 3.2.0'
+ruby '>= 3.2.0', '< 3.5'
 
 gem 'propshaft'
 gem 'puma', '~> 6.3'
@@ -79,7 +79,7 @@ gem 'redis', '~> 4.5', require: ['redis', 'redis/connection/hiredis']
 gem 'redis-namespace', '~> 1.10'
 gem 'rqrcode', '~> 2.2'
 gem 'ruby-progressbar', '~> 1.13'
-gem 'sanitize', '~> 6.0'
+gem 'sanitize', '~> 7.0'
 gem 'scenic', '~> 1.7'
 gem 'sidekiq', '~> 6.5'
 gem 'sidekiq-bulk', '~> 0.2.0'
@@ -183,7 +183,7 @@ group :development do
   gem 'letter_opener_web', '~> 3.0'
 
   # Security analysis CLI tools
-  gem 'brakeman', '~> 6.0', require: false
+  gem 'brakeman', '~> 7.0', require: false
   gem 'bundler-audit', '~> 0.9', require: false
 
   # Linter CLI for HAML files
@@ -222,7 +222,7 @@ gem 'concurrent-ruby', require: false
 gem 'connection_pool', require: false
 gem 'xorcist', '~> 1.1'
 
-gem 'net-http', '~> 0.5.0'
+gem 'net-http', '~> 0.6.0'
 gem 'rubyzip', '~> 2.3'
 
 gem 'hcaptcha', '~> 7.1'

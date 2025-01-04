@@ -136,6 +136,7 @@ const keyMap = {
   bookmark: 'd',
   toggleSensitive: 'h',
   openMedia: 'e',
+  onTranslate: 't',
 };
 
 class SwitchingColumnsArea extends PureComponent {
