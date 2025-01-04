@@ -19,16 +19,6 @@ body.app-body.flavour-glitch > #mastodon .notification__message > span,
   gap: unset !important;
 }
 
-.status.collapsed .status__content {
-  max-height: unset !important;
-}
-
-.status.collapsed .status__content .status__content__translate-button,
-.status.collapsed .status__content .status-card,
-.status.collapsed .status__content .video-player {
-  display: none;
-}
-
 body.app-body.flavour-glitch > #mastodon .reactions-bar button:not(.active) {
   background: color.adjust($ui-base-color, $lightness: 12%);
 }
@@ -65,8 +55,7 @@ body.app-body.flavour-glitch
 
 body.app-body.flavour-glitch
   > #mastodon
-  .collapsed
-  .status__content
+  .status__content.status__content--collapsed
   p:not(:last-child) {
   margin-top: 0.4em;
 }
@@ -74,10 +63,6 @@ body.app-body.flavour-glitch
 body.app-body.flavour-glitch > #mastodon .compose-form__submit {
   position: unset !important;
   margin-top: unset !important;
-}
-
-body.app-body.flavour-glitch > #mastodon .collapsed .status__content {
-  padding: 12px 14px !important;
 }
 
 @media (width <= 889px) {
@@ -115,4 +100,17 @@ body.app-body.flavour-glitch > #mastodon .notification-ungrouped {
 
 .notification-request {
   margin-top: 60px;
+}
+
+.status__content.status__content--collapsed {
+  .status__content__text {
+    overflow: hidden;
+    mask: linear-gradient(to bottom, #000 65%, transparent);
+  }
+
+  .status__content__translate-button,
+  .status-card,
+  .video-player {
+    display: none;
+  }
 }

@@ -2,10 +2,6 @@
   width: 100% !important;
 }
 
-.status__wrapper.collapsed .status__content {
-  overflow: visible !important;
-}
-
 .status__content--zoom-emojis-on-hover .emojione:hover {
   transform: scale(1.8);
   filter: drop-shadow(0 0 3px #0c0c0c);
