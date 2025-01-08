@@ -55,7 +55,8 @@ body.app-body.flavour-glitch > #mastodon .compose-form__submit button {
 
 body.app-body.flavour-glitch
   > #mastodon
-  .status__content.stats__content--collapsed {
+  .status__content
+  .status__content--collapsed {
   height: auto !important;
   overflow: visible;
   mask: unset !important;
@@ -64,7 +65,7 @@ body.app-body.flavour-glitch
 body.app-body.flavour-glitch
   > #mastodon
   .status__content
-  .status__content.status__content--collapsed
+  .status__content--collapsed
   .status__content__text {
   mask: linear-gradient(to bottom, #000 50px, transparent) !important;
   -webkit-mask: linear-gradient(to bottom, #000 50px, transparent) !important;
@@ -74,7 +75,7 @@ body.app-body.flavour-glitch
 body.app-body.flavour-glitch
   > #mastodon
   .status__content
-  .status__content.status__content--collapsed
+  .status__content--collapsed
   p:not(:last-child) {
   margin-bottom: 0.4em;
 }
@@ -82,7 +83,7 @@ body.app-body.flavour-glitch
 body.app-body.flavour-glitch
   > #mastodon
   .status__content
-  .status__content.status__content--collapsed
+  .status__content--collapsed
   br {
   display: block;
 }
@@ -90,56 +91,24 @@ body.app-body.flavour-glitch
 body.app-body.flavour-glitch
   > #mastodon
   .status__content
-  .status__content.status__content--collapsed::after {
+  .status__content--collapsed::after {
   content: unset;
 }
 
 body.app-body.flavour-glitch
   > #mastodon
   .muted
-  .status__content.status__content--collapsed
+  .status__content--collapsed
   .status__content__text
   ~ * {
   display: none;
 }
-@media (pointer: coarse) {
-  body.app-body.flavour-glitch > #mastodon .status__info {
-    align-items: center;
-  }
-
-  body.app-body.flavour-glitch > #mastodon .status__info__icons {
-    height: auto;
-  }
-}
-
-body.app-body.flavour-glitch > #mastodon .status {
-  isolation: isolate;
-  overflow: hidden;
-}
-
-body.app-body.flavour-glitch > #mastodon .status__info {
-  pointer-events: none;
-}
-
-body.app-body.flavour-glitch > #mastodon .status__avatar,
-body.app-body.flavour-glitch > #mastodon .status__info__icons {
-  pointer-events: all;
-}
 
 body.app-body.flavour-glitch
   > #mastodon
-  .status
-  > :not(.status__content, .status__line) {
-  position: relative;
-  z-index: 2;
-}
-
-body.app-body.flavour-glitch
-  > #mastodon
-  .status:not(.status-direct)
-  > .status__content {
-  margin-block: -100px !important;
-  padding-block: 100px !important;
+  .focusable[tabindex]:not(.notification-ungrouped)
+  .full-width {
+  margin-inline: 0;
 }
 
 body.app-body.flavour-glitch

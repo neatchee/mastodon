@@ -248,105 +248,9 @@ a:focus-visible,
       opacity: 1;
     }
   }
-  @keyframes bounce-in {
-    0% {
-      transform: scale(1.1);
-      opacity: 0;
-    }
-
-    30% {
-      transform: scale(0.99);
-      opacity: 1;
-    }
-
-    60% {
-      transform: scale(1.005);
-      opacity: 1;
-    }
-
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-  @keyframes bounce-in {
-    0% {
-      transform: scale(1.1);
-      opacity: 0;
-    }
-
-    30% {
-      transform: scale(0.99);
-      opacity: 1;
-    }
-
-    60% {
-      transform: scale(1.005);
-      opacity: 1;
-    }
-
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-  @keyframes bounce-in {
-    0% {
-      transform: scale(1.1);
-      opacity: 0;
-    }
-
-    30% {
-      transform: scale(0.99);
-      opacity: 1;
-    }
-
-    60% {
-      transform: scale(1.005);
-      opacity: 1;
-    }
-
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
   @keyframes slide-up {
     from {
       transform: translateY(20px);
-    }
-  }
-  @keyframes slide-up {
-    from {
-      transform: translateY(20px);
-    }
-  }
-  @keyframes slide-up {
-    from {
-      transform: translateY(20px);
-    }
-  }
-  @keyframes slide-up {
-    from {
-      transform: translateY(20px);
-    }
-  }
-  @keyframes slide-up-fade {
-    from {
-      transform: translateY(20px);
-      filter: opacity(0);
-    }
-  }
-  @keyframes slide-up-fade {
-    from {
-      transform: translateY(20px);
-      filter: opacity(0);
-    }
-  }
-  @keyframes slide-up-fade {
-    from {
-      transform: translateY(20px);
-      filter: opacity(0);
     }
   }
   @keyframes slide-up-fade {
@@ -361,60 +265,9 @@ a:focus-visible,
       filter: opacity(0);
     }
   }
-  @keyframes slide-down-fade {
-    from {
-      transform: translateY(-20px);
-      filter: opacity(0);
-    }
-  }
-  @keyframes slide-down-fade {
-    from {
-      transform: translateY(-20px);
-      filter: opacity(0);
-    }
-  }
-  @keyframes slide-down-fade {
-    from {
-      transform: translateY(-20px);
-      filter: opacity(0);
-    }
-  }
   @keyframes slide-up-big {
     from {
       transform: translateY(50vh);
-    }
-  }
-  @keyframes slide-up-big {
-    from {
-      transform: translateY(50vh);
-    }
-  }
-  @keyframes slide-up-big {
-    from {
-      transform: translateY(50vh);
-    }
-  }
-  @keyframes slide-up-big {
-    from {
-      transform: translateY(50vh);
-    }
-  }
-  @keyframes fade-up {
-    from {
-      transform: translateY(10px);
-      opacity: 0;
-    }
-  }
-  @keyframes fade-up {
-    from {
-      transform: translateY(10px);
-      opacity: 0;
-    }
-  }
-  @keyframes fade-up {
-    from {
-      transform: translateY(10px);
-      opacity: 0;
     }
   }
   @keyframes fade-up {
@@ -429,57 +282,9 @@ a:focus-visible,
       opacity: 0;
     }
   }
-  @keyframes scale-in {
-    from {
-      transform: scale(0.98);
-      opacity: 0;
-    }
-  }
-  @keyframes scale-in {
-    from {
-      transform: scale(0.98);
-      opacity: 0;
-    }
-  }
-  @keyframes scale-in {
-    from {
-      transform: scale(0.98);
-      opacity: 0;
-    }
-  }
   @keyframes fade-left {
     from {
       transform: translateX(20px) opacity(0);
-    }
-  }
-  @keyframes fade-left {
-    from {
-      transform: translateX(20px) opacity(0);
-    }
-  }
-  @keyframes fade-left {
-    from {
-      transform: translateX(20px) opacity(0);
-    }
-  }
-  @keyframes fade-left {
-    from {
-      transform: translateX(20px) opacity(0);
-    }
-  }
-  @keyframes rainbow {
-    to {
-      filter: hue-rotate(360deg);
-    }
-  }
-  @keyframes rainbow {
-    to {
-      filter: hue-rotate(360deg);
-    }
-  }
-  @keyframes rainbow {
-    to {
-      filter: hue-rotate(360deg);
     }
   }
   @keyframes rainbow {
@@ -599,6 +404,14 @@ a:focus-visible,
 
 .compose-form .reply-indicator__display-name {
   padding: 0;
+}
+
+.compose-form .spoiler-input__border {
+  display: none;
+}
+
+.compose-form #cw-spoiler-input {
+  padding-inline: 12px;
 }
 
 .compose-form .compose-form__autosuggest-wrapper,
@@ -806,6 +619,7 @@ a:focus-visible,
 
 .columns-area__panels__main {
   overflow: visible !important;
+  contain: inline-size style !important;
   transition:
     max-width 0.2s cubic-bezier(0, 0, 0, 1.1),
     margin 0.2s cubic-bezier(0, 0, 0, 1.1);
@@ -881,7 +695,8 @@ a:focus-visible,
     .scrollable
     :not(.focusable)
     > .account:not(.account--minimal),
-  .layout-single-column .timeline-hint {
+  .layout-single-column .timeline-hint,
+  .layout-single-column .notification-request {
     margin-inline: 10px;
     max-width: calc(100% - 20px);
   }
@@ -992,6 +807,7 @@ a:focus-visible,
 
 .column-header__wrapper > :not(.column-header, .collapsed) {
   border-top: 2px solid var(--background-color) !important;
+  border: 0;
 }
 
 .column-header {
@@ -1077,6 +893,10 @@ a:focus-visible,
     flex-direction: column;
     border-radius: var(--radius);
     overflow: hidden;
+  }
+
+  .tabs-bar__wrapper .column-header__wrapper > div {
+    background: var(--surface-background-color);
   }
 
   .tabs-bar__wrapper .column-header {
@@ -1362,7 +1182,8 @@ a:focus-visible,
 .trends__item,
 .story,
 .scrollable :not(.focusable) > .account:not(.account--minimal),
-.timeline-hint {
+.timeline-hint,
+.notification-request {
   overflow: hidden;
   contain: paint inline-size;
   position: relative;
@@ -1376,7 +1197,8 @@ a:focus-visible,
 .trends__item.focusable,
 .story.focusable,
 .scrollable :not(.focusable) > .account:not(.account--minimal).focusable,
-.timeline-hint.focusable {
+.timeline-hint.focusable,
+.notification-request.focusable {
   background: none;
 }
 @media (pointer: fine) {
@@ -1386,7 +1208,8 @@ a:focus-visible,
   .trends__item::before,
   .story::before,
   .scrollable :not(.focusable) > .account:not(.account--minimal)::before,
-  .timeline-hint::before {
+  .timeline-hint::before,
+  .notification-request::before {
     content: '';
     position: absolute;
     inset: 0 !important;
@@ -1403,6 +1226,7 @@ a:focus-visible,
   .story:hover::before,
   .scrollable :not(.focusable) > .account:not(.account--minimal):hover::before,
   .timeline-hint:hover::before,
+  .notification-request:hover::before,
   .focusable:focus-within::before,
   .entry:focus-within::before,
   .statuses-grid__item .detailed-status:focus-within::before,
@@ -1411,7 +1235,8 @@ a:focus-visible,
   .scrollable
     :not(.focusable)
     > .account:not(.account--minimal):focus-within::before,
-  .timeline-hint:focus-within::before {
+  .timeline-hint:focus-within::before,
+  .notification-request:focus-within::before {
     background-color: var(--hover-color);
   }
 }
@@ -1738,11 +1563,9 @@ a:focus-visible,
   margin-bottom: -6px;
   gap: 0;
   margin-inline-start: -8px;
-  pointer-events: none;
 }
 
 .status__action-bar__button-wrapper {
-  pointer-events: all;
   flex-grow: 1;
   max-width: 55px;
   min-width: max-content;
@@ -1813,17 +1636,22 @@ a:focus-visible,
   flex-grow: 1;
 }
 
-.item-list > article {
+.item-list > article > div {
   position: relative;
 }
 
-.item-list > article::after {
+.item-list > article > div::after {
   content: '';
   position: absolute;
   bottom: 0;
   inset-inline: 0;
   border-top: 1px solid var(--border-color);
   pointer-events: none;
+}
+@media (width >= 890px) {
+  .layout-single-column .item-list > article > div::after {
+    inset-inline: calc(var(--radius) + 10px);
+  }
 }
 
 .account__wrapper {
@@ -3156,6 +2984,7 @@ a:focus-visible,
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
+    user-drag: none;
     user-select: none;
     -webkit-user-select: none;
     -webkit-touch-callout: none;

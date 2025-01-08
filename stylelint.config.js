@@ -44,5 +44,17 @@ module.exports = {
         ],
       },
     },
+    {
+      'files': ['app/javascript/flavours/glitch/styles/modern.scss', 'app/javascript/styles/modern.scss'],
+      rules: {
+        'property-no-unknown': [
+          true,
+          {   
+            ignoreProperties: [
+              'user-drag',
+            ] },
+        ],
+      },
+    },
   ],
 };
