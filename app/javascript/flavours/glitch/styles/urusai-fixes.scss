@@ -12,3 +12,7 @@
   height: 24px;
   width: 24px;
 }
+
+.status__content:not(.status__content--collapsed) {
+  overflow: visible;
+}
