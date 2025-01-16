@@ -67,8 +67,12 @@ body.app-body.flavour-glitch
   .status__content
   .status__content--collapsed
   .status__content__text {
-  mask: linear-gradient(to bottom, #000 50px, transparent) !important;
-  -webkit-mask: linear-gradient(to bottom, #000 50px, transparent) !important;
+  mask: linear-gradient(to bottom, #000 0 130px, transparent 290px) !important;
+  -webkit-mask: linear-gradient(
+    to bottom,
+    #000 0 130px,
+    transparent 290px
+  ) !important;
   max-height: 100px;
 }
 
