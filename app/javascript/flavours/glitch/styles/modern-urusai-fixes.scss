@@ -114,3 +114,10 @@ body.app-body.flavour-glitch > #mastodon .notification-ungrouped {
     display: none;
   }
 }
+
+@media (width <= 889px) {
+  .ui__header .ui__header__links {
+    right: unset !important;
+    inset-inline-end: unset !important;
+  }
+}
