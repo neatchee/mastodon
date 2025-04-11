@@ -839,6 +839,10 @@ en:
         activitypub: ActivityPub
         preamble: Other settings, including customizing behavior
         title: Other settings
+      protections:
+        activitypub: ActivityPub
+        preamble: Settings to protect your server
+        title: Protection
       registrations:
         moderation_recommandation: Please make sure you have an adequate and reactive moderation team before you open registrations to everyone!
         preamble: Control who can create an account on your server.
