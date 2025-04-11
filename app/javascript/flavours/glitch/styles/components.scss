@@ -1222,6 +1222,24 @@ body > [data-popper-placement] {
   }
 }
 
+.status__content {
+  // glitch: necessary for fullwidth media options
+  overflow: visible;
+}
+
+.status__quote {
+  margin-bottom: 0.5em;
+
+  .quote-display-name {
+    .icon {
+      margin-left: -3px;
+      margin-right: 3px;
+      margin-bottom: 2px;
+      vertical-align: middle;
+    }
+  }
+}
+
 .reply-indicator {
   display: grid;
   grid-template-columns: 46px minmax(0, 1fr);
@@ -1437,6 +1455,7 @@ body > [data-popper-placement] {
 
 .status__content.status__content--collapsed {
   max-height: 20px * 15; // 15 lines is roughly above 500 characters
+  overflow: hidden !important;
 }
 
 .status__content__read-more-button,
