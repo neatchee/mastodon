@@ -1,7 +1,7 @@
-@import 'mastodon-sakura/variables';
-@import 'index';
-@import 'mastodon-sakura/diff';
-@import 'modern';
-@import 'modern-glitch-fixes';
-@import 'modern-urusai-fixes';
-@import 'invert-lightness';
+@use 'mastodon-sakura/variables';
+@use 'mastodon-sakura/css_variables';
+@use 'application';
+@use 'mastodon-sakura/diff';
+@use 'modern';
+@use 'modern-glitch-fixes';
+@use 'modern-urusai-fixes';

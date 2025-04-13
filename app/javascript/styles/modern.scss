@@ -1,3 +1,7 @@
+@use 'sass:color';
+@use 'mastodon/functions' as *;
+@use 'mastodon/variables' as *;
+
 :root {
   --tl-width: 720px;
   --emoji-size: 2em;
@@ -1491,6 +1495,7 @@ a:focus-visible,
   .status-card__description {
     display: -webkit-box;
     -webkit-line-clamp: 8;
+    line-clamp: 8;
     -webkit-box-orient: vertical;
     white-space: unset;
   }
@@ -2984,7 +2989,6 @@ a:focus-visible,
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
-    user-drag: none;
     user-select: none;
     -webkit-user-select: none;
     -webkit-touch-callout: none;

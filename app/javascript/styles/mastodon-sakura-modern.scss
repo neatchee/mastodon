@@ -1,5 +1,6 @@
-@import 'mastodon-sakura-modern/variables';
-@import 'application';
-@import 'modern';
-@import 'mastodon-sakura-modern/diff';
-@import 'modern-urusai-fixes';
+@use 'mastodon-sakura-modern/variables';
+@use 'mastodon-sakura-modern/css_variables';
+@use 'application';
+@use 'modern';
+@use 'mastodon-sakura-modern/diff';
+@use 'modern-urusai-fixes';

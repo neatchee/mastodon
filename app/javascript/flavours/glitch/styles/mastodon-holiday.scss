@@ -1,4 +1,4 @@
-@import 'mastodon-holiday/variables';
-@import 'index';
-@import 'mastodon-holiday/diff';
-@import 'invert-lightness';
+@use 'mastodon-holiday/variables';
+@use 'mastodon-holiday/css_variables';
+@use 'application';
+@use 'mastodon-holiday/diff';

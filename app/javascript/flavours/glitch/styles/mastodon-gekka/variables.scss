@@ -1,63 +1,65 @@
+@use 'sass:color';
+
+@use '../functions' with (
+  $darken-multiplier: 1,
+  $lighten-multiplier: -1
+);
+
 // Dependent colors
-$black: #000000;
-$white: #ffffff;
+$black: #000;
+$white: #fff;
 
 $classic-base-color: #282c37;
 $classic-primary-color: #8cb155;
 $classic-secondary-color: B0CA71;
 $classic-highlight-color: #8cb155;
 
-// Differences
-$success-green: color.adjust(#3c754d, $lightness: 8%);
-
-$base-overlay-background: $white !default;
-$valid-value-color: $success-green !default;
-
-$ui-base-color: #fdfcf5 !default;
-$ui-base-lighter-color: #fcfaf2;
 $ui-primary-color: #f4fce8;
-$ui-secondary-color: $classic-base-color !default;
-$ui-highlight-color: $classic-highlight-color !default;
+$ui-secondary-color: $classic-base-color;
+$ui-highlight-color: $classic-highlight-color;
 
-$primary-text-color: $black !default;
-$darker-text-color: $classic-base-color !default;
-$highlight-text-color: color.adjust(
-  $ui-highlight-color,
-  $lightness: -8%
-) !default;
-$dark-text-color: #444b5d;
-$action-button-color: #606984;
-
-$inverted-text-color: $black !default;
-$lighter-text-color: $classic-base-color !default;
-$light-text-color: #444b5d;
-
-// Buttons
-$red-600: #b7253d !default; // Deep Carmine
-$red-500: #df405a !default; // Cerise
+$red-600: #b7253d; // Deep Carmine
+$red-500: #df405a; // Cerise
 $blurple-600: $classic-primary-color; // Iris
 $blurple-500: $classic-primary-color; // Brand purple
 $blurple-300: $classic-secondary-color; // Faded Blue
 $grey-600: $ui-primary-color; // Trout
 $grey-100: $ui-secondary-color; // Topaz
 
-$ui-button-color: $white !default;
-$ui-button-background-color: $blurple-500 !default;
-$ui-button-focus-background-color: $blurple-600 !default;
+$success-green: color.adjust(#3c754d, $lightness: 8%);
+@use '../variables' with (
+  $base-overlay-background: $white,
+  $valid-value-color: $success-green,
 
-$ui-button-secondary-color: $grey-100 !default;
-$ui-button-secondary-border-color: $grey-100 !default;
-$ui-button-secondary-focus-background-color: $grey-600 !default;
-$ui-button-secondary-focus-color: $white !default;
+  $ui-base-color: #fdfcf5,
+  $ui-base-lighter-color: #fcfaf2,
 
-$ui-button-tertiary-color: $blurple-300 !default;
-$ui-button-tertiary-border-color: $blurple-300 !default;
-$ui-button-tertiary-focus-background-color: $blurple-600 !default;
-$ui-button-tertiary-focus-color: $white !default;
+  $primary-text-color: $black,
+  $darker-text-color: $classic-base-color,
+  $highlight-text-color: color.adjust($ui-highlight-color, $lightness: -8%),
+  $dark-text-color: #444b5d,
+  $action-button-color: #606984,
 
-$ui-button-destructive-background-color: $red-500 !default;
-$ui-button-destructive-focus-background-color: $red-600 !default;
+  $inverted-text-color: $black,
+  $lighter-text-color: $classic-base-color,
+  $light-text-color: #444b5d,
 
-// Newly added colors
-$account-background-color: $white !default;
-$emojis-requiring-inversion: 'chains';
+  $ui-button-color: $white,
+  $ui-button-background-color: $blurple-500,
+  $ui-button-focus-background-color: $blurple-600,
+
+  $ui-button-secondary-color: $grey-100,
+  $ui-button-secondary-border-color: $grey-100,
+  $ui-button-secondary-focus-border-color: $grey-600,
+  $ui-button-secondary-focus-color: $white,
+
+  $ui-button-tertiary-color: $blurple-300,
+  $ui-button-tertiary-border-color: $blurple-300,
+  $ui-button-tertiary-focus-background-color: $blurple-600,
+  $ui-button-tertiary-focus-color: $white,
+
+  $ui-button-destructive-background-color: $red-500,
+  $ui-button-destructive-focus-background-color: $red-600,
+
+  $emojis-requiring-inversion: 'chains'
+);

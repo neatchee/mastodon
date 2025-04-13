@@ -1,7 +1,6 @@
-@import 'mastodon-gekka/variables';
-@import 'index';
-@import 'mastodon-gekka/diff';
-@import 'modern';
-@import 'modern-glitch-fixes';
-@import 'modern-urusai-fixes';
-@import 'invert-lightness';
+@use 'mastodon-gekka/variables';
+@use 'application';
+@use 'mastodon-gekka/diff';
+@use 'modern';
+@use 'modern-glitch-fixes';
+@use 'modern-urusai-fixes';

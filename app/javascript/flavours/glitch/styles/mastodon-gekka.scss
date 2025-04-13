@@ -1,4 +1,3 @@
-@import 'mastodon-gekka/variables';
-@import 'index';
-@import 'mastodon-gekka/diff';
-@import 'invert-lightness';
+@use 'mastodon-gekka/variables';
+@use 'application';
+@use 'mastodon-gekka/diff';

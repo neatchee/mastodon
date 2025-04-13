@@ -101,12 +101,12 @@
     }
 
     &.positive {
-      background: color.adjust($ui-base-color, $lightness: 4%);
+      background: lighten($ui-base-color, 4%);
       color: $valid-value-color;
     }
 
     &.negative {
-      background: color.adjust($ui-base-color, $lightness: 4%);
+      background: lighten($ui-base-color, 4%);
       color: $error-value-color;
     }
 

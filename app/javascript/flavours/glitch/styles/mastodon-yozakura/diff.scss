@@ -1,3 +1,7 @@
+@use 'sass:color';
+@use '../functions' as *;
+@use '../variables' as *;
+
 .compose-form {
   .compose-form__modifiers {
     .compose-form__upload {
@@ -57,7 +61,7 @@
 }
 
 .column-link {
-  color: $link-color;
+  color: #fa9c85;
 }
 
 .reply-indicator__content .status__content__spoiler-link,
@@ -72,11 +76,11 @@
 .text-icon-button:active,
 .text-icon-button:focus,
 .text-icon-button:hover {
-  color: $link-color;
+  color: #fa9c85;
 }
 
 .report-dialog-modal .dialog-option .poll__input {
-  color: $link-color !important;
+  color: #fa9c85 !important;
 }
 
 .status__content a,

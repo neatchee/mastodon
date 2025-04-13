@@ -1,4 +1,4 @@
-@import 'index';
-@import 'modern';
-@import 'modern-glitch-fixes';
-@import 'modern-urusai-fixes';
+@use 'application';
+@use 'modern';
+@use 'modern-glitch-fixes';
+@use 'modern-urusai-fixes';

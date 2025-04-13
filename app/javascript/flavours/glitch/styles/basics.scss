@@ -205,7 +205,7 @@ button {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.7;
-  color: color.adjust($error-red, $lightness: 4%);
+  color: lighten($error-red, 4%);
   text-align: center;
 
   & > div {

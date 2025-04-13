@@ -1,4 +1,4 @@
-@import 'mastodon-sakura/variables';
-@import 'index';
-@import 'mastodon-sakura/diff';
-@import 'invert-lightness';
+@use 'mastodon-sakura/variables';
+@use 'mastodon-sakura/css_variables';
+@use 'application';
+@use 'mastodon-sakura/diff';
