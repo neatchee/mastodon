@@ -252,7 +252,7 @@ a.table-action-link {
       &:hover,
       &:focus,
       &:active {
-        background: color.adjust($ui-base-color, $lightness: 8%);
+        background: lighten($ui-base-color, 8%);
       }
     }
   }

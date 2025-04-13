@@ -1,4 +1,5 @@
-@import 'mastodon-holiday-modern/variables';
-@import 'application';
-@import 'modern';
-@import 'mastodon-holiday-modern/diff';
+@use 'mastodon-holiday-modern/variables';
+@use 'mastodon-holiday-modern/css_variables';
+@use 'application';
+@use 'modern';
+@use 'mastodon-holiday-modern/diff';

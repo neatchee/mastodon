@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 // Dependent colors
 $black: #000000;
 
@@ -6,48 +8,42 @@ $classic-primary-color: #b15c65;
 $classic-secondary-color: #e8d3d1;
 $classic-highlight-color: #b15c65;
 
-$ui-base-color: #2a232e !default;
-$ui-base-lighter-color: #38303e;
-$ui-primary-color: #2a232e;
-$ui-secondary-color: $classic-base-color !default;
-$ui-highlight-color: $classic-highlight-color !default;
-
-$darker-text-color: #eee0dd;
-$dark-text-color: #eee0dd;
-$secondary-text-color: #eee0dd;
-$highlight-text-color: #eee0dd;
-$action-button-color: #f89887;
-$link-color: #fa9c85;
-
-$inverted-text-color: #eee0dd;
-$lighter-text-color: color.adjust(#eee0dd, $lightness: -6%) !default;
-$light-text-color: color.adjust(#eee0dd, $lightness: -40%) !default;
-
-// Buttons
-$red-600: #b7253d !default; // Deep Carmine
-$red-500: #df405a !default; // Cerise
+$red-600: #b7253d; // Deep Carmine
+$red-500: #df405a; // Cerise
 $blurple-600: #b15c65; // Iris
 $blurple-500: #b15c65; // Brand purple
 $blurple-300: #e8d3d1; // Faded Blue
 $grey-600: #feeeed; // Trout
 $grey-100: #fcf5f7; // Topaz
 
-$ui-button-color: #eee0dd !default;
-$ui-button-background-color: $blurple-500 !default;
-$ui-button-focus-background-color: $blurple-600 !default;
+@use '../variables' with (
+  $ui-base-color: #2a232e,
+  $ui-base-lighter-color: #38303e,
+  $ui-primary-color: #2a232e,
+  $ui-secondary-color: $classic-base-color,
+  $ui-highlight-color: $classic-highlight-color,
 
-$ui-button-secondary-color: $grey-100 !default;
-$ui-button-secondary-border-color: $grey-100 !default;
-$ui-button-secondary-focus-background-color: $grey-600 !default;
-$ui-button-secondary-focus-color: #eee0dd !default;
+  $darker-text-color: #eee0dd,
+  $dark-text-color: #eee0dd,
+  $secondary-text-color: #eee0dd,
+  $highlight-text-color: #eee0dd,
+  $action-button-color: #f89887,
 
-$ui-button-tertiary-color: $blurple-300 !default;
-$ui-button-tertiary-border-color: $blurple-300 !default;
-$ui-button-tertiary-focus-background-color: $blurple-600 !default;
-$ui-button-tertiary-focus-color: #eee0dd !default;
+  $inverted-text-color: #eee0dd,
+  $lighter-text-color: color.adjust(#eee0dd, $lightness: -6%),
+  $light-text-color: color.adjust(#eee0dd, $lightness: -40%),
 
-body {
-  --dropdown-background-color: #38303e;
-  --background-color: #2a232e;
-  --background-color-tint: #38303e;
-}
+  $ui-button-color: #eee0dd,
+  $ui-button-background-color: $blurple-500,
+  $ui-button-focus-background-color: $blurple-600,
+
+  $ui-button-secondary-color: $grey-100,
+  $ui-button-secondary-border-color: $grey-100,
+  $ui-button-secondary-focus-border-color: $grey-600,
+  $ui-button-secondary-focus-color: #eee0dd,
+
+  $ui-button-tertiary-color: $blurple-300,
+  $ui-button-tertiary-border-color: $blurple-300,
+  $ui-button-tertiary-focus-background-color: $blurple-600,
+  $ui-button-tertiary-focus-color: #eee0dd,
+);

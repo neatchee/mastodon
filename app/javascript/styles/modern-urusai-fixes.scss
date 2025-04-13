@@ -1,3 +1,7 @@
+@use 'sass:color';
+@use 'mastodon/functions' as *;
+@use 'mastodon/variables' as *;
+
 .layout-multiple-columns
   #mastodon
   .columns-area
@@ -30,7 +34,7 @@ body.app-body.flavour-glitch > #mastodon .notification__message > span,
 }
 
 body.app-body.flavour-glitch > #mastodon .reactions-bar button:not(.active) {
-  background: color.adjust($ui-base-color, $lightness: 12%);
+  background: lighten($ui-base-color, 12%);
 }
 
 #mastodon .compose-form > .navigation-bar {

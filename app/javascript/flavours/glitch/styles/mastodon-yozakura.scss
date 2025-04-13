@@ -1,3 +1,4 @@
-@import 'mastodon-yozakura/variables';
-@import 'index';
-@import 'mastodon-yozakura/diff';
+@use 'mastodon-yozakura/variables';
+@use 'mastodon-yozakura/css_variables';
+@use 'application';
+@use 'mastodon-yozakura/diff';

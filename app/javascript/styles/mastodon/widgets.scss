@@ -111,7 +111,7 @@
   tbody td {
     padding: 15px 0;
     vertical-align: middle;
-    border-bottom: 1px solid color.adjust($ui-base-color, $lightness: 8%);
+    border-bottom: 1px solid lighten($ui-base-color, 8%);
   }
 
   tbody tr:last-child td {

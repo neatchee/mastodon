@@ -1,3 +1,8 @@
+@use 'sass:color';
+@use 'variables' as *;
+@use 'functions' as *;
+@use 'mixins' as *;
+
 :root {
   --background-color-alt: transparent;
 }

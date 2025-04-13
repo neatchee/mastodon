@@ -1,7 +1,7 @@
-@import 'mastodon-holiday/variables';
-@import 'index';
-@import 'mastodon-holiday/diff';
-@import 'modern';
-@import 'modern-glitch-fixes';
-@import 'modern-urusai-fixes';
-@import 'invert-lightness';
+@use 'mastodon-holiday/variables';
+@use 'mastodon-holiday/css_variables';
+@use 'application';
+@use 'mastodon-holiday/diff';
+@use 'modern';
+@use 'modern-glitch-fixes';
+@use 'modern-urusai-fixes';
