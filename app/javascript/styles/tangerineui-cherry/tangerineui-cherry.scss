@@ -4379,7 +4379,10 @@ div[tabindex='-1']
     position: fixed;
   }
 
-  .app-body:not(.layout-multiple-columns, :has(.ui .ui__header__links > .button[href='/auth/sign_in']))
+  .app-body:not(
+      .layout-multiple-columns,
+      :has(.ui .ui__header__links > .button[href='/auth/sign_in'])
+    )
     .tabs-bar__wrapper {
     z-index: 3;
   }
@@ -7663,20 +7666,14 @@ div[tabindex='-1']
   color: var(--color-content-fg);
 }
 
-.app-body
-  .actions-modal
-  ul
-  li:not(:empty)
-  a:is(
-    .active,
-    .active button,
-    :active,
-    :active button,
-    :focus,
-    :focus button,
-    :hover,
-    :hover button
-  ) {
+.app-body .actions-modal ul li:not(:empty) a.active,
+.app-body .actions-modal ul li:not(:empty) a.active button,
+.app-body .actions-modal ul li:not(:empty) a:active,
+.app-body .actions-modal ul li:not(:empty) a:active button,
+.app-body .actions-modal ul li:not(:empty) a:focus,
+.app-body .actions-modal ul li:not(:empty) a:focus button,
+.app-body .actions-modal ul li:not(:empty) a:hover,
+.app-body .actions-modal ul li:not(:empty) a:hover button {
   background-color: var(--color-accent);
   color: var(--color-accent-fg);
 }
