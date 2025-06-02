@@ -764,132 +764,127 @@ body.app-body {
   padding: 2px;
 }
 
-.app-body
-  :is(
-    .icon-bookmark,
-    .icon-star,
-    .icon-retweet,
-    .icon-repeat,
-    .icon-reply,
-    .icon-reply-all,
-    .icon-tasks,
-    .icon-quote-right,
-    .icon-home,
-    .icon-notifications-active,
-    .icon-hashtag,
-    .icon-explore,
-    .icon-search,
-    .icon-times-circle,
-    .icon-bell,
-    .icon-at,
-    .icon-bookmarks,
-    .icon-list-ul,
-    .column-link .icon-cog,
-    .drawer__tab .icon-cog,
-    .icon-bars,
-    .icon-bar-chart-4-bars,
-    .navigation-bar .icon-close,
-    .icon-user-plus,
-    .icon-user,
-    .icon-users,
-    .icon-bullhorn,
-    .icon-sliders,
-    .icon-globe,
-    .icon-unlock,
-    .icon-lock,
-    .icon-paperclip,
-    .compose-form__buttons .icon-button:nth-child(3) .icon,
-    .emoji-picker-dropdown > .icon-button .icon,
-    .icon-bell-o,
-    .icon-thumb-tack,
-    .icon-file-text,
-    .account--panel .icon-times,
-    .follow-request-banner .icon-times,
-    .account__relationship .icon-times,
-    .icon-ellipsis-h,
-    .icon-ellipsis-v,
-    .icon-check:is(.verified__mark, .verified-badge__mark),
-    .follow-request-banner .button .icon-check,
-    .account--panel button .icon-check,
-    .account__relationship .icon-check,
-    .status__action-bar .icon-close,
-    .detailed-status__action-bar .icon-close,
-    .account__header__tabs__buttons .icon-close,
-    .icon-sign-out,
-    .account__header__tabs__buttons .icon-undefined,
-    .icon-eye-slash,
-    .icon-eye,
-    .icon-eraser,
-    .icon-pencil,
-    .app-form__header-input .icon,
-    .account__domain-pill__popout__parts__icon .icon,
-    .safety-action-modal__bullet-points__icon .icon
-  )
-  path {
+.app-body .icon-bookmark path,
+.app-body .icon-star path,
+.app-body .icon-retweet path,
+.app-body .icon-repeat path,
+.app-body .icon-reply path,
+.app-body .icon-reply-all path,
+.app-body .icon-tasks path,
+.app-body .icon-quote-right path,
+.app-body .icon-home path,
+.app-body .icon-notifications-active path,
+.app-body .icon-hashtag path,
+.app-body .icon-explore path,
+.app-body .icon-search path,
+.app-body .icon-times-circle path,
+.app-body .icon-bell path,
+.app-body .icon-at path,
+.app-body .icon-bookmarks path,
+.app-body .icon-list-ul path,
+.app-body .column-link .icon-cog path,
+.app-body .drawer__tab .icon-cog path,
+.app-body .icon-bars path,
+.app-body .icon-bar-chart-4-bars path,
+.app-body .navigation-bar .icon-close path,
+.app-body .icon-user-plus path,
+.app-body .icon-user path,
+.app-body .icon-users path,
+.app-body .icon-bullhorn path,
+.app-body .icon-sliders path,
+.app-body .icon-globe path,
+.app-body .icon-unlock path,
+.app-body .icon-lock path,
+.app-body .icon-paperclip path,
+.app-body .compose-form__buttons .icon-button:nth-child(3) .icon path,
+.app-body .emoji-picker-dropdown > .icon-button .icon path,
+.app-body .icon-bell-o path,
+.app-body .icon-thumb-tack path,
+.app-body .icon-file-text path,
+.app-body .account--panel .icon-times path,
+.app-body .follow-request-banner .icon-times path,
+.app-body .account__relationship .icon-times path,
+.app-body .icon-ellipsis-h path,
+.app-body .icon-ellipsis-v path,
+.app-body .icon-check.verified__mark path,
+.app-body .icon-check .verified-badge__mark path,
+.app-body .follow-request-banner .button .icon-check path,
+.app-body .account--panel button .icon-check path,
+.app-body .account__relationship .icon-check path,
+.app-body .status__action-bar .icon-close path,
+.app-body .detailed-status__action-bar .icon-close path,
+.app-body .account__header__tabs__buttons .icon-close path,
+.app-body .icon-sign-out path,
+.app-body .account__header__tabs__buttons .icon-undefined path,
+.app-body .icon-eye-slash path,
+.app-body .icon-eye path,
+.app-body .icon-eraser path,
+.app-body .icon-pencil path,
+.app-body .app-form__header-input .icon path,
+.app-body .account__domain-pill__popout__parts__icon .icon path,
+.app-body .safety-action-modal__bullet-points__icon .icon path {
   display: none;
 }
 
-.app-body
-  :is(
-    .icon-bookmark,
-    .icon-star,
-    .icon-retweet,
-    .icon-repeat,
-    .icon-reply,
-    .icon-reply-all,
-    .icon-tasks,
-    .icon-quote-right,
-    .icon-home,
-    .icon-notifications-active,
-    .icon-hashtag,
-    .icon-explore,
-    .icon-search,
-    .icon-times-circle,
-    .icon-bell,
-    .icon-at,
-    .icon-bookmarks,
-    .icon-list-ul,
-    .column-link .icon-cog,
-    .drawer__tab .icon-cog,
-    .icon-bars,
-    .icon-bar-chart-4-bars,
-    .navigation-bar .icon-close,
-    .icon-user-plus,
-    .icon-user,
-    .icon-users,
-    .icon-bullhorn,
-    .icon-sliders,
-    .icon-globe,
-    .icon-unlock,
-    .icon-lock,
-    .icon-paperclip,
-    .compose-form__buttons .icon-button:nth-child(3) .icon,
-    .emoji-picker-dropdown > .icon-button .icon,
-    .icon-bell-o,
-    .icon-thumb-tack,
-    .icon-file-text,
-    .account--panel .icon-times,
-    .follow-request-banner .icon-times,
-    .account__relationship .icon-times,
-    .icon-ellipsis-h,
-    .icon-ellipsis-v,
-    .icon-check:is(.verified__mark, .verified-badge__mark),
-    .follow-request-banner .button .icon-check,
-    .account--panel button .icon-check,
-    .account__relationship .icon-check,
-    .status__action-bar .icon-close,
-    .detailed-status__action-bar .icon-close,
-    .account__header__tabs__buttons .icon-close,
-    .icon-sign-out,
-    .account__header__tabs__buttons .icon-undefined,
-    .icon-eye-slash,
-    .icon-eye,
-    .icon-eraser,
-    .icon-pencil,
-    .app-form__header-input .icon,
-    .account__domain-pill__popout__parts__icon .icon,
-    .safety-action-modal__bullet-points__icon .icon
-  ) {
+.app-body .icon-bookmark,
+.app-body .icon-star,
+.app-body .icon-retweet,
+.app-body .icon-repeat,
+.app-body .icon-reply,
+.app-body .icon-reply-all,
+.app-body .icon-tasks,
+.app-body .icon-quote-right,
+.app-body .icon-home,
+.app-body .icon-notifications-active,
+.app-body .icon-hashtag,
+.app-body .icon-explore,
+.app-body .icon-search,
+.app-body .icon-times-circle,
+.app-body .icon-bell,
+.app-body .icon-at,
+.app-body .icon-bookmarks,
+.app-body .icon-list-ul,
+.app-body .column-link .icon-cog,
+.app-body .drawer__tab .icon-cog,
+.app-body .icon-bars,
+.app-body .icon-bar-chart-4-bars,
+.app-body .navigation-bar .icon-close,
+.app-body .icon-user-plus,
+.app-body .icon-user,
+.app-body .icon-users,
+.app-body .icon-bullhorn,
+.app-body .icon-sliders,
+.app-body .icon-globe,
+.app-body .icon-unlock,
+.app-body .icon-lock,
+.app-body .icon-paperclip,
+.app-body .compose-form__buttons .icon-button:nth-child(3) .icon,
+.app-body .emoji-picker-dropdown > .icon-button .icon,
+.app-body .icon-bell-o,
+.app-body .icon-thumb-tack,
+.app-body .icon-file-text,
+.app-body .account--panel .icon-times,
+.app-body .follow-request-banner .icon-times,
+.app-body .account__relationship .icon-times,
+.app-body .icon-ellipsis-h,
+.app-body .icon-ellipsis-v,
+.app-body .icon-check.verified__mark,
+.app-body .icon-check .verified-badge__mark,
+.app-body .follow-request-banner .button .icon-check,
+.app-body .account--panel button .icon-check,
+.app-body .account__relationship .icon-check,
+.app-body .status__action-bar .icon-close,
+.app-body .detailed-status__action-bar .icon-close,
+.app-body .account__header__tabs__buttons .icon-close,
+.app-body .icon-sign-out,
+.app-body .account__header__tabs__buttons .icon-undefined,
+.app-body .icon-eye-slash,
+.app-body .icon-eye,
+.app-body .icon-eraser,
+.app-body .icon-pencil,
+.app-body .app-form__header-input .icon,
+.app-body .account__domain-pill__popout__parts__icon .icon,
+.app-body .safety-action-modal__bullet-points__icon .icon {
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
@@ -956,13 +951,15 @@ body.app-body {
 }
 
 .app-body
-  button.icon-button:is(
-    .reblogPrivate:where(.disabled, [disabled]),
-    .reblogPrivate:where(.disabled, [disabled]):hover,
-    .disabled,
-    .disabled:hover
-  )
-  .icon-retweet {
+  button.icon-button
+  .reblogPrivate:where(.disabled, [disabled])
+  .icon-retweet,
+.app-body
+  button.icon-button
+  .reblogPrivate:where(.disabled, [disabled]):hover
+  .icon-retweet,
+.app-body button.icon-button .disabled .icon-retweet,
+.app-body button.icon-button .disabled:hover .icon-retweet {
   background-image: var(--icon-boost-accent);
   opacity: 0.2;
   pointer-events: none;
@@ -983,11 +980,13 @@ body.app-body {
   background-image: var(--icon-reply-accent);
 }
 
-.app-body .detailed-status__action-bar :is(.icon-reply, .icon-reply-all) {
+.app-body .detailed-status__action-bar .icon-reply,
+.app-body .detailed-status__action-bar .icon-reply-all {
   background-image: var(--icon-reply-accent);
 }
 
-.app-body .media-modal__overlay :is(.icon-reply, .icon-reply-all) {
+.app-body .media-modal__overlay .icon-reply,
+.app-body .media-modal__overlay .icon-reply-all {
   background-image: var(--icon-reply-accent);
 }
 
@@ -997,7 +996,8 @@ body.app-body {
 }
 
 /* Ellipsis */
-.app-body :is(.icon-ellipsis-h, .icon-ellipsis-v) {
+.app-body .icon-ellipsis-h,
+.app-body .icon-ellipsis-v {
   background-image: var(--icon-ellipsis-accent);
 }
 
@@ -1005,13 +1005,9 @@ body.app-body {
   background-image: var(--icon-ellipsis-accent);
 }
 
-.app-body
-  :is(
-    .status__action-bar,
-    .detailed-status__action-bar,
-    .account__header__tabs__buttons
-  )
-  .icon-close {
+.app-body .status__action-bar .icon-close,
+.app-body .detailed-status__action-bar .icon-close,
+.app-body .account__header__tabs__buttons .icon-close {
   background-image: var(--icon-ellipsis-active);
 }
 
@@ -1212,7 +1208,9 @@ body.app-body {
   background-image: var(--icon-gear-active);
 }
 
-.app-body .navigation-bar .icon-button:is(:active, :focus, :hover) {
+.app-body .navigation-bar .icon-button:active,
+.app-body .navigation-bar .icon-button :focus,
+.app-body .navigation-bar .icon-button :hover {
   background-color: transparent;
 }
 
@@ -1317,7 +1315,8 @@ body.app-body {
   background-image: var(--icon-paperclip);
 }
 
-.app-body .icon-button:is(.active, .active:hover) .icon-paperclip {
+.app-body .icon-button.active .icon-paperclip,
+.app-body .icon-button .active:hover .icon-paperclip {
   background-image: var(--icon-paperclip-inv);
 }
 
@@ -1325,21 +1324,19 @@ body.app-body {
   background-image: var(--icon-warning);
 }
 
-.app-body
-  .compose-form__buttons
-  .icon-button:nth-child(3):is(.active, .active:hover)
-  .icon {
+.app-body .compose-form__buttons .icon-button:nth-child(3).active .icon,
+.app-body .compose-form__buttons .icon-button:nth-child(3) .active:hover .icon {
   background-image: var(--icon-warning-inv);
 }
 
-.app-body .icon-check:is(.verified__mark, .verified-badge__mark) {
+.app-body .icon-check.verified__mark,
+.app-body .icon-check .verified-badge__mark {
   background-image: var(--icon-verified);
 }
 
-.app-body
-  .follow-request-banner
-  .button:is(:active, :focus, :hover)
-  .icon-check {
+.app-body .follow-request-banner .button:active .icon-check,
+.app-body .follow-request-banner .button :focus .icon-check,
+.app-body .follow-request-banner .button :hover .icon-check {
   background-image: var(--icon-check-inv);
 }
 
@@ -1364,17 +1361,16 @@ body.app-body {
   background-image: var(--icon-link);
 }
 
-.app-body
-  :is(.account--panel, .follow-request-banner, .account__relationship)
-  .icon-times {
+.app-body .account--panel .icon-times,
+.app-body .follow-request-banner .icon-times,
+.app-body .account__relationship .icon-times {
   background-image: var(--icon-reject);
 }
 
 .app-body .account--panel .icon-times,
-.app-body
-  .follow-request-banner
-  .button:is(:active, :focus, :hover)
-  .icon-times {
+.app-body .follow-request-banner .button:active .icon-times,
+.app-body .follow-request-banner .button :focus .icon-times,
+.app-body .follow-request-banner .button :hover .icon-times {
   background-image: var(--icon-reject-inv);
 }
 
@@ -1506,40 +1502,62 @@ body.app-body {
 }
 
 /* Links */
-.app-body a:is(.status-link, .mention, .navigation-bar__profile-edit) span,
-.app-body :is(.account__header__fields, .account__header__content) a span {
+.app-body a.status-link span,
+.app-body a .mention span,
+.app-body a .navigation-bar__profile-edit span,
+.app-body .account__header__fields a span,
+.app-body .account__header__content a span {
   text-decoration-line: underline;
   text-decoration-color: var(--color-accent-bg);
   text-decoration-thickness: 2px;
   text-underline-offset: 2px;
 }
 
+.app-body a.status-link:active span,
+.app-body a.status-link :focus span,
+.app-body a.status-link :hover span,
+.app-body a .mention:active span,
+.app-body a .mention :focus span,
+.app-body a .mention :hover span,
+.app-body a .navigation-bar__profile-edit:active span,
+.app-body a .navigation-bar__profile-edit :focus span,
+.app-body a .navigation-bar__profile-edit :hover span,
+.app-body .account__header__fields a:active span,
+.app-body .account__header__fields a :focus span,
+.app-body .account__header__fields a :hover span,
+.app-body .account__header__content a:active span,
+.app-body .account__header__content a :focus span,
+.app-body .account__header__content a :hover span,
+.app-body .trends__item__name a:active span,
+.app-body .trends__item__name a :focus span,
+.app-body .trends__item__name a :hover span,
+.app-body .detailed-status__display-name:active .display-name strong,
+.app-body .detailed-status__display-name :focus .display-name strong,
+.app-body .detailed-status__display-name :hover .display-name strong,
+.app-body .reply-indicator__display-name:active .display-name strong,
+.app-body .reply-indicator__display-name :focus .display-name strong,
+.app-body .reply-indicator__display-name :hover .display-name strong,
+.app-body .status__display-name:active .display-name strong,
+.app-body .status__display-name :focus .display-name strong,
+.app-body .status__display-name :hover .display-name strong,
+.app-body a.account__display-name :active .display-name strong,
+.app-body a.account__display-name :focus .display-name strong,
+.app-body a.account__display-name :hover .display-name strong,
+.app-body .status__prepend .status__display-name:active strong,
+.app-body .status__prepend .status__display-name :focus strong,
+.app-body .status__prepend .status__display-name :hover strong,
 .app-body
-  a:is(.status-link, .mention, .navigation-bar__profile-edit):is(
-    :active,
-    :focus,
-    :hover
-  )
-  span,
-.app-body
-  :is(.account__header__fields, .account__header__content, .trends__item__name)
-  a:is(:active, :focus, :hover)
-  span,
-.app-body
-  :is(
-    .detailed-status__display-name,
-    .reply-indicator__display-name,
-    .status__display-name,
-    a.account__display-name
-  ):is(:active, :focus, :hover)
-  .display-name
+  a.notification-request__link:active
+  .notification-request__name__display-name
   strong,
 .app-body
-  .status__prepend
-  .status__display-name:is(:active, :focus, :hover)
+  a.notification-request__link
+  :focus
+  .notification-request__name__display-name
   strong,
 .app-body
-  a.notification-request__link:is(:active, :focus, :hover)
+  a.notification-request__link
+  :hover
   .notification-request__name__display-name
   strong {
   text-decoration-line: underline;
@@ -1548,16 +1566,24 @@ body.app-body {
   text-underline-offset: 2px;
 }
 
-.app-body a:is(.status-link, .mention):is(:active, :focus, :hover),
-.app-body
-  :is(.account__header__fields, .account__header__content)
-  a:is(:active, :focus, :hover),
-.app-body
-  :is(.detailed-status__datetime, .status__relative-time):is(
-    :active,
-    :focus,
-    :hover
-  ) {
+.app-body a.status-link:active,
+.app-body a.status-link :focus,
+.app-body a.status-link :hover,
+.app-body a .mention:active,
+.app-body a .mention :focus,
+.app-body a .mention :hover,
+.app-body .account__header__fields a:active,
+.app-body .account__header__fields a :focus,
+.app-body .account__header__fields a :hover,
+.app-body .account__header__content a:active,
+.app-body .account__header__content a :focus,
+.app-body .account__header__content a :hover,
+.app-body .detailed-status__datetime:active,
+.app-body .detailed-status__datetime :focus,
+.app-body .detailed-status__datetime :hover,
+.app-body .status__relative-time:active,
+.app-body .status__relative-time :focus,
+.app-body .status__relative-time :hover {
   text-decoration: none !important;
 }
 
@@ -1602,7 +1628,8 @@ body.app-body {
   overflow: visible;
 }
 
-.app-body :is(.navigation-bar, .reply-indicator) .account__avatar {
+.app-body .navigation-bar .account__avatar,
+.app-body .reply-indicator .account__avatar {
   outline: 6px solid var(--color-content-bg);
   border-radius: 8px;
   position: relative;
@@ -1651,14 +1678,10 @@ body.app-body {
   box-shadow: none;
 }
 
-.app-body
-  .compose-form
-  :is(
-    .autosuggest-textarea__suggestions,
-    .autosuggest-textarea__textarea,
-    .autosuggest-textarea__suggestions__item,
-    .compose-form__modifiers
-  ) {
+.app-body .compose-form .autosuggest-textarea__suggestions,
+.app-body .compose-form .autosuggest-textarea__textarea,
+.app-body .compose-form .autosuggest-textarea__suggestions__item,
+.app-body .compose-form .compose-form__modifiers {
   background-color: var(--color-content-bg);
   color: var(--color-content-fg);
   border: 0;
@@ -1698,22 +1721,48 @@ body.app-body {
   color: var(--color-content-fg);
 }
 
+.app-body .autosuggest-textarea__suggestions__item.selected,
+.app-body .autosuggest-textarea__suggestions__item :active,
+.app-body .autosuggest-textarea__suggestions__item :focus,
+.app-body .autosuggest-textarea__suggestions__item :hover,
 .app-body
-  .autosuggest-textarea__suggestions__item:is(
-    .selected,
-    :active,
-    :focus,
-    :hover
-  ),
-.app-body
-  .autosuggest-textarea__suggestions__item:is(
-    .selected,
-    :active,
-    :focus,
-    :hover
-  )
+  .autosuggest-textarea__suggestions__item.selected
   .autosuggest-account
-  :is(.display-name__account, .display-name__html) {
+  .display-name__account,
+.app-body
+  .autosuggest-textarea__suggestions__item.selected
+  .autosuggest-account
+  .display-name__html,
+.app-body
+  .autosuggest-textarea__suggestions__item
+  :active
+  .autosuggest-account
+  .display-name__account,
+.app-body
+  .autosuggest-textarea__suggestions__item
+  :active
+  .autosuggest-account
+  .display-name__html,
+.app-body
+  .autosuggest-textarea__suggestions__item
+  :focus
+  .autosuggest-account
+  .display-name__account,
+.app-body
+  .autosuggest-textarea__suggestions__item
+  :focus
+  .autosuggest-account
+  .display-name__html,
+.app-body
+  .autosuggest-textarea__suggestions__item
+  :hover
+  .autosuggest-account
+  .display-name__account,
+.app-body
+  .autosuggest-textarea__suggestions__item
+  :hover
+  .autosuggest-account
+  .display-name__html {
   background-color: var(--color-accent);
   color: var(--color-accent-fg);
 }
@@ -1916,7 +1965,19 @@ body.app-body {
   .compose-form
   .compose-form__modifiers
   .compose-form__upload
-  .icon-button:is(:active, :focus, :hover) {
+  .icon-button:active,
+.app-body
+  .compose-form
+  .compose-form__modifiers
+  .compose-form__upload
+  .icon-button
+  :focus,
+.app-body
+  .compose-form
+  .compose-form__modifiers
+  .compose-form__upload
+  .icon-button
+  :hover {
   background-color: rgba(0, 0, 0, 40%);
 }
 @media screen and (width <=1174px) {
@@ -1986,7 +2047,8 @@ body.app-body {
   width: 20px;
 }
 
-.app-body .compose-form__buttons .icon-button:is(.active, .active:hover) {
+.app-body .compose-form__buttons .icon-button.active,
+.app-body .compose-form__buttons .icon-button .active:hover {
   background-color: var(--color-accent);
 }
 
@@ -2108,7 +2170,9 @@ body.app-body {
   cursor: pointer;
 }
 
-.app-body .compose-form__poll__select__value:is(:active, :hover, :focus) {
+.app-body .compose-form__poll__select__value:active,
+.app-body .compose-form__poll__select__value :hover,
+.app-body .compose-form__poll__select__value :focus {
   border-color: var(--color-accent);
   outline: 0;
 }
@@ -2266,7 +2330,8 @@ body.app-body {
   overflow: hidden;
 }
 
-.app-body :is(.status, .detailed-status) .poll__option {
+.app-body .status .poll__option,
+.app-body .detailed-status .poll__option {
   border: 1px solid var(--color-lines);
   color: var(--color-content-fg);
   font-weight: 500;
@@ -2555,9 +2620,28 @@ body.app-body {
 
 .app-body
   .scrollable
-  > div:is(:last-child, :only-child)
+  > div:last-child
   .detailed-status__wrapper:last-child
-  :is(.translate-button .link-button, .status__content__translate-button) {
+  .translate-button
+  .link-button,
+.app-body
+  .scrollable
+  > div:last-child
+  .detailed-status__wrapper:last-child
+  .status__content__translate-button,
+.app-body
+  .scrollable
+  > div
+  :only-child
+  .detailed-status__wrapper:last-child
+  .translate-button
+  .link-button,
+.app-body
+  .scrollable
+  > div
+  :only-child
+  .detailed-status__wrapper:last-child
+  .status__content__translate-button {
   bottom: 12px;
 }
 
@@ -2844,19 +2928,15 @@ body.app-body {
   right: 0;
 }
 
-.app-body
-  .status--in-thread
-  :is(
-    .attachment-list,
-    .audio-player,
-    .hashtag-bar,
-    .media-gallery,
-    .picture-in-picture-placeholder,
-    .status-card,
-    .status__action-bar,
-    .status__content,
-    .video-player
-  ) {
+.app-body .status--in-thread .attachment-list,
+.app-body .status--in-thread .audio-player,
+.app-body .status--in-thread .hashtag-bar,
+.app-body .status--in-thread .media-gallery,
+.app-body .status--in-thread .picture-in-picture-placeholder,
+.app-body .status--in-thread .status-card,
+.app-body .status--in-thread .status__action-bar,
+.app-body .status--in-thread .status__content,
+.app-body .status--in-thread .video-player {
   margin-left: 0;
   width: auto;
 }
@@ -2948,11 +3028,12 @@ div[tabindex='-1']
 }
 
 /* ⏺️ Posts when in focus */
-.app-body
-  :is(.status__wrapper.focusable, .detailed-status__wrapper.focusable):focus,
-.app-body
-  :is(.focusable, .status__wrapper.focusable):focus
-  :is(.detailed-status, .detailed-status__action-bar),
+.app-body .status__wrapper.focusable:focus,
+.app-body .detailed-status__wrapper.focusable:focus,
+.app-body .focusable:focus .detailed-status,
+.app-body .focusable:focus .detailed-status__action-bar,
+.app-body .status__wrapper.focusable:focus .detailed-status,
+.app-body .status__wrapper.focusable:focus .detailed-status__action-bar,
 .app-body .focusable:focus .notification-ungrouped__header,
 .app-body .focusable:focus .status__wrapper,
 .app-body .focusable:focus {
@@ -2975,9 +3056,8 @@ div[tabindex='-1']
   }
 }
 
-.app-body
-  :is(.status__wrapper.focusable, .detailed-status__wrapper.focusable):focus
-  .status__avatar {
+.app-body .status__wrapper.focusable:focus .status__avatar,
+.app-body .detailed-status__wrapper.focusable:focus .status__avatar {
   outline: 6px solid var(--color-post-bg);
 }
 
@@ -3045,10 +3125,8 @@ div[tabindex='-1']
   font-weight: bold;
 }
 
-.app-body
-  :is(.compose-panel, .compose-form)
-  .detailed-status__display-name
-  strong {
+.app-body .compose-panel .detailed-status__display-name strong,
+.app-body .compose-form .detailed-status__display-name strong {
   font-size: 14px;
 }
 
@@ -3118,7 +3196,8 @@ div[tabindex='-1']
   margin-left: -3px;
 }
 
-.app-body .detailed-status__link:is([href$='/reblogs'], [href$='/favourites']) {
+.app-body .detailed-status__link[href$='/reblogs'],
+.app-body .detailed-status__link [href$='/favourites'] {
   padding-left: 20px;
   border-radius: 8px;
   background-position: left center;
@@ -3145,7 +3224,7 @@ div[tabindex='-1']
   text-align: start;
 }
 
-.app-body .detailed-status__meta__line .dropdown-menu__text-button:is(:hover) {
+.app-body .detailed-status__meta__line .dropdown-menu__text-button:hover {
   text-decoration: none;
 }
 
@@ -3195,11 +3274,19 @@ div[tabindex='-1']
 }
 
 .app-body
-  :is(
-    .status__action-bar,
-    .detailed-status__action-bar,
-    .picture-in-picture__footer
-  )
+  .status__action-bar
+  .active
+  .icon-retweet
+  + .icon-button__counter
+  > .animated-number,
+.app-body
+  .detailed-status__action-bar
+  .active
+  .icon-retweet
+  + .icon-button__counter
+  > .animated-number,
+.app-body
+  .picture-in-picture__footer
   .active
   .icon-retweet
   + .icon-button__counter
@@ -3208,11 +3295,19 @@ div[tabindex='-1']
 }
 
 .app-body
-  :is(
-    .status__action-bar,
-    .detailed-status__action-bar,
-    .picture-in-picture__footer
-  )
+  .status__action-bar
+  .active
+  .icon-star
+  + .icon-button__counter
+  > .animated-number,
+.app-body
+  .detailed-status__action-bar
+  .active
+  .icon-star
+  + .icon-button__counter
+  > .animated-number,
+.app-body
+  .picture-in-picture__footer
   .active
   .icon-star
   + .icon-button__counter
@@ -3286,13 +3381,12 @@ div[tabindex='-1']
   gap: 8px;
 }
 
-.app-body
-  :is(
-    .status__action-bar,
-    .detailed-status__action-bar,
-    .picture-in-picture__footer
-  )
-  :is(button, .status__action-bar__dropdown) {
+.app-body .status__action-bar button,
+.app-body .status__action-bar .status__action-bar__dropdown,
+.app-body .detailed-status__action-bar button,
+.app-body .detailed-status__action-bar .status__action-bar__dropdown,
+.app-body .picture-in-picture__footer button,
+.app-body .picture-in-picture__footer .status__action-bar__dropdown {
   transition: all 0.3s;
 }
 
@@ -3305,22 +3399,27 @@ div[tabindex='-1']
   pointer-events: none;
 }
 
-.app-body
-  :is(
-    .status__action-bar,
-    .detailed-status__action-bar,
-    .picture-in-picture__footer
-  )
-  .icon-button:is(:active, .active:active, :focus, .active:focus) {
+.app-body .status__action-bar .icon-button :active,
+.app-body .status__action-bar .icon-button .active:active,
+.app-body .status__action-bar .icon-button :focus,
+.app-body .status__action-bar .icon-button .active:focus,
+.app-body .detailed-status__action-bar .icon-button :active,
+.app-body .detailed-status__action-bar .icon-button .active:active,
+.app-body .detailed-status__action-bar .icon-button :focus,
+.app-body .detailed-status__action-bar .icon-button .active:focus,
+.app-body .picture-in-picture__footer .icon-button :active,
+.app-body .picture-in-picture__footer .icon-button .active:active,
+.app-body .picture-in-picture__footer .icon-button :focus,
+.app-body .picture-in-picture__footer .icon-button .active:focus {
   background-color: transparent;
 }
 
-.app-body
-  .status__action-bar
-  .icon-button:last-child:is(.active, .active:active, .active:focus),
-.app-body
-  .detailed-status__action-bar-dropdown
-  .icon-button:is(.active, .active:active, .active:focus) {
+.app-body .status__action-bar .icon-button:last-child.active,
+.app-body .status__action-bar .icon-button:last-child .active:active,
+.app-body .status__action-bar .icon-button:last-child .active:focus,
+.app-body .detailed-status__action-bar-dropdown .icon-button.active,
+.app-body .detailed-status__action-bar-dropdown .icon-button .active:active,
+.app-body .detailed-status__action-bar-dropdown .icon-button .active:focus {
   background-color: var(--color-accent);
   transform: scale(0.9);
 }
@@ -3331,12 +3430,13 @@ div[tabindex='-1']
   animation: none;
 }
 
+.app-body .status__action-bar .icon-button.star-icon.active > .icon-star,
 .app-body
-  :is(
-    .status__action-bar,
-    .detailed-status__action-bar,
-    .picture-in-picture__footer
-  )
+  .detailed-status__action-bar
+  .icon-button.star-icon.active
+  > .icon-star,
+.app-body
+  .picture-in-picture__footer
   .icon-button.star-icon.active
   > .icon-star {
   animation: bounce 0.4s ease-out !important;
@@ -3346,14 +3446,9 @@ div[tabindex='-1']
   opacity: 1;
 }
 
-.app-body
-  :is(
-    .status__action-bar,
-    .detailed-status__action-bar,
-    .picture-in-picture__footer
-  )
-  .icon-button.active
-  > .icon-retweet {
+.app-body .status__action-bar .icon-button.active > .icon-retweet,
+.app-body .detailed-status__action-bar .icon-button.active > .icon-retweet,
+.app-body .picture-in-picture__footer .icon-button.active > .icon-retweet {
   animation: launch 1.2s ease-in 1 !important;
 }
 
@@ -3633,7 +3728,9 @@ div[tabindex='-1']
   color: var(--color-content-fg);
 }
 
-.app-body .more-from-author a:is(:active, :hover, :focus) {
+.app-body .more-from-author a:active,
+.app-body .more-from-author a :hover,
+.app-body .more-from-author a :focus {
   color: var(--color-accent);
 }
 
@@ -3657,25 +3754,31 @@ div[tabindex='-1']
 }
 
 .app-body
-  :is(.reply-indicator__content, .status__content):not(
-    :has(> .status__content__text--visible)
-  )
+  .reply-indicator__content:not(:has(> .status__content__text--visible))
+  > p:first-child:has(.status__content__spoiler-link)
+  + div,
+.app-body
+  .status__content:not(:has(> .status__content__text--visible))
   > p:first-child:has(.status__content__spoiler-link)
   + div {
   display: none;
 }
 
 .app-body
-  :is(.reply-indicator__content, .status__content):not(
-    :has(> .status__content__text--visible)
-  ):has(> p:first-child .status__content__spoiler-link)
+  .reply-indicator__content:not(:has(> .status__content__text--visible)):has(
+    > p:first-child .status__content__spoiler-link
+  )
+  + .media-gallery,
+.app-body
+  .status__content:not(:has(> .status__content__text--visible)):has(
+    > p:first-child .status__content__spoiler-link
+  )
   + .media-gallery {
   margin-top: 5px;
 }
 
-.app-body
-  :is(.reply-indicator__content, .status__content)
-  .status__content__spoiler-link {
+.app-body .reply-indicator__content .status__content__spoiler-link,
+.app-body .status__content .status__content__spoiler-link {
   background-color: transparent;
   width: 100%;
   margin: -22px 0 0;
@@ -3684,10 +3787,8 @@ div[tabindex='-1']
   position: relative;
 }
 
-.app-body
-  :is(.reply-indicator__content, .status__content)
-  .status__content__spoiler-link
-  span {
+.app-body .reply-indicator__content .status__content__spoiler-link span,
+.app-body .status__content .status__content__spoiler-link span {
   background-color: transparent;
   background-image: var(--icon-eye-shut);
   background-repeat: no-repeat;
@@ -3714,40 +3815,34 @@ div[tabindex='-1']
   z-index: 1;
 }
 
-.app-body
-  :is(.reply-indicator__content, .status__content)
-  .status__content__spoiler-link:hover
-  span {
+.app-body .reply-indicator__content .status__content__spoiler-link:hover span,
+.app-body .status__content .status__content__spoiler-link:hover span {
   border-color: rgba(68, 74, 90, 60%);
 }
 
-.app-body
-  :is(.reply-indicator__content, .status__content)
-  .status__content__spoiler-link:active
-  span {
+.app-body .reply-indicator__content .status__content__spoiler-link:active span,
+.app-body .status__content .status__content__spoiler-link:active span {
   transform: scale(0.95);
 }
 
 .app-body
-  :is(.reply-indicator__content, .status__content):has(
-    > .status__content__text--visible
-  )
+  .reply-indicator__content:has(> .status__content__text--visible)
+  .status__content__spoiler-link
+  span,
+.app-body
+  .status__content:has(> .status__content__text--visible)
   .status__content__spoiler-link
   span {
   background-image: var(--icon-eye-open);
 }
 
-.app-body
-  :is(.reply-indicator__content, .status__content)
-  .status__content__spoiler-link
-  span {
+.app-body .reply-indicator__content .status__content__spoiler-link span,
+.app-body .status__content .status__content__spoiler-link span {
   color: var(--color-content-fg);
 }
 @media (prefers-color-scheme: dark) {
-  .app-body
-    :is(.reply-indicator__content, .status__content)
-    .status__content__spoiler-link:hover
-    span {
+  .app-body .reply-indicator__content .status__content__spoiler-link:hover span,
+  .app-body .status__content .status__content__spoiler-link:hover span {
     border-color: rgba(255, 255, 255, 30%);
   }
 }
@@ -3842,7 +3937,8 @@ div[tabindex='-1']
   z-index: 1;
 }
 
-.app-body .media-gallery__gifv:is(:active, :hover)::after {
+.app-body .media-gallery__gifv:active::after,
+.app-body .media-gallery__gifv :hover::after {
   display: none;
 }
 
@@ -3871,10 +3967,10 @@ div[tabindex='-1']
 }
 
 .app-body .spoiler-button__overlay__label,
-.app-body .spoiler-button__overlay__label:is(:focus, :hover),
-.app-body
-  .spoiler-button__overlay:is(:focus, :hover)
-  .spoiler-button__overlay__label {
+.app-body .spoiler-button__overlay__label:focus,
+.app-body .spoiler-button__overlay__label :hover,
+.app-body .spoiler-button__overlay:focus .spoiler-button__overlay__label,
+.app-body .spoiler-button__overlay :hover .spoiler-button__overlay__label {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   background-color: var(--color-content-bg);
@@ -3887,7 +3983,8 @@ div[tabindex='-1']
   font-weight: bold;
 }
 
-.app-body :is(.media-gallery__alt__label, .media-gallery__gifv__label) {
+.app-body .media-gallery__alt__label,
+.app-body .media-gallery__gifv__label {
   background-color: rgba(0, 0, 0, 10%);
   border-radius: 6px;
 }
@@ -3895,7 +3992,11 @@ div[tabindex='-1']
 .app-body
   .spoiler-button:not(.spoiler-button--minified)
   ~ .media-gallery__item
-  :is(.media-gallery__alt__label, .media-gallery__gifv__label) {
+  .media-gallery__alt__label,
+.app-body
+  .spoiler-button:not(.spoiler-button--minified)
+  ~ .media-gallery__item
+  .media-gallery__gifv__label {
   display: none;
 }
 
@@ -4024,9 +4125,8 @@ div[tabindex='-1']
   );
 }
 
-.app-body
-  :is(.status__wrapper-direct, .detailed-status__wrapper-direct)
-  .status__prepend {
+.app-body .status__wrapper-direct .status__prepend,
+.app-body .detailed-status__wrapper-direct .status__prepend {
   background-color: var(--color-accent);
   margin-inline-start: 10px;
   z-index: 3;
@@ -4036,7 +4136,7 @@ div[tabindex='-1']
   transition: all 0.2s;
 }
 
-.app-body :is(.detailed-status__wrapper-direct) .status__prepend {
+.app-body .detailed-status__wrapper-direct .status__prepend {
   margin-inline-start: 0;
   margin-block-end: 0;
   position: absolute;
@@ -4048,18 +4148,20 @@ div[tabindex='-1']
   font-size: 13px;
 }
 
-.app-body :is(.detailed-status__wrapper-direct):has(.status__prepend) {
+.app-body .detailed-status__wrapper-direct:has(.status__prepend) {
   padding-top: 40px;
 }
 
-.app-body
-  :is(.status__wrapper-direct):not(:has(.status__line))
-  .status__prepend {
+.app-body .status__wrapper-direct:not(:has(.status__line)) .status__prepend {
   margin-inline-start: 66px;
 }
 
 .app-body
-  :is(.status__wrapper-direct, .detailed-status__wrapper-direct)
+  .status__wrapper-direct
+  .status__prepend
+  .status__prepend-icon-wrapper,
+.app-body
+  .detailed-status__wrapper-direct
   .status__prepend
   .status__prepend-icon-wrapper {
   width: 20px;
@@ -4067,7 +4169,12 @@ div[tabindex='-1']
 }
 
 .app-body
-  :is(.status__wrapper-direct, .detailed-status__wrapper-direct)
+  .status__wrapper-direct
+  .status__prepend
+  .status__prepend-icon-wrapper
+  svg,
+.app-body
+  .detailed-status__wrapper-direct
   .status__prepend
   .status__prepend-icon-wrapper
   svg {
@@ -4075,10 +4182,8 @@ div[tabindex='-1']
   background-image: var(--icon-at-inv);
 }
 
-.app-body
-  :is(.status__wrapper-direct, .detailed-status__wrapper-direct)
-  .status__prepend
-  > span {
+.app-body .status__wrapper-direct .status__prepend > span,
+.app-body .detailed-status__wrapper-direct .status__prepend > span {
   color: var(--color-accent-fg);
   margin-top: -1px;
 }
@@ -4182,7 +4287,9 @@ div[tabindex='-1']
   text-shadow: none;
 }
 
-.app-body .column-header__button:is(.active, .active:hover, :hover) {
+.app-body .column-header__button.active,
+.app-body .column-header__button .active:hover,
+.app-body .column-header__button :hover {
   color: var(--color-accent);
   background-color: var(--color-accent-bg);
 }
@@ -4208,8 +4315,9 @@ div[tabindex='-1']
   }
 
   .app-body:not(.layout-multiple-columns) .column-header__button,
-  .app-body:not(.layout-multiple-columns)
-    .column-header__button:is(.active, .active:hover, :hover) {
+  .app-body:not(.layout-multiple-columns) .column-header__button.active,
+  .app-body:not(.layout-multiple-columns) .column-header__button .active:hover,
+  .app-body:not(.layout-multiple-columns) .column-header__button :hover {
     padding: 0 12px;
     height: 35px !important;
     align-self: center;
@@ -4234,7 +4342,8 @@ div[tabindex='-1']
   }
 }
 
-.app-body :is(.column-header__back-button, .column-back-button) {
+.app-body .column-header__back-button,
+.app-body .column-back-button {
   gap: 5px;
 }
 
@@ -4242,16 +4351,19 @@ div[tabindex='-1']
   margin-inline-end: 0;
 }
 
-.app-body :is(.column-header__back-button, .column-back-button) span,
+.app-body .column-header__back-button span,
+.app-body .column-back-button span,
 .app-body .column-header__back-button {
   position: relative;
 }
 
-.app-body :is(.column-header__back-button, .column-back-button):hover {
+.app-body .column-header__back-button:hover,
+.app-body .column-back-button:hover {
   text-decoration: none;
 }
 
-.app-body :is(.column-header__back-button, .column-back-button) span::before,
+.app-body .column-header__back-button span::before,
+.app-body .column-back-button span::before,
 .app-body .column-header__back-button:has(> svg:last-child)::before {
   content: ' ';
   position: absolute;
@@ -4265,23 +4377,22 @@ div[tabindex='-1']
   transition: all 0.3s;
 }
 
-.app-body :is(.column-header__back-button, .column-back-button) span::before {
+.app-body .column-header__back-button span::before,
+.app-body .column-back-button span::before {
   left: -35px;
   right: -12px;
   bottom: -11px;
   top: -10px;
 }
 
-.app-body
-  :is(.column-header__back-button, .column-back-button):hover
-  span::before,
+.app-body .column-header__back-button:hover span::before,
+.app-body .column-back-button:hover span::before,
 .app-body .column-header__back-button:has(> svg:last-child):hover::before {
   background-color: var(--color-accent-bg);
 }
 
-.app-body
-  :is(.column-header__back-button, .column-back-button):active
-  span::before,
+.app-body .column-header__back-button:active span::before,
+.app-body .column-back-button:active span::before,
 .app-body .column-header__back-button:has(> svg:last-child):active::before {
   transform: scale(0.9);
 }
@@ -4391,17 +4502,20 @@ div[tabindex='-1']
       .ui .ui__header__links > .button[href='/auth/sign_in']
     )
     .tabs-bar__wrapper
-    :is(.column-back-button, .column-header > *) {
+    .column-back-button,
+  .app-body:not(.layout-multiple-columns):has(
+      .ui .ui__header__links > .button[href='/auth/sign_in']
+    )
+    .tabs-bar__wrapper
+    .column-header
+    > * {
     display: none;
   }
 
-  .app-body:not(.layout-multiple-columns)
-    :is(
-      .column-header,
-      .column-back-button,
-      .column-header__button,
-      .column-header__back-button
-    ) {
+  .app-body:not(.layout-multiple-columns) .column-header,
+  .app-body:not(.layout-multiple-columns) .column-back-button,
+  .app-body:not(.layout-multiple-columns) .column-header__button,
+  .app-body:not(.layout-multiple-columns) .column-header__back-button {
     background-color: transparent;
     height: 55px;
     border: 0;
@@ -4488,7 +4602,8 @@ div[tabindex='-1']
 
 /* ⏺️ Horizontal selectors
    (used to navigate subsections on the Explore, Live Feeds and Account pages) */
-.app-body :is(.account__section-headline, .notification__filter-bar) {
+.app-body .account__section-headline,
+.app-body .notification__filter-bar {
   background: var(--color-accent-bg);
   border: 1px solid var(--color-accent-lines);
 }
@@ -4512,16 +4627,17 @@ div[tabindex='-1']
   }
 }
 @media screen and (width <=889px) {
-  .app-body:not(.layout-multiple-columns)
-    :is(.account__section-headline, .notification__filter-bar) {
+  .app-body:not(.layout-multiple-columns) .account__section-headline,
+  .app-body:not(.layout-multiple-columns) .notification__filter-bar {
     border-left: 0;
     border-right: 0;
   }
 }
 
-.app-body
-  :is(.account__section-headline, .notification__filter-bar)
-  :is(a, button) {
+.app-body .account__section-headline a,
+.app-body .account__section-headline button,
+.app-body .notification__filter-bar a,
+.app-body .notification__filter-bar button {
   background-color: var(--color-accent-bg);
   color: var(--color-accent);
   box-shadow: 0 0 0 4px var(--color-accent-bg) inset;
@@ -4531,39 +4647,49 @@ div[tabindex='-1']
   padding: 14px 10px;
 }
 
-.app-body :is(.account__section-headline, .notification__filter-bar) .icon {
+.app-body .account__section-headline .icon,
+.app-body .notification__filter-bar .icon {
   margin-top: -1.5px;
 }
 
-.app-body
-  :is(.account__section-headline, .notification__filter-bar)
-  :is(a, button):hover {
+.app-body .account__section-headline a:hover,
+.app-body .account__section-headline button:hover,
+.app-body .notification__filter-bar a:hover,
+.app-body .notification__filter-bar button:hover {
   background-color: var(--color-accent-lines);
   color: var(--color-accent);
   box-shadow: 0 0 0 4px var(--color-accent-bg) inset;
 }
 
-.app-body
-  :is(.account__section-headline, .notification__filter-bar)
-  :is(a, button).active {
+.app-body .account__section-headline a.active,
+.app-body .account__section-headline button.active,
+.app-body .notification__filter-bar a.active,
+.app-body .notification__filter-bar button.active {
   background-color: var(--color-content-bg);
   color: var(--color-content-fg);
   box-shadow: 0 0 0 4px var(--color-accent-bg) inset;
 }
 
-.app-body
-  :is(.account__section-headline, .notification__filter-bar)
-  :is(a, button).active::before {
+.app-body .account__section-headline a.active::before,
+.app-body .account__section-headline button.active::before,
+.app-body .notification__filter-bar a.active::before,
+.app-body .notification__filter-bar button.active::before {
   display: none;
 }
 
-.app-body :is(.account__section-headline, .notification__filter-bar) button {
+.app-body .account__section-headline button,
+.app-body .notification__filter-bar button {
   background-color: transparent;
 }
 
-.app-body
-  :is(.account__section-headline, .notification__filter-bar)
-  :is(a, button, a.active, button.active)::after {
+.app-body .account__section-headline a::after,
+.app-body .account__section-headline button::after,
+.app-body .account__section-headline a.active::after,
+.app-body .account__section-headline button.active::after,
+.app-body .notification__filter-bar a::after,
+.app-body .notification__filter-bar button::after,
+.app-body .notification__filter-bar a.active::after,
+.app-body .notification__filter-bar button.active::after {
   display: block;
   position: absolute;
   content: ' ';
@@ -4580,15 +4706,17 @@ div[tabindex='-1']
   border: 0;
 }
 
-.app-body
-  :is(.account__section-headline, .notification__filter-bar)
-  :is(a, button):last-child::after {
+.app-body .account__section-headline a:last-child::after,
+.app-body .account__section-headline button:last-child::after,
+.app-body .notification__filter-bar a:last-child::after,
+.app-body .notification__filter-bar button:last-child::after {
   display: none;
 }
 @media (prefers-color-scheme: dark) {
-  .app-body
-    :is(.account__section-headline, .notification__filter-bar)
-    :is(a, button).active {
+  .app-body .account__section-headline a.active,
+  .app-body .account__section-headline button.active,
+  .app-body .notification__filter-bar a.active,
+  .app-body .notification__filter-bar button.active {
     background-color: var(--color-bg);
   }
 }
@@ -4655,7 +4783,8 @@ div[tabindex='-1']
     order: 3;
   }
 
-  .app-body .column-link:is([href='/explore'], [href='/search']) {
+  .app-body .column-link[href='/explore'],
+  .app-body .column-link[href='/search'] {
     order: 4;
   }
 
@@ -4744,9 +4873,9 @@ div[tabindex='-1']
     0 2px 10px rgba(0, 0, 0, 20%);
 }
 
-.app-body
-  .ui__header__links
-  .button.button-secondary[href='/publish']:is(:hover, :focus, :active) {
+.app-body .ui__header__links .button.button-secondary[href='/publish']:hover,
+.app-body .ui__header__links .button.button-secondary[href='/publish'] :focus,
+.app-body .ui__header__links .button.button-secondary[href='/publish'] :active {
   background-color: var(--color-accent-focus);
   color: var(--color-accent-fg);
 }
@@ -4799,7 +4928,8 @@ div[tabindex='-1']
   transform-origin: 60px center;
 }
 
-.app-body .column-link--transparent:is(.active, .active:hover) {
+.app-body .column-link--transparent.active,
+.app-body .column-link--transparent .active:hover {
   color: var(--color-content-fg);
   font-weight: bold;
 }
@@ -4834,7 +4964,8 @@ div[tabindex='-1']
     background-color: color-mix(in srgb, var(--color-accent), transparent 85%);
   }
 
-  .app-body .column-link--transparent:is(.active, .active:hover) span::before {
+  .app-body .column-link--transparent.active span::before,
+  .app-body .column-link--transparent .active:hover span::before {
     background-color: transparent;
   }
 
@@ -4879,7 +5010,8 @@ div[tabindex='-1']
   bottom: -10px;
 }
 @media screen and (width >=1175px) {
-  .app-body .column-link[href='/lists']:is(.active, :hover) + .list-panel,
+  .app-body .column-link[href='/lists'].active + .list-panel,
+  .app-body .column-link[href='/lists'] :hover + .list-panel,
   .app-body .list-panel:hover {
     display: block;
     animation: fadein 0.5s 1;
@@ -4945,8 +5077,11 @@ div[tabindex='-1']
     display: none;
   }
 
-  .app-body .navigation-panel :is(.column-link, .navigation-panel__legal),
-  .app-body .column-link--transparent:is(.active, .active:hover, :active),
+  .app-body .navigation-panel .column-link,
+  .app-body .navigation-panel .navigation-panel__legal,
+  .app-body .column-link--transparent.active,
+  .app-body .column-link--transparent .active:hover,
+  .app-body .column-link--transparent :active,
   .app-body .columns-area__panels__pane--navigational .navigation-panel::after {
     flex: 0 0 17vw;
     margin: 6px 0 8px;
@@ -4962,32 +5097,39 @@ div[tabindex='-1']
     transition: 0.2s transform;
   }
 
+  .app-body .navigation-panel:has(> *:nth-child(4):last-child) .column-link,
   .app-body
     .navigation-panel:has(> *:nth-child(4):last-child)
-    :is(.column-link, .navigation-panel__legal) {
+    .navigation-panel__legal {
     flex: 50vw;
   }
 
-  .app-body
-    .navigation-panel
-    :is(.column-link, .navigation-panel__legal):active {
+  .app-body .navigation-panel .column-link:active,
+  .app-body .navigation-panel .navigation-panel__legal:active {
     transform: scale(0.8);
   }
 
+  .app-body .navigation-panel:has(> *:nth-child(5):last-child) .column-link,
   .app-body
     .navigation-panel:has(> *:nth-child(5):last-child)
-    :is(.column-link, .navigation-panel__legal),
+    .navigation-panel__legal,
   .app-body
     .navigation-panel:has(> *:nth-child(7):last-child):has(
       .getting-started__trends
     )
-    :is(.column-link, .navigation-panel__legal) {
+    .column-link,
+  .app-body
+    .navigation-panel:has(> *:nth-child(7):last-child):has(
+      .getting-started__trends
+    )
+    .navigation-panel__legal {
     flex: calc(100vw / 3);
   }
 
+  .app-body .navigation-panel:has(> *:nth-child(6):last-child) .column-link,
   .app-body
     .navigation-panel:has(> *:nth-child(6):last-child)
-    :is(.column-link, .navigation-panel__legal) {
+    .navigation-panel__legal {
     flex: 25vw;
   }
 
@@ -4998,7 +5140,9 @@ div[tabindex='-1']
     display: none;
   }
 
-  .app-body .column-link--transparent:is(.active, .active:hover, :active) {
+  .app-body .column-link--transparent.active,
+  .app-body .column-link--transparent .active:hover,
+  .app-body .column-link--transparent :active {
     margin: 6px 0 8px;
     padding: 4px 0 3px;
     border-radius: 8px;
@@ -5227,7 +5371,8 @@ div[tabindex='-1']
   font-size: 12px;
 }
 
-.app-body .account__header__bio .account__header__fields :is(dl, .verified) {
+.app-body .account__header__bio .account__header__fields dl,
+.app-body .account__header__bio .account__header__fields .verified {
   border-bottom: 0;
   position: relative;
 }
@@ -5268,13 +5413,15 @@ div[tabindex='-1']
   border-top-width: 0;
 }
 
-.app-body .account__header__bio .account__header__fields .verified :is(a, dd),
+.app-body .account__header__bio .account__header__fields .verified a,
+.app-body .account__header__bio .account__header__fields .verified dd,
 .app-body .hover-card .account-fields dl.verified dd a {
   color: var(--color-accent);
   gap: 5px;
 }
 
-.app-body .account__header__bio .account__header__fields :is(.verified dt, dt) {
+.app-body .account__header__bio .account__header__fields .verified dt,
+.app-body .account__header__bio .account__header__fields dt {
   color: var(--color-content-fg);
 }
 
@@ -5305,9 +5452,9 @@ div[tabindex='-1']
 }
 
 .app-body .account__header__tabs__buttons .icon-button.copied,
-.app-body
-  .account__header__tabs__buttons
-  .icon-button.copied:is(:active, :focus, :hover) {
+.app-body .account__header__tabs__buttons .icon-button.copied:active,
+.app-body .account__header__tabs__buttons .icon-button.copied :focus,
+.app-body .account__header__tabs__buttons .icon-button.copied :hover {
   background-color: rgba(121, 189, 154, 30%);
 }
 
@@ -5373,7 +5520,13 @@ div[tabindex='-1']
     .account__domain-pill__popout__header,
     .account__domain-pill__popout__parts
   )
-  :is(h3, h6) {
+  h3,
+.app-body
+  :where(
+    .account__domain-pill__popout__header,
+    .account__domain-pill__popout__parts
+  )
+  h6 {
   color: var(--color-content-fg);
   font-weight: 600;
 }
@@ -5516,7 +5669,8 @@ div[tabindex='-1']
   padding: 0;
 }
 
-.app-body .getting-started__trends h4 > :is(a, span) {
+.app-body .getting-started__trends h4 > a,
+.app-body .getting-started__trends h4 > span {
   padding: 15px 20px 6px 47px;
   margin-left: 3px;
   font-weight: 500;
@@ -5771,7 +5925,8 @@ div[tabindex='-1']
   border: 0;
 }
 
-.app-body .explore__suggestions__card .icon-button:is(:active, :hover) {
+.app-body .explore__suggestions__card .icon-button:active,
+.app-body .explore__suggestions__card .icon-button :hover {
   background-color: var(--color-accent-bg);
 }
 @media screen and (width >=1173px) {
@@ -5807,7 +5962,8 @@ div[tabindex='-1']
   transition: all 0.3s;
 }
 
-.app-body .story:has(:is(.story__thumbnail, .story__details__title):hover) {
+.app-body .story:has(.story__thumbnail:hover),
+.app-body .story:has(.story__details__title:hover) {
   background-color: var(--color-content-bg-focus);
 }
 
@@ -5820,9 +5976,10 @@ div[tabindex='-1']
   transition: all 0.3s;
 }
 
-.app-body
-  .story:has(:is(.story__thumbnail, .story__details__title):hover)
-  :is(.story__details__publisher, .story__details__title) {
+.app-body .story:has(.story__thumbnail:hover) .story__details__publisher,
+.app-body .story:has(.story__thumbnail:hover) .story__details__title,
+.app-body .story:has(.story__details__title:hover) .story__details__publisher,
+.app-body .story:has(.story__details__title:hover) .story__details__title {
   color: var(--color-accent);
   opacity: 1;
 }
@@ -5947,35 +6104,26 @@ div[tabindex='-1']
   border-bottom: 1px solid var(--color-lines);
 }
 
-.app-body
-  :is(.explore__search-results, .search-results__section)
-  .trends__item {
+.app-body .explore__search-results .trends__item,
+.app-body .search-results__section .trends__item {
   border-bottom: 2px solid var(--color-content-secondary-bg);
 }
 
-.app-body
-  :is(.explore__search-results, .search-results__section)
-  article:first-child
-  > .trends__item,
-.app-body
-  :is(.explore__search-results, .search-results__section)
-  > .trends__item:first-child,
-.app-body
-  :is(.explore__search-results, .search-results__section)
-  > .account:first-child {
+.app-body .explore__search-results article:first-child > .trends__item,
+.app-body .search-results__section article:first-child > .trends__item,
+.app-body .explore__search-results > .trends__item:first-child,
+.app-body .search-results__section > .trends__item:first-child,
+.app-body .explore__search-results > .account:first-child,
+.app-body .search-results__section > .account:first-child {
   border-top: 1px solid var(--color-lines);
 }
 
-.app-body
-  :is(.explore__search-results, .search-results__section)
-  article:last-child
-  > .trends__item,
-.app-body
-  :is(.explore__search-results, .search-results__section)
-  > .trends__item:last-child,
-.app-body
-  :is(.explore__search-results, .search-results__section)
-  > .account:last-child {
+.app-body .explore__search-results article:last-child > .trends__item,
+.app-body .search-results__section article:last-child > .trends__item,
+.app-body .explore__search-results > .trends__item:last-child,
+.app-body .search-results__section > .trends__item:last-child,
+.app-body .explore__search-results > .account:last-child,
+.app-body .search-results__section > .account:last-child {
   border-bottom: 1px solid var(--color-lines);
 }
 
@@ -6037,30 +6185,41 @@ div[tabindex='-1']
   color: var(--color-content-fg-bold);
 }
 
-.app-body .search__popout__menu__item :is(.icon-button, .icon-button .icon) {
+.app-body .search__popout__menu__item .icon-button,
+.app-body .search__popout__menu__item .icon-button .icon {
   border-radius: 6px;
   transition: none;
 }
 
-.app-body
-  .search__popout__menu__item:is(.selected, :active, :focus, :hover)
-  :is(.icon-button, .icon-button .icon) {
+.app-body .search__popout__menu__item.selected .icon-button,
+.app-body .search__popout__menu__item.selected .icon-button .icon,
+.app-body .search__popout__menu__item :active .icon-button,
+.app-body .search__popout__menu__item :active .icon-button .icon,
+.app-body .search__popout__menu__item :focus .icon-button,
+.app-body .search__popout__menu__item :focus .icon-button .icon,
+.app-body .search__popout__menu__item :hover .icon-button,
+.app-body .search__popout__menu__item :hover .icon-button .icon {
   color: var(--color-accent-fg);
 }
 
-.app-body .search__popout__menu__item .icon-button:is(:active, :focus, :hover),
-.app-body
-  .search__popout__menu__item
-  .icon-button:is(:active, :focus, :hover)
-  .icon {
+.app-body .search__popout__menu__item .icon-button:active,
+.app-body .search__popout__menu__item .icon-button :focus,
+.app-body .search__popout__menu__item .icon-button :hover,
+.app-body .search__popout__menu__item .icon-button:active .icon,
+.app-body .search__popout__menu__item .icon-button :focus .icon,
+.app-body .search__popout__menu__item .icon-button :hover .icon {
   background-color: var(--color-content-secondary-bg);
   color: var(--color-accent);
 }
 
-.app-body .search__popout__menu__item:is(.selected, :active, :focus, :hover),
-.app-body
-  .search__popout__menu__item:is(.selected, :active, :focus, :hover)
-  mark {
+.app-body .search__popout__menu__item.selected,
+.app-body .search__popout__menu__item :active,
+.app-body .search__popout__menu__item :focus,
+.app-body .search__popout__menu__item :hover,
+.app-body .search__popout__menu__item.selected mark,
+.app-body .search__popout__menu__item :active mark,
+.app-body .search__popout__menu__item :focus mark,
+.app-body .search__popout__menu__item :hover mark {
   background-color: var(--color-accent);
   color: var(--color-accent-fg);
 }
@@ -6226,14 +6385,10 @@ div[tabindex='-1']
 
 /* 🔔 Notifications
    ---------------- */
-.app-body
-  .status.muted
-  :is(
-    .status__content,
-    .status__content a,
-    .status__content p,
-    .status__display-name strong
-  ),
+.app-body .status.muted .status__content,
+.app-body .status.muted .status__content a,
+.app-body .status.muted .status__content p,
+.app-body .status.muted .status__display-name strong,
 .app-body .attachment-list__list a {
   color: var(--color-content-fg-muted);
 }
@@ -6293,14 +6448,10 @@ div[tabindex='-1']
   padding-top: 0;
 }
 
-.app-body
-  :is(
-    .notification-favourite,
-    .notification-reblog,
-    .notification-poll,
-    .notification-status
-  )
-  .status__action-bar {
+.app-body .notification-favourite .status__action-bar,
+.app-body .notification-reblog .status__action-bar,
+.app-body .notification-poll .status__action-bar,
+.app-body .notification-status .status__action-bar {
   display: none;
 }
 
@@ -6369,17 +6520,28 @@ div[tabindex='-1']
   background-color: var(--color-confirm-bg);
 }
 
-.app-body
-  .notification
-  .account__relationship
-  .icon-button:first-child:is(:active, :focus, :hover) {
+.app-body .notification .account__relationship .icon-button:first-child:active,
+.app-body .notification .account__relationship .icon-button:first-child :focus,
+.app-body .notification .account__relationship .icon-button:first-child :hover {
   background-color: var(--color-confirm);
 }
 
 .app-body
   .notification
   .account__relationship
-  .icon-button:first-child:is(:active, :focus, :hover)
+  .icon-button:first-child:active
+  .icon-check,
+.app-body
+  .notification
+  .account__relationship
+  .icon-button:first-child
+  :focus
+  .icon-check,
+.app-body
+  .notification
+  .account__relationship
+  .icon-button:first-child
+  :hover
   .icon-check {
   background-image: var(--icon-check-inv);
 }
@@ -6388,17 +6550,28 @@ div[tabindex='-1']
   background-color: var(--color-reject-bg);
 }
 
-.app-body
-  .notification
-  .account__relationship
-  .icon-button:last-child:is(:active, :focus, :hover) {
+.app-body .notification .account__relationship .icon-button:last-child:active,
+.app-body .notification .account__relationship .icon-button:last-child :focus,
+.app-body .notification .account__relationship .icon-button:last-child :hover {
   background-color: var(--color-reject);
 }
 
 .app-body
   .notification
   .account__relationship
-  .icon-button:last-child:is(:active, :focus, :hover)
+  .icon-button:last-child:active
+  .icon-times,
+.app-body
+  .notification
+  .account__relationship
+  .icon-button:last-child
+  :focus
+  .icon-times,
+.app-body
+  .notification
+  .account__relationship
+  .icon-button:last-child
+  :hover
   .icon-times {
   background-image: var(--icon-reject-inv);
 }
@@ -6426,7 +6599,9 @@ div[tabindex='-1']
   transition: all 0.2s;
 }
 
-.app-body .notification-bar-action:is(:active, :focus, :hover) {
+.app-body .notification-bar-action:active,
+.app-body .notification-bar-action :focus,
+.app-body .notification-bar-action :hover {
   background-color: var(--color-accent-bg);
   color: var(--color-accent);
 }
@@ -6479,7 +6654,9 @@ div[tabindex='-1']
   transition: all 0.2s;
 }
 
-.app-body .filtered-notifications-banner:is(:active, :hover, :focus)::before {
+.app-body .filtered-notifications-banner:active::before,
+.app-body .filtered-notifications-banner :hover::before,
+.app-body .filtered-notifications-banner :focus::before {
   background-color: color-mix(in srgb, var(--color-accent), transparent 88%);
 }
 
@@ -6500,7 +6677,15 @@ div[tabindex='-1']
 
 .app-body .filtered-notifications-banner .filtered-notifications-banner__badge,
 .app-body
-  .filtered-notifications-banner:is(:active, :focus, :hover)
+  .filtered-notifications-banner:active
+  .filtered-notifications-banner__badge,
+.app-body
+  .filtered-notifications-banner
+  :focus
+  .filtered-notifications-banner__badge,
+.app-body
+  .filtered-notifications-banner
+  :hover
   .filtered-notifications-banner__badge,
 .app-body .notification-request__name .filtered-notifications-banner__badge {
   background-color: var(--color-accent);
@@ -6546,7 +6731,8 @@ div[tabindex='-1']
   position: relative;
 }
 
-.app-body :is(.notification-group, .notification-ungrouped)::after,
+.app-body .notification-group::after,
+.app-body .notification-ungrouped::after,
 .app-body .filtered-notifications-banner::after {
   position: absolute;
   display: block;
@@ -6563,25 +6749,22 @@ div[tabindex='-1']
   padding: 0;
 }
 
-.app-body .notification-ungrouped :is(.status__avatar, .account__avatar) {
+.app-body .notification-ungrouped .status__avatar,
+.app-body .notification-ungrouped .account__avatar {
   height: 46px !important;
   width: 46px !important;
 }
 
-.app-body
-  .notification-ungrouped
-  :is(
-    .attachment-list,
-    .audio-player,
-    .hashtag-bar,
-    .media-gallery,
-    .more-from-author,
-    .picture-in-picture-placeholder,
-    .status-card,
-    .status__action-bar,
-    .status__content,
-    .video-player
-  ) {
+.app-body .notification-ungrouped .attachment-list,
+.app-body .notification-ungrouped .audio-player,
+.app-body .notification-ungrouped .hashtag-bar,
+.app-body .notification-ungrouped .media-gallery,
+.app-body .notification-ungrouped .more-from-author,
+.app-body .notification-ungrouped .picture-in-picture-placeholder,
+.app-body .notification-ungrouped .status-card,
+.app-body .notification-ungrouped .status__action-bar,
+.app-body .notification-ungrouped .status__content,
+.app-body .notification-ungrouped .video-player {
   margin-left: 0;
   width: 100%;
 }
@@ -6606,16 +6789,15 @@ div[tabindex='-1']
   transition: background 0.3s;
 }
 
-.app-body
-  :is(.notification-group__icon, .notification-ungrouped__header__icon) {
+.app-body .notification-group__icon,
+.app-body .notification-ungrouped__header__icon {
   width: 46px;
   height: 28px;
   justify-content: end;
 }
 
-.app-body
-  :is(.notification-group__icon, .notification-ungrouped__header__icon)
-  svg {
+.app-body .notification-group__icon svg,
+.app-body .notification-ungrouped__header__icon svg {
   width: 22px;
   height: 22px;
 }
@@ -6668,7 +6850,8 @@ div[tabindex='-1']
   }
 }
 
-.app-body .column-inline-form label :is(input, input:focus) {
+.app-body .column-inline-form label input,
+.app-body .column-inline-form label input:focus {
   background-color: var(--color-content-bg);
   color: var(--color-content-fg);
   border-radius: 8px;
@@ -6679,7 +6862,8 @@ div[tabindex='-1']
   border-color: var(--color-accent);
 }
 
-.app-body :is(.column-subheading, .columns-area__panels__main .column-link) {
+.app-body .column-subheading,
+.app-body .columns-area__panels__main .column-link {
   background-color: var(--color-content-bg);
   color: var(--color-fg);
 }
@@ -6745,7 +6929,8 @@ div[tabindex='-1']
   color: var(--color-content-fg);
 }
 
-.app-body .list-editor .setting-text:is(:active, :focus) {
+.app-body .list-editor .setting-text:active,
+.app-body .list-editor .setting-text :focus {
   border-color: var(--color-accent);
   background-color: var(--color-content-bg);
 }
@@ -6778,7 +6963,9 @@ div[tabindex='-1']
 }
 
 /* List adder dialog */
-.app-body :is(.list-adder, .list-adder__account, .list-adder__lists) {
+.app-body .list-adder,
+.app-body .list-adder__account,
+.app-body .list-adder__lists {
   background-color: var(--color-content-bg);
   color: var(--color-content-fg);
 }
@@ -6842,7 +7029,9 @@ div[tabindex='-1']
   background-image: var(--icon-check);
 }
 
-.app-body .account--panel button:is(:active, :focus, :hover) .icon-check {
+.app-body .account--panel button:active .icon-check,
+.app-body .account--panel button :focus .icon-check,
+.app-body .account--panel button :hover .icon-check {
   background-image: var(--icon-check-inv);
 }
 
@@ -6852,10 +7041,10 @@ div[tabindex='-1']
   color: var(--color-confirm-fg);
 }
 
-.app-body .account--panel__button:first-child .icon-button:is(:hover, :active),
-.app-body
-  .notification-request__actions
-  .icon-button:last-child:is(:hover, :active) {
+.app-body .account--panel__button:first-child .icon-button:hover,
+.app-body .account--panel__button:first-child .icon-button :active,
+.app-body .notification-request__actions .icon-button:last-child:hover,
+.app-body .notification-request__actions .icon-button:last-child :active {
   background-color: var(--color-confirm);
   color: var(--color-accent-fg);
 }
@@ -6864,7 +7053,9 @@ div[tabindex='-1']
   background-image: var(--icon-reject);
 }
 
-.app-body .account--panel button:is(:active, :focus, :hover) .icon-times {
+.app-body .account--panel button:active .icon-times,
+.app-body .account--panel button :focus .icon-times,
+.app-body .account--panel button :hover .icon-times {
   background-image: var(--icon-reject-inv);
 }
 
@@ -6874,10 +7065,10 @@ div[tabindex='-1']
   color: var(--color-reject);
 }
 
-.app-body .account--panel__button:nth-child(2) .icon-button:is(:hover, :active),
-.app-body
-  .notification-request__actions
-  .icon-button:first-child:is(:hover, :active) {
+.app-body .account--panel__button:nth-child(2) .icon-button:hover,
+.app-body .account--panel__button:nth-child(2) .icon-button :active,
+.app-body .notification-request__actions .icon-button:first-child:hover,
+.app-body .notification-request__actions .icon-button:first-child :active {
   background-color: var(--color-reject);
   color: var(--color-accent-fg);
 }
@@ -6925,7 +7116,10 @@ div[tabindex='-1']
 
 .app-body
   .inline-follow-suggestions__body__scrollable__card
-  :is(.display-name__html, .display-name__account),
+  .display-name__html,
+.app-body
+  .inline-follow-suggestions__body__scrollable__card
+  .display-name__account,
 .app-body
   .inline-follow-suggestions__body__scrollable__card__text-stack__source {
   color: var(--color-content-fg);
@@ -6957,13 +7151,21 @@ div[tabindex='-1']
 }
 
 .app-body
-  .inline-follow-suggestions__body__scroll-button:is(:active)
+  .inline-follow-suggestions__body__scroll-button:active
   .inline-follow-suggestions__body__scroll-button__icon {
   transform: scale(0.9);
 }
 
 .app-body
-  .inline-follow-suggestions__body__scroll-button:is(:active, :focus, :hover)
+  .inline-follow-suggestions__body__scroll-button:active
+  .inline-follow-suggestions__body__scroll-button__icon,
+.app-body
+  .inline-follow-suggestions__body__scroll-button
+  :focus
+  .inline-follow-suggestions__body__scroll-button__icon,
+.app-body
+  .inline-follow-suggestions__body__scroll-button
+  :hover
   .inline-follow-suggestions__body__scroll-button__icon {
   background-color: var(--color-accent-focus);
 }
@@ -6988,9 +7190,8 @@ div[tabindex='-1']
   transform: translateY(3px);
 }
 
-.app-body
-  .inline-follow-suggestions
-  .button:is(.button-secondary, .button-tertiary) {
+.app-body .inline-follow-suggestions .button.button-secondary,
+.app-body .inline-follow-suggestions .button .button-tertiary {
   padding: 7px 18px;
 }
 
@@ -7077,7 +7278,9 @@ div[tabindex='-1']
   transition: all 0.2s;
 }
 
-.app-body .icon-button:is(:active, :focus, :hover) {
+.app-body .icon-button:active,
+.app-body .icon-button :focus,
+.app-body .icon-button :hover {
   background-color: var(--color-accent-bg);
   color: var(--color-accent);
 }
@@ -7089,7 +7292,11 @@ div[tabindex='-1']
 
 .app-body
   .account__header__tabs__buttons
-  .icon-button.active:has(.icon-bell):is(:active, :focus) {
+  .icon-button.active:has(.icon-bell):active,
+.app-body
+  .account__header__tabs__buttons
+  .icon-button.active:has(.icon-bell)
+  :focus {
   background-color: var(--color-content-secondary-bg);
 }
 
@@ -7111,8 +7318,9 @@ div[tabindex='-1']
   color: var(--color-accent-fg);
 }
 
-.app-body
-  .language-dropdown__dropdown__results__item:is(:active, :focus, :hover) {
+.app-body .language-dropdown__dropdown__results__item:active,
+.app-body .language-dropdown__dropdown__results__item :focus,
+.app-body .language-dropdown__dropdown__results__item :hover {
   background-color: var(--color-accent-bg);
 }
 
@@ -7124,35 +7332,59 @@ div[tabindex='-1']
   opacity: 0.7;
 }
 
-.app-body
-  :is(
-    .language-dropdown__dropdown__results__item__common-name,
-    .language-dropdown__dropdown__results__item__native-name
-  ) {
+.app-body .language-dropdown__dropdown__results__item__common-name,
+.app-body .language-dropdown__dropdown__results__item__native-name {
   color: var(--color-content-fg);
 }
 
 .app-body
-  .language-dropdown__dropdown__results__item:is(.active, .active:hover)
-  :is(
-    .language-dropdown__dropdown__results__item__common-name,
-    .language-dropdown__dropdown__results__item__native-name
-  ) {
+  .language-dropdown__dropdown__results__item.active
+  .language-dropdown__dropdown__results__item__common-name,
+.app-body
+  .language-dropdown__dropdown__results__item.active
+  .language-dropdown__dropdown__results__item__native-name,
+.app-body
+  .language-dropdown__dropdown__results__item
+  .active:hover
+  .language-dropdown__dropdown__results__item__common-name,
+.app-body
+  .language-dropdown__dropdown__results__item
+  .active:hover
+  .language-dropdown__dropdown__results__item__native-name {
   color: var(--color-accent-fg);
 }
 
 .app-body
-  .language-dropdown__dropdown__results__item:is(:active, :focus, :hover)
-  :is(
-    .language-dropdown__dropdown__results__item__native-name,
-    .language-dropdown__dropdown__results__item__common-name
-  ) {
+  .language-dropdown__dropdown__results__item:active
+  .language-dropdown__dropdown__results__item__native-name,
+.app-body
+  .language-dropdown__dropdown__results__item:active
+  .language-dropdown__dropdown__results__item__common-name,
+.app-body
+  .language-dropdown__dropdown__results__item
+  :focus
+  .language-dropdown__dropdown__results__item__native-name,
+.app-body
+  .language-dropdown__dropdown__results__item
+  :focus
+  .language-dropdown__dropdown__results__item__common-name,
+.app-body
+  .language-dropdown__dropdown__results__item
+  :hover
+  .language-dropdown__dropdown__results__item__native-name,
+.app-body
+  .language-dropdown__dropdown__results__item
+  :hover
+  .language-dropdown__dropdown__results__item__common-name {
   color: var(--color-accent);
 }
 
-.app-body .button:not(.button-secondary):is(:active, :hover),
-.app-body .button.button-tertiary:is(:active, :hover),
-.app-body .button.logo-button:is(:active, :hover) {
+.app-body .button:not(.button-secondary):active,
+.app-body .button:not(.button-secondary) :hover,
+.app-body .button.button-tertiary:active,
+.app-body .button.button-tertiary :hover,
+.app-body .button.logo-button:active,
+.app-body .button.logo-button :hover {
   background-color: var(--color-accent-focus);
 }
 
@@ -7177,9 +7409,10 @@ div[tabindex='-1']
 
 .app-body .react-toggle.react-toggle--checked .react-toggle-track,
 .app-body
-  .react-toggle.react-toggle--checked:is(:hover, :focus-within):not(
-    .react-toggle--disabled
-  )
+  .react-toggle.react-toggle--checked:hover:not(.react-toggle--disabled)
+  .react-toggle-track,
+.app-body
+  .react-toggle.react-toggle--checked:focus-within:not(.react-toggle--disabled)
   .react-toggle-track,
 .app-body
   .react-toggle.react-toggle--checked:hover:not(.react-toggle--disabled)
@@ -7245,7 +7478,8 @@ div[tabindex='-1']
 .app-body .dropdown-menu,
 .app-body .dropdown-menu__container__header,
 .app-body .dropdown-menu__item.edited-timestamp__history__item,
-.app-body .dropdown-menu__item :is(a, button) {
+.app-body .dropdown-menu__item a,
+.app-body .dropdown-menu__item button {
   background-color: var(--color-content-bg);
   color: var(--color-content-fg);
   border-color: var(--color-lines);
@@ -7258,7 +7492,12 @@ div[tabindex='-1']
   border: 0;
 }
 
-.app-body .dropdown-menu__item :is(a, button):is(:active, :focus, :hover) {
+.app-body .dropdown-menu__item a:active,
+.app-body .dropdown-menu__item a :focus,
+.app-body .dropdown-menu__item a :hover,
+.app-body .dropdown-menu__item button:active,
+.app-body .dropdown-menu__item button :focus,
+.app-body .dropdown-menu__item button :hover {
   background: var(--color-accent);
   color: var(--color-accent-fg);
   outline: 0;
@@ -7280,9 +7519,8 @@ div[tabindex='-1']
   padding: 8px;
 }
 
-.app-body
-  .privacy-dropdown
-  :is(.privacy-dropdown__value, .privacy-dropdown__value),
+.app-body .privacy-dropdown .privacy-dropdown__value,
+.app-body .privacy-dropdown .privacy-dropdown__value,
 .app-body .privacy-dropdown__option {
   background-color: var(--color-content-bg);
   color: var(--color-content-fg);
@@ -7290,10 +7528,11 @@ div[tabindex='-1']
   margin-bottom: 2px;
 }
 
-.app-body
-  .privacy-dropdown.active
-  :is(.privacy-dropdown__value, .privacy-dropdown__value.active),
-.app-body .privacy-dropdown__option:is(.active, .active:hover, :hover) {
+.app-body .privacy-dropdown.active .privacy-dropdown__value,
+.app-body .privacy-dropdown.active .privacy-dropdown__value.active,
+.app-body .privacy-dropdown__option.active,
+.app-body .privacy-dropdown__option .active:hover,
+.app-body .privacy-dropdown__option :hover {
   background-color: var(--color-accent);
   color: var(--color-accent-fg);
 }
@@ -7326,27 +7565,27 @@ div[tabindex='-1']
   color: var(--color-accent-fg);
 }
 
-.app-body
-  .privacy-dropdown__option:is(:hover, .active, .active:hover)
-  .icon-globe {
+.app-body .privacy-dropdown__option:hover .icon-globe,
+.app-body .privacy-dropdown__option .active .icon-globe,
+.app-body .privacy-dropdown__option .active:hover .icon-globe {
   background-image: var(--icon-globe-visibility-inv);
 }
 
-.app-body
-  .privacy-dropdown__option:is(:hover, .active, .active:hover)
-  .icon-unlock {
+.app-body .privacy-dropdown__option:hover .icon-unlock,
+.app-body .privacy-dropdown__option .active .icon-unlock,
+.app-body .privacy-dropdown__option .active:hover .icon-unlock {
   background-image: var(--icon-unlock-inv);
 }
 
-.app-body
-  .privacy-dropdown__option:is(:hover, .active, .active:hover)
-  .icon-lock {
+.app-body .privacy-dropdown__option:hover .icon-lock,
+.app-body .privacy-dropdown__option .active .icon-lock,
+.app-body .privacy-dropdown__option .active:hover .icon-lock {
   background-image: var(--icon-lock-inv);
 }
 
-.app-body
-  .privacy-dropdown__option:is(:hover, .active, .active:hover)
-  .icon-at {
+.app-body .privacy-dropdown__option:hover .icon-at,
+.app-body .privacy-dropdown__option .active .icon-at,
+.app-body .privacy-dropdown__option .active:hover .icon-at {
   background-image: var(--icon-at-inv);
 }
 
@@ -7354,10 +7593,9 @@ div[tabindex='-1']
   fill: var(--color-content-fg);
 }
 
-.app-body
-  .privacy-dropdown__option:is(:hover, .active, .active:hover)
-  .icon-info-circle
-  path {
+.app-body .privacy-dropdown__option:hover .icon-info-circle path,
+.app-body .privacy-dropdown__option .active .icon-info-circle path,
+.app-body .privacy-dropdown__option .active:hover .icon-info-circle path {
   fill: var(--color-accent-fg);
 }
 
@@ -7365,8 +7603,8 @@ div[tabindex='-1']
   animation: fadein-short 0.2s 1;
 }
 
-.app-body
-  .button.button-tertiary:is(.button--confirmation, .button--destructive) {
+.app-body .button.button-tertiary.button--confirmation,
+.app-body .button.button-tertiary .button--destructive {
   background-color: transparent;
 }
 
@@ -7380,14 +7618,16 @@ div[tabindex='-1']
   background-color: rgba(223, 64, 90, 30%);
 }
 
-.app-body
-  .button.button-tertiary.button--confirmation:is(:active, :focus, :hover) {
+.app-body .button.button-tertiary.button--confirmation:active,
+.app-body .button.button-tertiary.button--confirmation :focus,
+.app-body .button.button-tertiary.button--confirmation :hover {
   background-color: #79bd9a;
   color: #fff;
 }
 
-.app-body
-  .button.button-tertiary.button--destructive:is(:active, :focus, :hover) {
+.app-body .button.button-tertiary.button--destructive:active,
+.app-body .button.button-tertiary.button--destructive :focus,
+.app-body .button.button-tertiary.button--destructive :hover {
   background-color: #df405a;
   color: #fff;
 }
@@ -7401,24 +7641,22 @@ div[tabindex='-1']
   }
 }
 
-.app-body
-  :is(
-    .block-modal__cancel-button,
-    .confirmation-modal__cancel-button,
-    .confirmation-modal__secondary-button,
-    .mute-modal__cancel-button
-  ):not(:hover) {
+.app-body .block-modal__cancel-button:not(:hover),
+.app-body .confirmation-modal__cancel-button:not(:hover),
+.app-body .confirmation-modal__secondary-button:not(:hover),
+.app-body .mute-modal__cancel-button :not(:hover) {
   background-color: color-mix(in srgb, var(--color-accent), transparent 90%);
   color: var(--color-accent);
 }
 
-.app-body
-  :is(
-    .block-modal__cancel-button,
-    .confirmation-modal__cancel-button,
-    .confirmation-modal__secondary-button,
-    .mute-modal__cancel-button
-  ):is(:active, :hover) {
+.app-body .block-modal__cancel-button:active,
+.app-body .block-modal__cancel-button :hover,
+.app-body .confirmation-modal__cancel-button:active,
+.app-body .confirmation-modal__cancel-button :hover,
+.app-body .confirmation-modal__secondary-button:active,
+.app-body .confirmation-modal__secondary-button :hover,
+.app-body .mute-modal__cancel-button :active,
+.app-body .mute-modal__cancel-button :hover {
   background-color: color-mix(
     in srgb,
     var(--color-accent),
@@ -7427,20 +7665,14 @@ div[tabindex='-1']
   color: var(--color-accent);
 }
 
-.app-body
-  :is(
-    .block-modal__cancel-button,
-    .confirmation-modal__cancel-button,
-    .confirmation-modal__secondary-button,
-    .mute-modal__cancel-button
-  ):active,
-:is(
-    .block-modal__cancel-button,
-    .confirmation-modal__cancel-button,
-    .confirmation-modal__secondary-button,
-    .mute-modal__cancel-button
-  )
-  + button:active {
+.app-body .block-modal__cancel-button:active,
+.app-body .confirmation-modal__cancel-button:active,
+.app-body .confirmation-modal__secondary-button:active,
+.app-body .mute-modal__cancel-button :active,
+.block-modal__cancel-button + button:active,
+.confirmation-modal__cancel-button + button:active,
+.confirmation-modal__secondary-button + button:active,
+.mute-modal__cancel-button + button:active {
   transform: scale(0.95);
 }
 
@@ -7581,7 +7813,8 @@ div[tabindex='-1']
   color: var(--color-content-fg-muted);
 }
 
-.app-body .interaction-modal :is(.button, .button.button-tertiary) {
+.app-body .interaction-modal .button,
+.app-body .interaction-modal .button.button-tertiary {
   padding: 10px 18px;
 }
 
@@ -7692,8 +7925,9 @@ div[tabindex='-1']
   }
 }
 
-.app-body
-  :is(.media-modal__close, .media-modal__nav, .media-modal__zoom-button) {
+.app-body .media-modal__close,
+.app-body .media-modal__nav,
+.app-body .media-modal__zoom-button {
   background-color: #1e1e1e;
   color: #777;
   height: 44px;
@@ -7705,19 +7939,22 @@ div[tabindex='-1']
   transition: 0.2s all;
 }
 
-.app-body
-  :is(.media-modal__close, .media-modal__nav, .media-modal__zoom-button):is(
-    :active,
-    :focus,
-    :hover
-  ) {
+.app-body .media-modal__close:active,
+.app-body .media-modal__close :focus,
+.app-body .media-modal__close :hover,
+.app-body .media-modal__nav:active,
+.app-body .media-modal__nav :focus,
+.app-body .media-modal__nav :hover,
+.app-body .media-modal__zoom-button :active,
+.app-body .media-modal__zoom-button :focus,
+.app-body .media-modal__zoom-button :hover {
   background-color: #343434;
   color: #fff;
 }
 
-.app-body
-  :is(.media-modal__close, .media-modal__nav, .media-modal__zoom-button)
-  svg {
+.app-body .media-modal__close svg,
+.app-body .media-modal__nav svg,
+.app-body .media-modal__zoom-button svg {
   transform: scale(1.3);
 }
 
@@ -7753,10 +7990,13 @@ div[tabindex='-1']
   height: 25px;
 }
 
+.app-body .media-modal__overlay .picture-in-picture__footer .icon-button:active,
+.app-body .media-modal__overlay .picture-in-picture__footer .icon-button :hover,
 .app-body
   .media-modal__overlay
   .picture-in-picture__footer
-  .icon-button:is(:active, :hover, :focus) {
+  .icon-button
+  :focus {
   background-color: transparent !important;
 }
 
@@ -8046,22 +8286,27 @@ div[tabindex='-1']
   background-color: var(--color-accent-focus);
 }
 
-.app-body .button:is(.button-secondary, .button-tertiary):hover {
+.app-body .button.button-secondary:hover,
+.app-body .button .button-tertiary:hover {
   background-color: color-mix(in srgb, var(--color-accent), transparent 70%);
 }
 
-.app-body .button.button--destructive:is(:active, :hover, :focus) {
+.app-body .button.button--destructive:active,
+.app-body .button.button--destructive :hover,
+.app-body .button.button--destructive :focus {
   background-color: var(--color-reject);
   color: var(--color-accent-fg);
 }
 
 .app-body .sign-in-banner .button,
-.app-body .button:is(.button-secondary, .button-tertiary) {
+.app-body .button.button-secondary,
+.app-body .button .button-tertiary {
   padding: 10px 18px;
 }
 
 .app-body .sign-in-banner .button:active,
-.app-body .button:is(.button-secondary, .button-tertiary):active {
+.app-body .button.button-secondary:active,
+.app-body .button .button-tertiary:active {
   transform: scale(0.95);
 }
 @media screen and (width <=1174px) {
@@ -8121,8 +8366,12 @@ div[tabindex='-1']
   transition: all 0.2s;
 }
 
-.app-body .onboarding__steps__item:is(:active, :focus, :hover),
-.app-body .onboarding__link:is(:active, :focus, :hover) {
+.app-body .onboarding__steps__item:active,
+.app-body .onboarding__steps__item :focus,
+.app-body .onboarding__steps__item :hover,
+.app-body .onboarding__link:active,
+.app-body .onboarding__link :focus,
+.app-body .onboarding__link :hover {
   background-color: var(--color-accent-bg);
 }
 
@@ -8197,34 +8446,33 @@ div[tabindex='-1']
   color: var(--color-accent);
 }
 
-.app-body
-  .simple_form
-  :is(
-    input[type='datetime-local'],
-    input[type='email'],
-    input[type='number'],
-    input[type='password'],
-    input[type='text'],
-    input[type='url'],
-    textarea
-  ) {
+.app-body .simple_form input[type='datetime-local'],
+.app-body .simple_form input[type='email'],
+.app-body .simple_form input[type='number'],
+.app-body .simple_form input[type='password'],
+.app-body .simple_form input[type='text'],
+.app-body .simple_form input[type='url'],
+.app-body .simple_form textarea {
   background-color: var(--color-content-secondary-bg);
   border-color: var(--color-lines);
   border-radius: 8px;
   color: var(--color-content-fg);
 }
 
-.app-body
-  .simple_form
-  :is(
-    input[type='datetime-local'],
-    input[type='email'],
-    input[type='number'],
-    input[type='password'],
-    input[type='text'],
-    input[type='url'],
-    textarea
-  ):is(:active, :focus) {
+.app-body .simple_form input[type='datetime-local']:active,
+.app-body .simple_form input[type='datetime-local'] :focus,
+.app-body .simple_form input[type='email']:active,
+.app-body .simple_form input[type='email'] :focus,
+.app-body .simple_form input[type='number']:active,
+.app-body .simple_form input[type='number'] :focus,
+.app-body .simple_form input[type='password']:active,
+.app-body .simple_form input[type='password'] :focus,
+.app-body .simple_form input[type='text']:active,
+.app-body .simple_form input[type='text'] :focus,
+.app-body .simple_form input[type='url']:active,
+.app-body .simple_form input[type='url'] :focus,
+.app-body .simple_form textarea :active,
+.app-body .simple_form textarea :focus {
   border-color: var(--color-accent);
 }
 
@@ -8267,7 +8515,8 @@ div[tabindex='-1']
   color: var(--color-content-fg);
 }
 
-.app-body .copy-paste-text:is(:focus, :active),
+.app-body .copy-paste-text:focus,
+.app-body .copy-paste-text :active,
 .app-body .tip-carousel:focus {
   border-color: var(--color-accent);
 }
@@ -8316,7 +8565,9 @@ div[tabindex='-1']
   padding: 2px 8px;
 }
 
-.app-body .reactions-bar__item:is(:active, :hover, :focus) {
+.app-body .reactions-bar__item:active,
+.app-body .reactions-bar__item :hover,
+.app-body .reactions-bar__item :focus {
   background-color: var(--color-content-bg);
 }
 
@@ -8330,7 +8581,17 @@ div[tabindex='-1']
 }
 
 .app-body
-  .reactions-bar__item:is(:active, :hover, :focus)
+  .reactions-bar__item:active
+  .reactions-bar__item__count
+  .animated-number,
+.app-body
+  .reactions-bar__item
+  :hover
+  .reactions-bar__item__count
+  .animated-number,
+.app-body
+  .reactions-bar__item
+  :focus
   .reactions-bar__item__count
   .animated-number {
   color: var(--color-content-fg);
@@ -8654,7 +8915,8 @@ div[tabindex='-1']
 }
 
 @media screen and (width >=1175px) {
-  .app-body .about :is(.link-footer, .about__footer) {
+  .app-body .about .link-footer,
+  .app-body .about .about__footer {
     display: none;
   }
 }
@@ -8726,7 +8988,8 @@ div[tabindex='-1']
   display: none;
 }
 
-.layout-multiple-columns :is(.drawer__inner, .drawer__inner.darker) {
+.layout-multiple-columns .drawer__inner,
+.layout-multiple-columns .drawer__inner.darker {
   background: transparent;
 }
 
@@ -8759,7 +9022,9 @@ div[tabindex='-1']
   transform: scale(0.9);
 }
 
-.layout-multiple-columns .drawer__tab:is(:active, :focus, :hover) {
+.layout-multiple-columns .drawer__tab:active,
+.layout-multiple-columns .drawer__tab :focus,
+.layout-multiple-columns .drawer__tab :hover {
   background-color: var(--color-accent-bg);
 }
 
@@ -8818,9 +9083,9 @@ div[tabindex='-1']
   color: var(--color-fg);
 }
 
-.layout-multiple-columns
-  .getting-started
-  .column-link:is(:active, :focus, :hover) {
+.layout-multiple-columns .getting-started .column-link:active,
+.layout-multiple-columns .getting-started .column-link :focus,
+.layout-multiple-columns .getting-started .column-link :hover {
   background-color: var(--color-accent-bg);
   color: var(--color-fg);
 }
@@ -8843,11 +9108,13 @@ div[tabindex='-1']
   padding-left: 16px;
 }
 
-.layout-multiple-columns .getting-started__trends h4 > :is(a, span) {
+.layout-multiple-columns .getting-started__trends h4 > a,
+.layout-multiple-columns .getting-started__trends h4 > span {
   padding-left: 45px;
 }
 
-.layout-multiple-columns :is(.column-header, .column-back-button) {
+.layout-multiple-columns .column-header,
+.layout-multiple-columns .column-back-button {
   background-color: var(--color-content-bg);
 }
 
@@ -8859,9 +9126,8 @@ div[tabindex='-1']
   width: 330px;
 }
 
-.layout-multiple-columns
-  .column:has(> .getting-started)
-  :is(.column-header, .column-back-button),
+.layout-multiple-columns .column:has(> .getting-started) .column-header,
+.layout-multiple-columns .column:has(> .getting-started) .column-back-button,
 .layout-single-column .navigation-bar:has(+ .getting-started) {
   display: none;
 }
@@ -8958,7 +9224,8 @@ div[tabindex='-1']
 }
 
 @media screen and (width >=630px) and (width <=1174px) {
-  .layout-multiple-columns :is(.column-header, .column-back-button) {
+  .layout-multiple-columns .column-header,
+  .layout-multiple-columns .column-back-button {
     border-top: 1px solid var(--color-lines);
     border-right: 1px solid var(--color-lines);
     border-left: 1px solid var(--color-lines);
@@ -8980,377 +9247,431 @@ div[tabindex='-1']
 /* Popular hashtag icons
    --------------------- */
 .app-body
-  .trends__item:has(.trends__item__name a:is([href*='tangerine' i]))::before {
+  .trends__item:has(.trends__item__name a [href*='tangerine' i])::before {
   background-image: var(--icon-tangerine-slice);
 }
 
+.app-body .trends__item:has(.trends__item__name a [href$='day' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='tag' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='monday' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='tuesday' i])::before,
 .app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href$='day' i],
-        [href$='tag' i],
-        [href*='monday' i],
-        [href*='tuesday' i],
-        [href*='wednesday' i],
-        [href*='thursday' i],
-        [href*='friday' i],
-        [href*='saturday' i],
-        [href*='sunday' i],
-        [href*='montag' i],
-        [href*='dienstag' i],
-        [href*='mittwoch' i],
-        [href*='donnerstag' i],
-        [href*='freitag' i],
-        [href*='samstag' i],
-        [href*='sonntag' i],
-        [href*='lundi' i],
-        [href*='mardi' i],
-        [href*='mercredi' i],
-        [href*='jeudi' i],
-        [href*='vendredi' i],
-        [href*='samedi' i],
-        [href*='dimanche' i],
-        [href*='lunes' i],
-        [href*='martes' i],
-        [href*='miercoles' i],
-        [href*='jueves' i],
-        [href*='viernes' i],
-        [href*='sabado' i],
-        [href*='domingo' i]
-      )
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='wednesday' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='thursday' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='friday' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='saturday' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='sunday' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='montag' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='dienstag' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='mittwoch' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='donnerstag' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='freitag' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='samstag' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='sonntag' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='lundi' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='mardi' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='mercredi' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='jeudi' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='vendredi' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='samedi' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='dimanche' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='lunes' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='martes' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='miercoles' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='jueves' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='viernes' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='sabado' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='domingo' i])::before {
   background-image: var(--icon-calendar);
 }
 
+.app-body .trends__item:has(.trends__item__name a [href*='tune' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='/np' i])::before,
 .app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href*='tune' i],
-        [href$='/np' i],
-        [href*='nowplaying' i],
-        [href*='singit' i],
-        [href*='music' i],
-        [href*='eurovision' i],
-        [href*='song' i],
-        [href$='synth' i],
-        [href$='jazz' i],
-        [href$='rock' i],
-        [href$='rap' i],
-        [href$='BandcampFriday' i],
-        [href*='Jukebox' i],
-        [href*='/kpop' i],
-        [href*='/rock' i],
-        [href$='/pop' i]
-      )
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='nowplaying' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='singit' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='music' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='eurovision' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='song' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='synth' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='jazz' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='rock' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='rap' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href$='BandcampFriday' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='Jukebox' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='/kpop' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='/rock' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='/pop' i])::before {
   background-image: var(--icon-music);
 }
 
 .app-body
-  .trends__item:has(.trends__item__name a:is([href*='eurovision' i]))::before {
+  .trends__item:has(.trends__item__name a [href*='eurovision' i])::before {
   background-image: var(--icon-microphone);
 }
 
 .app-body
-  .trends__item:has(.trends__item__name a:is([href*='birthday' i]))::before {
+  .trends__item:has(.trends__item__name a [href*='birthday' i])::before {
   background-image: var(--icon-cake);
 }
 
 .app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href*='letterboxd' i],
-        [href$='trakt' i],
-        [href$='TV' i],
-        [href$='cinema' i],
-        [href*='nowwatching' i],
-        [href*='WatchingNow' i],
-        [href*='movie' i],
-        [href*='/cinema' i],
-        [href*='/oscars' i]
-      )
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='letterboxd' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='trakt' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='TV' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='cinema' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='nowwatching' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='WatchingNow' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='movie' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='/cinema' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='/oscars' i])::before {
   background-image: var(--icon-popcorn);
 }
 
 .app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href*='photography' i],
-        [href*='photo' i],
-        [href*='foto' i],
-        [href*='pics' i],
-        [href*='selfie' i],
-        [href*='/ShotWith' i],
-        [href*='WindowFriday' i],
-        [href*='FensterFreitag' i],
-        [href$='/instagram' i]
-      )
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='photography' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='photo' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='foto' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='pics' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='selfie' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='/ShotWith' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='WindowFriday' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='FensterFreitag' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href$='/instagram' i])::before {
   background-image: var(--icon-camera);
 }
 
 .app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href*='SilentSunday' i],
-        [href*='sunset' i],
-        [href*='sunrise' i],
-        [href$='/sky' i],
-        [href*='skyblue' i],
-        [href*='ocean' i]
-      )
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='SilentSunday' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='sunset' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='sunrise' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='/sky' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='skyblue' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='ocean' i])::before {
   background-image: var(--icon-sunset);
 }
 
+.app-body .trends__item:has(.trends__item__name a [href*='gift' i])::before,
 .app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href*='gift' i],
-        [href*='christmas' i],
-        [href*='weihnachten' i],
-        [href*='noel' i]
-      )
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='christmas' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='weihnachten' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='noel' i])::before {
   background-image: var(--icon-pine);
 }
 
+.app-body .trends__item:has(.trends__item__name a [href*='tree' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='trunk' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='ecology' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='klima' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='climat' i])::before,
 .app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href*='tree' i],
-        [href*='trunk' i],
-        [href*='ecology' i],
-        [href*='klima' i],
-        [href*='climat' i],
-        [href*='environment' i],
-        [href*='/garden' i],
-        [href*='mosstodon' i],
-        [href*='/vegan' i],
-        [href*='/plants' i]
-      )
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='environment' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='/garden' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='mosstodon' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='/vegan' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='/plants' i])::before {
   background-image: var(--icon-tree);
 }
 
 .app-body
   .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href$='/cat' i],
-        [href*='/cats' i],
-        [href*='catloaf' i],
-        [href*='Caturday' i],
-        [href*='catsofmastodon' i],
-        [href*='WhiskersWednesday' i]
-      ):not([href*='cath' i])
+    .trends__item__name a [href$='/cat' i]:not([href*='cath' i])
+  )::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name a [href*='/cats' i]:not([href*='cath' i])
+  )::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name a [href*='catloaf' i]:not([href*='cath' i])
+  )::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name a [href*='Caturday' i]:not([href*='cath' i])
+  )::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name a [href*='catsofmastodon' i]:not([href*='cath' i])
+  )::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name a [href*='WhiskersWednesday' i] :not([href*='cath' i])
   )::before {
   background-image: var(--icon-cat);
 }
 
+.app-body .trends__item:has(.trends__item__name a [href$='dog' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='dogs' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='/dog' i])::before,
 .app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href$='dog' i],
-        [href$='dogs' i],
-        [href*='/dog' i],
-        [href*='DogLovers' i],
-        [href*='dogsofmastodon' i],
-        [href*='DogsOfFedi' i],
-        [href*='dogstadon' i]
-      )
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='DogLovers' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='dogsofmastodon' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='DogsOfFedi' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='dogstadon' i])::before {
   background-image: var(--icon-dog);
 }
 
 .app-body
   .trends__item:has(
     .trends__item__name
-      a:is(
-        [href$='art' i],
-        [href*='artmatters' i],
-        [href*='DigitalArt' i],
-        [href*='PixelArt' i],
-        [href*='artwork' i],
-        [href*='artist' i],
-        [href$='design' i],
-        [href*='designer' i],
-        [href*='watercolo' i],
-        [href*='painting' i]
-      ):not([href*='aiart' i], [href*='artificial' i], [href*='aidesign' i])
+      a
+      [href$='art' i]:not(
+        [href*='aiart' i],
+        [href*='artificial' i],
+        [href*='aidesign' i]
+      )
+  )::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name
+      a
+      [href*='artmatters' i]:not(
+        [href*='aiart' i],
+        [href*='artificial' i],
+        [href*='aidesign' i]
+      )
+  )::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name
+      a
+      [href*='DigitalArt' i]:not(
+        [href*='aiart' i],
+        [href*='artificial' i],
+        [href*='aidesign' i]
+      )
+  )::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name
+      a
+      [href*='PixelArt' i]:not(
+        [href*='aiart' i],
+        [href*='artificial' i],
+        [href*='aidesign' i]
+      )
+  )::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name
+      a
+      [href*='artwork' i]:not(
+        [href*='aiart' i],
+        [href*='artificial' i],
+        [href*='aidesign' i]
+      )
+  )::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name
+      a
+      [href*='artist' i]:not(
+        [href*='aiart' i],
+        [href*='artificial' i],
+        [href*='aidesign' i]
+      )
+  )::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name
+      a
+      [href$='design' i]:not(
+        [href*='aiart' i],
+        [href*='artificial' i],
+        [href*='aidesign' i]
+      )
+  )::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name
+      a
+      [href*='designer' i]:not(
+        [href*='aiart' i],
+        [href*='artificial' i],
+        [href*='aidesign' i]
+      )
+  )::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name
+      a
+      [href*='watercolo' i]:not(
+        [href*='aiart' i],
+        [href*='artificial' i],
+        [href*='aidesign' i]
+      )
+  )::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name
+      a
+      [href*='painting' i]
+      :not([href*='aiart' i], [href*='artificial' i], [href*='aidesign' i])
   )::before {
   background-image: var(--icon-brush);
 }
 
+.app-body .trends__item:has(.trends__item__name a [href$='apple' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='macos' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='/mac' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='ios' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='ipad' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='iphone' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='/wwdc' i])::before,
 .app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href$='apple' i],
-        [href$='macos' i],
-        [href$='/mac' i],
-        [href$='ios' i],
-        [href*='ipad' i],
-        [href*='iphone' i],
-        [href*='/wwdc' i],
-        [href*='/appleevent' i]
-      )
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='/appleevent' i])::before {
   background-image: var(--icon-apple);
 }
 
-.app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href*='poem' i],
-        [href*='writing' i],
-        [href*='write' i],
-        [href*='article' i]
-      )
-  )::before {
+.app-body .trends__item:has(.trends__item__name a [href*='poem' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='writing' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='write' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='article' i])::before {
   background-image: var(--icon-pencil);
 }
 
+.app-body .trends__item:has(.trends__item__name a [href*='/book' i])::before,
 .app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href*='/book' i],
-        [href*='literature' i],
-        [href*='reading' i],
-        [href$='/history' i],
-        [href$='/histoire' i]
-      )
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='literature' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='reading' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='/history' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href$='/histoire' i])::before {
   background-image: var(--icon-book);
 }
 
+.app-body .trends__item:has(.trends__item__name a [href$='game' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='gaming' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='gamedev' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='games' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='gamer' i])::before,
 .app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href$='game' i],
-        [href*='gaming' i],
-        [href*='gamedev' i],
-        [href*='games' i],
-        [href*='gamer' i],
-        [href*='playstation' i],
-        [href*='arcade' i],
-        [href*='xbox' i],
-        [href*='nintendo' i]
-      )
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='playstation' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='arcade' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='xbox' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='nintendo' i])::before {
   background-image: var(--icon-gaming);
 }
 
 .app-body
-  .trends__item:has(
-    .trends__item__name a:is([href*='/minecraft' i], [href*='/hermitcraft' i])
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='/minecraft' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='/hermitcraft' i])::before {
   background-image: var(--icon-cube);
 }
 
+.app-body .trends__item:has(.trends__item__name a [href$='/fifa' i])::before,
 .app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href$='/fifa' i],
-        [href$='/fifaworldcup' i],
-        [href$='/soccer' i],
-        [href*='/euro202' i],
-        [href$='/mls' i],
-        [href*='/sport' i]
-      )
-  )::before {
+  .trends__item:has(.trends__item__name a [href$='/fifaworldcup' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='/soccer' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='/euro202' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='/mls' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='/sport' i])::before {
   background-image: var(--icon-football);
 }
 
+.app-body .trends__item:has(.trends__item__name a [href$='lgbt' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='/lgbt' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='/queer' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='trans' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='pride' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href$='womensday' i])::before,
 .app-body
   .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href$='lgbt' i],
-        [href*='/lgbt' i],
-        [href*='/queer' i],
-        [href$='trans' i],
-        [href$='pride' i],
-        [href$='womensday' i],
-        [href*='internationalwomensday' i],
-        [href$='/IWD' i],
-        [href*='JourneeDesDroitsDesFemmes' i],
-        [href*='feministischerkampftag' i],
-        [href*='celebratewomen' i],
-        [href*='/8mars' i],
-        [href$='transdayofvisibility' i],
-        [href$='TDOV' i],
-        [href$='transdayofremembrance' i],
-        [href$='TDOR' i],
-        [href$='pridemonth' i],
-        [href$='blm' i],
-        [href$='blacklivesmatter' i],
-        [href$='blackmastodon' i],
-        [href$='blackfedi' i],
-        [href*='protest' i],
-        [href*='greve' i],
-        [href*='manif' i],
-        [href$='riot' i]
-      )
-  )::before {
+    .trends__item__name a [href*='internationalwomensday' i]
+  )::before,
+.app-body .trends__item:has(.trends__item__name a [href$='/IWD' i])::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name a [href*='JourneeDesDroitsDesFemmes' i]
+  )::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name a [href*='feministischerkampftag' i]
+  )::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='celebratewomen' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='/8mars' i])::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name a [href$='transdayofvisibility' i]
+  )::before,
+.app-body .trends__item:has(.trends__item__name a [href$='TDOV' i])::before,
+.app-body
+  .trends__item:has(
+    .trends__item__name a [href$='transdayofremembrance' i]
+  )::before,
+.app-body .trends__item:has(.trends__item__name a [href$='TDOR' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href$='pridemonth' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='blm' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href$='blacklivesmatter' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href$='blackmastodon' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href$='blackfedi' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='protest' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='greve' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='manif' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='riot' i])::before {
   background-image: var(--icon-pride);
 }
 
 .app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href*='electionday' i],
-        [href$='election' i],
-        [href$='/election' i],
-        [href*='presidentielle' i],
-        [href*='presidential' i],
-        [href*='legislativ' i]
-      )
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='electionday' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='election' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href$='/election' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='presidentielle' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='presidential' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='legislativ' i])::before {
   background-image: var(--icon-vote);
 }
 
+.app-body .trends__item:has(.trends__item__name a [href$='dev' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href$='code' i])::before,
 .app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is(
-        [href$='dev' i],
-        [href$='code' i],
-        [href*='development' i],
-        [href*='developer' i],
-        [href*='devops' i],
-        [href*='opensource' i]
-      )
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='development' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='developer' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='devops' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='opensource' i])::before {
   background-image: var(--icon-code);
 }
 
 .app-body
-  .trends__item:has(
-    .trends__item__name a:is([href*='mutualaid' i], [href*='crowdfund' i])
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='mutualaid' i])::before,
+.app-body
+  .trends__item:has(.trends__item__name a [href*='crowdfund' i])::before {
   background-image: var(--icon-handshake);
 }
 
+.app-body .trends__item:has(.trends__item__name a [href*='olympics' i])::before,
 .app-body
-  .trends__item:has(
-    .trends__item__name
-      a:is([href*='olympics' i], [href*='/Paris2024' i], [href*='/LA2028' i])
-  )::before {
+  .trends__item:has(.trends__item__name a [href*='/Paris2024' i])::before,
+.app-body .trends__item:has(.trends__item__name a [href*='/LA2028' i])::before {
   background-image: var(--icon-olympics);
   transform: scale(1.85);
 }
