@@ -54,6 +54,8 @@
   "keyboard_shortcuts.secondary_toot": "to send toot using secondary privacy setting",
   "moved_to_warning": "This account is marked as moved to {moved_to_link}, and may thus not accept new follows.",
   "navigation_bar.app_settings": "App settings",
+  "navigation_bar.keyboard_shortcuts": "Keyboard shortcuts",
+  "navigation_bar.misc": "Misc",
   "notification.reaction": "{name} reacted to your post <e>with</e>",
   "notification.reaction.name_and_others_with_link": "{name} and <a>{count, plural, one {# other} other {# others}}</a> reacted to your post",
   "navigation_bar.live_feed_bubble": "Live feed (bubble)",
