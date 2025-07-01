@@ -1,8 +1,3 @@
-@use 'sass:color';
-@use 'variables' as *;
-@use 'functions' as *;
-@use 'mixins' as *;
-
 :root {
   --background-color-alt: transparent;
 }
@@ -72,12 +67,8 @@ body.app-body.flavour-glitch
   .status__content
   .status__content--collapsed
   .status__content__text {
-  mask: linear-gradient(to bottom, #000 0 130px, transparent 290px) !important;
-  -webkit-mask: linear-gradient(
-    to bottom,
-    #000 0 130px,
-    transparent 290px
-  ) !important;
+  mask: linear-gradient(to bottom, #000 50px, transparent) !important;
+  -webkit-mask: linear-gradient(to bottom, #000 50px, transparent) !important;
   max-height: 100px;
 }
 
