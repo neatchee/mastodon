@@ -713,7 +713,7 @@ body.app-body {
 .app-body .columns-area__panels {
   gap: 10px;
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body:not(.layout-multiple-columns) .scrollable,
   .app-body:not(.layout-multiple-columns) .column > .scrollable {
     border-right: 0;
@@ -2611,7 +2611,7 @@ body.app-body {
   right: 60px;
   bottom: 20px;
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .status__content__translate-button,
   .app-body .translate-button .link-button {
     bottom: 10px;
@@ -2689,7 +2689,7 @@ body.app-body {
   padding: 13px 12px;
   position: relative;
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .status__wrapper {
     padding: 10px 8px;
   }
@@ -2876,7 +2876,7 @@ body.app-body {
   content: '';
   opacity: 0.7;
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .status::before,
   .app-body .notification__message::before {
     width: calc(100% - 73px);
@@ -3021,7 +3021,7 @@ div[tabindex='-1']
   > .status__line--full::before {
   top: 32px;
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .status__line {
     inset-inline-start: 35px;
   }
@@ -3090,7 +3090,7 @@ div[tabindex='-1']
   padding-bottom: 12px;
   box-shadow: none;
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .detailed-status {
     padding: 8px 8px 14px;
   }
@@ -3234,7 +3234,7 @@ div[tabindex='-1']
   gap: 8px;
   width: auto;
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .detailed-status__action-bar {
     padding-left: 0;
     padding-right: 0;
@@ -3657,7 +3657,7 @@ div[tabindex='-1']
 .app-body .status-card__author strong {
   font-weight: 500;
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .status-card:not(.expanded) .status-card__image {
     width: 80px;
   }
@@ -4626,7 +4626,7 @@ div[tabindex='-1']
     margin-top: 10px;
   }
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body:not(.layout-multiple-columns) .account__section-headline,
   .app-body:not(.layout-multiple-columns) .notification__filter-bar {
     border-left: 0;
@@ -4761,7 +4761,7 @@ div[tabindex='-1']
   background-image: var(--icon-post-notification);
 }
 
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .account__header + .account__section-headline {
     border-radius: 0;
   }
@@ -5189,7 +5189,7 @@ div[tabindex='-1']
     display: none;
   }
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .columns-area__panels__main {
     width: 100%;
     margin-left: -55px;
@@ -5202,7 +5202,7 @@ div[tabindex='-1']
   padding-bottom: 5px;
   background-color: var(--color-content-bg);
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .account__header {
     border-left: 0;
     border-right: 0;
@@ -6284,7 +6284,7 @@ div[tabindex='-1']
     padding: 10px 0;
   }
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body:not(.layout-multiple-columns) .explore__search-header {
     padding: 10px;
   }
@@ -6438,7 +6438,7 @@ div[tabindex='-1']
   text-align: right;
   background-position: center right;
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .notification__message .icon {
     margin-left: 34px;
   }
@@ -6495,7 +6495,7 @@ div[tabindex='-1']
     padding-right: 22px;
   }
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body
     .notification
     .account:has(
@@ -6843,7 +6843,7 @@ div[tabindex='-1']
   border: 1px solid var(--color-lines);
   border-bottom: 0;
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .column-inline-form {
     border-left: 0;
     border-right: 0;
@@ -6877,7 +6877,7 @@ div[tabindex='-1']
 .app-body .getting-started .column-subheading {
   color: var(--color-fg-muted);
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .item-list .column-subheading {
     border-left: 0;
     border-right: 0;
@@ -6951,7 +6951,7 @@ div[tabindex='-1']
 .app-body .item-list article:last-child .column-link {
   border-bottom: 0;
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .item-list .column-link {
     border-left: 0;
     border-right: 0;
@@ -7975,7 +7975,7 @@ div[tabindex='-1']
 .app-body .media-modal__nav--right {
   right: 24px;
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .media-modal__nav {
     display: none;
   }
@@ -8662,7 +8662,7 @@ div[tabindex='-1']
   padding-bottom: 20px;
   z-index: 1;
 }
-@media screen and (width <=889px) {
+@media screen and (width <= 759px) {
   .app-body .scrollable.about {
     border-left: 0;
     border-right: 0;

@@ -4520,7 +4520,7 @@ body .compose-form .compose-form__uploads {
 }
 
 /* In-between breakpoint */
-@media (width >= 889px) and (width <= 1174px) {
+@media (width >= 759px) and (width <= 1174px) {
   .layout-single-column .columns-area__panels__main > div {
     border-right: 0;
   }
@@ -4543,7 +4543,7 @@ body .compose-form .compose-form__uploads {
 }
 
 /* Mobile */
-@media screen and (width <= 889px) {
+@media screen and (width <= 759px) {
   /* Better blur overlay for ui-header */
   .layout-single-column .ui::after {
     backdrop-filter: blur(12px);
@@ -5431,7 +5431,7 @@ div[tabindex='-1']
   left: -29px;
 }
 
-@media screen and (width <= 889px) {
+@media screen and (width <= 759px) {
   .layout-single-column.no-reduce-motion
     .status
     .icon-button.star-icon.activate
