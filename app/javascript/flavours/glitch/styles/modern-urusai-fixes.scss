@@ -98,18 +98,50 @@ body.app-body.flavour-glitch > #mastodon .notification-ungrouped {
     visibility: collapse;
   }
 
-  .navigation-panel__menu a,
-  .navigation-panel__menu div {
-    max-width: 40px;
+  .navigation-panel__menu {
+    display: flex;
+    margin: 0 5px;
+    width: 98%;
+
+    & .icon.icon-down {
+      position: absolute;
+    }
+
+    a,
+    div,
+    button {
+      max-width: none;
+      width: inherit;
+    }
+
+    a:not(.button),
+    div:not(.sign-in-banner),
+    button {
+      padding: unset !important;
+      display: flex;
+      flex: 1 1 auto;
+    }
+
+    > span,
+    .column-link > span {
+      position: absolute;
+    }
+  }
+
+  .navigation-panel__sign-in-banner {
+    max-width: 60%;
+  }
+
+  .sign-in-banner {
+    > p {
+      visibility: hidden;
+      position: absolute;
+    }
   }
 
   .ui__header .ui__header__links {
     right: unset !important;
     inset-inline-end: unset !important;
-  }
-
-  .navigation-panel__menu {
-    display: flex;
   }
 
   .ui__header [href='/publish']::before {
@@ -127,4 +159,8 @@ body.app-body.flavour-glitch > #mastodon .notification-ungrouped {
       width: unset !important;
     }
   }
+}
+
+body > [data-popper-placement] {
+  z-index: 100;
 }
