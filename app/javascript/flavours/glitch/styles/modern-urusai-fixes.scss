@@ -66,6 +66,10 @@ body.app-body.flavour-glitch > #mastodon .notification-ungrouped {
   border-bottom: 1px solid var(--background-border-color) !important;
 }
 
+body.app-body.flavour-glitch > #mastodon .notification-ungrouped--mention {
+  padding: 0 16px;
+}
+
 .status__action-bar {
   margin-bottom: unset !important;
 
