@@ -106,6 +106,10 @@ class REST::InstanceSerializer < ActiveModel::Serializer
         max_reactions: StatusReactionValidator::LIMIT,
       },
 
+      gif_search: {
+        enabled: GifService.configured?,
+      },
+
       limited_federation: limited_federation?,
     }
   end

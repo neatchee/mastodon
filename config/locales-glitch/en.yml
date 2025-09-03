@@ -53,6 +53,9 @@ en:
       body: "%{name} reacted to your post:"
       subject: "%{name} reacted to your post"
       title: New reaction
+  gif:
+    errors:
+      too_many_requests: There have been too many requests to the GIF search service recently.
   settings:
     flavours: Flavours
   notification_mailer:
