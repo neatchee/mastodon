@@ -2,7 +2,7 @@
 
 //  Modified by kibi! to use webpack package syntax for urls (eg,
 //  `url(@/images/…)`) for easy importing into skins.
-
+@use 'sass:color';
 @use 'mastodon/functions' as *;
 
 $win95-bg: #bfbfbf;
