@@ -23,7 +23,7 @@ export function CommunityTimeline () {
 }
 
 export function BubbleTimeline () {
-  return import(/* webpackChunkName: "flavours/glitch/async/bubble_timeline" */'../../bubble_timeline');
+  return import('../../bubble_timeline');
 }
 
 export function Firehose () {

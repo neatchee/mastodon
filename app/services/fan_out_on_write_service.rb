@@ -159,13 +159,16 @@ class FanOutOnWriteService < BaseService
       redis.publish(channel, anonymous_payload)
       redis.publish("#{channel}:media", anonymous_payload) if @status.with_media?
     }
-    is_reply = @status.reply? && @status.in_reply_to_account_id != @account.id
+    @status.reply? && @status.in_reply_to_account_id != @account.id
 
-    broadcast_to.call('timeline:public') if !is_reply || Setting.show_replies_in_federated_timelines
-    if @status.local
-      broadcast_to.call('timeline:public:local') if !is_reply || Setting.show_replies_in_local_timelines
-    elsif !is_reply || Setting.show_replies_in_federated_timelines
-      broadcast_to.call('timeline:public:remote')
+    redis.publish('timeline:public', anonymous_payload)
+    redis.publish(@status.local? ? 'timeline:public:local' : 'timeline:public:remote', anonymous_payload)
+    redis.publish('timeline:public:bubble', anonymous_payload) if @status.bubble?
+
+    if @status.with_media?
+      redis.publish('timeline:public:media', anonymous_payload)
+      redis.publish(@status.local? ? 'timeline:public:local:media' : 'timeline:public:remote:media', anonymous_payload)
+      redis.publish('timeline:public:bubble:media', anonymous_payload) if @status.bubble?
     end
 
     broadcast_to.call('timeline:public:bubble') if @status.bubble?

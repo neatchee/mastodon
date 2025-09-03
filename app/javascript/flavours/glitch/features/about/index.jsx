@@ -86,7 +86,7 @@ class About extends PureComponent {
   };
 
   render () {
-    const { multiColumn, intl, server, extendedDescription, domainBlocks, locale, bubbleDomains } = this.props;
+    const { multiColumn, intl, server, extendedDescription, domainBlocks, bubbleDomains, locale } = this.props;
     const isLoading = server.get('isLoading');
 
     return (
