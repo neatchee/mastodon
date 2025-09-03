@@ -23,7 +23,7 @@ export const ReplyIndicator = () => {
   }
 
   return (
-    <div className={'reply-indicator' + (quoteId ? ' reply-indicator__quote' : '')}>
+    <div className='reply-indicator'>
       {inReplyToId && (<div className='reply-indicator__line' />)}
 
       <Link to={`/@${account.get('acct')}`} className='detailed-status__display-avatar'>
