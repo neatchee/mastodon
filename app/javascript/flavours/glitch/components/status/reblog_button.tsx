@@ -23,8 +23,8 @@ import {
   useAppSelector,
 } from '@/flavours/glitch/store';
 import { isFeatureEnabled } from '@/flavours/glitch/utils/environment';
-import FormatQuote from '@/material-icons/400-24px/format_quote.svg?react';
-import FormatQuoteOff from '@/material-icons/400-24px/format_quote_off.svg?react';
+import FormatQuote from '@/material-icons/400-24px/format_quote-fill.svg?react';
+import FormatQuoteOff from '@/material-icons/400-24px/format_quote_off-fill.svg?react';
 import RepeatIcon from '@/material-icons/400-24px/repeat.svg?react';
 import RepeatActiveIcon from '@/svg-icons/repeat_active.svg?react';
 import RepeatDisabledIcon from '@/svg-icons/repeat_disabled.svg?react';
@@ -44,7 +44,7 @@ const messages = defineMessages({
   quote: { id: 'status.quote', defaultMessage: 'Quote' },
   quote_cannot: {
     id: 'status.cannot_quote',
-    defaultMessage: 'Author has disabled quoting on this post',
+    defaultMessage: 'Quotes are disabled on this post',
   },
   quote_followers_only: {
     id: 'status.quote_followers_only',
@@ -59,6 +59,10 @@ const messages = defineMessages({
     defaultMessage: 'Private posts cannot be quoted',
   },
   reblog: { id: 'status.reblog', defaultMessage: 'Boost' },
+  reblog_or_quote: {
+    id: 'status.reblog_or_quote',
+    defaultMessage: 'Boost or quote',
+  },
   reblog_cancel: {
     id: 'status.cancel_reblog_private',
     defaultMessage: 'Unboost',
@@ -176,7 +180,7 @@ export const StatusReblogButton: FC<ReblogButtonProps> = ({
     >
       <IconButton
         title={intl.formatMessage(
-          !disabled ? messages.reblog : messages.all_disabled,
+          !disabled ? messages.reblog_or_quote : messages.all_disabled,
         )}
         icon='retweet'
         iconComponent={iconComponent}
