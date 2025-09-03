@@ -11,7 +11,6 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import AddReactionIcon from '@/material-icons/400-24px/add_reaction.svg?react';
 import BookmarkIcon from '@/material-icons/400-24px/bookmark-fill.svg?react';
 import BookmarkBorderIcon from '@/material-icons/400-24px/bookmark.svg?react';
-import FormatQuoteIcon from '@/material-icons/400-24px/format_quote-fill.svg?react';
 import MoreHorizIcon from '@/material-icons/400-24px/more_horiz.svg?react';
 import RepeatIcon from '@/material-icons/400-24px/repeat.svg?react';
 import ReplyIcon from '@/material-icons/400-24px/reply.svg?react';
@@ -50,7 +49,6 @@ const messages = defineMessages({
   replyAll: { id: 'status.replyAll', defaultMessage: 'Reply to thread' },
   reblog: { id: 'status.reblog', defaultMessage: 'Boost' },
   reblog_private: { id: 'status.reblog_private', defaultMessage: 'Boost with original visibility' },
-  quote: { id: 'status.quote', defaultMessage: 'Quote' },
   cancel_reblog_private: { id: 'status.cancel_reblog_private', defaultMessage: 'Unboost' },
   cannot_reblog: { id: 'status.cannot_reblog', defaultMessage: 'This post cannot be boosted' },
   favourite: { id: 'status.favourite', defaultMessage: 'Favorite' },
@@ -83,7 +81,6 @@ class StatusActionBar extends ImmutablePureComponent {
     onFavourite: PropTypes.func,
     onReactionAdd: PropTypes.func,
     onReblog: PropTypes.func,
-    onQuote: PropTypes.func,
     onDelete: PropTypes.func,
     onDirect: PropTypes.func,
     onMention: PropTypes.func,
@@ -120,17 +117,6 @@ class StatusActionBar extends ImmutablePureComponent {
     if (signedIn) {
       this.props.onReply(this.props.status);
     } else {
-      this.props.onInteractionModal('reply', this.props.status);
-    }
-  };
-
-  handleQuoteClick = () => {
-    const { signedIn } = this.props.identity;
-
-    if (signedIn) {
-      this.props.onQuote(this.props.status, this.props.history);
-    } else {
-      // TODO(ariadne): Add an interaction modal for quoting specifically.
       this.props.onInteractionModal('reply', this.props.status);
     }
   };
@@ -244,7 +230,6 @@ class StatusActionBar extends ImmutablePureComponent {
 
     let menu = [];
     let reblogIcon = 'retweet';
-    let quoteIcon = 'quote-right';
     let replyIcon;
     let replyIconComponent;
     let replyTitle;
@@ -327,7 +312,6 @@ class StatusActionBar extends ImmutablePureComponent {
     const reblogPrivate = status.getIn(['account', 'id']) === me && status.get('visibility') === 'private';
 
     let reblogTitle, reblogIconComponent;
-    let quoteTitle, quoteIconComponent;
 
     if (status.get('reblogged')) {
       reblogTitle = intl.formatMessage(messages.cancel_reblog_private);
@@ -342,19 +326,6 @@ class StatusActionBar extends ImmutablePureComponent {
       reblogTitle = intl.formatMessage(messages.cannot_reblog);
       reblogIconComponent = RepeatDisabledIcon;
     }
-
-    // quotes
-    if (publicStatus) {
-      quoteTitle = intl.formatMessage(messages.quote);
-      quoteIconComponent = FormatQuoteIcon;
-    } else if (reblogPrivate) {
-      quoteTitle = intl.formatMessage(messages.reblog_private);
-      quoteIconComponent = FormatQuoteIcon;
-    } else {
-      quoteTitle = intl.formatMessage(messages.cannot_reblog);
-      quoteIconComponent = FormatQuoteIcon;
-    }
-
 
     const filterButton = this.props.onFilter && (
       <div className='status__action-bar__button-wrapper'>
@@ -381,9 +352,6 @@ class StatusActionBar extends ImmutablePureComponent {
         </div>
         <div className='status__action-bar__button-wrapper'>
           <IconButton className={classNames('status__action-bar-button', { reblogPrivate })} disabled={!publicStatus && !reblogPrivate} active={status.get('reblogged')} title={reblogTitle} icon={reblogIcon} iconComponent={reblogIconComponent} onClick={this.handleReblogClick} counter={withCounters ? status.get('reblogs_count') : undefined} />
-        </div>
-        <div className='status__action-bar__button-wrapper'>
-          <IconButton className={classNames('status__action-bar-button', { reblogPrivate })} disabled={!publicStatus && !reblogPrivate} /* active={status.get('reblogged')} */ title={quoteTitle} icon={quoteIcon} iconComponent={quoteIconComponent} onClick={this.handleQuoteClick} />
         </div>
         <div className='status__action-bar__button-wrapper'>
           <IconButton className='status__action-bar-button star-icon' animate active={status.get('favourited')} title={favouriteTitle} icon='star' iconComponent={status.get('favourited') ? StarIcon : StarBorderIcon} onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />

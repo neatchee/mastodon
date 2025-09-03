@@ -10,7 +10,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import ChevronRightIcon from '@/material-icons/400-24px/chevron_right.svg?react';
-import QuoteIcon from '@/material-icons/400-24px/format_quote-fill.svg?react';
 import { Icon } from 'flavours/glitch/components/icon';
 import PollContainer from 'flavours/glitch/containers/poll_container';
 import { identityContextPropShape, withIdentity } from 'flavours/glitch/identity_context';
@@ -348,37 +347,6 @@ class StatusContent extends PureComponent {
       <TranslateButton onClick={this.handleTranslate} translation={status.get('translation')} />
     );
 
-    let quote = '';
-
-    if (status.get('quote', null) !== null) {
-      let quoteStatus = status.get('quote');
-      let quoteStatusContent = { __html: quoteStatus.get('contentHtml') };
-      let quoteStatusAccount = quoteStatus.get('account');
-      let quoteStatusDisplayName = { __html: quoteStatusAccount.get('display_name_html') };
-
-      quote = (
-        <div className='status__quote'>
-          <blockquote>
-            <bdi>
-              <span className='quote-display-name'>
-                <Icon
-                  fixedWidth
-                  aria-hidden='true'
-                  key='icon-quote-right'
-                  icon={QuoteIcon} />
-                <strong className='display-name__html'>
-                  <a onClick={this.handleAccountClick} href={quoteStatus.getIn(['account', 'url'])} dangerouslySetInnerHTML={quoteStatusDisplayName} />
-                </strong>
-              </span>
-            </bdi>
-            <div>
-              <a href={quoteStatus.get('url')} target='_blank' rel='noopener' dangerouslySetInnerHTML={quoteStatusContent} />
-            </div>
-          </blockquote>
-        </div>
-      );
-    }
-
     const poll = !!status.get('poll') && (
       <PollContainer pollId={status.get('poll')} status={status} lang={language} />
     );
@@ -387,7 +355,6 @@ class StatusContent extends PureComponent {
       return (
         <>
           <div className={classNames} ref={this.setRef} onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp} tabIndex={0} key='status-content' onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
-            {quote}
             <div className={textClassNames} lang={language} dangerouslySetInnerHTML={content} />
 
             {poll}
@@ -400,7 +367,6 @@ class StatusContent extends PureComponent {
     } else {
       return (
         <div className={classNames} ref={this.setRef} tabIndex={0} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
-          {quote}
           <div className={textClassNames} lang={language} dangerouslySetInnerHTML={content} />
 
           {poll}

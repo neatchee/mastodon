@@ -33,17 +33,7 @@ module FormattingHelper
         'app.formatter.content.origin' => status.local? ? 'local' : 'remote'
       )
 
-      base = html_aware_format(status.text, status.local?, preloaded_accounts: [status.account] + (status.respond_to?(:active_mentions) ? status.active_mentions.map(&:account) : []), content_type: status.content_type)
-
-      if status.quote? && status.local?
-        after_html = begin
-          "<span class=\"quote-inline\"><a href=\"#{status.quote.to_log_permalink}\" class=\"status-link unhandled-link\" target=\"_blank\">#{status.quote.to_log_permalink}</a></span>"
-        end.html_safe # rubocop:disable Rails/OutputSafety
-
-        base + after_html
-      else
-        base
-      end
+      html_aware_format(status.text, status.local?, preloaded_accounts: [status.account] + (status.respond_to?(:active_mentions) ? status.active_mentions.map(&:account) : []), content_type: status.content_type)
     end
   end
 

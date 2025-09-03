@@ -76,8 +76,7 @@ class Api::V1::StatusesController < Api::BaseController
       content_type: status_params[:content_type],
       allowed_mentions: status_params[:allowed_mentions],
       idempotency: request.headers['Idempotency-Key'],
-      with_rate_limit: true,
-      quote_id: status_params[:quote_id].presence
+      with_rate_limit: true
     )
 
     render json: @status, serializer: serializer_for_status
@@ -160,7 +159,6 @@ class Api::V1::StatusesController < Api::BaseController
       :visibility,
       :language,
       :scheduled_at,
-      :quote_id,
       :content_type,
       allowed_mentions: [],
       media_ids: [],

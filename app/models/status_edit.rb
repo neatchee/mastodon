@@ -64,8 +64,6 @@ class StatusEdit < ApplicationRecord
     end.take(Status::MEDIA_ATTACHMENTS_LIMIT)
   end
 
-  delegate :quote?, to: :status
-
   def proper
     self
   end

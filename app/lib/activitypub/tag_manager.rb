@@ -95,15 +95,11 @@ class ActivityPub::TagManager
   # Unlisted and private statuses go out primarily to the followers collection
   # Others go out only to the people they mention
   def to(status)
-    to = []
-
-    to << uri_for(status.quote.account) if status.quote?
-
     case status.visibility
     when 'public'
-      to << COLLECTIONS[:public]
+      [COLLECTIONS[:public]]
     when 'unlisted', 'private'
-      to << account_followers_url(status.account)
+      [account_followers_url(status.account)]
     when 'direct', 'limited'
       if status.account.silenced?
         # Only notify followers if the account is locally silenced
