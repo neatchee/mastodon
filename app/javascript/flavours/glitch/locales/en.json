@@ -142,8 +142,5 @@
   "tenor.error": "Oops! Something went wrong. Please, try again.",
   "tenor.loading": "Loading...",
   "tenor.nomatches": "No matches found.",
-  "tenor.search": "Search for GIFs",
-  "confirmations.quote.confirm": "Quote",
-  "confirmations.quote.message": "Quoting now will overwrite the message you are currently composing. Are you sure you want to proceed?",
-  "confirmations.quote.title": "Overwrite post?"
+  "tenor.search": "Search for GIFs"
 }
