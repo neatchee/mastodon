@@ -138,5 +138,5 @@
   "status.reactions": "{count, plural, one {reaction} other {reactions}}",
   "status.reactions.empty": "No one has reacted to this post yet. When someone does, they will show up here.",
   "status.show_filter_reason": "Show anyway",
-  "suggestions.dismiss": "Dismiss suggestion",
+  "suggestions.dismiss": "Dismiss suggestion"
 }
