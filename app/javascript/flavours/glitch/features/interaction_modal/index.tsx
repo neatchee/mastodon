@@ -7,7 +7,6 @@ import classNames from 'classnames';
 import { escapeRegExp } from 'lodash';
 import { useDebouncedCallback } from 'use-debounce';
 
-import QuoteIcon from '@/material-icons/400-24px/format_quote-fill.svg?react';
 import InsertChartIcon from '@/material-icons/400-24px/insert_chart.svg?react';
 import PersonAddIcon from '@/material-icons/400-24px/person_add.svg?react';
 import RepeatIcon from '@/material-icons/400-24px/repeat.svg?react';
@@ -409,7 +408,7 @@ const LoginForm: React.FC<{
 const InteractionModal: React.FC<{
   accountId: string;
   url: string;
-  type: 'reply' | 'reblog' | 'favourite' | 'follow' | 'vote' | 'quote';
+  type: 'reply' | 'reblog' | 'favourite' | 'follow' | 'vote';
 }> = ({ accountId, url, type }) => {
   const dispatch = useAppDispatch();
   const displayNameHtml = useAppSelector(
@@ -520,16 +519,6 @@ const InteractionModal: React.FC<{
         <FormattedMessage
           id='interaction_modal.action.vote'
           defaultMessage='To continue, you need to vote from your account.'
-        />
-      );
-      break;
-    case 'quote':
-      icon = <Icon id='quote' icon={QuoteIcon} />;
-      title = (
-        <FormattedMessage
-          id='interaction_modal.title.quote'
-          defaultMessage="Quote {name}'s post"
-          values={{ name }}
         />
       );
       break;
