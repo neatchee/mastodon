@@ -15,21 +15,30 @@ import {
   useBlurhash,
 } from 'flavours/glitch/initial_state';
 import type { Status, MediaAttachment } from 'flavours/glitch/models/status';
+import { useAppSelector } from 'flavours/glitch/store';
 
 export const MediaItem: React.FC<{
   attachment: MediaAttachment;
   onOpenMedia: (arg0: MediaAttachment) => void;
 }> = ({ attachment, onOpenMedia }) => {
+  const account = useAppSelector((state) =>
+    state.accounts.get(attachment.getIn(['status', 'account']) as string),
+  );
   const [visible, setVisible] = useState(
     (displayMedia !== 'hide_all' &&
       !attachment.getIn(['status', 'sensitive'])) ||
       displayMedia === 'show_all',
   );
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleImageLoad = useCallback(() => {
     setLoaded(true);
   }, [setLoaded]);
+
+  const handleImageError = useCallback(() => {
+    setError(true);
+  }, [setError]);
 
   const handleMouseEnter = useCallback(
     (e: React.MouseEvent<HTMLVideoElement>) => {
@@ -70,7 +79,7 @@ export const MediaItem: React.FC<{
     attachment.get('description')) as string | undefined;
   const previewUrl = attachment.get('preview_url') as string;
   const fullUrl = attachment.get('url') as string;
-  const avatarUrl = status.getIn(['account', 'avatar_static']) as string;
+  const avatarUrl = account?.avatar_static;
   const lang = status.get('language') as string;
   const blurhash = attachment.get('blurhash') as string;
   const statusUrl = status.get('url') as string;
@@ -96,9 +105,9 @@ export const MediaItem: React.FC<{
         <img
           src={previewUrl || avatarUrl}
           alt={description}
-          title={description}
           lang={lang}
           onLoad={handleImageLoad}
+          onError={handleImageError}
         />
 
         <div className='media-gallery__item__overlay media-gallery__item__overlay--corner'>
@@ -116,10 +125,10 @@ export const MediaItem: React.FC<{
       <img
         src={previewUrl}
         alt={description}
-        title={description}
         lang={lang}
         style={{ objectPosition: `${x}% ${y}%` }}
         onLoad={handleImageLoad}
+        onError={handleImageError}
       />
     );
   } else if (['video', 'gifv'].includes(type)) {
@@ -134,7 +143,6 @@ export const MediaItem: React.FC<{
         <video
           className='media-gallery__item-gifv-thumbnail'
           aria-label={description}
-          title={description}
           lang={lang}
           src={fullUrl}
           onMouseEnter={handleMouseEnter}
@@ -176,7 +184,11 @@ export const MediaItem: React.FC<{
   }
 
   return (
-    <div className='media-gallery__item media-gallery__item--square'>
+    <div
+      className={classNames('media-gallery__item media-gallery__item--square', {
+        'media-gallery__item--error': error,
+      })}
+    >
       <Blurhash
         hash={blurhash}
         className={classNames('media-gallery__preview', {

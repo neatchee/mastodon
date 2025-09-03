@@ -4,6 +4,8 @@ import { Children, cloneElement, useCallback } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
+import { CollapsibleNavigationPanel } from 'mastodon/features/navigation_panel';
+
 import { scrollRight } from '../../../scroll';
 import BundleContainer from '../containers/bundle_container';
 import {
@@ -23,9 +25,8 @@ import { useColumnsContext } from '../util/columns_context';
 
 import BundleColumnError from './bundle_column_error';
 import { ColumnLoading } from './column_loading';
-import ComposePanel from './compose_panel';
+import { ComposePanel, RedirectToMobileComposeIfNeeded } from './compose_panel';
 import DrawerLoading from './drawer_loading';
-import NavigationPanel from './navigation_panel';
 
 const componentMap = {
   'COMPOSE': Compose,
@@ -124,6 +125,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
           <div className='columns-area__panels__pane columns-area__panels__pane--compositional'>
             <div className='columns-area__panels__pane__inner'>
               {renderComposePanel && <ComposePanel />}
+              <RedirectToMobileComposeIfNeeded />
             </div>
           </div>
 
@@ -132,11 +134,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
             <div className='columns-area columns-area--mobile'>{children}</div>
           </div>
 
-          <div className='columns-area__panels__pane columns-area__panels__pane--start columns-area__panels__pane--navigational'>
-            <div className='columns-area__panels__pane__inner'>
-              <NavigationPanel />
-            </div>
-          </div>
+          <CollapsibleNavigationPanel />
         </div>
       );
     }

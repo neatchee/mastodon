@@ -1,28 +1,25 @@
 import PropTypes from 'prop-types';
 
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import classNames from 'classnames';
 import { Helmet } from 'react-helmet';
 import { withRouter } from 'react-router-dom';
 
-import { createSelector } from '@reduxjs/toolkit';
-import { List as ImmutableList } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { connect } from 'react-redux';
 
-import { HotKeys } from 'react-hotkeys';
-
 import ChatIcon from '@/material-icons/400-24px/chat.svg?react';
 import VisibilityIcon from '@/material-icons/400-24px/visibility.svg?react';
 import VisibilityOffIcon from '@/material-icons/400-24px/visibility_off.svg?react';
+import { Hotkeys }  from 'flavours/glitch/components/hotkeys';
 import { Icon }  from 'flavours/glitch/components/icon';
 import { LoadingIndicator } from 'flavours/glitch/components/loading_indicator';
-import { TimelineHint } from 'flavours/glitch/components/timeline_hint';
 import ScrollContainer from 'flavours/glitch/containers/scroll_container';
 import BundleColumnError from 'flavours/glitch/features/ui/components/bundle_column_error';
 import { identityContextPropShape, withIdentity } from 'flavours/glitch/identity_context';
+import { getAncestorsIds, getDescendantsIds } from 'flavours/glitch/selectors/contexts';
 import { autoUnfoldCW } from 'flavours/glitch/utils/content_warning';
 import { WithRouterPropTypes } from 'flavours/glitch/utils/react_router';
 
@@ -56,9 +53,10 @@ import {
   translateStatus,
   undoStatusTranslation,
 } from '../../actions/statuses';
+import { setStatusQuotePolicy } from '../../actions/statuses_typed';
 import ColumnHeader from '../../components/column_header';
 import { textForScreenReader, defaultMediaVisibility } from '../../components/status';
-import StatusContainer from '../../containers/status_container';
+import { StatusQuoteManager } from '../../components/status_quoted';
 import { deleteModal } from '../../initial_state';
 import { makeGetStatus, makeGetPictureInPicture } from '../../selectors';
 import Column from '../ui/components/column';
@@ -66,7 +64,7 @@ import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from
 
 import ActionBar from './components/action_bar';
 import { DetailedStatus } from './components/detailed_status';
-
+import { RefreshController } from './components/refresh_controller';
 
 const messages = defineMessages({
   revealAll: { id: 'status.show_more_all', defaultMessage: 'Show more for all' },
@@ -80,69 +78,15 @@ const makeMapStateToProps = () => {
   const getStatus = makeGetStatus();
   const getPictureInPicture = makeGetPictureInPicture();
 
-  const getAncestorsIds = createSelector([
-    (_, { id }) => id,
-    state => state.getIn(['contexts', 'inReplyTos']),
-  ], (statusId, inReplyTos) => {
-    let ancestorsIds = ImmutableList();
-    ancestorsIds = ancestorsIds.withMutations(mutable => {
-      let id = statusId;
-
-      while (id && !mutable.includes(id)) {
-        mutable.unshift(id);
-        id = inReplyTos.get(id);
-      }
-    });
-
-    return ancestorsIds;
-  });
-
-  const getDescendantsIds = createSelector([
-    (_, { id }) => id,
-    state => state.getIn(['contexts', 'replies']),
-    state => state.get('statuses'),
-  ], (statusId, contextReplies, statuses) => {
-    let descendantsIds = [];
-    const ids = [statusId];
-
-    while (ids.length > 0) {
-      let id        = ids.pop();
-      const replies = contextReplies.get(id);
-
-      if (statusId !== id) {
-        descendantsIds.push(id);
-      }
-
-      if (replies) {
-        replies.reverse().forEach(reply => {
-          if (!ids.includes(reply) && !descendantsIds.includes(reply) && statusId !== reply) ids.push(reply);
-        });
-      }
-    }
-
-    let insertAt = descendantsIds.findIndex((id) => statuses.get(id).get('in_reply_to_account_id') !== statuses.get(id).get('account'));
-    if (insertAt !== -1) {
-      descendantsIds.forEach((id, idx) => {
-        if (idx > insertAt && statuses.get(id).get('in_reply_to_account_id') === statuses.get(id).get('account')) {
-          descendantsIds.splice(idx, 1);
-          descendantsIds.splice(insertAt, 0, id);
-          insertAt += 1;
-        }
-      });
-    }
-
-    return ImmutableList(descendantsIds);
-  });
-
   const mapStateToProps = (state, props) => {
-    const status = getStatus(state, { id: props.params.statusId });
+    const status = getStatus(state, { id: props.params.statusId, contextType: 'detailed' });
 
-    let ancestorsIds   = ImmutableList();
-    let descendantsIds = ImmutableList();
+    let ancestorsIds   = [];
+    let descendantsIds = [];
 
     if (status) {
-      ancestorsIds   = getAncestorsIds(state, { id: status.get('in_reply_to_id') });
-      descendantsIds = getDescendantsIds(state, { id: status.get('id') });
+      ancestorsIds   = getAncestorsIds(state, status.get('in_reply_to_id'));
+      descendantsIds = getDescendantsIds(state, status.get('id'));
     }
 
     return {
@@ -187,8 +131,8 @@ class Status extends ImmutablePureComponent {
     status: ImmutablePropTypes.map,
     isLoading: PropTypes.bool,
     settings: ImmutablePropTypes.map.isRequired,
-    ancestorsIds: ImmutablePropTypes.list.isRequired,
-    descendantsIds: ImmutablePropTypes.list.isRequired,
+    ancestorsIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+    descendantsIds: PropTypes.arrayOf(PropTypes.string).isRequired,
     intl: PropTypes.object.isRequired,
     askReplyConfirmation: PropTypes.bool,
     multiColumn: PropTypes.bool,
@@ -360,6 +304,23 @@ class Status extends ImmutablePureComponent {
     }
   };
 
+  handleRevokeQuoteClick = (status) => {
+    const { dispatch } = this.props;
+
+    dispatch(openModal({ modalType: 'CONFIRM_REVOKE_QUOTE', modalProps: { statusId: status.get('id'), quotedStatusId: status.getIn(['quote', 'quoted_status']) }}));
+  };
+
+  handleQuotePolicyChange = (status) => {
+    const statusId = status.get('id');
+    const { dispatch } = this.props;
+    const handleChange = (_, quotePolicy) => {
+      dispatch(
+        setStatusQuotePolicy({ policy: quotePolicy, statusId }),
+      );
+    }
+    dispatch(openModal({ modalType: 'COMPOSE_PRIVACY', modalProps: { statusId, onChange: handleChange } }));
+  };
+
   handleEditClick = (status) => {
     const { dispatch, askReplyConfirmation } = this.props;
 
@@ -420,7 +381,7 @@ class Status extends ImmutablePureComponent {
 
   handleToggleAll = () => {
     const { status, ancestorsIds, descendantsIds, settings } = this.props;
-    const statusIds = [status.get('id')].concat(ancestorsIds.toJS(), descendantsIds.toJS());
+    const statusIds = [status.get('id')].concat(ancestorsIds, descendantsIds);
     let { isExpanded } = this.state;
 
     if (settings.getIn(['content_warnings', 'shared_state']))
@@ -466,14 +427,6 @@ class Status extends ImmutablePureComponent {
     this.handleToggleMediaVisibility();
   };
 
-  handleHotkeyMoveUp = () => {
-    this.handleMoveUp(this.props.status.get('id'));
-  };
-
-  handleHotkeyMoveDown = () => {
-    this.handleMoveDown(this.props.status.get('id'));
-  };
-
   handleHotkeyReply = e => {
     e.preventDefault();
     this.handleReplyClick(this.props.status);
@@ -504,54 +457,6 @@ class Status extends ImmutablePureComponent {
     this.handleTranslate(this.props.status);
   };
 
-  handleMoveUp = id => {
-    const { status, ancestorsIds, descendantsIds } = this.props;
-
-    if (id === status.get('id')) {
-      this._selectChild(ancestorsIds.size - 1, true);
-    } else {
-      let index = ancestorsIds.indexOf(id);
-
-      if (index === -1) {
-        index = descendantsIds.indexOf(id);
-        this._selectChild(ancestorsIds.size + index, true);
-      } else {
-        this._selectChild(index - 1, true);
-      }
-    }
-  };
-
-  handleMoveDown = id => {
-    const { status, ancestorsIds, descendantsIds } = this.props;
-
-    if (id === status.get('id')) {
-      this._selectChild(ancestorsIds.size + 1, false);
-    } else {
-      let index = ancestorsIds.indexOf(id);
-
-      if (index === -1) {
-        index = descendantsIds.indexOf(id);
-        this._selectChild(ancestorsIds.size + index + 2, false);
-      } else {
-        this._selectChild(index + 1, false);
-      }
-    }
-  };
-
-  _selectChild (index, align_top) {
-    const container = this.node;
-    const element = container.querySelectorAll('.focusable')[index];
-
-    if (element) {
-      if (align_top && container.scrollTop > element.offsetTop) {
-        element.scrollIntoView(true);
-      } else if (!align_top && container.scrollTop + container.clientHeight < element.offsetTop + element.offsetHeight) {
-        element.scrollIntoView(false);
-      }
-      element.focus();
-    }
-  }
-
   handleHeaderClick = () => {
     this.column.scrollTop();
   };
@@ -560,15 +465,13 @@ class Status extends ImmutablePureComponent {
     const { params: { statusId } } = this.props;
 
     return list.map((id, i) => (
-      <StatusContainer
+      <StatusQuoteManager
         key={id}
         id={id}
         expanded={this.state.threadExpanded}
-        onMoveUp={this.handleMoveUp}
-        onMoveDown={this.handleMoveDown}
         contextType='thread'
-        previousId={i > 0 ? list.get(i - 1) : undefined}
-        nextId={list.get(i + 1) || (ancestors && statusId)}
+        previousId={i > 0 ? list[i - 1] : undefined}
+        nextId={list[i + 1] || (ancestors && statusId)}
         rootId={statusId}
       />
     ));
@@ -613,7 +516,7 @@ class Status extends ImmutablePureComponent {
   componentDidUpdate (prevProps) {
     const { status, ancestorsIds } = this.props;
 
-    if (status && (ancestorsIds.size > prevProps.ancestorsIds.size || prevProps.status?.get('id') !== status.get('id'))) {
+    if (status && (ancestorsIds.length > prevProps.ancestorsIds.length || prevProps.status?.get('id') !== status.get('id'))) {
       this._scrollStatusIntoView();
     }
   }
@@ -643,7 +546,7 @@ class Status extends ImmutablePureComponent {
 
   render () {
     let ancestors, descendants, remoteHint;
-    const { isLoading, status, settings, ancestorsIds, descendantsIds, intl, domain, multiColumn, pictureInPicture } = this.props;
+    const { isLoading, status, settings, ancestorsIds, descendantsIds, refresh, intl, domain, multiColumn, pictureInPicture } = this.props;
     const { fullscreen } = this.state;
 
     if (isLoading) {
@@ -662,11 +565,11 @@ class Status extends ImmutablePureComponent {
 
     const isExpanded = settings.getIn(['content_warnings', 'shared_state']) ? !status.get('hidden') : this.state.isExpanded;
 
-    if (ancestorsIds && ancestorsIds.size > 0) {
+    if (ancestorsIds && ancestorsIds.length > 0) {
       ancestors = <>{this.renderChildren(ancestorsIds, true)}</>;
     }
 
-    if (descendantsIds && descendantsIds.size > 0) {
+    if (descendantsIds && descendantsIds.length > 0) {
       descendants = <>{this.renderChildren(descendantsIds)}</>;
     }
 
@@ -675,18 +578,13 @@ class Status extends ImmutablePureComponent {
 
     if (!isLocal) {
       remoteHint = (
-        <TimelineHint
-          className={classNames(!!descendants && 'timeline-hint--with-descendants')}
-          url={status.get('url')}
-          message={<FormattedMessage id='hints.threads.replies_may_be_missing' defaultMessage='Replies from other servers may be missing.' />}
-          label={<FormattedMessage id='hints.threads.see_more' defaultMessage='See more replies on {domain}' values={{ domain: <strong>{status.getIn(['account', 'acct']).split('@')[1]}</strong> }} />}
+        <RefreshController
+          statusId={status.get('id')}
         />
       );
     }
 
     const handlers = {
-      moveUp: this.handleHotkeyMoveUp,
-      moveDown: this.handleHotkeyMoveDown,
       reply: this.handleHotkeyReply,
       favourite: this.handleHotkeyFavourite,
       boost: this.handleHotkeyBoost,
@@ -714,10 +612,10 @@ class Status extends ImmutablePureComponent {
         />
 
         <ScrollContainer scrollKey='thread' shouldUpdateScroll={this.shouldUpdateScroll}>
-          <div className={classNames('scrollable', { fullscreen })} ref={this.setContainerRef}>
+          <div className={classNames('scrollable item-list', { fullscreen })} ref={this.setContainerRef}>
             {ancestors}
 
-            <HotKeys handlers={handlers}>
+            <Hotkeys handlers={handlers}>
               <div className={classNames('focusable', 'detailed-status__wrapper', `detailed-status__wrapper-${status.get('visibility')}`)} tabIndex={0} aria-label={textForScreenReader(intl, status, false, isExpanded)} ref={this.setStatusRef}>
                 <DetailedStatus
                   key={`details-${status.get('id')}`}
@@ -745,6 +643,8 @@ class Status extends ImmutablePureComponent {
                   onReblog={this.handleReblogClick}
                   onBookmark={this.handleBookmarkClick}
                   onDelete={this.handleDeleteClick}
+                  onRevokeQuote={this.handleRevokeQuoteClick}
+                  onQuotePolicyChange={this.handleQuotePolicyChange}
                   onEdit={this.handleEditClick}
                   onDirect={this.handleDirectClick}
                   onMention={this.handleMentionClick}
@@ -756,10 +656,10 @@ class Status extends ImmutablePureComponent {
                   onEmbed={this.handleEmbed}
                 />
               </div>
-            </HotKeys>
+            </Hotkeys>
 
-            {descendants}
             {remoteHint}
+            {descendants}
           </div>
         </ScrollContainer>
 

@@ -9,10 +9,11 @@ import { TIMELINE_GAP, TIMELINE_SUGGESTIONS } from 'flavours/glitch/actions/time
 import { RegenerationIndicator } from 'flavours/glitch/components/regeneration_indicator';
 import { InlineFollowSuggestions } from 'flavours/glitch/features/home_timeline/components/inline_follow_suggestions';
 
-import StatusContainer from '../containers/status_container';
 
 import { LoadGap } from './load_gap';
 import ScrollableList from './scrollable_list';
+import { StatusQuoteManager } from "./status_quoted";
+
 
 export default class StatusList extends ImmutablePureComponent {
 
@@ -41,46 +42,10 @@ export default class StatusList extends ImmutablePureComponent {
     trackScroll: true,
   };
 
-  getFeaturedStatusCount = () => {
-    return this.props.featuredStatusIds ? this.props.featuredStatusIds.size : 0;
-  };
-
-  getCurrentStatusIndex = (id, featured) => {
-    if (featured) {
-      return this.props.featuredStatusIds.indexOf(id);
-    } else {
-      return this.props.statusIds.indexOf(id) + this.getFeaturedStatusCount();
-    }
-  };
-
-  handleMoveUp = (id, featured) => {
-    const elementIndex = this.getCurrentStatusIndex(id, featured) - 1;
-    this._selectChild(elementIndex, true);
-  };
-
-  handleMoveDown = (id, featured) => {
-    const elementIndex = this.getCurrentStatusIndex(id, featured) + 1;
-    this._selectChild(elementIndex, false);
-  };
-
   handleLoadOlder = debounce(() => {
     const { statusIds, lastId, onLoadMore } = this.props;
     onLoadMore(lastId || (statusIds.size > 0 ? statusIds.last() : undefined));
   }, 300, { leading: true });
-
-  _selectChild (index, align_top) {
-    const container = this.node.node;
-    const element = container.querySelector(`article:nth-of-type(${index + 1}) .focusable`);
-
-    if (element) {
-      if (align_top && container.scrollTop > element.offsetTop) {
-        element.scrollIntoView(true);
-      } else if (!align_top && container.scrollTop + container.clientHeight < element.offsetTop + element.offsetHeight) {
-        element.scrollIntoView(false);
-      }
-      element.focus();
-    }
-  }
 
   setRef = c => {
     this.node = c;
@@ -114,11 +79,9 @@ export default class StatusList extends ImmutablePureComponent {
           );
         default:
           return (
-            <StatusContainer
+            <StatusQuoteManager
               key={statusId}
               id={statusId}
-              onMoveUp={this.handleMoveUp}
-              onMoveDown={this.handleMoveDown}
               contextType={timelineId}
               scrollKey={this.props.scrollKey}
               withCounters={this.props.withCounters}
@@ -130,12 +93,10 @@ export default class StatusList extends ImmutablePureComponent {
 
     if (scrollableContent && featuredStatusIds) {
       scrollableContent = featuredStatusIds.map(statusId => (
-        <StatusContainer
+        <StatusQuoteManager
           key={`f-${statusId}`}
           id={statusId}
           featured
-          onMoveUp={this.handleMoveUp}
-          onMoveDown={this.handleMoveDown}
           contextType={timelineId}
           scrollKey={this.props.scrollKey}
           withCounters={this.props.withCounters}
@@ -149,5 +110,4 @@ export default class StatusList extends ImmutablePureComponent {
       </ScrollableList>
     );
   }
-
 }

@@ -3,7 +3,7 @@ th:
   simple_form:
     hints:
       account:
-        attribution_domains_as_text: หนึ่งรายการต่อบรรทัด ปกป้องจากการระบุแหล่งที่มาที่ผิด
+        attribution_domains: หนึ่งรายการต่อบรรทัด ปกป้องจากการระบุแหล่งที่มาที่ผิด
         discoverable: อาจแสดงหรือแนะนำโพสต์และโปรไฟล์สาธารณะของคุณในพื้นที่ต่าง ๆ ของ Mastodon และอาจเสนอแนะโปรไฟล์ของคุณให้กับผู้ใช้อื่น ๆ
         display_name: ชื่อเต็มของคุณหรือชื่อแบบสนุกสนานของคุณ
         fields: หน้าแรก, สรรพนาม, อายุของคุณ สิ่งใดก็ตามที่คุณต้องการ
@@ -144,7 +144,7 @@ th:
         url: ที่ซึ่งจะส่งเหตุการณ์ไปยัง
     labels:
       account:
-        attribution_domains_as_text: เว็บไซต์ที่ได้รับอนุญาตให้ให้เครดิตคุณ
+        attribution_domains: เว็บไซต์ที่ได้รับอนุญาตให้ให้เครดิตคุณ
         discoverable: แสดงโปรไฟล์และโพสต์ในอัลกอริทึมการค้นพบ
         fields:
           name: ป้ายชื่อ
@@ -210,7 +210,6 @@ th:
         setting_auto_play_gif: เล่น GIF แบบเคลื่อนไหวโดยอัตโนมัติ
         setting_boost_modal: แสดงกล่องโต้ตอบการยืนยันก่อนดัน
         setting_default_language: ภาษาของการโพสต์
-        setting_default_privacy: ความเป็นส่วนตัวของการโพสต์
         setting_default_sensitive: ทำเครื่องหมายสื่อว่าละเอียดอ่อนเสมอ
         setting_delete_modal: แสดงกล่องโต้ตอบการยืนยันก่อนลบโพสต์
         setting_disable_hover_cards: ปิดใช้งานตัวอย่างโปรไฟล์เมื่อวางเมาส์เหนือ
@@ -221,6 +220,7 @@ th:
         setting_display_media_show_all: แสดงทั้งหมด
         setting_expand_spoilers: ขยายโพสต์ที่มีการทำเครื่องหมายด้วยคำเตือนเนื้อหาเสมอ
         setting_hide_network: ซ่อนกราฟทางสังคมของคุณ
+        setting_missing_alt_text_modal: แสดงกล่องโต้ตอบการยืนยันก่อนที่จะโพสต์สื่อโดยไม่มีข้อความแสดงแทน
         setting_reduce_motion: ลดการเคลื่อนไหวในภาพเคลื่อนไหว
         setting_system_font_ui: ใช้แบบอักษรเริ่มต้นของระบบ
         setting_system_scrollbars_ui: ใช้แถบเลื่อนเริ่มต้นของระบบ
@@ -323,6 +323,9 @@ th:
       terms_of_service_generator:
         domain: โดเมน
       user:
+        date_of_birth_1i: วัน
+        date_of_birth_2i: เดือน
+        date_of_birth_3i: ปี
         role: บทบาท
         time_zone: โซนเวลา
       user_role:

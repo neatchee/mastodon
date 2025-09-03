@@ -177,6 +177,15 @@ class LocalSettingsPage extends PureComponent {
             <FormattedMessage id='settings.wide_view' defaultMessage='Wide view (Desktop mode only)' />
             <span className='hint'><FormattedMessage id='settings.wide_view_hint' defaultMessage='Stretches columns to better fill the available space.' /></span>
           </LocalSettingsPageItem>
+          <LocalSettingsPageItem
+            settings={settings}
+            item={['fullwidth_columns']}
+            id='mastodon-settings--fullwidth_columns'
+            onChange={onChange}
+          >
+            <FormattedMessage id='settings.fullwidth_view' defaultMessage='Stretch columns to full width (Desktop mode only)' />
+            <span className='hint'><FormattedMessage id='settings.fullwidth_view_hint' defaultMessage='Stretches columns to fill all the available space.' /></span>
+          </LocalSettingsPageItem>
         </section>
       </div>
     ),
@@ -215,14 +224,6 @@ class LocalSettingsPage extends PureComponent {
         >
           <FormattedMessage id='settings.preselect_on_reply' defaultMessage='Pre-select usernames on reply' />
           <span className='hint'><FormattedMessage id='settings.preselect_on_reply_hint' defaultMessage='When replying to a conversation with multiple participants, pre-select usernames past the first' /></span>
-        </LocalSettingsPageItem>
-        <LocalSettingsPageItem
-          settings={settings}
-          item={['confirm_missing_media_description']}
-          id='mastodon-settings--confirm_missing_media_description'
-          onChange={onChange}
-        >
-          <FormattedMessage id='settings.confirm_missing_media_description' defaultMessage='Show confirmation dialog before sending toots lacking media descriptions' />
         </LocalSettingsPageItem>
         <LocalSettingsPageItem
           settings={settings}

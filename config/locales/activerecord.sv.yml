@@ -20,7 +20,6 @@ sv:
           invalid: är inte ett giltigt domännamn
       messages:
         invalid_domain_on_line: "%{value} Är inte ett giltigt domännamn"
-        too_many_lines: överskrider gränsen på %{limit} rader
       models:
         account:
           attributes:
@@ -50,8 +49,14 @@ sv:
           attributes:
             reblog:
               taken: av status finns redan
+        terms_of_service:
+          attributes:
+            effective_date:
+              too_soon: är för tidigt, måste vara senare än %{date}
         user:
           attributes:
+            date_of_birth:
+              below_limit: är under åldersgränsen
             email:
               blocked: använder en icke tillåten e-postleverantör
               unreachable: verkar inte existera

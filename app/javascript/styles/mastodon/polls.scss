@@ -1,3 +1,7 @@
+@use 'sass:color';
+@use 'variables' as *;
+@use 'functions' as *;
+
 .poll {
   margin-top: 16px;
   font-size: 14px;
@@ -203,7 +207,7 @@
 
     &:active,
     &:focus {
-      background-color: rgba($dark-text-color, 0.1);
+      background-color: color.change($dark-text-color, $alpha: 0.1);
     }
   }
 
@@ -222,7 +226,7 @@
     background: rgba(color.adjust($ui-primary-color, $lightness: -14%), 0.7);
 
     &.leading {
-      background: rgba($ui-highlight-color, 0.5);
+      background: color.change($ui-highlight-color, $alpha: 0.5);
     }
   }
 }

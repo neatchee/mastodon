@@ -10,9 +10,6 @@ import { createSelector } from '@reduxjs/toolkit';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { useDispatch, useSelector } from 'react-redux';
 
-
-import { HotKeys } from 'react-hotkeys';
-
 import MoreHorizIcon from '@/material-icons/400-24px/more_horiz.svg?react';
 import ReplyIcon from '@/material-icons/400-24px/reply.svg?react';
 import { replyCompose } from 'mastodon/actions/compose';
@@ -21,10 +18,11 @@ import { openModal } from 'mastodon/actions/modal';
 import { muteStatus, unmuteStatus, toggleStatusSpoilers } from 'mastodon/actions/statuses';
 import AttachmentList from 'mastodon/components/attachment_list';
 import AvatarComposite from 'mastodon/components/avatar_composite';
+import { Dropdown } from 'mastodon/components/dropdown_menu';
+import { Hotkeys } from 'mastodon/components/hotkeys';
 import { IconButton } from 'mastodon/components/icon_button';
 import { RelativeTimestamp } from 'mastodon/components/relative_timestamp';
 import StatusContent from 'mastodon/components/status_content';
-import DropdownMenuContainer from 'mastodon/containers/dropdown_menu_container';
 import { autoPlayGif } from 'mastodon/initial_state';
 import { makeGetStatus } from 'mastodon/selectors';
 
@@ -47,7 +45,7 @@ const getAccounts = createSelector(
 
 const getStatus = makeGetStatus();
 
-export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown }) => {
+export const Conversation = ({ conversation, scrollKey }) => {
   const id = conversation.get('id');
   const unread = conversation.get('unread');
   const lastStatusId = conversation.get('last_status');
@@ -112,14 +110,6 @@ export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown }) 
     dispatch(deleteConversation(id));
   }, [dispatch, id]);
 
-  const handleHotkeyMoveUp = useCallback(() => {
-    onMoveUp(id);
-  }, [id, onMoveUp]);
-
-  const handleHotkeyMoveDown = useCallback(() => {
-    onMoveDown(id);
-  }, [id, onMoveDown]);
-
   const handleConversationMute = useCallback(() => {
     if (lastStatus.get('muted')) {
       dispatch(unmuteStatus(lastStatus.get('id')));
@@ -163,13 +153,11 @@ export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown }) 
   const handlers = {
     reply: handleReply,
     open: handleClick,
-    moveUp: handleHotkeyMoveUp,
-    moveDown: handleHotkeyMoveDown,
     toggleHidden: handleShowMore,
   };
 
   return (
-    <HotKeys handlers={handlers}>
+    <Hotkeys handlers={handlers}>
       <div className={classNames('conversation focusable muted', { unread })} tabIndex={0}>
         <div className='conversation__avatar' onClick={handleClick} role='presentation'>
           <AvatarComposite accounts={accounts} size={48} />
@@ -205,7 +193,7 @@ export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown }) 
             <IconButton className='status__action-bar-button' title={intl.formatMessage(messages.reply)} icon='reply' iconComponent={ReplyIcon} onClick={handleReply} />
 
             <div className='status__action-bar-dropdown'>
-              <DropdownMenuContainer
+              <Dropdown
                 scrollKey={scrollKey}
                 status={lastStatus}
                 items={menu}
@@ -219,13 +207,11 @@ export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown }) 
           </div>
         </div>
       </div>
-    </HotKeys>
+    </Hotkeys>
   );
 };
 
 Conversation.propTypes = {
   conversation: ImmutablePropTypes.map.isRequired,
   scrollKey: PropTypes.string,
-  onMoveUp: PropTypes.func,
-  onMoveDown: PropTypes.func,
 };

@@ -66,7 +66,7 @@ module ApplicationHelper
 
   def provider_sign_in_link(provider)
     label = Devise.omniauth_configs[provider]&.strategy&.display_name.presence || I18n.t("auth.providers.#{provider}", default: provider.to_s.chomp('_oauth2').capitalize)
-    link_to label, omniauth_authorize_path(:user, provider), class: "button button-#{provider}", method: :post
+    link_to label, omniauth_authorize_path(:user, provider), class: "btn button-#{provider}", method: :post
   end
 
   def locale_direction
@@ -100,6 +100,16 @@ module ApplicationHelper
     return false if record.nil?
 
     policy(record).public_send(:"#{action}?")
+  end
+
+  def conditional_link_to(condition, name, options = {}, html_options = {}, &block)
+    if condition && !current_page?(block_given? ? name : options)
+      link_to(name, options, html_options, &block)
+    elsif block_given?
+      content_tag(:span, options, html_options, &block)
+    else
+      content_tag(:span, name, html_options)
+    end
   end
 
   def material_symbol(icon, attributes = {})
@@ -234,6 +244,10 @@ module ApplicationHelper
     tag.input(type: :text, maxlength: 999, spellcheck: false, readonly: true, **options)
   end
 
+  def recent_tag_users(tag)
+    tag.statuses.public_visibility.joins(:account).merge(Account.without_suspended.without_silenced).includes(:account).limit(3).map(&:account)
+  end
+
   def recent_tag_usage(tag)
     people = tag.history.aggregate(2.days.ago.to_date..Time.zone.today).accounts
     I18n.t 'user_mailer.welcome.hashtags_recent_count', people: number_with_delimiter(people), count: people
@@ -248,22 +262,8 @@ module ApplicationHelper
   end
 
   # glitch-soc addition to handle the multiple flavors
-  def preload_locale_pack
-    supported_locales = Themes.instance.flavour(current_flavour)['locales']
-    preload_pack_asset "locales/#{current_flavour}/#{I18n.locale}-json.js" if supported_locales.include?(I18n.locale.to_s)
-  end
-
-  def flavoured_javascript_pack_tag(pack_name, **)
-    javascript_pack_tag("flavours/#{current_flavour}/#{pack_name}", **)
-  end
-
-  def flavoured_stylesheet_pack_tag(pack_name, **)
-    stylesheet_pack_tag("flavours/#{current_flavour}/#{pack_name}", **)
-  end
-
-  def preload_signed_in_js_packs
-    preload_files = Themes.instance.flavour(current_flavour)&.fetch('signed_in_preload', nil) || []
-    safe_join(preload_files.map { |entry| preload_pack_asset entry })
+  def flavoured_vite_typescript_tag(pack_name, **)
+    vite_typescript_tag("#{Themes.instance.flavour(current_flavour)['pack_directory'].delete_prefix('app/javascript/')}/#{pack_name}", **)
   end
 
   private

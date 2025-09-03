@@ -8,6 +8,7 @@ import type {
   NotificationType,
   NotificationWithStatusType,
 } from 'flavours/glitch/api_types/notifications';
+import type { ApiStatusReactionJSON } from 'flavours/glitch/api_types/reaction';
 import type { ApiReportJSON } from 'flavours/glitch/api_types/reports';
 
 // Maximum number of avatars displayed in a notification group
@@ -33,12 +34,14 @@ interface BaseNotification<Type extends NotificationType>
 
 export type NotificationGroupFavourite =
   BaseNotificationWithStatus<'favourite'>;
-export type NotificationGroupReaction = BaseNotificationWithStatus<'reaction'>;
 export type NotificationGroupReblog = BaseNotificationWithStatus<'reblog'>;
 export type NotificationGroupStatus = BaseNotificationWithStatus<'status'>;
 export type NotificationGroupMention = BaseNotificationWithStatus<'mention'>;
+export type NotificationGroupQuote = BaseNotificationWithStatus<'quote'>;
 export type NotificationGroupPoll = BaseNotificationWithStatus<'poll'>;
 export type NotificationGroupUpdate = BaseNotificationWithStatus<'update'>;
+export type NotificationGroupQuotedUpdate =
+  BaseNotificationWithStatus<'quoted_update'>;
 export type NotificationGroupFollow = BaseNotification<'follow'>;
 export type NotificationGroupFollowRequest = BaseNotification<'follow_request'>;
 export type NotificationGroupAdminSignUp = BaseNotification<'admin.sign_up'>;
@@ -83,14 +86,24 @@ export interface NotificationGroupAdminReport
   report: Report;
 }
 
+type StatusReaction = Omit<Omit<ApiStatusReactionJSON, 'account'>, 'count'>;
+
+export interface NotificationGroupReaction
+  extends BaseNotification<'reaction'> {
+  statusId: string | undefined;
+  reaction: StatusReaction | undefined;
+}
+
 export type NotificationGroup =
   | NotificationGroupFavourite
   | NotificationGroupReaction
   | NotificationGroupReblog
   | NotificationGroupStatus
   | NotificationGroupMention
+  | NotificationGroupQuote
   | NotificationGroupPoll
   | NotificationGroupUpdate
+  | NotificationGroupQuotedUpdate
   | NotificationGroupFollow
   | NotificationGroupFollowRequest
   | NotificationGroupModerationWarning
@@ -136,18 +149,33 @@ export function createNotificationGroupFromJSON(
 
   switch (group.type) {
     case 'favourite':
-    case 'reaction':
     case 'reblog':
     case 'status':
     case 'mention':
+    case 'quote':
     case 'poll':
-    case 'update': {
+    case 'update':
+    case 'quoted_update': {
       const { status_id: statusId, ...groupWithoutStatus } = group;
       return {
         statusId: statusId ?? undefined,
         sampleAccountIds,
         partial: false,
         ...groupWithoutStatus,
+      };
+    }
+    case 'reaction': {
+      const {
+        status_id: statusId,
+        reaction,
+        ...groupWithoutStatusOrReaction
+      } = group;
+      return {
+        statusId: statusId ?? undefined,
+        reaction,
+        sampleAccountIds,
+        partial: false,
+        ...groupWithoutStatusOrReaction,
       };
     }
     case 'admin.report': {
@@ -209,16 +237,24 @@ export function createNotificationGroupFromNotificationJSON(
 
   switch (notification.type) {
     case 'favourite':
-    case 'reaction':
     case 'reblog':
     case 'status':
     case 'mention':
+    case 'quote':
     case 'poll':
     case 'update':
+    case 'quoted_update':
       return {
         ...group,
         type: notification.type,
         statusId: notification.status?.id,
+      };
+    case 'reaction':
+      return {
+        ...group,
+        type: notification.type,
+        statusId: notification.status?.id,
+        reaction: notification.reaction,
       };
     case 'admin.report':
       return {

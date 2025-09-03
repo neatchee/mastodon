@@ -203,7 +203,6 @@ lad:
         setting_auto_play_gif: Siempre reproduse los GIFs animados
         setting_boost_modal: Amostra ventana de konfirmasyon antes de repartajar
         setting_default_language: Lingua de publikasyones
-        setting_default_privacy: Privasita de publikasyones
         setting_default_sensitive: Syempre marka multimedia komo sensivles
         setting_delete_modal: Mostra dialogo de konfirmasyon antes de efasar una publikasyon
         setting_disable_swiping: Inkapasita movimyentos de arresvalamiento
@@ -308,7 +307,15 @@ lad:
         name: Etiketa
         trendable: Permite ke esta etiketa apareska en trendes
         usable: Permite ke publikasyones uzen esta etiketa lokalmente
+      terms_of_service:
+        changelog: Ke troko?
+        text: Terminos de servisyo
+      terms_of_service_generator:
+        domain: Domeno
       user:
+        date_of_birth_1i: Diya
+        date_of_birth_2i: Mez
+        date_of_birth_3i: Anyo
         role: Rolo
         time_zone: Zona de tiempo
       user_role:

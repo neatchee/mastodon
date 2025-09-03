@@ -10,9 +10,10 @@ import { debounce } from 'lodash';
 
 import { Account } from 'flavours/glitch/components/account';
 import { TimelineHint } from 'flavours/glitch/components/timeline_hint';
+import { AccountHeader } from 'flavours/glitch/features/account_timeline/components/account_header';
 import BundleColumnError from 'flavours/glitch/features/ui/components/bundle_column_error';
 import { normalizeForLookup } from 'flavours/glitch/reducers/accounts_map';
-import { getAccountHidden } from 'flavours/glitch/selectors';
+import { getAccountHidden } from 'flavours/glitch/selectors/accounts';
 import { useAppSelector } from 'flavours/glitch/store';
 
 import {
@@ -25,11 +26,10 @@ import { LoadingIndicator } from '../../components/loading_indicator';
 import ScrollableList from '../../components/scrollable_list';
 import ProfileColumnHeader from '../account/components/profile_column_header';
 import { LimitedAccountHint } from '../account_timeline/components/limited_account_hint';
-import HeaderContainer from '../account_timeline/containers/header_container';
 import Column from '../ui/components/column';
 
 const mapStateToProps = (state, { params: { acct, id } }) => {
-  const accountId = id || state.getIn(['accounts_map', normalizeForLookup(acct)]);
+  const accountId = id || state.accounts_map[normalizeForLookup(acct)];
 
   if (!accountId) {
     return {
@@ -172,7 +172,7 @@ class Followers extends ImmutablePureComponent {
           hasMore={!forceEmptyState && hasMore}
           isLoading={isLoading}
           onLoadMore={this.handleLoadMore}
-          prepend={<HeaderContainer accountId={this.props.accountId} hideTabs />}
+          prepend={<AccountHeader accountId={this.props.accountId} hideTabs />}
           alwaysPrepend
           append={remoteMessage}
           emptyMessage={emptyMessage}

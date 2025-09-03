@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Account do
-  include_examples 'Account::Search'
-  include_examples 'Reviewable'
+  it_behaves_like 'Account::Search'
+  it_behaves_like 'Reviewable'
 
   context 'with an account record' do
     subject { Fabricate(:account) }
@@ -49,26 +49,22 @@ RSpec.describe Account do
   end
 
   describe '#local?' do
-    it 'returns true when domain is null' do
-      account = Fabricate(:account, domain: nil)
-      expect(account).to be_local
+    context 'when the domain is null' do
+      subject { Fabricate.build :account, domain: nil }
+
+      it { is_expected.to be_local }
     end
 
-    it 'returns false when domain is present' do
-      account = Fabricate(:account, domain: 'foreign.tld')
-      expect(account).to_not be_local
+    context 'when the domain is present' do
+      subject { Fabricate.build :account, domain: 'host.example' }
+
+      it { is_expected.to_not be_local }
     end
   end
 
   describe '#remote?' do
     context 'when the domain is null' do
       subject { Fabricate.build :account, domain: nil }
-
-      it { is_expected.to_not be_remote }
-    end
-
-    context 'when the domain is blank' do
-      subject { Fabricate.build :account, domain: '' }
 
       it { is_expected.to_not be_remote }
     end
@@ -390,36 +386,6 @@ RSpec.describe Account do
     end
   end
 
-  describe '.following_map' do
-    it 'returns an hash' do
-      expect(described_class.following_map([], 1)).to be_a Hash
-    end
-  end
-
-  describe '.followed_by_map' do
-    it 'returns an hash' do
-      expect(described_class.followed_by_map([], 1)).to be_a Hash
-    end
-  end
-
-  describe '.blocking_map' do
-    it 'returns an hash' do
-      expect(described_class.blocking_map([], 1)).to be_a Hash
-    end
-  end
-
-  describe '.requested_map' do
-    it 'returns an hash' do
-      expect(described_class.requested_map([], 1)).to be_a Hash
-    end
-  end
-
-  describe '.requested_by_map' do
-    it 'returns an hash' do
-      expect(described_class.requested_by_map([], 1)).to be_a Hash
-    end
-  end
-
   describe 'MENTION_RE' do
     subject { described_class::MENTION_RE }
 
@@ -520,45 +486,27 @@ RSpec.describe Account do
     end
   end
 
-  describe '#attribution_domains_as_text=' do
-    subject { Fabricate(:account) }
-
-    it 'sets attribution_domains accordingly' do
-      subject.attribution_domains_as_text = "hoge.com\nexample.com"
-
-      expect(subject.attribution_domains).to contain_exactly('hoge.com', 'example.com')
-    end
-
-    it 'strips leading "*."' do
-      subject.attribution_domains_as_text = "hoge.com\n*.example.com"
-
-      expect(subject.attribution_domains).to contain_exactly('hoge.com', 'example.com')
-    end
-
-    it 'strips the protocol if present' do
-      subject.attribution_domains_as_text = "http://hoge.com\nhttps://example.com"
-
-      expect(subject.attribution_domains).to contain_exactly('hoge.com', 'example.com')
-    end
-
-    it 'strips a combination of leading "*." and protocol' do
-      subject.attribution_domains_as_text = "http://*.hoge.com\nhttps://*.example.com"
-
-      expect(subject.attribution_domains).to contain_exactly('hoge.com', 'example.com')
-    end
-  end
-
   describe 'Normalizations' do
     describe 'username' do
       it { is_expected.to normalize(:username).from(" \u3000bob \t \u00a0 \n ").to('bob') }
+    end
+
+    describe 'attribution_domains' do
+      it { is_expected.to normalize(:attribution_domains).from(['example.com', ' example.com ', ' example.net ']).to(['example.com', 'example.net']) }
+      it { is_expected.to normalize(:attribution_domains).from(['https://example.com', 'http://example.net', '*.example.org']).to(['example.com', 'example.net', 'example.org']) }
+      it { is_expected.to normalize(:attribution_domains).from(['', ' ', nil]).to([]) }
     end
   end
 
   describe 'Validations' do
     it { is_expected.to validate_presence_of(:username) }
 
+    it { is_expected.to_not allow_value('').for(:domain) }
+
     context 'when account is local' do
       subject { Fabricate.build :account, domain: nil }
+
+      let(:domains_limit) { described_class::ATTRIBUTION_DOMAINS_LIMIT }
 
       context 'with an existing differently-cased username account' do
         before { Fabricate :account, username: 'the_doctor' }
@@ -600,6 +548,9 @@ RSpec.describe Account do
       it { is_expected.to validate_absence_of(:inbox_url).on(:create) }
       it { is_expected.to validate_absence_of(:shared_inbox_url).on(:create) }
       it { is_expected.to validate_absence_of(:uri).on(:create) }
+
+      it { is_expected.to allow_values([], ['example.com'], (1..domains_limit).to_a).for(:attribution_domains) }
+      it { is_expected.to_not allow_values(['example com'], ['@'], (1..(domains_limit + 1)).to_a).for(:attribution_domains) }
     end
 
     context 'when account is remote' do
@@ -688,19 +639,6 @@ RSpec.describe Account do
         expect(results)
           .to include(alice)
           .and not_include(bob)
-      end
-    end
-
-    describe 'alphabetic' do
-      it 'sorts by alphabetic order of domain and username' do
-        matches = [
-          { username: 'a', domain: 'a' },
-          { username: 'b', domain: 'a' },
-          { username: 'a', domain: 'b' },
-          { username: 'b', domain: 'b' },
-        ].map(&method(:Fabricate).curry(2).call(:account))
-
-        expect(described_class.without_internal.alphabetic).to eq matches
       end
     end
 
@@ -827,8 +765,8 @@ RSpec.describe Account do
     end
   end
 
-  include_examples 'AccountAvatar', :account
-  include_examples 'AccountHeader', :account
+  it_behaves_like 'AccountAvatar', :account
+  it_behaves_like 'AccountHeader', :account
 
   describe '#increment_count!' do
     subject { Fabricate(:account) }

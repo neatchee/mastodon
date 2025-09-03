@@ -18,6 +18,8 @@ class PostStatusService < BaseService
   # @param [Hash] options
   # @option [String] :text Message
   # @option [Status] :thread Optional status to reply to
+  # @option [Status] :quoted_status Optional status to quote
+  # @option [String] :quote_approval_policy Approval policy for quotes, one of `public`, `followers` or `nobody`
   # @option [Boolean] :sensitive
   # @option [String] :visibility
   # @option [String] :spoiler_text
@@ -35,6 +37,7 @@ class PostStatusService < BaseService
     @options     = options
     @text        = @options[:text] || ''
     @in_reply_to = @options[:thread]
+    @quoted_status = @options[:quoted_status]
 
     @antispam = Antispam.new
 
@@ -94,6 +97,7 @@ class PostStatusService < BaseService
     @status = @account.statuses.new(status_attributes)
     process_mentions_service.call(@status, save_records: false)
     safeguard_mentions!(@status)
+    attach_quote!(@status)
     @antispam.local_preflight_check!(@status)
 
     # The following transaction block is needed to wrap the UPDATEs to
@@ -101,6 +105,15 @@ class PostStatusService < BaseService
     ApplicationRecord.transaction do
       @status.save!
     end
+  end
+
+  def attach_quote!(status)
+    return if @quoted_status.nil?
+
+    status.quote = Quote.create(quoted_status: @quoted_status, status: status)
+    status.quote.ensure_quoted_access
+
+    status.quote.accept! if @quoted_status.local? && StatusPolicy.new(@status.account, @quoted_status).quote?
   end
 
   def safeguard_mentions!(status)
@@ -144,6 +157,7 @@ class PostStatusService < BaseService
     DistributionWorker.perform_async(@status.id)
     ActivityPub::DistributionWorker.perform_async(@status.id) unless @status.local_only?
     PollExpirationNotifyWorker.perform_at(@status.poll.expires_at, @status.poll.id) if @status.poll
+    ActivityPub::QuoteRequestWorker.perform_async(@status.quote.id) if @status.quote&.quoted_status.present? && !@status.quote&.quoted_status&.local?
   end
 
   def validate_media!
@@ -219,6 +233,7 @@ class PostStatusService < BaseService
       application: @options[:application],
       content_type: @options[:content_type] || @account.user&.setting_default_content_type,
       rate_limit: @options[:with_rate_limit],
+      quote_approval_policy: @options[:quote_approval_policy],
     }.compact
   end
 
@@ -240,6 +255,7 @@ class PostStatusService < BaseService
     @options.dup.tap do |options_hash|
       options_hash[:in_reply_to_id]  = options_hash.delete(:thread)&.id
       options_hash[:application_id]  = options_hash.delete(:application)&.id
+      options_hash[:quoted_status_id] = options_hash.delete(:quoted_status)&.id
       options_hash[:scheduled_at]    = nil
       options_hash[:idempotency]     = nil
       options_hash[:with_rate_limit] = false

@@ -13,18 +13,18 @@ const listenerOptions = supportsPassiveEvents
   ? { passive: true, capture: true }
   : true;
 
-export interface SelectItem {
-  value: string;
+export interface SelectItem<Value extends string = string> {
+  value: Value;
   icon?: string;
   iconComponent?: IconProp;
   text: string;
-  meta: string;
+  meta?: string;
   extra?: string;
 }
 
 interface Props {
   value: string;
-  classNamePrefix: string;
+  classNamePrefix?: string;
   style?: React.CSSProperties;
   items: SelectItem[];
   onChange: (value: string) => void;
@@ -99,12 +99,12 @@ export const DropdownSelector: React.FC<Props> = ({
         case 'Tab':
           if (e.shiftKey) {
             element =
-              nodeRef.current?.children[index + 1] ??
-              nodeRef.current?.firstElementChild;
-          } else {
-            element =
               nodeRef.current?.children[index - 1] ??
               nodeRef.current?.lastElementChild;
+          } else {
+            element =
+              nodeRef.current?.children[index + 1] ??
+              nodeRef.current?.firstElementChild;
           }
           break;
         case 'Home':

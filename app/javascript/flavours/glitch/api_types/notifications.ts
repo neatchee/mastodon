@@ -3,17 +3,19 @@
 import type { AccountWarningAction } from 'flavours/glitch/models/notification_group';
 
 import type { ApiAccountJSON } from './accounts';
+import type { ApiStatusReactionJSON } from './reaction';
 import type { ApiReportJSON } from './reports';
 import type { ApiStatusJSON } from './statuses';
 
 // See app/model/notification.rb
-export const allNotificationTypes = [
+export const allNotificationTypes: NotificationType[] = [
   'follow',
   'follow_request',
   'favourite',
   'reaction',
   'reblog',
   'mention',
+  'quote',
   'poll',
   'status',
   'update',
@@ -26,15 +28,17 @@ export const allNotificationTypes = [
 
 export type NotificationWithStatusType =
   | 'favourite'
-  | 'reaction'
   | 'reblog'
   | 'status'
   | 'mention'
+  | 'quote'
   | 'poll'
-  | 'update';
+  | 'update'
+  | 'quoted_update';
 
 export type NotificationType =
   | NotificationWithStatusType
+  | 'reaction'
   | 'follow'
   | 'follow_request'
   | 'moderation_warning'
@@ -112,6 +116,12 @@ interface ModerationWarningNotificationJSON extends BaseNotificationJSON {
   moderation_warning: ApiAccountWarningJSON;
 }
 
+interface ReactionNotificationJSON extends BaseNotificationJSON {
+  type: 'reaction';
+  status: ApiStatusJSON | null;
+  reaction: ApiStatusReactionJSON;
+}
+
 export interface ApiAccountRelationshipSeveranceEventJSON {
   id: string;
   type: 'account_suspension' | 'domain_block' | 'user_domain_block';
@@ -143,12 +153,19 @@ interface AnnualReportNotificationGroupJSON extends BaseNotificationGroupJSON {
   annual_report: ApiAnnualReportEventJSON;
 }
 
+interface ReactionNotificationGroupJSON extends BaseNotificationGroupJSON {
+  type: 'reaction';
+  status_id: string | null;
+  reaction?: ApiStatusReactionJSON;
+}
+
 export type ApiNotificationJSON =
   | SimpleNotificationJSON
   | ReportNotificationJSON
   | AccountRelationshipSeveranceNotificationJSON
   | NotificationWithStatusJSON
-  | ModerationWarningNotificationJSON;
+  | ModerationWarningNotificationJSON
+  | ReactionNotificationJSON;
 
 export type ApiNotificationGroupJSON =
   | SimpleNotificationGroupJSON
@@ -156,7 +173,8 @@ export type ApiNotificationGroupJSON =
   | AccountRelationshipSeveranceNotificationGroupJSON
   | NotificationGroupWithStatusJSON
   | ModerationWarningNotificationGroupJSON
-  | AnnualReportNotificationGroupJSON;
+  | AnnualReportNotificationGroupJSON
+  | ReactionNotificationGroupJSON;
 
 export interface ApiNotificationGroupsResultJSON {
   accounts: ApiAccountJSON[];

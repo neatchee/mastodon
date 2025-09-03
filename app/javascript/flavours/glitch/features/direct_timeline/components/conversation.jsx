@@ -10,9 +10,6 @@ import { createSelector } from '@reduxjs/toolkit';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { useDispatch, useSelector } from 'react-redux';
 
-
-import { HotKeys } from 'react-hotkeys';
-
 import MoreHorizIcon from '@/material-icons/400-24px/more_horiz.svg?react';
 import ReplyIcon from '@/material-icons/400-24px/reply.svg?react';
 import { replyCompose } from 'flavours/glitch/actions/compose';
@@ -21,11 +18,12 @@ import { openModal } from 'flavours/glitch/actions/modal';
 import { muteStatus, unmuteStatus, toggleStatusSpoilers } from 'flavours/glitch/actions/statuses';
 import AttachmentList from 'flavours/glitch/components/attachment_list';
 import AvatarComposite from 'flavours/glitch/components/avatar_composite';
+import { Dropdown } from 'flavours/glitch/components/dropdown_menu';
+import { Hotkeys } from 'flavours/glitch/components/hotkeys';
 import { IconButton } from 'flavours/glitch/components/icon_button';
 import { Permalink } from 'flavours/glitch/components/permalink';
 import { RelativeTimestamp } from 'flavours/glitch/components/relative_timestamp';
 import StatusContent from 'flavours/glitch/components/status_content';
-import DropdownMenuContainer from 'flavours/glitch/containers/dropdown_menu_container';
 import { autoPlayGif } from 'flavours/glitch/initial_state';
 import { makeGetStatus } from 'flavours/glitch/selectors';
 
@@ -48,7 +46,7 @@ const getAccounts = createSelector(
 
 const getStatus = makeGetStatus();
 
-export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown }) => {
+export const Conversation = ({ conversation, scrollKey }) => {
   const id = conversation.get('id');
   const unread = conversation.get('unread');
   const lastStatusId = conversation.get('last_status');
@@ -117,14 +115,6 @@ export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown }) 
     dispatch(deleteConversation(id));
   }, [dispatch, id]);
 
-  const handleHotkeyMoveUp = useCallback(() => {
-    onMoveUp(id);
-  }, [id, onMoveUp]);
-
-  const handleHotkeyMoveDown = useCallback(() => {
-    onMoveDown(id);
-  }, [id, onMoveDown]);
-
   const handleConversationMute = useCallback(() => {
     if (lastStatus.get('muted')) {
       dispatch(unmuteStatus(lastStatus.get('id')));
@@ -172,18 +162,11 @@ export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown }) 
   const handlers = {
     reply: handleReply,
     open: handleClick,
-    moveUp: handleHotkeyMoveUp,
-    moveDown: handleHotkeyMoveDown,
     toggleHidden: handleShowMore,
   };
 
-  let media = null;
-  if (lastStatus.get('media_attachments').size > 0) {
-    media = <AttachmentList compact media={lastStatus.get('media_attachments')} />;
-  }
-
   return (
-    <HotKeys handlers={handlers}>
+    <Hotkeys handlers={handlers}>
       <div className={classNames('conversation focusable muted', { unread })} tabIndex={0}>
         <div className='conversation__avatar' onClick={handleClick} role='presentation'>
           <AvatarComposite accounts={accounts} size={48} />
@@ -206,14 +189,20 @@ export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown }) 
             expanded={sharedCWState ? lastStatus.get('hidden') : expanded}
             onExpandedToggle={handleShowMore}
             collapsible
-            media={media}
           />
+
+          {lastStatus.get('media_attachments').size > 0 && (
+            <AttachmentList
+              compact
+              media={lastStatus.get('media_attachments')}
+            />
+          )}
 
           <div className='status__action-bar'>
             <IconButton className='status__action-bar-button' title={intl.formatMessage(messages.reply)} icon='reply' iconComponent={ReplyIcon} onClick={handleReply} />
 
             <div className='status__action-bar-dropdown'>
-              <DropdownMenuContainer
+              <Dropdown
                 scrollKey={scrollKey}
                 status={lastStatus}
                 items={menu}
@@ -227,13 +216,11 @@ export const Conversation = ({ conversation, scrollKey, onMoveUp, onMoveDown }) 
           </div>
         </div>
       </div>
-    </HotKeys>
+    </Hotkeys>
   );
 };
 
 Conversation.propTypes = {
   conversation: ImmutablePropTypes.map.isRequired,
   scrollKey: PropTypes.string,
-  onMoveUp: PropTypes.func,
-  onMoveDown: PropTypes.func,
 };

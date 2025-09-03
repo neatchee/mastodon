@@ -2,7 +2,7 @@
 
 ENV['RAILS_ENV'] ||= 'test'
 
-unless ENV['DISABLE_SIMPLECOV'] == 'true'
+if ENV.fetch('COVERAGE', false)
   require 'simplecov'
 
   SimpleCov.start 'rails' do
@@ -53,7 +53,7 @@ WebMock.disable_net_connect!(
   allow_localhost: true,
   allow: Chewy.settings[:host]
 )
-Sidekiq.logger = nil
+Sidekiq.default_configuration.logger = nil
 
 DatabaseCleaner.strategy = [:deletion]
 

@@ -1,5 +1,8 @@
 // Notes!
 // Sass color functions, "darken" and "lighten" are automatically replaced.
+@use 'sass:color';
+@use '../functions' as *;
+@use '../variables' as *;
 
 .simple_form .button.button-tertiary {
   color: $highlight-text-color;
@@ -13,7 +16,7 @@
 
 .status-card__actions button,
 .status-card__actions a {
-  color: rgba($white, 0.8);
+  color: color.change($white, $alpha: 0.8);
 
   &:hover,
   &:active,
@@ -93,24 +96,12 @@
   color: $white;
 }
 
-.search__input {
-  @media screen and (max-width: $no-gap-breakpoint) {
-    border-top: 0;
-    border-bottom: 0;
-  }
-}
-
-.list-editor .search .search__input {
-  border-top: 0;
-  border-bottom: 0;
-}
-
 .upload-progress__backdrop {
   background: $ui-base-color;
 }
 
 // Change the background colors of statuses
-.focusable:focus {
+.focusable:focus-visible {
   background: color.adjust($white, $lightness: 4%);
 }
 
@@ -127,9 +118,7 @@
 .actions-modal ul li:not(:empty) a:focus button,
 .actions-modal ul li:not(:empty) a:hover,
 .actions-modal ul li:not(:empty) a:hover button,
-.simple_form .block-button,
-.simple_form .button,
-.simple_form button {
+.simple_form button:not(.button, .link-button) {
   color: $white;
 }
 
@@ -142,6 +131,11 @@
   border-top-color: color.adjust($ui-base-color, $lightness: -4%);
 }
 
+.dialog-modal__content__preview {
+  background: #fff;
+  border-bottom: 1px solid var(--modal-border-color);
+}
+
 .reactions-bar__item:hover,
 .reactions-bar__item:focus,
 .reactions-bar__item:active {
@@ -149,8 +143,8 @@
 }
 
 .reactions-bar__item.active {
-  background-color: mix($white, $ui-highlight-color, 80%);
-  border-color: mix(
+  background-color: color.mix($white, $ui-highlight-color, 80%);
+  border-color: color.mix(
     color.adjust($ui-base-color, $lightness: 8%),
     $ui-highlight-color,
     80%
@@ -243,7 +237,7 @@
 
 // Change the default colors used on some parts of the profile pages
 .activity-stream-tabs {
-  background: $account-background-color;
+  background: $white;
   border-bottom-color: color.adjust($ui-base-color, $lightness: 8%);
 }
 
@@ -277,36 +271,6 @@
   }
 }
 
-.activity-stream {
-  border: 1px solid var(--background-border-color);
-
-  &--under-tabs {
-    border-top: 0;
-  }
-
-  .entry {
-    background: $account-background-color;
-
-    .detailed-status.light,
-    .more.light,
-    .status.light {
-      border-bottom-color: color.adjust($ui-base-color, $lightness: 8%);
-    }
-  }
-
-  .status.light {
-    .status__content {
-      color: $primary-text-color;
-    }
-
-    .display-name {
-      strong {
-        color: $primary-text-color;
-      }
-    }
-  }
-}
-
 .accounts-grid {
   .account-grid-card {
     .controls {
@@ -334,14 +298,14 @@
 .simple_form {
   .warning {
     box-shadow: none;
-    background: rgba($error-red, 0.5);
+    background: color.change($error-red, $alpha: 0.5);
     text-shadow: none;
   }
 
   .recommended {
     border-color: $ui-highlight-color;
     color: $ui-highlight-color;
-    background-color: rgba($ui-highlight-color, 0.1);
+    background-color: color.change($ui-highlight-color, $alpha: 0.1);
   }
 
   input[type='text'],
@@ -363,7 +327,7 @@
 
 .compose-form .compose-form__warning {
   border-color: $ui-highlight-color;
-  background-color: rgba($ui-highlight-color, 0.1);
+  background-color: color.change($ui-highlight-color, $alpha: 0.1);
 
   &,
   a {
@@ -410,11 +374,12 @@
   }
 }
 
-.mute-modal select {
-  border: 1px solid var(--background-border-color);
-  background: $simple-background-color
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.933 18.467' height='19.698' width='15.929'><path d='M3.467 14.967l-3.393-3.5H14.86l-3.392 3.5c-1.866 1.925-3.666 3.5-4 3.5-.335 0-2.135-1.575-4-3.5zm.266-11.234L7.467 0 11.2 3.733l3.733 3.734H0l3.733-3.734z' fill='#{hex-color(color.adjust($ui-base-color, $lightness: 8%))}'/></svg>")
-    no-repeat right 8px center / auto 16px;
+.status__wrapper-direct {
+  background-color: color.change($ui-highlight-color, $alpha: 0.1);
+
+  &:focus {
+    background-color: color.change($ui-highlight-color, $alpha: 0.15);
+  }
 }
 
 // Glitch-soc-specific changes
@@ -468,16 +433,6 @@
   }
 }
 
-.notification__dismiss-overlay {
-  .wrappy {
-    box-shadow: unset;
-
-    .ckbox {
-      text-shadow: unset;
-    }
-  }
-}
-
 .drawer__inner__mastodon {
   background: $white
     url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 234.80078 31.757813" width="234.80078" height="31.757812"><path d="M19.599609 0c-1.05 0-2.10039.375-2.90039 1.125L0 16.925781v14.832031h234.80078V17.025391l-16.5-15.900391c-1.6-1.5-4.20078-1.5-5.80078 0l-13.80078 13.099609c-1.6 1.5-4.19883 1.5-5.79883 0L179.09961 1.125c-1.6-1.5-4.19883-1.5-5.79883 0L159.5 14.224609c-1.6 1.5-4.20078 1.5-5.80078 0L139.90039 1.125c-1.6-1.5-4.20078-1.5-5.80078 0l-13.79883 13.099609c-1.6 1.5-4.20078 1.5-5.80078 0L100.69922 1.125c-1.600001-1.5-4.198829-1.5-5.798829 0l-13.59961 13.099609c-1.6 1.5-4.200781 1.5-5.800781 0L61.699219 1.125c-1.6-1.5-4.198828-1.5-5.798828 0L42.099609 14.224609c-1.6 1.5-4.198828 1.5-5.798828 0L22.5 1.125C21.7.375 20.649609 0 19.599609 0z" fill="#{hex-color($ui-base-color)}"/></svg>')
@@ -490,19 +445,21 @@
 
 .compose-form__actions .icon-button.active,
 .dropdown-button.active,
-.privacy-dropdown__option.active,
-.privacy-dropdown__option:focus,
 .language-dropdown__dropdown__results__item:focus,
 .language-dropdown__dropdown__results__item.active,
-.privacy-dropdown__option:focus .privacy-dropdown__option__content,
-.privacy-dropdown__option:focus .privacy-dropdown__option__content strong,
-.privacy-dropdown__option.active .privacy-dropdown__option__content,
-.privacy-dropdown__option.active .privacy-dropdown__option__content strong,
 .language-dropdown__dropdown__results__item:focus
   .language-dropdown__dropdown__results__item__common-name,
 .language-dropdown__dropdown__results__item.active
   .language-dropdown__dropdown__results__item__common-name {
   color: $white;
+}
+
+.privacy-dropdown__option,
+.visibility-dropdown__option {
+  &:focus,
+  &.active {
+    --dropdown-text-color: #{$white};
+  }
 }
 
 .compose-form .spoiler-input__input {
@@ -513,6 +470,15 @@
 .language-dropdown__dropdown .emoji-mart-search input,
 .poll__option input[type='text'] {
   background: color.adjust($ui-base-color, $lightness: -10%);
+}
+
+.dropdown-button.warning {
+  border-color: #b3261e;
+  color: #b3261e;
+
+  &.active {
+    background-color: #f9dedc;
+  }
 }
 
 .search__popout__menu__item {
@@ -530,8 +496,12 @@
 }
 
 .inline-follow-suggestions {
-  background-color: rgba($ui-highlight-color, 0.1);
-  border-bottom-color: rgba($ui-highlight-color, 0.3);
+  background-color: color.change($ui-highlight-color, $alpha: 0.1);
+  border-bottom-color: color.change($ui-highlight-color, $alpha: 0.3);
+
+  &.focusable:focus-visible {
+    background: color.change($ui-highlight-color, $alpha: 0.1);
+  }
 }
 
 .inline-follow-suggestions__body__scrollable__card {
@@ -605,7 +575,7 @@ a.sparkline {
 
 @supports not selector(::-webkit-scrollbar) {
   html {
-    scrollbar-color: rgba($action-button-color, 0.25)
+    scrollbar-color: color.change($action-button-color, $alpha: 0.25)
       var(--background-border-color);
   }
 }

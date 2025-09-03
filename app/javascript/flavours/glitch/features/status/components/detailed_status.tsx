@@ -4,36 +4,38 @@
                   @typescript-eslint/no-unsafe-assignment */
 
 import type { CSSProperties } from 'react';
-import React, { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
 import { AnimatedNumber } from 'flavours/glitch/components/animated_number';
 import AttachmentList from 'flavours/glitch/components/attachment_list';
+import { Avatar } from 'flavours/glitch/components/avatar';
 import { ContentWarning } from 'flavours/glitch/components/content_warning';
-import EditedTimestamp from 'flavours/glitch/components/edited_timestamp';
+import { DisplayName } from 'flavours/glitch/components/display_name';
+import { EditedTimestamp } from 'flavours/glitch/components/edited_timestamp';
+import { FilterWarning } from 'flavours/glitch/components/filter_warning';
+import { FormattedDateWrapper } from 'flavours/glitch/components/formatted_date';
 import type { StatusLike } from 'flavours/glitch/components/hashtag_bar';
 import { getHashtagBarForStatus } from 'flavours/glitch/components/hashtag_bar';
 import { IconLogo } from 'flavours/glitch/components/logo';
+import MediaGallery from 'flavours/glitch/components/media_gallery';
 import { MentionsPlaceholder } from 'flavours/glitch/components/mentions_placeholder';
 import { Permalink } from 'flavours/glitch/components/permalink';
-import PictureInPicturePlaceholder from 'flavours/glitch/components/picture_in_picture_placeholder';
+import { PictureInPicturePlaceholder } from 'flavours/glitch/components/picture_in_picture_placeholder';
+import StatusContent from 'flavours/glitch/components/status_content';
+import { QuotedStatus } from 'flavours/glitch/components/status_quoted';
+import { StatusReactions } from 'flavours/glitch/components/status_reactions';
 import { VisibilityIcon } from 'flavours/glitch/components/visibility_icon';
+import { Audio } from 'flavours/glitch/features/audio';
+import scheduleIdleTask from 'flavours/glitch/features/ui/util/schedule_idle_task';
+import { Video } from 'flavours/glitch/features/video';
 import { useIdentity } from 'flavours/glitch/identity_context';
+import { me, visibleReactions } from 'flavours/glitch/initial_state';
 import { useAppSelector } from 'flavours/glitch/store';
-
-import { Avatar } from '../../../components/avatar';
-import { DisplayName } from '../../../components/display_name';
-import MediaGallery from '../../../components/media_gallery';
-import StatusContent from '../../../components/status_content';
-import StatusReactions from '../../../components/status_reactions';
-import { visibleReactions } from '../../../initial_state';
-import Audio from '../../audio';
-import scheduleIdleTask from '../../ui/util/schedule_idle_task';
-import Video from '../../video';
 
 import Card from './card';
 
@@ -41,7 +43,6 @@ interface VideoModalOptions {
   startTime: number;
   autoPlay?: boolean;
   defaultVolume: number;
-  componentIndex: number;
 }
 
 export const DetailedStatus: React.FC<{
@@ -81,6 +82,7 @@ export const DetailedStatus: React.FC<{
 }) => {
   const properStatus = status?.get('reblog') ?? status;
   const [height, setHeight] = useState(0);
+  const [showDespiteFilter, setShowDespiteFilter] = useState(false);
   const nodeRef = useRef<HTMLDivElement>();
   const { signedIn } = useIdentity();
 
@@ -109,6 +111,10 @@ export const DetailedStatus: React.FC<{
     },
     [onOpenVideo, status],
   );
+
+  const handleFilterToggle = useCallback(() => {
+    setShowDespiteFilter(!showDespiteFilter);
+  }, [showDespiteFilter, setShowDespiteFilter]);
 
   const handleExpandedToggle = useCallback(() => {
     if (onToggleHidden) onToggleHidden(status);
@@ -149,6 +155,26 @@ export const DetailedStatus: React.FC<{
   let media;
   let applicationLink;
   let reblogLink;
+  let quotesLink;
+  let attachmentAspectRatio;
+
+  if (properStatus.get('media_attachments').getIn([0, 'type']) === 'video') {
+    attachmentAspectRatio = `${properStatus.get('media_attachments').getIn([0, 'meta', 'original', 'width'])} / ${properStatus.get('media_attachments').getIn([0, 'meta', 'original', 'height'])}`;
+  } else if (
+    properStatus.get('media_attachments').getIn([0, 'type']) === 'audio'
+  ) {
+    attachmentAspectRatio = '16 / 9';
+  } else {
+    attachmentAspectRatio =
+      properStatus.get('media_attachments').size === 1 &&
+      properStatus
+        .get('media_attachments')
+        .getIn([0, 'meta', 'small', 'aspect'])
+        ? properStatus
+            .get('media_attachments')
+            .getIn([0, 'meta', 'small', 'aspect'])
+        : '3 / 2';
+  }
 
   const mediaIcons: string[] = [];
 
@@ -162,7 +188,7 @@ export const DetailedStatus: React.FC<{
     status.getIn(['translation', 'language']) || status.get('language');
 
   if (pictureInPicture.get('inUse')) {
-    media = <PictureInPicturePlaceholder />;
+    media = <PictureInPicturePlaceholder aspectRatio={attachmentAspectRatio} />;
     mediaIcons.push('video-camera');
   } else if (status.get('media_attachments').size > 0) {
     if (
@@ -192,6 +218,7 @@ export const DetailedStatus: React.FC<{
           onOpenMedia={onOpenMedia}
           visible={showMedia}
           onToggleVisibility={onToggleMediaVisibility}
+          matchedFilters={status.get('matched_media_filters')}
         />
       );
       mediaIcons.push('picture-o');
@@ -206,19 +233,19 @@ export const DetailedStatus: React.FC<{
           src={attachment.get('url')}
           alt={description}
           lang={language}
-          duration={attachment.getIn(['meta', 'original', 'duration'], 0)}
           poster={
             attachment.get('preview_url') ||
             status.getIn(['account', 'avatar_static'])
           }
+          duration={attachment.getIn(['meta', 'original', 'duration'], 0)}
           backgroundColor={attachment.getIn(['meta', 'colors', 'background'])}
           foregroundColor={attachment.getIn(['meta', 'colors', 'foreground'])}
           accentColor={attachment.getIn(['meta', 'colors', 'accent'])}
           sensitive={status.get('sensitive')}
           visible={showMedia}
           blurhash={attachment.get('blurhash')}
-          height={150}
           onToggleVisibility={onToggleMediaVisibility}
+          matchedFilters={status.get('matched_media_filters')}
         />
       );
       mediaIcons.push('music');
@@ -237,26 +264,23 @@ export const DetailedStatus: React.FC<{
           src={attachment.get('url')}
           alt={description}
           lang={language}
-          inline
-          width={300}
-          height={150}
           onOpenVideo={handleOpenVideo}
           sensitive={status.get('sensitive')}
           visible={showMedia}
           onToggleVisibility={onToggleMediaVisibility}
+          matchedFilters={status.get('matched_media_filters')}
           letterbox={letterboxMedia}
           fullwidth={fullwidthMedia}
-          preventPlayback={!expanded}
         />
       );
       mediaIcons.push('video-camera');
     }
-  } else if (status.get('spoiler_text').length === 0) {
+  } else if (status.get('card') && !status.get('quote')) {
     media = (
       <Card
         sensitive={status.get('sensitive')}
         onOpenMedia={onOpenMedia}
-        card={status.get('card', null)}
+        card={status.get('card')}
       />
     );
     mediaIcons.push('link');
@@ -308,6 +332,39 @@ export const DetailedStatus: React.FC<{
     );
   }
 
+  if (['private', 'direct'].includes(status.get('visibility') as string)) {
+    quotesLink = '';
+  } else if (status.getIn(['account', 'id']) === me) {
+    quotesLink = (
+      <Link
+        to={`/@${status.getIn(['account', 'acct'])}/${status.get('id')}/quotes`}
+        className='detailed-status__link'
+      >
+        <span className='detailed-status__quotes'>
+          <AnimatedNumber value={status.get('quotes_count')} />
+        </span>
+        <FormattedMessage
+          id='status.quotes'
+          defaultMessage='{count, plural, one {quote} other {quotes}}'
+          values={{ count: status.get('quotes_count') }}
+        />
+      </Link>
+    );
+  } else {
+    quotesLink = (
+      <span className='detailed-status__link'>
+        <span className='detailed-status__quotes'>
+          <AnimatedNumber value={status.get('quotes_count')} />
+        </span>
+        <FormattedMessage
+          id='status.quotes'
+          defaultMessage='{count, plural, one {quote} other {quotes}}'
+          values={{ count: status.get('quotes_count') }}
+        />
+      </span>
+    );
+  }
+
   const favouriteLink = (
     <Link
       to={`/@${status.getIn(['account', 'acct'])}/${status.get('id')}/favourites`}
@@ -324,11 +381,31 @@ export const DetailedStatus: React.FC<{
     </Link>
   );
 
+  const reactionLink = (
+    <Link
+      to={`/@${status.getIn(['account', 'acct'])}/${status.get('id')}/reactions`}
+      className='detailed-status__link'
+    >
+      <span className='detailed-status__reactions'>
+        <AnimatedNumber value={status.get('reactions_count')} />
+      </span>
+      <FormattedMessage
+        id='status.reactions'
+        defaultMessage='{count, plural, one {reaction} other {reactions}}'
+        values={{ count: status.get('reactions_count') }}
+      />
+    </Link>
+  );
+
   const { statusContentProps, hashtagBar } = getHashtagBarForStatus(
     status as StatusLike,
   );
 
-  expanded ||= status.get('spoiler_text').length === 0;
+  const matchedFilters = status.get('matched_filters');
+
+  expanded =
+    (!matchedFilters || showDespiteFilter) &&
+    (expanded || status.get('spoiler_text').length === 0);
 
   return (
     <div style={outerStyle}>
@@ -337,6 +414,9 @@ export const DetailedStatus: React.FC<{
         className={classNames(
           'detailed-status',
           `detailed-status-${status.get('visibility')}`,
+          {
+            'status--has-quote': !!status.get('quote'),
+          },
         )}
         data-status-by={status.getIn(['account', 'acct'])}
       >
@@ -362,16 +442,25 @@ export const DetailedStatus: React.FC<{
           )}
         </Permalink>
 
-        {status.get('spoiler_text').length > 0 && (
-          <ContentWarning
-            text={
-              status.getIn(['translation', 'spoilerHtml']) ||
-              status.get('spoilerHtml')
-            }
-            expanded={expanded}
-            onClick={handleExpandedToggle}
+        {matchedFilters && (
+          <FilterWarning
+            title={matchedFilters.join(', ')}
+            expanded={showDespiteFilter}
+            onClick={handleFilterToggle}
           />
         )}
+
+        {status.get('spoiler_text').length > 0 &&
+          (!matchedFilters || showDespiteFilter) && (
+            <ContentWarning
+              text={
+                status.getIn(['translation', 'spoilerHtml']) ||
+                status.get('spoilerHtml')
+              }
+              expanded={expanded}
+              onClick={handleExpandedToggle}
+            />
+          )}
 
         {expanded && (
           <>
@@ -385,6 +474,13 @@ export const DetailedStatus: React.FC<{
 
             {media}
             {hashtagBar}
+
+            {status.get('quote') && (
+              <QuotedStatus
+                quote={status.get('quote')}
+                parentQuotePostId={status.get('id')}
+              />
+            )}
           </>
         )}
 
@@ -409,7 +505,7 @@ export const DetailedStatus: React.FC<{
               target='_blank'
               rel='noopener noreferrer'
             >
-              <FormattedDate
+              <FormattedDateWrapper
                 value={new Date(status.get('created_at') as string)}
                 year='numeric'
                 month='short'
@@ -435,7 +531,9 @@ export const DetailedStatus: React.FC<{
           <div className='detailed-status__meta__line'>
             {reblogLink}
             {reblogLink && <>·</>}
-            {favouriteLink}
+            {quotesLink}
+            {quotesLink && <>·</>}
+            {favouriteLink}·{reactionLink}
           </div>
         </div>
       </div>
