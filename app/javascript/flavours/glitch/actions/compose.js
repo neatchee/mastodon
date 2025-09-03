@@ -93,7 +93,6 @@ export const COMPOSE_FOCUS = 'COMPOSE_FOCUS';
 
 const messages = defineMessages({
   uploadErrorLimit: { id: 'upload_error.limit', defaultMessage: 'File upload limit exceeded.' },
-  uploadErrorPoll:  { id: 'upload_error.poll', defaultMessage: 'File upload not allowed with polls.' },
   uploadQuote: { id: 'upload_error.quote', defaultMessage: 'File upload not allowed with quotes.' },
   open: { id: 'compose.published.open', defaultMessage: 'Open' },
   published: { id: 'compose.published.body', defaultMessage: 'Post published.' },
