@@ -1241,13 +1241,6 @@ const startServer = async () => {
           });
 
           break;
-        case 'public:local:media':
-          resolve({
-            channelIds: ['timeline:public:local:media'],
-            options: { needsFiltering: true, allowLocalOnly: true },
-          });
-
-          break;
         case 'public:bubble:media':
           resolve({
             channelIds: ['timeline:public:bubble:media'],

@@ -56,6 +56,7 @@
   "navigation_bar.app_settings": "App settings",
   "notification.reaction": "{name} reacted to your post <e>with</e>",
   "notification.reaction.name_and_others_with_link": "{name} and <a>{count, plural, one {# other} other {# others}}</a> reacted to your post",
+  "navigation_bar.live_feed_bubble": "Live feed (bubble)",
   "notifications.column_settings.filter_bar.show_bar": "Show filter bar",
   "notifications.column_settings.reaction": "Reactions:",
   "notifications.filter.reactions": "Reactions",
@@ -134,10 +135,6 @@
   "status.react": "React",
   "status.reactions": "{count, plural, one {reaction} other {reactions}}",
   "status.reactions.empty": "No one has reacted to this post yet. When someone does, they will show up here.",
-<<<<<<< HEAD
   "status.show_filter_reason": "Show anyway",
   "suggestions.dismiss": "Dismiss suggestion"
-=======
-  "status.show_filter_reason": "Show anyway"
->>>>>>> TheEssem/feature/reaction-list
 }
