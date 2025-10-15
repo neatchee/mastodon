@@ -8,6 +8,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 
+import { DisplayName } from '@/mastodon/components/display_name';
 import DeleteIcon from '@/material-icons/400-24px/delete.svg?react';
 import MoreHorizIcon from '@/material-icons/400-24px/more_horiz.svg?react';
 import { initBlockModal } from 'mastodon/actions/blocks';
@@ -96,7 +97,7 @@ export const NotificationRequest = ({ id, accountId, notificationsCount, checked
 
         <div className='notification-request__name'>
           <div className='notification-request__name__display-name'>
-            <bdi><strong dangerouslySetInnerHTML={{ __html: account?.get('display_name_html') }} /></bdi>
+            <DisplayName account={account} variant='simple' />
           </div>
 
           <span>@{account?.get('acct')}</span>

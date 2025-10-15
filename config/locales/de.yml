@@ -367,7 +367,7 @@ de:
       title: Eigene Emojis
       uncategorized: Unkategorisiert
       unlist: Nicht anzeigen
-      unlisted: Öffentlich (still)
+      unlisted: Nicht sichtbar
       update_failed_msg: Konnte dieses Emoji nicht bearbeiten
       updated_msg: Emoji erfolgreich bearbeitet!
       upload: Hochladen
@@ -1913,16 +1913,15 @@ de:
       reblog: Du kannst keine geteilten Beiträge anheften
     quote_policies:
       followers: Nur Follower
-      nobody: Nur von mir
+      nobody: Nur ich
       public: Alle
     title: "%{name}: „%{quote}“"
     visibilities:
       direct: Private Erwähnung
       private: Nur Follower
-      private_long: Nur für deine Follower sichtbar
       public: Öffentlich
       public_long: Alle innerhalb und außerhalb von Mastodon
-      unlisted: Nicht gelistet
+      unlisted: Öffentlich (still)
       unlisted_long: Wird nicht in den Suchergebnissen, Trends oder öffentlichen Timelines von Mastodon angezeigt
   statuses_cleanup:
     enabled: Alte Beiträge automatisch entfernen

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { Link } from 'react-router-dom';
-
+import { LinkedDisplayName } from '@/mastodon/components/display_name';
 import { Avatar } from 'mastodon/components/avatar';
 import { useAppSelector } from 'mastodon/store';
 
@@ -13,10 +12,9 @@ export const AuthorLink = ({ accountId }) => {
   }
 
   return (
-    <Link to={`/@${account.get('acct')}`} className='story__details__shared__author-link' data-hover-card-account={accountId}>
+    <LinkedDisplayName displayProps={{account}} className='story__details__shared__author-link'>
       <Avatar account={account} size={16} />
-      <bdi dangerouslySetInnerHTML={{ __html: account.get('display_name_html') }} />
-    </Link>
+    </LinkedDisplayName>
   );
 };
 

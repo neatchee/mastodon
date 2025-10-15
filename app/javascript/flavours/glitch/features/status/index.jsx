@@ -10,13 +10,16 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { connect } from 'react-redux';
 
+import { difference } from 'lodash';
+
+import { quoteComposeById } from '@/flavours/glitch/actions/compose_typed';
 import ChatIcon from '@/material-icons/400-24px/chat.svg?react';
 import VisibilityIcon from '@/material-icons/400-24px/visibility.svg?react';
 import VisibilityOffIcon from '@/material-icons/400-24px/visibility_off.svg?react';
 import { Hotkeys }  from 'flavours/glitch/components/hotkeys';
 import { Icon }  from 'flavours/glitch/components/icon';
 import { LoadingIndicator } from 'flavours/glitch/components/loading_indicator';
-import ScrollContainer from 'flavours/glitch/containers/scroll_container';
+import { ScrollContainer } from 'flavours/glitch/containers/scroll_container';
 import BundleColumnError from 'flavours/glitch/features/ui/components/bundle_column_error';
 import { identityContextPropShape, withIdentity } from 'flavours/glitch/identity_context';
 import { getAncestorsIds, getDescendantsIds } from 'flavours/glitch/selectors/contexts';
@@ -65,7 +68,6 @@ import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from
 import ActionBar from './components/action_bar';
 import { DetailedStatus } from './components/detailed_status';
 import { RefreshController } from './components/refresh_controller';
-import { quoteComposeById } from '@/flavours/glitch/actions/compose_typed';
 
 const messages = defineMessages({
   revealAll: { id: 'status.show_more_all', defaultMessage: 'Show more for all' },
@@ -150,9 +152,14 @@ class Status extends ImmutablePureComponent {
     isExpanded: undefined,
     threadExpanded: undefined,
     statusId: undefined,
-    loadedStatusId: undefined,
     showMedia: undefined,
+    loadedStatusId: undefined,
     revealBehindCW: undefined,
+    /**
+     * Holds the ids of newly added replies, excluding the initial load.
+     * Used to highlight newly added replies in the UI
+     */
+    newRepliesIds: [],
   };
 
   componentDidMount () {
@@ -218,7 +225,6 @@ class Status extends ImmutablePureComponent {
       dispatch(openModal({
         modalType: 'INTERACTION',
         modalProps: {
-          type: 'favourite',
           accountId: status.getIn(['account', 'id']),
           url: status.get('uri'),
         },
@@ -261,7 +267,6 @@ class Status extends ImmutablePureComponent {
       dispatch(openModal({
         modalType: 'INTERACTION',
         modalProps: {
-          type: 'reply',
           accountId: status.getIn(['account', 'id']),
           url: status.get('uri'),
         },
@@ -279,7 +284,6 @@ class Status extends ImmutablePureComponent {
       dispatch(openModal({
         modalType: 'INTERACTION',
         modalProps: {
-          type: 'reblog',
           accountId: status.getIn(['account', 'id']),
           url: status.get('uri'),
         },
@@ -497,6 +501,7 @@ class Status extends ImmutablePureComponent {
         previousId={i > 0 ? list[i - 1] : undefined}
         nextId={list[i + 1] || (ancestors && statusId)}
         rootId={statusId}
+        shouldHighlightOnMount={this.state.newRepliesIds.includes(id)}
       />
     ));
   }
@@ -538,10 +543,19 @@ class Status extends ImmutablePureComponent {
   }
 
   componentDidUpdate (prevProps) {
-    const { status, ancestorsIds } = this.props;
+    const { status, ancestorsIds, descendantsIds } = this.props;
 
     if (status && (ancestorsIds.length > prevProps.ancestorsIds.length || prevProps.status?.get('id') !== status.get('id'))) {
       this._scrollStatusIntoView();
+    }
+
+    // Only highlight replies after the initial load
+    if (prevProps.descendantsIds.length) {
+      const newRepliesIds = difference(descendantsIds, prevProps.descendantsIds);
+      
+      if (newRepliesIds.length) {
+        this.setState({newRepliesIds});
+      }
     }
   }
 
@@ -553,9 +567,9 @@ class Status extends ImmutablePureComponent {
     this.setState({ fullscreen: isFullscreen() });
   };
 
-  shouldUpdateScroll = (prevRouterProps, { location }) => {
+  shouldUpdateScroll = (prevLocation, location) => {
     // Do not change scroll when opening a modal
-    if (location.state?.mastodonModalKey !== prevRouterProps?.location?.state?.mastodonModalKey) {
+    if (location.state?.mastodonModalKey !== prevLocation?.state?.mastodonModalKey) {
       return false;
     }
 
@@ -636,12 +650,12 @@ class Status extends ImmutablePureComponent {
           )}
         />
 
-        <ScrollContainer scrollKey='thread' shouldUpdateScroll={this.shouldUpdateScroll}>
+        <ScrollContainer scrollKey='thread' shouldUpdateScroll={this.shouldUpdateScroll} childRef={this.setContainerRef}>
           <div className={classNames('scrollable item-list', { fullscreen })} ref={this.setContainerRef}>
             {ancestors}
 
             <Hotkeys handlers={handlers}>
-              <div className={classNames('focusable', 'detailed-status__wrapper', `detailed-status__wrapper-${status.get('visibility')}`)} tabIndex={0} aria-label={textForScreenReader(intl, status, false, isExpanded)} ref={this.setStatusRef}>
+              <div className={classNames('focusable', 'detailed-status__wrapper', `detailed-status__wrapper-${status.get('visibility')}`)} tabIndex={0} aria-label={textForScreenReader({intl, status, expanded: isExpanded})} ref={this.setStatusRef}>
                 <DetailedStatus
                   key={`details-${status.get('id')}`}
                   status={status}
@@ -683,8 +697,8 @@ class Status extends ImmutablePureComponent {
               </div>
             </Hotkeys>
 
-            {remoteHint}
             {descendants}
+            {remoteHint}
           </div>
         </ScrollContainer>
 

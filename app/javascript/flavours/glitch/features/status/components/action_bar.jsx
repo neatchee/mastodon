@@ -6,8 +6,7 @@ import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
-import { ReblogButton } from '@/flavours/glitch/components/status/reblog_button';
-import { isFeatureEnabled } from '@/flavours/glitch/utils/environment';
+import { BoostButton } from '@/flavours/glitch/components/status/boost_button';
 import AddReactionIcon from '@/material-icons/400-24px/add_reaction.svg?react';
 import BookmarkIcon from '@/material-icons/400-24px/bookmark-fill.svg?react';
 import BookmarkBorderIcon from '@/material-icons/400-24px/bookmark.svg?react';
@@ -209,7 +208,7 @@ class ActionBar extends PureComponent {
         }
 
         menu.push({ text: intl.formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation), action: this.handleConversationMuteClick });
-        if (isFeatureEnabled('outgoing_quotes') && !['private', 'direct'].includes(status.get('visibility'))) {
+        if (!['private', 'direct'].includes(status.get('visibility'))) {
           menu.push({ text: intl.formatMessage(messages.quotePolicyChange), action: this.handleQuotePolicyChange });
         }
         menu.push(null);
@@ -266,7 +265,7 @@ class ActionBar extends PureComponent {
       <div className='detailed-status__action-bar'>
         <div className='detailed-status__button'><IconButton title={intl.formatMessage(messages.reply)} icon={replyIcon} iconComponent={replyIconComponent} onClick={this.handleReplyClick} /></div>
         <div className='detailed-status__button'>
-          <ReblogButton status={status} />
+          <BoostButton status={status} />
         </div>
         <div className='detailed-status__button'><IconButton className='star-icon' animate active={status.get('favourited')} title={favouriteTitle} icon='star' iconComponent={status.get('favourited') ? StarIcon : StarBorderIcon} onClick={this.handleFavouriteClick} /></div>
         <div className='detailed-status__button'><EmojiPickerDropdown onPickEmoji={this.handleEmojiPick} title={intl.formatMessage(messages.react)} icon={AddReactionIcon} disabled={!canReact} /></div>

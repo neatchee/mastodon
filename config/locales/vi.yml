@@ -364,7 +364,7 @@ vi:
       title: Emoji
       uncategorized: Chưa phân loại
       unlist: Bỏ danh sách
-      unlisted: Hạn chế
+      unlisted: Chưa cho phép
       update_failed_msg: Không thể cập nhật Emoji này
       updated_msg: Cập nhật thành công Emoji!
       upload: Tải lên
@@ -1875,8 +1875,7 @@ vi:
     title: '%{name}: "%{quote}"'
     visibilities:
       direct: Nhắn riêng
-      private: Riêng tư
-      private_long: Chỉ người theo dõi mới được xem
+      private: Chỉ người theo dõi
       public: Công khai
       public_long: Bất kỳ ai trong và ngoài Mastodon
       unlisted: Hạn chế

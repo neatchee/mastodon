@@ -8,6 +8,7 @@ import { Link, withRouter } from 'react-router-dom';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
+import { LinkedDisplayName } from '@/mastodon/components/display_name';
 import EditIcon from '@/material-icons/400-24px/edit.svg?react';
 import FlagIcon from '@/material-icons/400-24px/flag-fill.svg?react';
 import FormatQuoteIcon from '@/material-icons/400-24px/format_quote-fill.svg?react';
@@ -485,8 +486,10 @@ class Notification extends ImmutablePureComponent {
     }
 
     const targetAccount = report.get('target_account');
-    const targetDisplayNameHtml = { __html: targetAccount.get('display_name_html') };
-    const targetLink = <bdi><Link className='notification__display-name' title={targetAccount.get('acct')} data-hover-card-account={targetAccount.get('id')} to={`/@${targetAccount.get('acct')}`} dangerouslySetInnerHTML={targetDisplayNameHtml} /></bdi>;
+    const targetLink = (<LinkedDisplayName
+      className='notification__display-name'
+      displayProps={{account:targetAccount, variant: 'simple'}}
+    />);
 
     return (
       <Hotkeys handlers={this.getHandlers()}>
@@ -508,8 +511,7 @@ class Notification extends ImmutablePureComponent {
   render () {
     const { notification } = this.props;
     const account          = notification.get('account');
-    const displayNameHtml  = { __html: account.get('display_name_html') };
-    const link             = <bdi><Link className='notification__display-name' href={`/@${account.get('acct')}`} title={account.get('acct')} data-hover-card-account={account.get('id')} to={`/@${account.get('acct')}`} dangerouslySetInnerHTML={displayNameHtml} /></bdi>;
+    const link             = <LinkedDisplayName className='notification__display-name' displayProps={{account, variant: 'simple'}} />;
 
     switch(notification.get('type')) {
     case 'follow':

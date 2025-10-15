@@ -12,14 +12,12 @@ import type { ApiQuotePolicy } from '@/flavours/glitch/api_types/quotes';
 import type { StatusVisibility } from '@/flavours/glitch/api_types/statuses';
 import { Icon } from '@/flavours/glitch/components/icon';
 import { useAppSelector, useAppDispatch } from '@/flavours/glitch/store';
-import { isFeatureEnabled } from '@/flavours/glitch/utils/environment';
 import AlternateEmailIcon from '@/material-icons/400-24px/alternate_email.svg?react';
 import LockIcon from '@/material-icons/400-24px/lock.svg?react';
 import PublicIcon from '@/material-icons/400-24px/public.svg?react';
 import QuietTimeIcon from '@/material-icons/400-24px/quiet_time.svg?react';
 
 import type { VisibilityModalCallback } from '../../ui/components/visibility_modal';
-import PrivacyDropdownContainer from '../containers/privacy_dropdown_container';
 
 import { messages as privacyMessages } from './privacy_dropdown';
 
@@ -43,9 +41,6 @@ interface PrivacyDropdownProps {
 }
 
 export const VisibilityButton: FC<PrivacyDropdownProps> = (props) => {
-  if (!isFeatureEnabled('outgoing_quotes')) {
-    return <PrivacyDropdownContainer {...props} />;
-  }
   return <PrivacyModalButton {...props} />;
 };
 
@@ -79,10 +74,12 @@ const visibilityOptions = {
 const PrivacyModalButton: FC<PrivacyDropdownProps> = ({ disabled = false }) => {
   const intl = useIntl();
 
-  const { visibility, quotePolicy } = useAppSelector((state) => ({
-    visibility: state.compose.get('privacy') as StatusVisibility,
-    quotePolicy: state.compose.get('quote_policy') as ApiQuotePolicy,
-  }));
+  const quotePolicy = useAppSelector(
+    (state) => state.compose.get('quote_policy') as ApiQuotePolicy,
+  );
+  const visibility = useAppSelector(
+    (state) => state.compose.get('privacy') as StatusVisibility,
+  );
 
   const { icon, iconComponent } = useMemo(() => {
     const option = visibilityOptions[visibility];

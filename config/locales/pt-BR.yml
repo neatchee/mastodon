@@ -367,7 +367,7 @@ pt-BR:
       title: Emojis personalizados
       uncategorized: Não categorizado
       unlist: Não listar
-      unlisted: Público silencioso
+      unlisted: Não-listado
       update_failed_msg: Não foi possível atualizar esse emoji
       updated_msg: Emoji atualizado!
       upload: Enviar
@@ -1918,11 +1918,8 @@ pt-BR:
     title: '%{name}: "%{quote}"'
     visibilities:
       direct: Citação privada
-      private: Apenas seguidores
-      private_long: Exibir apenas para seguidores
       public: Público
       public_long: Qualquer um dentro ou fora do Mástodon
-      unlisted: Não listado
       unlisted_long: Oculto aos resultados de pesquisa em Mástodon
   statuses_cleanup:
     enabled: Excluir publicações antigas automaticamente
