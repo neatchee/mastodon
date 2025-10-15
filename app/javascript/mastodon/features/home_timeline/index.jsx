@@ -14,7 +14,6 @@ import { fetchAnnouncements, toggleShowAnnouncements } from 'mastodon/actions/an
 import { IconWithBadge } from 'mastodon/components/icon_with_badge';
 import { SymbolLogo } from 'mastodon/components/logo';
 import { NotSignedInIndicator } from 'mastodon/components/not_signed_in_indicator';
-import AnnouncementsContainer from 'mastodon/features/getting_started/containers/announcements_container';
 import { withBreakpoint } from 'mastodon/features/ui/hooks/useBreakpoint';
 import { identityContextPropShape, withIdentity } from 'mastodon/identity_context';
 import { criticalUpdatesPending } from 'mastodon/initial_state';
@@ -25,6 +24,7 @@ import Column from '../../components/column';
 import ColumnHeader from '../../components/column_header';
 import StatusListContainer from '../ui/containers/status_list_container';
 
+import { Announcements } from './components/announcements';
 import { ColumnSettings } from './components/column_settings';
 import { CriticalUpdateBanner } from './components/critical_update_banner';
 
@@ -162,7 +162,7 @@ class HomeTimeline extends PureComponent {
           pinned={pinned}
           multiColumn={multiColumn}
           extraButton={announcementsButton}
-          appendContent={hasAnnouncements && showAnnouncements && <AnnouncementsContainer />}
+          appendContent={hasAnnouncements && showAnnouncements && <Announcements />}
         >
           <ColumnSettings />
         </ColumnHeader>

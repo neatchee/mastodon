@@ -14,7 +14,7 @@ import { connectPublicStream, connectCommunityStream, connectBubbleStream } from
 import { expandPublicTimeline, expandCommunityTimeline, expandBubbleTimeline } from 'flavours/glitch/actions/timelines';
 import { DismissableBanner } from 'flavours/glitch/components/dismissable_banner';
 import SettingText from 'flavours/glitch/components/setting_text';
-import { domain } from 'flavours/glitch/initial_state';
+import { localLiveFeedAccess, remoteLiveFeedAccess, me, domain } from 'flavours/glitch/initial_state';
 import { useAppDispatch, useAppSelector } from 'flavours/glitch/store';
 
 import Column from '../../components/column';
@@ -226,23 +226,25 @@ const Firehose = ({ feedType, multiColumn }) => {
         <ColumnSettings />
       </ColumnHeader>
 
-      <div className='account__section-headline'>
-        <NavLink exact to='/public/local'>
-          <FormattedMessage tagName='div' id='firehose.local' defaultMessage='This server' />
-        </NavLink>
+      {(signedIn || (localLiveFeedAccess === 'public' && remoteLiveFeedAccess === 'public')) && (
+        <div className='account__section-headline'>
+          <NavLink exact to='/public/local'>
+            <FormattedMessage tagName='div' id='firehose.local' defaultMessage='This server' />
+          </NavLink>
 
-        <NavLink exact to='/public/bubble'>
-          <FormattedMessage tagName='div' id='firehose.bubble' defaultMessage='Bubble servers' />
-        </NavLink>
+          <NavLink exact to='/public/bubble'>
+            <FormattedMessage tagName='div' id='firehose.bubble' defaultMessage='Bubble servers' />
+          </NavLink>
 
-        <NavLink exact to='/public/remote'>
-          <FormattedMessage tagName='div' id='firehose.remote' defaultMessage='Other servers' />
-        </NavLink>
+          <NavLink exact to='/public/remote'>
+            <FormattedMessage tagName='div' id='firehose.remote' defaultMessage='Other servers' />
+          </NavLink>
 
-        <NavLink exact to='/public'>
-          <FormattedMessage tagName='div' id='firehose.all' defaultMessage='All' />
-        </NavLink>
-      </div>
+          <NavLink exact to='/public'>
+            <FormattedMessage tagName='div' id='firehose.all' defaultMessage='All' />
+          </NavLink>
+        </div>
+      )}
 
       <StatusListContainer
         prepend={prependBanner}

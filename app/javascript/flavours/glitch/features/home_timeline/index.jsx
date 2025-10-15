@@ -25,6 +25,7 @@ import Column from '../../components/column';
 import ColumnHeader from '../../components/column_header';
 import StatusListContainer from '../ui/containers/status_list_container';
 
+import { Announcements } from './components/announcements';
 import { ColumnSettings } from './components/column_settings';
 import { CriticalUpdateBanner } from './components/critical_update_banner';
 
@@ -164,7 +165,7 @@ class HomeTimeline extends PureComponent {
           pinned={pinned}
           multiColumn={multiColumn}
           extraButton={announcementsButton}
-          appendContent={hasAnnouncements && showAnnouncements && <AnnouncementsContainer />}
+          appendContent={hasAnnouncements && showAnnouncements && <Announcements />}
         >
           <ColumnSettings />
         </ColumnHeader>
