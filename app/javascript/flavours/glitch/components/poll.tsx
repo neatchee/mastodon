@@ -13,9 +13,7 @@ import CheckIcon from '@/material-icons/400-24px/check.svg?react';
 import { openModal } from 'flavours/glitch/actions/modal';
 import { fetchPoll, vote } from 'flavours/glitch/actions/polls';
 import { Icon } from 'flavours/glitch/components/icon';
-import emojify from 'flavours/glitch/features/emoji/emoji';
 import { useIdentity } from 'flavours/glitch/identity_context';
-import { makeEmojiMap } from 'flavours/glitch/models/custom_emoji';
 import type * as Model from 'flavours/glitch/models/poll';
 import type { Status } from 'flavours/glitch/models/status';
 import { useAppDispatch, useAppSelector } from 'flavours/glitch/store';
@@ -235,12 +233,11 @@ const PollOption: React.FC<PollOptionProps> = (props) => {
     let titleHtml = option.translation?.titleHtml ?? option.titleHtml;
 
     if (!titleHtml) {
-      const emojiMap = makeEmojiMap(poll.emojis);
-      titleHtml = emojify(escapeTextContentForBrowser(title), emojiMap);
+      titleHtml = escapeTextContentForBrowser(title);
     }
 
     return titleHtml;
-  }, [option, poll, title]);
+  }, [option, title]);
 
   // Handlers
   const handleOptionChange = useCallback(() => {

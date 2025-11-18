@@ -9,6 +9,7 @@ interface InitialStateMeta {
   activity_api_enabled: boolean;
   admin: string;
   boost_modal?: boolean;
+  quick_boosting?: boolean;
   favourite_modal?: boolean;
   crop_images: boolean;
   delete_modal?: boolean;
@@ -35,13 +36,13 @@ interface InitialStateMeta {
   single_user_mode: boolean;
   source_url: string;
   streaming_api_base_url: string;
-  local_live_feed_access: 'public' | 'authenticated';
-  remote_live_feed_access: 'public' | 'authenticated';
-  local_topic_feed_access: 'public' | 'authenticated';
-  remote_topic_feed_access: 'public' | 'authenticated';
+  local_live_feed_access: 'public' | 'authenticated' | 'disabled';
+  remote_live_feed_access: 'public' | 'authenticated' | 'disabled';
+  local_topic_feed_access: 'public' | 'authenticated' | 'disabled';
+  remote_topic_feed_access: 'public' | 'authenticated' | 'disabled';
   title: string;
   show_trends: boolean;
-  trends_as_landing_page: boolean;
+  landing_page: 'about' | 'trends' | 'local_feed';
   use_blurhash: boolean;
   use_pending_items?: boolean;
   version: string;
@@ -50,7 +51,6 @@ interface InitialStateMeta {
   status_page_url: string;
   terms_of_service_enabled: boolean;
   emoji_style?: string;
-  system_emoji_font?: boolean;
   default_content_type: string;
 }
 
@@ -120,6 +120,7 @@ function getMeta<K extends keyof InitialStateMeta>(
 export const activityApiEnabled = getMeta('activity_api_enabled');
 export const autoPlayGif = getMeta('auto_play_gif');
 export const boostModal = getMeta('boost_modal');
+export const quickBoosting = getMeta('quick_boosting');
 export const deleteModal = getMeta('delete_modal');
 export const missingAltTextModal = getMeta('missing_alt_text_modal');
 export const disableSwiping = getMeta('disable_swiping');
@@ -149,7 +150,7 @@ export const remoteLiveFeedAccess = getMeta('remote_live_feed_access');
 export const localTopicFeedAccess = getMeta('local_topic_feed_access');
 export const remoteTopicFeedAccess = getMeta('remote_topic_feed_access');
 export const title = getMeta('title');
-export const trendsAsLanding = getMeta('trends_as_landing_page');
+export const landingPage = getMeta('landing_page');
 export const useBlurhash = getMeta('use_blurhash');
 export const usePendingItems = getMeta('use_pending_items');
 export const version = getMeta('version');
@@ -178,7 +179,6 @@ export const maxFeedHashtags = initialState?.max_feed_hashtags ?? 4;
 export const favouriteModal = getMeta('favourite_modal');
 export const pollLimits = initialState?.poll_limits;
 export const defaultContentType = getMeta('default_content_type');
-export const useSystemEmojiFont = getMeta('system_emoji_font');
 export const maxReactions = initialState?.max_reactions ?? 1;
 export const visibleReactions = getMeta('visible_reactions');
 

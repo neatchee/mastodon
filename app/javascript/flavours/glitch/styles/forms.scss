@@ -225,6 +225,10 @@ code {
       list-style: disc;
       margin-inline-start: 18px;
     }
+
+    .icon {
+      vertical-align: -3px;
+    }
   }
 
   ul.hint {
@@ -300,7 +304,7 @@ code {
       color: $primary-text-color;
       display: block;
       margin-bottom: 8px;
-      word-wrap: break-word;
+      overflow-wrap: break-word;
       font-weight: 500;
     }
 
@@ -753,6 +757,12 @@ code {
 
   &.hidden {
     display: none;
+  }
+
+  &.hidden-on-touch-devices {
+    @media screen and (pointer: coarse) {
+      display: none;
+    }
   }
 
   a {

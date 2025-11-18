@@ -9,10 +9,8 @@ import ReactSwipeableViews from 'react-swipeable-views';
 
 import { CustomEmojiProvider } from '@/flavours/glitch/components/emoji/context';
 import { IconButton } from '@/flavours/glitch/components/icon_button';
-import LegacyAnnouncements from '@/flavours/glitch/features/getting_started/containers/announcements_container';
 import { mascot, reduceMotion } from '@/flavours/glitch/initial_state';
 import { createAppSelector, useAppSelector } from '@/flavours/glitch/store';
-import { isModernEmojiEnabled } from '@/flavours/glitch/utils/environment';
 import elephantUIPlane from '@/images/elephant_ui_plane.svg';
 import ChevronLeftIcon from '@/material-icons/400-24px/chevron_left.svg?react';
 import ChevronRightIcon from '@/material-icons/400-24px/chevron_right.svg?react';
@@ -32,7 +30,7 @@ const announcementSelector = createAppSelector(
     (announcements.get('items')?.toJS() as IAnnouncement[] | undefined) ?? [],
 );
 
-export const ModernAnnouncements: FC = () => {
+export const Announcements: FC = () => {
   const intl = useIntl();
 
   const announcements = useAppSelector(announcementSelector);
@@ -112,7 +110,3 @@ export const ModernAnnouncements: FC = () => {
     </div>
   );
 };
-
-export const Announcements = isModernEmojiEnabled()
-  ? ModernAnnouncements
-  : LegacyAnnouncements;

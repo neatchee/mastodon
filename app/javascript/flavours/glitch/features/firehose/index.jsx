@@ -14,7 +14,8 @@ import { connectPublicStream, connectCommunityStream, connectBubbleStream } from
 import { expandPublicTimeline, expandCommunityTimeline, expandBubbleTimeline } from 'flavours/glitch/actions/timelines';
 import { DismissableBanner } from 'flavours/glitch/components/dismissable_banner';
 import SettingText from 'flavours/glitch/components/setting_text';
-import { localLiveFeedAccess, remoteLiveFeedAccess, me, domain } from 'flavours/glitch/initial_state';
+import { localLiveFeedAccess, remoteLiveFeedAccess, domain } from 'flavours/glitch/initial_state';
+import { canViewFeed } from 'flavours/glitch/permissions';
 import { useAppDispatch, useAppSelector } from 'flavours/glitch/store';
 
 import Column from '../../components/column';
@@ -24,6 +25,14 @@ import StatusListContainer from '../ui/containers/status_list_container';
 
 const messages = defineMessages({
   title: { id: 'column.firehose', defaultMessage: 'Live feeds' },
+  title_local: {
+    id: 'column.firehose_local',
+    defaultMessage: 'Live feed for this server',
+  },
+  title_singular: {
+    id: 'column.firehose_singular',
+    defaultMessage: 'Live feed',
+  },
   filter_regex: { id: 'home.column_settings.filter_regex', defaultMessage: 'Filter out by regular expressions' },
 });
 
@@ -75,7 +84,7 @@ const ColumnSettings = () => {
 const Firehose = ({ feedType, multiColumn }) => {
   const dispatch = useAppDispatch();
   const intl = useIntl();
-  const { signedIn } = useIdentity();
+  const { signedIn, permissions } = useIdentity();
   const columnRef = useRef(null);
 
   const allowLocalOnly = useAppSelector((state) => state.getIn(['settings', 'firehose', 'allowLocalOnly']));
@@ -212,13 +221,32 @@ const Firehose = ({ feedType, multiColumn }) => {
     );
   }
 
+  const canViewSelectedFeed = canViewFeed(signedIn, permissions, feedType === 'community' ? localLiveFeedAccess : remoteLiveFeedAccess);
+
+  const disabledTimelineMessage = (
+    <FormattedMessage
+      id='empty_column.disabled_feed'
+      defaultMessage='This feed has been disabled by your server administrators.'
+    />
+  );
+
+  let title;
+
+  if (canViewFeed(signedIn, permissions, localLiveFeedAccess) && canViewFeed(signedIn, permissions, remoteLiveFeedAccess)) {
+    title = messages.title;
+  } else if (canViewFeed(signedIn, permissions, localLiveFeedAccess)) {
+    title = messages.title_local;
+  } else {
+    title = messages.title_singular;
+  }
+
   return (
     <Column bindToDocument={!multiColumn} ref={columnRef} label={intl.formatMessage(messages.title)}>
       <ColumnHeader
         icon='globe'
         iconComponent={PublicIcon}
         active={hasUnread}
-        title={intl.formatMessage(messages.title)}
+        title={intl.formatMessage(title)}
         onPin={handlePin}
         onClick={handleHeaderClick}
         multiColumn={multiColumn}
@@ -226,7 +254,7 @@ const Firehose = ({ feedType, multiColumn }) => {
         <ColumnSettings />
       </ColumnHeader>
 
-      {(signedIn || (localLiveFeedAccess === 'public' && remoteLiveFeedAccess === 'public')) && (
+      {(canViewFeed(signedIn, permissions, localLiveFeedAccess) && canViewFeed(signedIn, permissions, remoteLiveFeedAccess)) && (
         <div className='account__section-headline'>
           <NavLink exact to='/public/local'>
             <FormattedMessage tagName='div' id='firehose.local' defaultMessage='This server' />
@@ -252,7 +280,7 @@ const Firehose = ({ feedType, multiColumn }) => {
         onLoadMore={handleLoadMore}
         trackScroll
         scrollKey='firehose'
-        emptyMessage={emptyMessage}
+        emptyMessage={canViewSelectedFeed ? emptyMessage : disabledTimelineMessage}
         bindToDocument={!multiColumn}
         regex={regex}
       />

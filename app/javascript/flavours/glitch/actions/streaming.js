@@ -34,12 +34,19 @@ const randomUpTo = max =>
   Math.floor(Math.random() * Math.floor(max));
 
 /**
+ * @typedef {import('flavours/glitch/store').AppDispatch} Dispatch
+ * @typedef {import('flavours/glitch/store').GetState} GetState
+ * @typedef {import('redux').UnknownAction} UnknownAction
+ * @typedef {function(Dispatch, GetState): Promise<void>} FallbackFunction
+ */
+
+/**
  * @param {string} timelineId
  * @param {string} channelName
  * @param {Object.<string, string>} params
  * @param {Object} options
- * @param {function(Function, Function): Promise<void>} [options.fallback]
- * @param {function(): void} [options.fillGaps]
+ * @param {FallbackFunction} [options.fallback]
+ * @param {function(): UnknownAction} [options.fillGaps]
  * @param {function(object): boolean} [options.accept]
  * @returns {function(): void}
  */
@@ -47,13 +54,14 @@ export const connectTimelineStream = (timelineId, channelName, params = {}, opti
   const { messages } = getLocale();
 
   return connectStream(channelName, params, (dispatch, getState) => {
+    // @ts-ignore
     const locale = getState().getIn(['meta', 'locale']);
 
     // @ts-expect-error
     let pollingId;
 
     /**
-     * @param {function(Function, Function): Promise<void>} fallback
+     * @param {FallbackFunction} fallback
      */
 
     const useFallback = async fallback => {
@@ -133,7 +141,7 @@ export const connectTimelineStream = (timelineId, channelName, params = {}, opti
 };
 
 /**
- * @param {Function} dispatch
+ * @param {Dispatch} dispatch
  */
 async function refreshHomeTimelineAndNotification(dispatch) {
   await dispatch(expandHomeTimeline({ maxId: undefined }));
@@ -152,7 +160,11 @@ async function refreshHomeTimelineAndNotification(dispatch) {
  * @returns {function(): void}
  */
 export const connectUserStream = () =>
-  connectTimelineStream('home', 'user', {}, { fallback: refreshHomeTimelineAndNotification, fillGaps: fillHomeTimelineGaps });
+  connectTimelineStream('home', 'user', {}, {
+    fallback: refreshHomeTimelineAndNotification,
+    // @ts-expect-error
+    fillGaps: fillHomeTimelineGaps
+  });
 
 /**
  * @param {Object} options
@@ -160,7 +172,10 @@ export const connectUserStream = () =>
  * @returns {function(): void}
  */
 export const connectCommunityStream = ({ onlyMedia } = {}) =>
-  connectTimelineStream(`community${onlyMedia ? ':media' : ''}`, `public:local${onlyMedia ? ':media' : ''}`, {}, { fillGaps: () => (fillCommunityTimelineGaps({ onlyMedia })) });
+  connectTimelineStream(`community${onlyMedia ? ':media' : ''}`, `public:local${onlyMedia ? ':media' : ''}`, {}, {
+    // @ts-expect-error
+    fillGaps: () => (fillCommunityTimelineGaps({ onlyMedia }))
+  });
 
 /**
  * @param {Object} options
@@ -168,7 +183,10 @@ export const connectCommunityStream = ({ onlyMedia } = {}) =>
  * @returns {function(): void}
  */
 export const connectBubbleStream = ({ onlyMedia } = {}) =>
-  connectTimelineStream(`bubble${onlyMedia ? ':media' : ''}`, `public:bubble${onlyMedia ? ':media' : ''}`, {}, { fillGaps: () => (fillBubbleTimelineGaps({ onlyMedia })) });
+  connectTimelineStream(`bubble${onlyMedia ? ':media' : ''}`, `public:bubble${onlyMedia ? ':media' : ''}`, {}, { 
+    // @ts-expect-error
+    fillGaps: () => (fillBubbleTimelineGaps({ onlyMedia }))
+  });
 
 /**
  * @param {Object} options
@@ -178,7 +196,10 @@ export const connectBubbleStream = ({ onlyMedia } = {}) =>
  * @returns {function(): void}
  */
 export const connectPublicStream = ({ onlyMedia, onlyRemote, allowLocalOnly } = {}) =>
-  connectTimelineStream(`public${onlyRemote ? ':remote' : (allowLocalOnly ? ':allow_local_only' : '')}${onlyMedia ? ':media' : ''}`, `public${onlyRemote ? ':remote' : (allowLocalOnly ? ':allow_local_only' : '')}${onlyMedia ? ':media' : ''}`, {}, { fillGaps: () => fillPublicTimelineGaps({ onlyMedia, onlyRemote, allowLocalOnly }) });
+  connectTimelineStream(`public${onlyRemote ? ':remote' : (allowLocalOnly ? ':allow_local_only' : '')}${onlyMedia ? ':media' : ''}`, `public${onlyRemote ? ':remote' : (allowLocalOnly ? ':allow_local_only' : '')}${onlyMedia ? ':media' : ''}`, {}, {
+    // @ts-expect-error
+    fillGaps: () => fillPublicTimelineGaps({ onlyMedia, onlyRemote, allowLocalOnly })
+  });
 
 /**
  * @param {string} columnId
@@ -201,4 +222,7 @@ export const connectDirectStream = () =>
  * @returns {function(): void}
  */
 export const connectListStream = listId =>
-  connectTimelineStream(`list:${listId}`, 'list', { list: listId }, { fillGaps: () => fillListTimelineGaps(listId) });
+  connectTimelineStream(`list:${listId}`, 'list', { list: listId }, {
+    // @ts-expect-error
+    fillGaps: () => fillListTimelineGaps(listId)
+  });

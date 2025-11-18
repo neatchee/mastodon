@@ -421,3 +421,7 @@ a.sparkline {
     opacity: 0.25;
   }
 }
+
+kbd {
+  background-color: color.change($ui-highlight-color, $alpha: 0.1);
+}

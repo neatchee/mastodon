@@ -16,7 +16,6 @@ import { IconButton } from 'flavours/glitch/components/icon_button';
 import InlineAccount from 'flavours/glitch/components/inline_account';
 import MediaAttachments from 'flavours/glitch/components/media_attachments';
 import { RelativeTimestamp } from 'flavours/glitch/components/relative_timestamp';
-import emojify from 'flavours/glitch/features/emoji/emoji';
 
 const mapStateToProps = (state, { statusId }) => ({
   language: state.getIn(['statuses', statusId, 'language']),
@@ -48,13 +47,8 @@ class CompareHistoryModal extends PureComponent {
     const { index, versions, language, onClose } = this.props;
     const currentVersion = versions.get(index);
 
-    const emojiMap = currentVersion.get('emojis').reduce((obj, emoji) => {
-      obj[`:${emoji.get('shortcode')}:`] = emoji.toJS();
-      return obj;
-    }, {});
-
-    const content = emojify(currentVersion.get('content'), emojiMap);
-    const spoilerContent = emojify(escapeTextContentForBrowser(currentVersion.get('spoiler_text')), emojiMap);
+    const content = currentVersion.get('content');
+    const spoilerContent = escapeTextContentForBrowser(currentVersion.get('spoiler_text'));
 
     const formattedDate = <RelativeTimestamp timestamp={currentVersion.get('created_at')} short={false} />;
     const formattedName = <InlineAccount accountId={currentVersion.get('account')} />;
@@ -93,14 +87,16 @@ class CompareHistoryModal extends PureComponent {
                   <ul>
                     {currentVersion.getIn(['poll', 'options']).map(option => (
                       <li key={option.get('title')}>
-                        <span className='poll__input disabled' />
-
-                        <EmojiHTML
-                          as="span"
-                          className='poll__option__text translate'
-                          htmlString={emojify(escapeTextContentForBrowser(option.get('title')), emojiMap)}
-                          lang={language}
-                        />
+                        <label className='poll__option editable'>
+                          {/* FIXME: does not support multiple choice, #35632 */}
+                          <span className='poll__input' />
+                          <EmojiHTML
+                            as="span"
+                            className='poll__option__text translate'
+                            htmlString={escapeTextContentForBrowser(option.get('title'))}
+                            lang={language}
+                          />
+                        </label>
                       </li>
                     ))}
                   </ul>

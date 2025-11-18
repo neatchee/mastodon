@@ -204,8 +204,13 @@ export function directCompose(account) {
 }
 
 /**
+ * @callback ComposeSuccessCallback
+ * @param {Object} status
+ */
+
+/**
  * @param {null | string} overridePrivacy
- * @param {undefined | Function} successCallback
+ * @param {undefined | ComposeSuccessCallback} successCallback
  */
 export function submitCompose(overridePrivacy = null, successCallback = undefined) {
   return function (dispatch, getState) {
@@ -695,6 +700,7 @@ export function fetchComposeSuggestions(token) {
       fetchComposeSuggestionsEmojis(dispatch, getState, token);
       break;
     case '#':
+    case '＃':
       fetchComposeSuggestionsTags(dispatch, getState, token);
       break;
     default:
@@ -736,11 +742,11 @@ export function selectComposeSuggestion(position, token, suggestion, path) {
 
       dispatch(useEmoji(suggestion));
     } else if (suggestion.type === 'hashtag') {
-      completion    = `#${suggestion.name}`;
-      startPosition = position - 1;
+      completion    = suggestion.name.slice(token.length - 1);
+      startPosition = position + token.length;
     } else if (suggestion.type === 'account') {
-      completion    = getState().getIn(['accounts', suggestion.id, 'acct']);
-      startPosition = position;
+      completion    = `@${getState().getIn(['accounts', suggestion.id, 'acct'])}`;
+      startPosition = position - 1;
     }
 
     // We don't want to replace hashtags that vary only in case due to accessibility, but we need to fire off an event so that

@@ -9,11 +9,8 @@ import { me, reduceMotion } from 'flavours/glitch/initial_state';
 import ready from 'flavours/glitch/ready';
 import { store } from 'flavours/glitch/store';
 
-import {
-  isProduction,
-  isDevelopment,
-  isModernEmojiEnabled,
-} from './utils/environment';
+import { initializeEmoji } from './features/emoji';
+import { isProduction, isDevelopment } from './utils/environment';
 
 function main() {
   perf.start('main()');
@@ -33,12 +30,7 @@ function main() {
       });
     }
 
-    if (isModernEmojiEnabled()) {
-      const { initializeEmoji } = await import(
-        '@/flavours/glitch/features/emoji'
-      );
-      initializeEmoji();
-    }
+    initializeEmoji();
 
     const root = createRoot(mountNode);
     root.render(<Mastodon {...props} />);

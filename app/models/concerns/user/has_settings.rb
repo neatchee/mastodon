@@ -31,6 +31,10 @@ module User::HasSettings
     settings['web.reblog_modal']
   end
 
+  def setting_quick_boosting
+    settings['web.quick_boosting']
+  end
+
   def setting_delete_modal
     settings['web.delete_modal']
   end
@@ -45,10 +49,6 @@ module User::HasSettings
 
   def setting_system_font_ui
     settings['web.use_system_font']
-  end
-
-  def setting_system_emoji_font
-    settings['web.use_system_emoji_font']
   end
 
   def setting_system_scrollbars_ui
