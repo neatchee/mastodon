@@ -71,6 +71,7 @@ class ComposeForm extends ImmutablePureComponent {
     onSuggestionSelected: PropTypes.func.isRequired,
     onChangeSpoilerText: PropTypes.func.isRequired,
     onPaste: PropTypes.func.isRequired,
+    onDrop: PropTypes.func.isRequired,
     onPickEmoji: PropTypes.func.isRequired,
     autoFocus: PropTypes.bool,
     withoutNavigation: PropTypes.bool,
@@ -110,10 +111,12 @@ class ComposeForm extends ImmutablePureComponent {
   handleKeyDownPost = (e) => {
     if (e.key.toLowerCase() === 'enter' && (e.ctrlKey || e.metaKey)) {
       this.handleSubmit(e);
+      e.preventDefault();
     }
 
     if (e.key.toLowerCase() === 'enter' && e.altKey) {
       this.handleSecondarySubmit(e);
+      e.preventDefault();
     }
 
     this.blurOnEscape(e);
@@ -129,9 +132,9 @@ class ComposeForm extends ImmutablePureComponent {
         e.preventDefault();
         this.textareaRef.current?.focus();
       }
-     }
+    }
     this.blurOnEscape(e);
-  }
+  };
 
   getFulltextForCharacterCounting = () => {
     return [this.props.spoiler? this.props.spoilerText: '', countableText(this.props.text)].join('');
@@ -156,7 +159,7 @@ class ComposeForm extends ImmutablePureComponent {
     }
 
     this.props.onSubmit({
-      missingAltTextModal: missingAltTextModal && this.props.missingAltText && this.props.privacy !== 'direct',
+      missingAltText: missingAltTextModal && this.props.missingAltText && this.props.privacy !== 'direct',
       quoteToPrivate: this.props.quoteToPrivate,
       overridePrivacy,
     });
@@ -269,7 +272,7 @@ class ComposeForm extends ImmutablePureComponent {
   };
 
   render () {
-    const { intl, onPaste, autoFocus, withoutNavigation, maxChars, isSubmitting } = this.props;
+    const { intl, onPaste, onDrop, autoFocus, withoutNavigation, maxChars, isSubmitting } = this.props;
     const { highlighted } = this.state;
 
     return (
@@ -325,6 +328,7 @@ class ComposeForm extends ImmutablePureComponent {
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             onSuggestionSelected={this.onSuggestionSelected}
             onPaste={onPaste}
+            onDrop={onDrop}
             autoFocus={autoFocus}
             lang={this.props.lang}
             className='compose-form__input'

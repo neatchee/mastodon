@@ -14,7 +14,6 @@ import { fetchAnnouncements, toggleShowAnnouncements } from 'flavours/glitch/act
 import { IconWithBadge } from 'flavours/glitch/components/icon_with_badge';
 import { SymbolLogo } from 'flavours/glitch/components/logo';
 import { NotSignedInIndicator } from 'flavours/glitch/components/not_signed_in_indicator';
-import AnnouncementsContainer from 'flavours/glitch/features/getting_started/containers/announcements_container';
 import { withBreakpoint } from 'flavours/glitch/features/ui/hooks/useBreakpoint';
 import { identityContextPropShape, withIdentity } from 'flavours/glitch/identity_context';
 import { criticalUpdatesPending } from 'flavours/glitch/initial_state';

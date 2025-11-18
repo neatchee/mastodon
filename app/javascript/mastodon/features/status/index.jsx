@@ -160,7 +160,7 @@ class Status extends ImmutablePureComponent {
   };
 
   UNSAFE_componentWillMount () {
-    this.props.dispatch(fetchStatus(this.props.params.statusId));
+    this.props.dispatch(fetchStatus(this.props.params.statusId, { forceFetch: true }));
   }
 
   componentDidMount () {
@@ -171,7 +171,7 @@ class Status extends ImmutablePureComponent {
 
   UNSAFE_componentWillReceiveProps (nextProps) {
     if (nextProps.params.statusId !== this.props.params.statusId && nextProps.params.statusId) {
-      this.props.dispatch(fetchStatus(nextProps.params.statusId));
+      this.props.dispatch(fetchStatus(nextProps.params.statusId, { forceFetch: true }));
     }
 
     if (nextProps.status && nextProps.status.get('id') !== this.state.loadedStatusId) {
