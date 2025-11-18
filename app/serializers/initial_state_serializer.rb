@@ -140,8 +140,10 @@ class InitialStateSerializer < ActiveModel::Serializer
       visible_reactions: Setting.visible_reactions,
       terms_of_service_enabled: TermsOfService.current.present?,
       local_live_feed_access: Setting.local_live_feed_access,
+      bubble_live_feed_access: Setting.bubble_live_feed_access,
       remote_live_feed_access: Setting.remote_live_feed_access,
       local_topic_feed_access: Setting.local_topic_feed_access,
+      bubble_topic_feed_access: Setting.bubble_topic_feed_access,
       remote_topic_feed_access: Setting.remote_topic_feed_access,
     }
   end

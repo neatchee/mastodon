@@ -138,11 +138,10 @@ class ComposeForm extends ImmutablePureComponent {
   };
 
   canSubmit = () => {
-    const { isSubmitting, isChangingUpload, isUploading, anyMedia, maxChars } = this.props;
+    const { isSubmitting, isChangingUpload, isUploading, maxChars } = this.props;
     const fulltext = this.getFulltextForCharacterCounting();
-    const isOnlyWhitespace = fulltext.length !== 0 && fulltext.trim().length === 0;
 
-    return !(isSubmitting || isUploading || isChangingUpload || length(fulltext) > maxChars || (isOnlyWhitespace && !anyMedia));
+    return !(isSubmitting || isUploading || isChangingUpload || length(fulltext) > maxChars);
   };
 
   handleSubmit = (e, overridePrivacy = null) => {
@@ -156,7 +155,11 @@ class ComposeForm extends ImmutablePureComponent {
       return;
     }
 
-    this.props.onSubmit(missingAltTextModal && this.props.missingAltText && this.props.privacy !== 'direct', overridePrivacy);
+    this.props.onSubmit({
+      missingAltTextModal: missingAltTextModal && this.props.missingAltText && this.props.privacy !== 'direct',
+      quoteToPrivate: this.props.quoteToPrivate,
+      overridePrivacy,
+    });
 
     if (e) {
       e.preventDefault();

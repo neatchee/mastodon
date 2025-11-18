@@ -44,11 +44,12 @@ import {
   ConfirmRevokeQuoteModal,
   QuietPostQuoteInfoModal,
 } from './confirmation_modals';
+import { PrivateQuoteNotify } from './confirmation_modals/private_quote_notify';
 import DeprecatedSettingsModal from './deprecated_settings_modal';
 import DoodleModal from './doodle_modal';
 import { FavouriteModal } from './favourite_modal';
 import { ImageModal } from './image_modal';
-import MediaModal from './media_modal';
+import { MediaModal } from './media_modal';
 import { ModalPlaceholder } from './modal_placeholder';
 import VideoModal from './video_modal';
 import { VisibilityModal } from './visibility_modal';
@@ -74,6 +75,7 @@ export const MODAL_COMPONENTS = {
   'CONFIRM_LOG_OUT': () => Promise.resolve({ default: ConfirmLogOutModal }),
   'CONFIRM_FOLLOW_TO_LIST': () => Promise.resolve({ default: ConfirmFollowToListModal }),
   'CONFIRM_MISSING_ALT_TEXT': () => Promise.resolve({ default: ConfirmMissingAltTextModal }),
+  'CONFIRM_PRIVATE_QUOTE_NOTIFY': () => Promise.resolve({ default: PrivateQuoteNotify }),
   'CONFIRM_REVOKE_QUOTE': () => Promise.resolve({ default: ConfirmRevokeQuoteModal }),
   'CONFIRM_QUIET_QUOTE': () => Promise.resolve({ default: QuietPostQuoteInfoModal }),
   'MUTE': MuteModal,

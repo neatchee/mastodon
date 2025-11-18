@@ -12,6 +12,7 @@ import {
 } from 'flavours/glitch/actions/compose';
 import { pasteLinkCompose } from 'flavours/glitch/actions/compose_typed';
 import { openModal } from 'flavours/glitch/actions/modal';
+import { PRIVATE_QUOTE_MODAL_ID } from 'flavours/glitch/features/ui/components/confirmation_modals/private_quote_notify';
 import { privacyPreference } from 'flavours/glitch/utils/privacy_preference';
 
 import ComposeForm from '../components/compose_form';
@@ -52,6 +53,10 @@ const mapStateToProps = state => ({
   isUploading: state.getIn(['compose', 'is_uploading']),
   anyMedia: state.getIn(['compose', 'media_attachments']).size > 0,
   missingAltText: state.getIn(['compose', 'media_attachments']).some(media => ['image', 'gifv'].includes(media.get('type')) && (media.get('description') ?? '').length === 0),
+  quoteToPrivate:
+    !!state.getIn(['compose', 'quoted_status_id'])
+    && state.getIn(['compose', 'privacy']) === 'private'
+    && !state.getIn(['settings', 'dismissed_banners', PRIVATE_QUOTE_MODAL_ID]),
   isInReply: state.getIn(['compose', 'in_reply_to']) !== null,
   lang: state.getIn(['compose', 'language']),
   sideArm: sideArmPrivacy(state),
@@ -65,11 +70,16 @@ const mapDispatchToProps = (dispatch, props) => ({
     dispatch(changeCompose(text));
   },
 
-  onSubmit (missingAltText, overridePrivacy = null) {
+  onSubmit ({ missingAltText, quoteToPrivate, overridePrivacy = null }) {
     if (missingAltText) {
       dispatch(openModal({
         modalType: 'CONFIRM_MISSING_ALT_TEXT',
         modalProps: { overridePrivacy },
+      }));
+    } else if (quoteToPrivate) {
+      dispatch(openModal({
+        modalType: 'CONFIRM_PRIVATE_QUOTE_NOTIFY',
+        modalProps: {},
       }));
     } else {
       dispatch(submitCompose(overridePrivacy, (status) => {

@@ -113,14 +113,17 @@ class REST::InstanceSerializer < ActiveModel::Serializer
       timelines_access: {
         live_feeds: {
           local: Setting.local_live_feed_access,
+          bubble: Setting.bubble_live_feed_access,
           remote: Setting.remote_live_feed_access,
         },
         hashtag_feeds: {
           local: Setting.local_topic_feed_access,
+          bubble: Setting.bubble_topic_feed_access,
           remote: Setting.remote_topic_feed_access,
         },
         trending_link_feeds: {
           local: Setting.local_topic_feed_access,
+          bubble: Setting.bubble_topic_feed_access,
           remote: Setting.remote_topic_feed_access,
         },
       },
