@@ -1,3 +1,5 @@
+@use '../../mastodon/theme/utils';
+
 @mixin tokens {
   // Dark mode CSS tokens for Tangerine Cherry
   --color-bg-primary: #000000;
@@ -12,3 +14,5 @@
   --color-text-brand: #e91e63;
   --color-text-on-brand-base: #ffffff;
 }
+
+

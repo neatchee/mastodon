@@ -1,3 +1,5 @@
+@use '../../mastodon/theme/utils';
+
 @mixin tokens {
   // Dark mode CSS tokens for Mastodon Modern
   --color-bg-primary: #000000;
@@ -12,3 +14,4 @@
   --color-text-brand: #1d9fff;
   --color-text-on-brand-base: #ffffff;
 }
+

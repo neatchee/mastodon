@@ -1,3 +1,5 @@
+@use '../../mastodon/theme/utils';
+
 @mixin tokens {
   // Light mode CSS tokens for Contrast Modern
   --color-bg-primary: #ffffff;
@@ -12,3 +14,5 @@
   --color-text-brand: #0a0a0a;
   --color-text-on-brand-base: #ffffff;
 }
+
+

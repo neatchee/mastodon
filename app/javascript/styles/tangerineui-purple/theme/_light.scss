@@ -1,3 +1,5 @@
+@use '../../mastodon/theme/utils';
+
 @mixin tokens {
   // Light mode CSS tokens for Tangerine Purple
   --color-bg-primary: #ffffff;
@@ -12,3 +14,5 @@
   --color-text-brand: #9c27b0;
   --color-text-on-brand-base: #ffffff;
 }
+
+

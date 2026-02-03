@@ -1,7 +1,7 @@
+@use 'utils';
 @use 'base';
 @use 'dark';
 @use 'light';
-@use 'mastodon/theme/utils';
 
 html {
   @include base.palette;

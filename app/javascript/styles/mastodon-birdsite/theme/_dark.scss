@@ -1,3 +1,5 @@
+@use '../../mastodon/theme/utils';
+
 @mixin tokens {
   // Dark mode CSS tokens for Birdsite
   --color-bg-primary: #000000;
@@ -12,3 +14,4 @@
   --color-text-brand: #1da1f2;
   --color-text-on-brand-base: #ffffff;
 }
+

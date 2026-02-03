@@ -1,4 +1,4 @@
-@use 'mastodon/theme/utils';
+@use '../../mastodon/theme/utils';
 
 @mixin tokens {
   --color-text-primary: var(--color-rose-pine-primary-text);
@@ -68,4 +68,5 @@
   --color-text-secondary: var(--color-rose-pine-secondary-text);
   --color-border-primary: #{utils.css-alpha(var(--color-rose-pine-secondary-text), 30%)};
 }
+
 
