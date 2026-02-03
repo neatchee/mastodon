@@ -93,6 +93,7 @@ class Api::V1::StatusesController < Api::BaseController
       application: doorkeeper_token.application,
       poll: status_params[:poll],
       content_type: status_params[:content_type],
+      local_only: status_params[:local_only],
       allowed_mentions: status_params[:allowed_mentions],
       idempotency: request.headers['Idempotency-Key'],
       with_rate_limit: true
@@ -107,9 +108,7 @@ class Api::V1::StatusesController < Api::BaseController
     @status = Status.where(account: current_account).find(params[:id])
     authorize @status, :update?
 
-    UpdateStatusService.new.call(
-      @status,
-      current_account.id,
+    update_options = {
       text: status_params[:status],
       media_ids: status_params[:media_ids],
       media_attributes: status_params[:media_attributes],
@@ -117,9 +116,12 @@ class Api::V1::StatusesController < Api::BaseController
       language: status_params[:language],
       spoiler_text: status_params[:spoiler_text],
       poll: status_params[:poll],
-      quote_approval_policy: quote_approval_policy,
-      content_type: status_params[:content_type]
-    )
+      content_type: status_params[:content_type],
+    }
+
+    update_options[:quote_approval_policy] = quote_approval_policy if status_params[:quote_approval_policy].present?
+
+    UpdateStatusService.new.call(@status, current_account.id, update_options)
 
     render json: @status, serializer: REST::StatusSerializer
   end
@@ -148,7 +150,7 @@ class Api::V1::StatusesController < Api::BaseController
   def set_status
     @status = Status.find(params[:id])
     authorize @status, :show?
-  rescue Mastodon::NotPermittedError
+  rescue ActiveRecord::RecordNotFound, Mastodon::NotPermittedError
     not_found
   end
 
@@ -191,6 +193,7 @@ class Api::V1::StatusesController < Api::BaseController
       :language,
       :scheduled_at,
       :content_type,
+      :local_only,
       allowed_mentions: [],
       media_ids: [],
       media_attributes: [

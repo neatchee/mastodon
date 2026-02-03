@@ -1,3 +1,5 @@
+import { isClientFeatureEnabled } from '@/flavours/glitch/utils/environment';
+
 export function EmojiPicker () {
   return import('../../emoji/emoji_picker');
 }
@@ -46,6 +48,18 @@ export function DirectTimeline() {
   return import('../../direct_timeline');
 }
 
+export function Collections () {
+  return import('../../collections').then(
+    module => ({default: module.Collections})
+  );
+}
+
+export function CollectionsEditor () {
+  return import('../../collections/editor').then(
+    module => ({default: module.CollectionEditorPage})
+  );
+}
+
 export function Status () {
   return import('../../status');
 }
@@ -63,6 +77,9 @@ export function PinnedStatuses () {
 }
 
 export function AccountTimeline () {
+  if (isClientFeatureEnabled('profile_redesign')) {
+    return import('../../account_timeline/v2');
+  }
   return import('../../account_timeline');
 }
 
@@ -239,7 +256,7 @@ export function LinkTimeline () {
 }
 
 export function AnnualReportModal () {
-  return import('../components/annual_report_modal');
+  return import('../../annual_report/modal');
 }
 
 export function ListEdit () {

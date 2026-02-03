@@ -7,7 +7,6 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { CollapsibleNavigationPanel } from 'flavours/glitch/features/navigation_panel';
 
 import { scrollRight } from '../../../scroll';
-import BundleContainer from '../containers/bundle_container';
 import {
   Compose,
   Notifications,
@@ -24,6 +23,7 @@ import {
 } from '../util/async-components';
 import { useColumnsContext } from '../util/columns_context';
 
+import Bundle from './bundle';
 import BundleColumnError from './bundle_column_error';
 import { ColumnLoading } from './column_loading';
 import { ComposePanel, RedirectToMobileComposeIfNeeded } from './compose_panel';
@@ -148,9 +148,9 @@ export default class ColumnsArea extends ImmutablePureComponent {
           const other  = params && params.other ? params.other : {};
 
           return (
-            <BundleContainer key={column.get('uuid')} fetchComponent={componentMap[column.get('id')]} loading={this.renderLoading(column.get('id'))} error={this.renderError}>
+            <Bundle key={column.get('uuid')} fetchComponent={componentMap[column.get('id')]} loading={this.renderLoading(column.get('id'))} error={this.renderError}>
               {SpecificComponent => <SpecificComponent columnId={column.get('uuid')} params={params} multiColumn {...other} />}
-            </BundleContainer>
+            </Bundle>
           );
         })}
 

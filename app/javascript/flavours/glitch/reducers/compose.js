@@ -225,6 +225,7 @@ function continueThread (state, status) {
     map.set('focusDate', new Date());
     map.set('caretPosition', null);
     map.set('preselectDate', new Date());
+    map.set('quoted_status_id', null);
   });
 }
 
@@ -437,14 +438,16 @@ export const composeReducer = (state = initialState, action) => {
     const isDirect = state.get('privacy') === 'direct';
     return state
       .set('quoted_status_id', isDirect ? null : status.get('id'))
-      .set('spoiler', status.get('sensitive'))
-      .set('spoiler_text', status.get('spoiler_text'))
+      .update('spoiler', spoiler => (spoiler) || !!status.get('spoiler_text'))
+      .update('spoiler_text', (spoiler_text) => spoiler_text || status.get('spoiler_text'))
       .update('privacy', (visibility) => {
         if (['public', 'unlisted'].includes(visibility) && status.get('visibility') === 'private') {
           return 'private';
         }
         return visibility;
-      });
+      }).update('advanced_options',
+        map => map.merge(new ImmutableMap({ do_not_federate: !!status.get('local_only') })),
+      );
   } else if (quoteComposeCancel.match(action)) {
     return state.set('quoted_status_id', null);
   } else if (setComposeQuotePolicy.match(action)) {
@@ -459,7 +462,9 @@ export const composeReducer = (state = initialState, action) => {
 
   switch(action.type) {
   case STORE_HYDRATE:
-    return hydrate(state, action.state.get('compose'));
+    if (action.state.get('compose'))
+      return hydrate(state, action.state.get('compose'));
+    return state;
   case COMPOSE_MOUNT:
     return state
       .set('mounted', state.get('mounted') + 1)
@@ -655,7 +660,6 @@ export const composeReducer = (state = initialState, action) => {
   case REDRAFT: {
     const do_not_federate = !!action.status.get('local_only');
     let text = action.raw_text || unescapeHTML(expandMentions(action.status));
-    if (do_not_federate) text = text.replace(/ ?👁\ufe0f?\u200b?$/, '');
     return state.withMutations(map => {
       map.set('text', text);
       map.set('content_type', action.content_type || 'text/plain');
@@ -672,7 +676,7 @@ export const composeReducer = (state = initialState, action) => {
         map => map.merge(new ImmutableMap({ do_not_federate })),
       );
       map.set('id', null);
-      map.set('quoted_status_id', action.status.getIn(['quote', 'quoted_status']));
+      map.set('quoted_status_id', action.status.getIn(['quote', 'quoted_status'], null));
       // Mastodon-authored posts can be expected to have at most one automatic approval policy
       map.set('quote_policy', action.status.getIn(['quote_approval', 'automatic', 0]) || 'nobody');
 
@@ -715,7 +719,7 @@ export const composeReducer = (state = initialState, action) => {
       map.set('idempotencyKey', uuid());
       map.set('sensitive', action.status.get('sensitive'));
       map.set('language', action.status.get('language'));
-      map.set('quoted_status_id', action.status.getIn(['quote', 'quoted_status']));
+      map.set('quoted_status_id', action.status.getIn(['quote', 'quoted_status'], null));
       // Mastodon-authored posts can be expected to have at most one automatic approval policy
       map.set('quote_policy', action.status.getIn(['quote_approval', 'automatic', 0]) || 'nobody');
 

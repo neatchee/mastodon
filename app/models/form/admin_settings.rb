@@ -58,6 +58,7 @@ class Form::AdminSettings
     bubble_topic_feed_access
     remote_topic_feed_access
     landing_page
+    wrapstodon
   ).freeze
 
   INTEGER_KEYS = %i(
@@ -86,6 +87,7 @@ class Form::AdminSettings
     require_invite_text
     captcha_enabled
     authorized_fetch
+    wrapstodon
   ).freeze
 
   UPLOAD_KEYS = %i(
@@ -189,6 +191,10 @@ class Form::AdminSettings
 
   def flavour_and_skin=(value)
     @flavour, @skin = value.split('/', 2)
+  end
+
+  def persisted?
+    true
   end
 
   private

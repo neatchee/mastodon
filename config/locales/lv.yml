@@ -1153,7 +1153,7 @@ lv:
       new_trending_statuses:
         title: Populārākās ziņas
       new_trending_tags:
-        title: Izplatīti tēmturi
+        title: Populārākie tēmturi
       subject: Tiek pārskatītas jaunas tendences %{instance}
   aliases:
     add_new: Izveidot aizstājvārdu
@@ -1912,15 +1912,15 @@ lv:
     title: "%{name}: “%{quote}”"
     visibilities:
       public: Publisks
+      unlisted: Klusi publisks
+      unlisted_long: Netiks rādīts Mastodon meklēšanas rezultātos, populārākajos, un publiskajās laikjoslās
   statuses_cleanup:
     enabled: Automātiski dzēst vecās ziņas
     enabled_hint: Automātiski izdzēš Tavus ierakstus, tiklīdz tie sasniedz noteiktu vecuma slieksni, ja vien tie neatbilst kādam no zemāk norādītajiem izņēmumiem
     exceptions: Izņēmumi
-    explanation: Tā kā ziņu dzēšana ir dārga darbība, tā tiek veikta lēnām laika gaitā, kad serveris nav citādi aizņemts. Šī iemesla dēļ tavas ziņas var tikt izdzēstas kādu laiku pēc vecuma sliekšņa sasniegšanas.
     ignore_favs: Ignorēt izlasi
     ignore_reblogs: Ignorēt izcēlumus
     interaction_exceptions: Izņēmumi, kuru pamatā ir mijiedarbība
-    interaction_exceptions_explanation: Ņemiet vērā, ka nav garantijas, ka ziņas tiks dzēstas, ja tās pārsniegs izlases vai izcēluma slieksni.
     keep_direct: Saglabāt tiešos ziņojumus
     keep_direct_hint: Nedzēš nevienu tavu tiešo ziņojumu
     keep_media: Saglabāt ziņas ar multivides pielikumiem
@@ -2090,7 +2090,7 @@ lv:
         other: "%{people} cilvēki pēdējās 2 dienās"
         zero: "%{people} cilvēku pēdējās divās dienās"
       hashtags_subtitle: Izpēti, kas pēdējās divās dienās ir piesasitījis cilvēku uzmanību
-      hashtags_title: Izplatīti tēmturi
+      hashtags_title: Populārākie tēmturi
       hashtags_view_more: Skatīt vairāk izplatītu tēmturu
       post_action: Rakstīt
       post_step: Pasveicini pasauli ar tekstu, fotoattēliem, video vai aptaujām!
