@@ -1,4 +1,4 @@
-@use 'utils';
+@use 'mastodon/theme/utils';
 
 @mixin tokens {
   /* TEXT TOKENS */
@@ -146,3 +146,4 @@
       30%
     )};
 }
+

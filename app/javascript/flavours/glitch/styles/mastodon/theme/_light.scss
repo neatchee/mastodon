@@ -1,4 +1,4 @@
-@use 'utils';
+@use 'mastodon/theme/utils';
 
 @mixin tokens {
   /* TEXT TOKENS */
@@ -198,3 +198,4 @@
   --border-strength-primary: 30%;
   --color-border-on-bg-secondary: var(--color-grey-300);
 }
+

@@ -1,4 +1,4 @@
-@use 'utils';
+@use 'mastodon/theme/utils';
 
 @mixin tokens {
   --color-text-primary: var(--color-yozakura-primary-text);
@@ -68,3 +68,4 @@
   --color-text-secondary: #1a131e;
   --color-border-primary: #{utils.css-alpha(#1a131e, 30%)};
 }
+

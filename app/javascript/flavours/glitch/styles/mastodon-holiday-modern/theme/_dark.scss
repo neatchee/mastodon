@@ -1,4 +1,4 @@
-@use 'utils';
+@use 'mastodon/theme/utils';
 
 @mixin tokens {
   --color-text-primary: var(--color-holiday-primary-text);
@@ -68,3 +68,4 @@
   --color-text-secondary: var(--color-holiday-secondary-text);
   --color-border-primary: #{utils.css-alpha(var(--color-holiday-secondary-text), 30%)};
 }
+
