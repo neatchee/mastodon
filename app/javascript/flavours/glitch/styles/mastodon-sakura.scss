@@ -1,4 +1,3 @@
-@use 'mastodon-sakura/variables';
-@use 'mastodon-sakura/css_variables';
-@use 'application';
+@use 'common';
+@use 'mastodon-sakura/theme/index';
 @use 'mastodon-sakura/diff';

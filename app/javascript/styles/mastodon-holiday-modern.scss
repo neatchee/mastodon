@@ -1,5 +1,5 @@
-@use 'mastodon-holiday-modern/variables';
-@use 'mastodon-holiday-modern/css_variables';
-@use 'application';
+@use 'common';
+@use 'mastodon-holiday-modern/theme/index';
 @use 'modern';
 @use 'mastodon-holiday-modern/diff';
+@use 'modern-urusai-fixes';

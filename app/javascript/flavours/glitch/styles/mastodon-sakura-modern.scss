@@ -1,7 +1,7 @@
 @use 'mastodon-sakura/variables';
-@use 'mastodon-sakura/css_variables';
-@use 'application';
-@use 'mastodon-sakura/diff';
+@use 'common';
+@use 'mastodon-sakura-modern/theme/index';
+@use 'mastodon-sakura-modern/diff';
 @use 'modern';
 @use 'modern-glitch-fixes';
 @use 'modern-urusai-fixes';

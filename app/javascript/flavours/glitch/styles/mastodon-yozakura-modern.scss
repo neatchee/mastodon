@@ -1,7 +1,7 @@
 @use 'mastodon-yozakura/variables';
-@use 'mastodon-yozakura/css_variables';
-@use 'application';
-@use 'mastodon-yozakura/diff';
+@use 'common';
+@use 'mastodon-yozakura-modern/theme/index';
+@use 'mastodon-yozakura-modern/diff';
 @use 'modern';
 @use 'modern-glitch-fixes';
 @use 'modern-urusai-fixes';

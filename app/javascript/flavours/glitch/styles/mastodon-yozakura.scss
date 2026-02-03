@@ -1,4 +1,3 @@
-@use 'mastodon-yozakura/variables';
-@use 'mastodon-yozakura/css_variables';
-@use 'application';
+@use 'common';
+@use 'mastodon-yozakura/theme/index';
 @use 'mastodon-yozakura/diff';

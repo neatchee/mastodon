@@ -1,154 +1,29 @@
-@use 'sass:color';
-@use '../functions' as *;
-@use '../variables' as *;
+// Yozakura theme - simplified diff focusing on CSS token usage
+// Most styling is now handled by the theme tokens defined in theme/
 
-.compose-form {
-  .compose-form__modifiers {
-    .compose-form__upload {
-      &-description {
-        input {
-          &::placeholder {
-            opacity: 1;
-          }
-        }
-      }
-    }
-  }
+// Custom overrides specific to Yozakura theme can go here
+.button.button-tertiary {
+  border: 1px solid var(--color-text-brand) !important;
+  color: var(--color-text-brand) !important;
 }
 
-.compose-form .autosuggest-input label .autosuggest-textarea__textarea,
-.compose-form .autosuggest-textarea label .autosuggest-textarea__textarea {
-  background: $ui-base-lighter-color !important;
-}
+.pillbar-button {
+  background: var(--color-bg-secondary-solid);
 
-.spoiler-input input {
-  background: $ui-base-lighter-color !important;
-}
-
-.compose-form__buttons-wrapper,
-.compose-form__modifiers,
-.report-dialog-modal__textarea,
-.report-modal__comment .setting-text {
-  background: $ui-base-color !important;
-}
-
-.privacy-dropdown__dropdown {
-  background: $ui-base-lighter-color !important;
-}
-
-.privacy-dropdown.active .privacy-dropdown__value {
-  background: $ui-base-lighter-color !important;
-}
-
-.emoji-mart-bar:first-child {
-  background: $classic-primary-color !important;
-}
-
-.emoji-mart {
-  color: $black !important;
-}
-
-.emoji-mart-search input {
-  border: $ui-base-color !important;
-  background: $ui-base-lighter-color !important;
-}
-
-.account-role,
-.simple_form .glitch_only,
-.simple_form .not_recommended,
-.simple_form .recommended {
-  color: $darker-text-color !important;
-}
-
-.column-link {
-  color: #fa9c85;
-}
-
-.reply-indicator__content .status__content__spoiler-link,
-.status__content .status__content__spoiler-link {
-  color: $darker-text-color !important;
-}
-
-.reply-indicator {
-  color: $darker-text-color !important;
-}
-
-.text-icon-button:active,
-.text-icon-button:focus,
-.text-icon-button:hover {
-  color: #fa9c85;
-}
-
-.report-dialog-modal .dialog-option .poll__input {
-  color: #fa9c85 !important;
-}
-
-.status__content a,
-.link-footer a,
-.reply-indicator__content a,
-.status__content__read-more-button,
-.status__content__translate-button {
-  text-decoration: underline;
-
-  &:hover,
-  &:focus,
-  &:active {
-    text-decoration: none;
-  }
-
-  &.mention {
-    text-decoration: none;
-
-    span {
-      text-decoration: underline;
-    }
-
+  &:not([disabled]) {
     &:hover,
-    &:focus,
-    &:active {
-      span {
-        text-decoration: none;
+    &:focus {
+      background: var(--color-bg-tertiary);
+    }
+
+    &.active {
+      background-color: var(--color-bg-brand-base);
+      color: var(--color-text-on-brand-base);
+
+      &:hover,
+      &:focus {
+        background: var(--color-bg-brand-base-hover);
       }
     }
-  }
-}
-
-.status__content a {
-  color: $highlight-text-color;
-}
-
-.nothing-here {
-  color: $darker-text-color;
-}
-
-.compose-form__poll-wrapper .button.button-secondary,
-.compose-form .autosuggest-textarea__textarea::placeholder,
-.compose-form .spoiler-input__input::placeholder,
-.report-dialog-modal__textarea::placeholder,
-.language-dropdown__dropdown__results__item__common-name,
-.compose-form .icon-button {
-  color: $inverted-text-color;
-}
-
-.text-icon-button.active {
-  color: $ui-highlight-color;
-}
-
-.language-dropdown__dropdown__results__item.active {
-  background: $ui-highlight-color;
-  font-weight: 500;
-}
-
-.report-dialog-modal .dialog-option .poll__input {
-  color: $ui-primary-color;
-}
-
-.link-button:disabled {
-  cursor: not-allowed;
-
-  &:hover,
-  &:focus,
-  &:active {
-    text-decoration: none !important;
   }
 }
