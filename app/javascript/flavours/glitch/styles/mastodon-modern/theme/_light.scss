@@ -1,0 +1,14 @@
+@mixin tokens {
+  // Light mode CSS tokens for Mastodon Modern (Glitch)
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary-solid: #f0f0f0;
+  --color-bg-secondary-base: #e8e8e8;
+  --color-bg-tertiary: #e0e0e0;
+  --color-bg-brand-base: #1d9fff;
+  --color-bg-brand-base-hover: darken(#1d9fff, 10%);
+  
+  --color-text-primary: #000000;
+  --color-text-secondary: #666666;
+  --color-text-brand: #1d9fff;
+  --color-text-on-brand-base: #ffffff;
+}
