@@ -514,17 +514,11 @@ body > [data-popper-placement] {
 }
 
 .autosuggest-account .account__avatar,
-.account__emoji,
 .autosuggest-emoji img {
   display: block;
   width: 24px;
   height: 24px;
   flex: 0 0 auto;
-
-  img {
-    height: 100%;
-    width: 100%;
-  }
 }
 
 .compose-form {
@@ -1195,24 +1189,6 @@ body > [data-popper-placement] {
   }
 }
 
-.status__content {
-  // glitch: necessary for fullwidth media options
-  overflow: visible;
-}
-
-.status__quote {
-  margin-bottom: 0.5em;
-
-  .quote-display-name {
-    .icon {
-      margin-left: -3px;
-      margin-right: 3px;
-      margin-bottom: 2px;
-      vertical-align: middle;
-    }
-  }
-}
-
 .reply-indicator {
   display: grid;
   grid-template-columns: 46px minmax(0, 1fr);
@@ -1428,7 +1404,6 @@ body > [data-popper-placement] {
 
 .status__content.status__content--collapsed {
   max-height: 20px * 15; // 15 lines is roughly above 500 characters
-  overflow: hidden !important;
 }
 
 .status__content__read-more-button,
@@ -1551,43 +1526,6 @@ body > [data-popper-placement] {
     margin-top: 8px; // glitch: reduced margins
   }
 
-  &.light {
-    .status__relative-time,
-    .status__visibility-icon {
-      color: $light-text-color;
-    }
-
-    .status__display-name {
-      color: $inverted-text-color;
-    }
-
-    .display-name {
-      color: $light-text-color;
-
-      strong {
-        color: $inverted-text-color;
-      }
-    }
-
-    .status__content {
-      color: $inverted-text-color;
-
-      a {
-        color: $highlight-text-color;
-      }
-
-      &__spoiler-link {
-        color: $primary-text-color;
-        background: $ui-primary-color;
-
-        &:hover,
-        &:focus {
-          background: lighten($ui-primary-color, 8%);
-        }
-      }
-    }
-  }
-
   &--in-thread {
     --thread-margin: calc(46px + 8px);
 
@@ -1595,7 +1533,6 @@ body > [data-popper-placement] {
 
     & > .status__content,
     & > .status__action-bar,
-    & > .reactions-bar,
     & > .media-gallery,
     & > div > .video-player,
     & > .audio-player,
@@ -1852,14 +1789,6 @@ body > [data-popper-placement] {
 
   &-spacer {
     flex-grow: 1;
-  }
-
-  & > .emoji-picker-dropdown {
-    height: 24px;
-
-    > .emoji-button {
-      padding: 0;
-    }
   }
 }
 
@@ -5201,10 +5130,6 @@ a.status-card {
   text-align: center;
 }
 
-.detailed-status__button .emoji-button {
-  padding: 0;
-}
-
 .column-settings {
   display: flex;
   flex-direction: column;
@@ -6960,7 +6885,6 @@ a.status-card {
 }
 
 .doodle-modal,
-.gif-modal,
 .boost-modal,
 .report-modal,
 .actions-modal,
@@ -7288,24 +7212,6 @@ a.status-card {
         font-weight: 700;
       }
     }
-  }
-
-  select {
-    appearance: none;
-    box-sizing: border-box;
-    font-size: 14px;
-    color: $inverted-text-color;
-    display: inline-block;
-    width: auto;
-    outline: 0;
-    font-family: inherit;
-    background: $simple-background-color
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.933 18.467' height='19.698' width='15.929'><path d='M3.467 14.967l-3.393-3.5H14.86l-3.392 3.5c-1.866 1.925-3.666 3.5-4 3.5-.335 0-2.135-1.575-4-3.5zm.266-11.234L7.467 0 11.2 3.733l3.733 3.734H0l3.733-3.734z' fill='#{hex-color(darken($simple-background-color, 14%))}'/></svg>")
-      no-repeat right 8px center / auto 16px;
-    border: 1px solid darken($simple-background-color, 14%);
-    border-radius: 4px;
-    padding: 6px 10px;
-    padding-inline-end: 30px;
   }
 }
 
@@ -9465,8 +9371,6 @@ noscript {
   }
 
   &--empty {
-    margin-top: 0;
-
     .emoji-button {
       padding: 0;
     }
@@ -10631,8 +10535,7 @@ noscript {
     }
   }
 
-  &__domain-blocks,
-  &__bubble-domains {
+  &__domain-blocks {
     margin-top: 30px;
     border: 1px solid var(--color-border-primary);
     border-radius: 4px;
@@ -11295,10 +11198,6 @@ noscript {
     color: var(--color-text-favourite-highlight);
   }
 
-  &--reaction &__icon {
-    color: $blurple-300;
-  }
-
   &--reblog &__icon {
     color: var(--color-text-success);
   }
@@ -11513,7 +11412,6 @@ noscript {
 
   .status__content,
   .status__action-bar,
-  .reactions-bar,
   .media-gallery,
   .video-player,
   .audio-player,
@@ -11743,57 +11641,6 @@ noscript {
         }
       }
     }
-  }
-}
-
-.gif-modal__container {
-  text-align: center;
-  padding: 20px;
-
-  .icon-button {
-    margin: 10px;
-  }
-
-  .search__input {
-    padding-inline-start: 16px;
-    padding-inline-end: 16px + 15px + 8px;
-  }
-
-  .emoji-mart-search-icon {
-    inset-inline-end: 20px;
-    top: 66px;
-    padding: 0;
-    margin: 10px 10px 6px;
-    opacity: 1;
-    color: $darker-text-color;
-
-    &:disabled {
-      opacity: 0.38;
-    }
-  }
-
-  > .gif-modal__results {
-    padding-top: 16px;
-
-    .media-gallery__item {
-      &:hover {
-        opacity: 0.5;
-      }
-
-      &-thumbnail {
-        padding: 0;
-        border: 0;
-
-        &:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-        }
-      }
-    }
-  }
-
-  > .circular-progress {
-    margin: 16px 0;
   }
 }
 
