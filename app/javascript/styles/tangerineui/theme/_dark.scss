@@ -1,0 +1,14 @@
+@mixin tokens {
+  // Dark mode CSS tokens for Tangerine UI
+  --color-bg-primary: #000000;
+  --color-bg-secondary-solid: #1a1a1a;
+  --color-bg-secondary-base: #262626;
+  --color-bg-tertiary: #333333;
+  --color-bg-brand-base: #f76902;
+  --color-bg-brand-base-hover: lighten(#f76902, 10%);
+  
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b3b3b3;
+  --color-text-brand: #f76902;
+  --color-text-on-brand-base: #ffffff;
+}

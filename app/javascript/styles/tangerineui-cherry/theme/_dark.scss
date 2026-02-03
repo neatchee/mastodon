@@ -1,0 +1,14 @@
+@mixin tokens {
+  // Dark mode CSS tokens for Tangerine Cherry
+  --color-bg-primary: #000000;
+  --color-bg-secondary-solid: #1a1a1a;
+  --color-bg-secondary-base: #262626;
+  --color-bg-tertiary: #333333;
+  --color-bg-brand-base: #e91e63;
+  --color-bg-brand-base-hover: lighten(#e91e63, 10%);
+  
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b3b3b3;
+  --color-text-brand: #e91e63;
+  --color-text-on-brand-base: #ffffff;
+}

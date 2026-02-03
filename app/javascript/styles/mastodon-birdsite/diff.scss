@@ -1,0 +1,29 @@
+// Birdsite theme - simplified diff focusing on CSS token usage
+// Most styling is now handled by the theme tokens defined in theme/
+
+// Custom overrides specific to Birdsite theme can go here
+.button.button-tertiary {
+  border: 1px solid var(--color-text-brand) !important;
+  color: var(--color-text-brand) !important;
+}
+
+.pillbar-button {
+  background: var(--color-bg-secondary-solid);
+
+  &:not([disabled]) {
+    &:hover,
+    &:focus {
+      background: var(--color-bg-tertiary);
+    }
+
+    &.active {
+      background-color: var(--color-bg-brand-base);
+      color: var(--color-text-on-brand-base);
+
+      &:hover,
+      &:focus {
+        background: var(--color-bg-brand-base-hover);
+      }
+    }
+  }
+}

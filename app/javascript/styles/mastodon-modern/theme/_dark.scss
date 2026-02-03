@@ -1,0 +1,14 @@
+@mixin tokens {
+  // Dark mode CSS tokens for Mastodon Modern
+  --color-bg-primary: #000000;
+  --color-bg-secondary-solid: #1a1a1a;
+  --color-bg-secondary-base: #262626;
+  --color-bg-tertiary: #333333;
+  --color-bg-brand-base: #1d9fff;
+  --color-bg-brand-base-hover: lighten(#1d9fff, 10%);
+  
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b3b3b3;
+  --color-text-brand: #1d9fff;
+  --color-text-on-brand-base: #ffffff;
+}

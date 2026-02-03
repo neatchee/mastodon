@@ -1,2 +1,4 @@
-@use 'application';
+@use 'common';
+@use 'mastodon-birdsite/theme/index';
 @use 'birdsite';
+@use 'mastodon-birdsite/diff';
