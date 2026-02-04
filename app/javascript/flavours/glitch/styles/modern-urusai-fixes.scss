@@ -1,7 +1,4 @@
 @use 'sass:color';
-@use 'variables' as *;
-@use 'functions' as *;
-@use 'mixins' as *;
 
 .layout-multiple-columns
   #mastodon
@@ -11,88 +8,19 @@
   max-width: unset !important;
 }
 
-.layout-single-column .columns-area__panels__main {
-  contain: inline-size style !important;
-}
-
-body.app-body.flavour-glitch > #mastodon .notification__message > span,
-.notification__message > span > span,
-.status__prepend > span,
-.status__prepend > span > span {
-  display: unset !important;
-  flex-wrap: unset !important;
-  gap: unset !important;
+.anouncements_pagination {
+  inset-inline-start: unset !important;
+  top: unset !important;
+  bottom: 3px !important;
 }
 
 body.app-body.flavour-glitch > #mastodon .reactions-bar button:not(.active) {
-  background: lighten($ui-base-color, 12%);
-}
-
-#mastodon .compose-form > .navigation-bar {
-  margin-top: 10px !important;
-}
-
-#mastodon .compose-form {
-  gap: 10px !important;
-}
-
-body.app-body.flavour-glitch
-  > #mastodon
-  .reactions-bar
-  .emoji-picker-dropdown
-  button {
-  margin-left: 5px;
-  padding: 6px;
-}
-
-.announcements .announcements__container .announcements__pagination {
-  bottom: 0 !important;
-}
-
-body.app-body.flavour-glitch
-  > #mastodon
-  .status__content.status__content--collapsed
-  p:not(:last-child) {
-  margin-top: 0.4em;
+  background: color-mix(in srgb, white 12%, var(--color-bg-ambient));
 }
 
 body.app-body.flavour-glitch > #mastodon .compose-form__submit {
   position: unset !important;
   margin-top: unset !important;
-}
-
-body.app-body.flavour-glitch > #mastodon .notification-group,
-body.app-body.flavour-glitch > #mastodon .notification-ungrouped {
-  border-bottom: 1px solid var(--background-border-color) !important;
-}
-
-body.app-body.flavour-glitch > #mastodon .notification-ungrouped--mention {
-  padding: 0 16px;
-}
-
-.status__action-bar {
-  margin-bottom: unset !important;
-
-  .emoji-picker-dropdown {
-    width: 100% !important;
-  }
-}
-
-.notification-request {
-  margin-top: 60px;
-}
-
-.status__content.status__content--collapsed {
-  .status__content__text {
-    overflow: hidden;
-    mask: linear-gradient(to bottom, #000 65%, transparent);
-  }
-
-  .status__content__translate-button,
-  .status-card,
-  .video-player {
-    display: none;
-  }
 }
 
 @media (width <= 759px) {
