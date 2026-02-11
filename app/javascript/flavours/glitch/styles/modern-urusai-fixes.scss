@@ -8,7 +8,7 @@
   max-width: unset !important;
 }
 
-body.app-body.flavour-glitch > #mastodon .compose-form__submit {
+html[data-user-flavour='glitch'] #mastodon .compose-form__submit {
   position: unset !important;
   margin-top: unset !important;
 }
