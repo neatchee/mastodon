@@ -8,16 +8,6 @@
   max-width: unset !important;
 }
 
-.anouncements_pagination {
-  inset-inline-start: unset !important;
-  top: unset !important;
-  bottom: 3px !important;
-}
-
-body.app-body.flavour-glitch > #mastodon .reactions-bar button:not(.active) {
-  background: color-mix(in srgb, white 12%, var(--color-bg-ambient));
-}
-
 body.app-body.flavour-glitch > #mastodon .compose-form__submit {
   position: unset !important;
   margin-top: unset !important;
@@ -95,4 +85,19 @@ body.app-body.flavour-glitch > #mastodon .compose-form__submit {
 
 body > [data-popper-placement] {
   z-index: 100;
+}
+
+.announcements__pagination {
+  inset-inline-start: unset !important;
+  top: unset !important;
+  bottom: 0 !important;
+}
+
+.notification-group .status .reactions-bar,
+.notification-ungrouped .status .reactions-bar {
+  margin-inline-start: var(--status-gutter-width) !important;
+}
+
+.navigation-panel__list-panel__header__sep {
+  display: none !important;
 }
