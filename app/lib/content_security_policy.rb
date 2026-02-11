@@ -10,7 +10,7 @@ class ContentSecurityPolicy
   end
 
   def media_hosts
-    [assets_host, cdn_host_value, paperclip_root_url].concat(extra_data_hosts).compact
+    [assets_host, cdn_host_value, paperclip_root_url, gif_media_url].concat(extra_data_hosts).compact
   end
 
   def sso_host
@@ -49,7 +49,11 @@ class ContentSecurityPolicy
   end
 
   def gif_media_url
-    'https://media.tenor.com' if Rails.configuration.x.gifs.tenor[:api_key].present?
+    if Rails.configuration.x.gifs.klipy[:api_key].present?
+      'https://static.klipy.com'
+    elsif Rails.configuration.x.gifs.tenor[:api_key].present?
+      'https://media.tenor.com'
+    end
   end
 
   def cdn_host_value
