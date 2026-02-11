@@ -10,7 +10,7 @@ class ContentSecurityPolicy
   end
 
   def media_hosts
-    [assets_host, cdn_host_value, paperclip_root_url, gif_media_url].concat(extra_data_hosts).compact
+    [assets_host, cdn_host_value, paperclip_root_url].concat(extra_data_hosts).compact
   end
 
   def sso_host
