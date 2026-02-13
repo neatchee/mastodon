@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 
 import { FeaturedCarousel } from '@/flavours/glitch/components/featured_carousel';
 import { RemoteHint } from 'flavours/glitch/components/remote_hint';
-import ProfileColumnHeader from 'flavours/glitch/features/account/components/profile_column_header';
+import { ProfileColumnHeader } from 'flavours/glitch/features/account/components/profile_column_header';
 import BundleColumnError from 'flavours/glitch/features/ui/components/bundle_column_error';
 import { normalizeForLookup } from 'flavours/glitch/reducers/accounts_map';
 import { getAccountHidden } from 'flavours/glitch/selectors/accounts';

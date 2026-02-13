@@ -1,8 +1,11 @@
 import type { ComponentPropsWithoutRef } from 'react';
-import { forwardRef } from 'react';
+import { forwardRef, useCallback } from 'react';
+
+import classNames from 'classnames';
 
 import { FormFieldWrapper } from './form_field_wrapper';
 import type { CommonFieldWrapperProps } from './form_field_wrapper';
+import classes from './text_input.module.scss';
 
 interface Props
   extends ComponentPropsWithoutRef<'textarea'>, CommonFieldWrapperProps {}
@@ -23,9 +26,36 @@ export const TextAreaField = forwardRef<HTMLTextAreaElement, Props>(
       hasError={hasError}
       inputId={id}
     >
-      {(inputProps) => <textarea {...otherProps} {...inputProps} ref={ref} />}
+      {(inputProps) => <TextArea {...otherProps} {...inputProps} ref={ref} />}
     </FormFieldWrapper>
   ),
 );
 
 TextAreaField.displayName = 'TextAreaField';
+
+export const TextArea = forwardRef<
+  HTMLTextAreaElement,
+  ComponentPropsWithoutRef<'textarea'>
+>(({ className, onKeyDown, ...otherProps }, ref) => {
+  const handleSubmitHotkey = useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      onKeyDown?.(e);
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+        const targetForm = e.currentTarget.form;
+        targetForm?.requestSubmit();
+      }
+    },
+    [onKeyDown],
+  );
+
+  return (
+    <textarea
+      {...otherProps}
+      onKeyDown={handleSubmitHotkey}
+      className={classNames(className, classes.input)}
+      ref={ref}
+    />
+  );
+});
+
+TextArea.displayName = 'TextArea';

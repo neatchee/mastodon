@@ -46,7 +46,7 @@ class TranslateButton extends PureComponent {
 
       return (
         <div className='translate-button'>
-          <button className='link-button' onClick={onClick}>
+          <button type='button' className='link-button' onClick={onClick}>
             <FormattedMessage id='status.show_original' defaultMessage='Show original' />
           </button>
 
@@ -58,7 +58,7 @@ class TranslateButton extends PureComponent {
     }
 
     return (
-      <button className='status__content__translate-button' onClick={onClick}>
+      <button type='button' className='status__content__translate-button' onClick={onClick}>
         <FormattedMessage id='status.translate' defaultMessage='Translate' />
       </button>
     );
@@ -108,11 +108,12 @@ class StatusContent extends PureComponent {
     const { status, onCollapsedToggle } = this.props;
     if (status.get('collapsed', null) === null && onCollapsedToggle) {
       const { collapsible, onClick } = this.props;
+      const text = node.querySelector(':scope > .status__content__text');
 
       const collapsed =
           collapsible
           && onClick
-          && node.clientHeight > MAX_HEIGHT
+          && (node.clientHeight > MAX_HEIGHT || (text !== null && text.scrollWidth > text.clientWidth))
           && status.get('spoiler_text').length === 0;
 
       onCollapsedToggle(collapsed);
@@ -199,7 +200,7 @@ class StatusContent extends PureComponent {
     });
 
     const readMoreButton = renderReadMore && (
-      <button className='status__content__read-more-button' onClick={this.props.onClick} key='read-more'>
+      <button type='button' className='status__content__read-more-button' onClick={this.props.onClick} key='read-more'>
         <FormattedMessage id='status.read_more' defaultMessage='Read more' /><Icon id='angle-right' icon={ChevronRightIcon} />
       </button>
     );

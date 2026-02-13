@@ -7,7 +7,6 @@ import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
-import CancelFillIcon from '@/material-icons/400-24px/cancel-fill.svg?react';
 import { ContentWarning } from 'flavours/glitch/components/content_warning';
 import { Hotkeys } from 'flavours/glitch/components/hotkeys';
 import { PictureInPicturePlaceholder } from 'flavours/glitch/components/picture_in_picture_placeholder';
@@ -24,12 +23,10 @@ import { SensitiveMediaContext } from '../features/ui/util/sensitive_media_conte
 import { displayMedia, visibleReactions } from '../initial_state';
 
 import AttachmentList from './attachment_list';
-import { Avatar } from './avatar';
-import { AvatarOverlay } from './avatar_overlay';
-import { LinkedDisplayName } from './display_name';
 import { getHashtagBarForStatus } from './hashtag_bar';
 import { IconButton } from './icon_button';
 import { MentionsPlaceholder } from './mentions_placeholder';
+import { StatusHeader } from './status/header'
 import StatusActionBar from './status_action_bar';
 import StatusContent from './status_content';
 import StatusIcons from './status_icons';
@@ -116,10 +113,10 @@ class Status extends ImmutablePureComponent {
     onToggleCollapsed: PropTypes.func,
     onTranslate: PropTypes.func,
     onInteractionModal: PropTypes.func,
-    onQuoteCancel: PropTypes.func,
     muted: PropTypes.bool,
     hidden: PropTypes.bool,
     unread: PropTypes.bool,
+    featured: PropTypes.bool,
     showActions: PropTypes.bool,
     prepend: PropTypes.string,
     withDismiss: PropTypes.bool,
@@ -135,6 +132,8 @@ class Status extends ImmutablePureComponent {
     skipPrepend: PropTypes.bool,
     avatarSize: PropTypes.number,
     deployPictureInPicture: PropTypes.func,
+    unfocusable: PropTypes.bool,
+    headerRenderFn: PropTypes.func,
     settings: ImmutablePropTypes.map.isRequired,
     pictureInPicture: ImmutablePropTypes.contains({
       inUse: PropTypes.bool,
@@ -165,7 +164,7 @@ class Status extends ImmutablePureComponent {
     'expanded',
     'unread',
     'pictureInPicture',
-    'onQuoteCancel',
+    'headerRenderFn',
     'previousId',
     'nextInReplyToId',
     'rootId',
@@ -347,10 +346,6 @@ class Status extends ImmutablePureComponent {
     deployPictureInPicture(status, type, mediaProps);
   };
 
-  handleQuoteCancel = () => {
-    this.props.onQuoteCancel?.();
-  }
-
   handleHotkeyReply = e => {
     e.preventDefault();
     this.props.onReply(this.props.status);
@@ -460,28 +455,40 @@ class Status extends ImmutablePureComponent {
   }
 
   render () {
-    const { intl, hidden, featured, unfocusable, unread, pictureInPicture, previousId, nextInReplyToId, rootId, skipPrepend, avatarSize = 46, children } = this.props;
+    const {
+      intl,
+      hidden,
+      featured,
+      unfocusable,
+      unread,
+      showActions = true,
+      isQuotedPost = false,
+      pictureInPicture,
+      previousId,
+      nextInReplyToId,
+      rootId,
+      skipPrepend,
+      avatarSize = 46,
+      children,
+    } = this.props;
 
+    // glitch-soc-specific
     const {
       status,
       account,
       settings,
       muted,
-      intersectionObserverWrapper,
       onOpenVideo,
       onOpenMedia,
       notification,
       history,
       identity,
-      showActions = true,
-      isQuotedPost = false,
       ...other
     } = this.props;
     let attachments = null;
 
     let media = [];
     let mediaIcons = [];
-    let statusAvatar;
 
     if (status === null) {
       return null;
@@ -535,7 +542,7 @@ class Status extends ImmutablePureComponent {
           <div className='status__wrapper status__wrapper--filtered focusable' tabIndex={unfocusable ? null : 0} ref={this.handleRef}>
             <FormattedMessage id='status.filtered' defaultMessage='Filtered' />: {matchedFilters.join(', ')}.
             {' '}
-            <button className='status__wrapper--filtered__button' onClick={this.handleUnfilterClick}>
+            <button type='button' className='status__wrapper--filtered__button' onClick={this.handleUnfilterClick}>
               <FormattedMessage id='status.show_filter_reason' defaultMessage='Show anyway' />
             </button>
           </div>
@@ -688,13 +695,24 @@ class Status extends ImmutablePureComponent {
       );
     }
 
-    if (account === undefined || account === null) {
-      statusAvatar = <Avatar account={status.get('account')} size={avatarSize} />;
-    } else {
-      statusAvatar = <AvatarOverlay account={status.get('account')} friend={account} />;
-    }
-
     const {statusContentProps, hashtagBar} = getHashtagBarForStatus(status);
+
+    const header = this.props.headerRenderFn
+      ? this.props.headerRenderFn({ status, account, avatarSize, messages, onHeaderClick: this.handleHeaderClick, featured })
+      : (
+        <StatusHeader
+          status={status}
+          account={account}
+          avatarSize={avatarSize}
+          onHeaderClick={this.handleHeaderClick}
+        >
+          <StatusIcons
+            status={status}
+            mediaIcons={mediaIcons}
+            settings={settings.get('status_icons')}
+          />
+        </StatusHeader>
+      );
 
     return (
       <Hotkeys handlers={handlers} focusable={!unfocusable}>
@@ -726,31 +744,7 @@ class Status extends ImmutablePureComponent {
           >
             {(connectReply || connectUp || connectToRoot) && <div className={classNames('status__line', { 'status__line--full': connectReply, 'status__line--first': !status.get('in_reply_to_id') && !connectToRoot })} />}
 
-            {(!muted) && (
-              <header onClick={this.handleHeaderClick} onAuxClick={this.handleHeaderClick} className='status__info'>
-                <LinkedDisplayName displayProps={{account: status.get('account')}} className='status__display-name'>
-                  <div className='status__avatar'>
-                    {statusAvatar}
-                  </div>
-                </LinkedDisplayName>
-
-                {isQuotedPost && !!this.props.onQuoteCancel ? (
-                  <IconButton
-                    onClick={this.handleQuoteCancel}
-                    className='status__quote-cancel'
-                    title={intl.formatMessage(messages.quote_cancel)}
-                    icon="cancel-fill"
-                    iconComponent={CancelFillIcon}
-                  />
-                ) : (
-                  <StatusIcons
-                    status={status}
-                    mediaIcons={mediaIcons}
-                    settings={settings.get('status_icons')}
-                  />
-                )}
-              </header>
-            )}
+            {(!muted) && header}
 
             <ContentWarning status={status} expanded={expanded} onClick={this.handleExpandedToggle} icons={mediaIcons} />
 

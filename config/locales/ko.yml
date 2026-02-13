@@ -11,7 +11,6 @@ ko:
       cannot_be_added_to_collections: 이 계정은 컬렉션에 추가할 수 없습니다.
     followers:
       other: 팔로워
-    following: 팔로잉
     instance_actor_flash: 이 계정은 서버 자신을 나타내기 위한 가상의 계정이며 개인 사용자가 아닙니다. 이 계정은 연합을 위해 사용되며 정지되지 않아야 합니다.
     last_active: 최근 활동
     link_verified_on: "%{date}에 이 링크의 소유가 확인되었습니다"
@@ -1960,11 +1959,6 @@ ko:
     past_preamble_html: 마지막 방문으로부터 이용약관이 변경되었습니다. 변경된 약관을 확인하시기 바랍니다.
     review_link: 이용 약관 검토하기
     title: "%{domain} 도메인의 이용 약관에 변경 있음"
-  themes:
-    contrast: 마스토돈 (고대비)
-    default: 마스토돈 (어두움)
-    mastodon-light: 마스토돈 (밝음)
-    system: 자동 (시스템 테마 사용)
   time:
     formats:
       default: "%Y-%m-%d %H:%M"

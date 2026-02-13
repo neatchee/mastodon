@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 
 import { debounce } from 'lodash';
 
+import { checkAnnualReport } from '@/mastodon/reducers/slices/annual_report';
 import { focusApp, unfocusApp, changeLayout } from 'mastodon/actions/app';
 import { synchronouslySubmitMarkers, submitMarkers, fetchMarkers } from 'mastodon/actions/markers';
 import { fetchNotifications } from 'mastodon/actions/notification_groups';
@@ -21,13 +22,13 @@ import { PictureInPicture } from 'mastodon/features/picture_in_picture';
 import { identityContextPropShape, withIdentity } from 'mastodon/identity_context';
 import { layoutFromWindow } from 'mastodon/is_mobile';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
-import { checkAnnualReport } from '@/mastodon/reducers/slices/annual_report';
 
 import { uploadCompose, resetCompose, changeComposeSpoilerness } from '../../actions/compose';
 import { clearHeight } from '../../actions/height_cache';
 import { fetchServer, fetchServerTranslationLanguages } from '../../actions/server';
 import { expandHomeTimeline } from '../../actions/timelines';
 import { initialState, me, owner, singleUserMode, trendsEnabled, landingPage, localLiveFeedAccess, disableHoverCards } from '../../initial_state';
+import { areCollectionsEnabled } from '../collections/utils';
 
 import BundleColumnError from './components/bundle_column_error';
 import { HashtagMenuController } from './components/hashtag_menu_controller';
@@ -87,7 +88,6 @@ import { WrappedSwitch, WrappedRoute } from './util/react_router_helpers';
 // Dummy import, to make sure that <Status /> ends up in the application bundle.
 // Without this it ends up in ~8 very commonly used bundles.
 import '../../components/status';
-import { areCollectionsEnabled } from '../collections/utils';
 
 const messages = defineMessages({
   beforeUnload: { id: 'ui.beforeunload', defaultMessage: 'Your draft will be lost if you leave Mastodon.' },
@@ -231,14 +231,11 @@ class SwitchingColumnsArea extends PureComponent {
             <WrappedRoute path='/mutes' component={Mutes} content={children} />
             <WrappedRoute path='/lists' component={Lists} content={children} />
             {areCollectionsEnabled() &&
-              <WrappedRoute path='/collections/new' component={CollectionsEditor} content={children} />
-            }
-            {areCollectionsEnabled() &&
-              <WrappedRoute path='/collections/:id/edit' component={CollectionsEditor} content={children} />
+              <WrappedRoute path={['/collections/new', '/collections/:id/edit']} component={CollectionsEditor} content={children} />
             }
             {areCollectionsEnabled() &&
               <WrappedRoute path='/collections' component={Collections} content={children} />
-            }    
+            }
 
             <Route component={BundleColumnError} />
           </WrappedSwitch>
