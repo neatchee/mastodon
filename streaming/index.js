@@ -1198,7 +1198,11 @@ const startServer = async () => {
       resolveFeed('public', 'timeline:public:local', { needsFiltering: true, allowLocalOnly: true });
       break;
     case 'public:bubble':
-      resolveFeed('public', 'timeline:public:bubble', { needsFiltering: true, allowLocalOnly: false });
+      resolve({
+        channelIds: ['timeline:public:bubble'],
+        options: { needsFiltering: true, allowLocalOnly: false },
+      });
+
       break;
     case 'public:remote':
       resolveFeed('public', 'timeline:public:remote', { needsFiltering: true, allowLocalOnly: false });
@@ -1213,7 +1217,11 @@ const startServer = async () => {
       resolveFeed('public', 'timeline:public:local:media', { needsFiltering: true, allowLocalOnly: true });
       break;
     case 'public:bubble:media':
-      resolveFeed('public', 'timeline:public:bubble:media', { needsFiltering: true, allowLocalOnly: false });
+      resolve({
+        channelIds: ['timeline:public:bubble:media'],
+        options: { needsFiltering: true, allowLocalOnly: false },
+      });
+
       break;
     case 'public:remote:media':
       resolveFeed('public', 'timeline:public:remote:media', { needsFiltering: true, allowLocalOnly: false });
