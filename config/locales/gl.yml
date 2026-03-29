@@ -56,6 +56,7 @@ gl:
         label: Cambiar rol
         no_role: Sen rol
         title: Cambiar o rol de %{username}
+      collections: Coleccións
       confirm: Confirmar
       confirmed: Confirmado
       confirming: Estase a confirmar
@@ -266,6 +267,7 @@ gl:
         demote_user_html: "%{name} degradou a usuaria %{target}"
         destroy_announcement_html: "%{name} eliminou o anuncio %{target}"
         destroy_canonical_email_block_html: "%{name} desbloqueou o correo con suma de comprobación %{target}"
+        destroy_collection_html: "%{name} eliminou a colección de %{target}"
         destroy_custom_emoji_html: "%{name} eliminou o emoji %{target}"
         destroy_domain_allow_html: "%{name} retirou a federación co dominio %{target}"
         destroy_domain_block_html: "%{name} desbloqueou o dominio %{target}"
@@ -305,6 +307,7 @@ gl:
         unsilence_account_html: "%{name} reactivou a conta de %{target}"
         unsuspend_account_html: "%{name} retiroulle a suspensión á conta de %{target}"
         update_announcement_html: "%{name} actualizou o anuncio %{target}"
+        update_collection_html: "%{name} actualizou a colección de %{target}"
         update_custom_emoji_html: "%{name} actualizou o emoji %{target}"
         update_domain_block_html: "%{name} actualizou o bloqueo do dominio para %{target}"
         update_ip_block_html: "%{name} cambiou a regra para IP %{target}"
@@ -340,6 +343,15 @@ gl:
       unpublish: Retirar publicación
       unpublished_msg: Anuncio desbotado de xeito correcto!
       updated_msg: Anuncio actualizado de xeito correcto!
+    collections:
+      accounts: Contas
+      collection_title: Colección de %{name}
+      contents: Contido
+      number_of_accounts:
+        one: 1 conta
+        other: "%{count} contas"
+      open: Abrir
+      view_publicly: Ver publicamente
     critical_update_pending: Actualización crítica pendente
     custom_emojis:
       assign_category: Atribuír categoría
@@ -679,6 +691,7 @@ gl:
       cancel: Cancelar
       category: Categoría
       category_description_html: A razón para denunciar esta conta ou contido será citada na comunicación coa conta denunciada
+      collections: Coleccións (%{count})
       comment:
         none: Ningún
       comment_description_html: 'Como información engadida, %{name} escribiu:'
@@ -708,12 +721,13 @@ gl:
       report: 'Denuncia #%{id}'
       reported_account: Conta denunciada
       reported_by: Denunciado por
+      reported_content: Contido denunciado
       reported_with_application: Denunciado coa aplicación
       resolved: Resolto
       resolved_msg: Resolveuse con éxito a denuncia!
       skip_to_actions: Ir a accións
       status: Estado
-      statuses: Contido denunciado
+      statuses: Publicacións (%{count})
       statuses_description_html: O contido ofensivo será citado na comunicación coa conta denunciada
       summary:
         action_preambles:
@@ -748,6 +762,7 @@ gl:
       categories:
         administration: Administración
         devops: DevOps
+        email: Correo electrónico
         invites: Convites
         moderation: Moderación
         special: Especial
@@ -764,6 +779,8 @@ gl:
         administrator_description: As usuarias con este permiso poderán superar calquera restrición
         delete_user_data: Eliminar datos de usuarias
         delete_user_data_description: Permite eliminar datos doutras usuarias sen demoras
+        invite_bypass_approval: Invitar sen precisar revisión
+        invite_bypass_approval_description: Permitir que as persoas invitadas ao servidor por estas usuarias non precisen aprobación
         invite_users: Convidar usuarias
         invite_users_description: Permite que outras usuarias conviden a xente ao servidor
         manage_announcements: Xestionar anuncios
@@ -1215,7 +1232,6 @@ gl:
   application_mailer:
     notification_preferences: Cambiar preferencias de correo
     salutation: "%{name},"
-    settings: 'Cambiar preferencias de correo: %{link}'
     unsubscribe: Anular subscrición
     view: 'Vista:'
     view_profile: Ver perfil
@@ -1265,6 +1281,7 @@ gl:
     progress:
       confirm: Confirmar correo
       details: Detalles
+      list: Progreso da creación da conta
       review: A nosa revisión
       rules: Aceptar regras
     providers:
@@ -1280,6 +1297,7 @@ gl:
       invited_by: 'Podes unirte a %{domain} grazas ao convite que recibiches de parte de:'
       preamble: Son establecidas e aplicadas pola moderación de %{domain}.
       preamble_invited: Antes de continuar adica un minuto a ler as regras básicas establecidas para %{domain}.
+      read_more: Ler máis
       title: Algunhas regras básicas.
       title_invited: Convidáronte.
     security: Seguranza
@@ -1635,21 +1653,6 @@ gl:
     failed_sign_in_html: Intento de acceso errado con %{method} desde %{ip} (%{browser})
     successful_sign_in_html: Acceso correcto con %{method} desde %{ip} (%{browser})
     title: Historial de autenticación
-  mail_subscriptions:
-    unsubscribe:
-      action: Si, retirar subscrición
-      complete: Subscrición anulada
-      confirmation_html: Tes a certeza de querer retirar a subscrición a Mastodon en %{domain} para recibir %{type} no teu correo electrónico en %{email}? Poderás volver a subscribirte desde os <a href="%{settings_path}">axustes de notificacións por correo</a>.
-      emails:
-        notification_emails:
-          favourite: notificacións de favorecidas
-          follow: notificacións de seguimentos
-          follow_request: notificacións de solicitudes de seguimento
-          mention: notificacións de mencións
-          reblog: notificacións de promocións
-      resubscribe_html: Se por un erro eliminaches a subscrición, podes volver a subscribirte desde os <a href="%{settings_path}">axustes de notificacións por correo electrónico</a>.
-      success_html: Non vas recibir %{type} de Mastodon en %{domain} no enderezo %{email}.
-      title: Anular subscrición
   media_attachments:
     validations:
       images_and_video: Non podes anexar un vídeo a unha publicación que xa contén imaxes

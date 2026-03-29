@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { defineMessages, injectIntl } from 'react-intl';
+import { defineMessages } from 'react-intl';
 
 import { Link } from 'react-router-dom';
 
@@ -10,8 +10,9 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 
 import { Avatar } from '@/mastodon/components/avatar';
 import { DisplayName } from '@/mastodon/components/display_name';
-import { EmojiHTML } from '@/mastodon/components/emoji/html';
 import { IconButton } from '@/mastodon/components/icon_button';
+import { injectIntl } from '@/mastodon/components/intl';
+import { EmojiHTML } from '@/mastodon/components/emoji/html';
 import CheckIcon from '@/material-icons/400-24px/check.svg?react';
 import CloseIcon from '@/material-icons/400-24px/close.svg?react';
 

@@ -53,6 +53,7 @@ sv:
         label: Ändra roll
         no_role: Ingen roll
         title: Ändra roll för %{username}
+      collections: Samlingar
       confirm: Bekräfta
       confirmed: Bekräftad
       confirming: Bekräftande
@@ -263,6 +264,7 @@ sv:
         demote_user_html: "%{name} nedgraderade användare %{target}"
         destroy_announcement_html: "%{name} raderade kungörelsen %{target}"
         destroy_canonical_email_block_html: "%{name} avblockerade e-post med hash%{target}"
+        destroy_collection_html: "%{name} tog bort samlingen av %{target}"
         destroy_custom_emoji_html: "%{name} raderade emoji %{target}"
         destroy_domain_allow_html: "%{name} raderade domän %{target} från vitlistan"
         destroy_domain_block_html: "%{name} avblockerade domänen %{target}"
@@ -302,6 +304,7 @@ sv:
         unsilence_account_html: "%{name} tog bort begränsning av %{target}s konto"
         unsuspend_account_html: "%{name} ångrade avstängningen av %{target}s konto"
         update_announcement_html: "%{name} uppdaterade kungörelsen %{target}"
+        update_collection_html: "%{name} uppdaterade samlingen av %{target}"
         update_custom_emoji_html: "%{name} uppdaterade emoji %{target}"
         update_domain_block_html: "%{name} uppdaterade domän-block för %{target}"
         update_ip_block_html: "%{name} ändrade regel för IP %{target}"
@@ -337,6 +340,15 @@ sv:
       unpublish: Avpublicera
       unpublished_msg: Kungörelsen raderades!
       updated_msg: Kungörelsen uppdaterades!
+    collections:
+      accounts: Konton
+      collection_title: Samling av %{name}
+      contents: Innehåll
+      number_of_accounts:
+        one: 1 konto
+        other: "%{count} konton"
+      open: Öppna
+      view_publicly: Visa offentligt
     critical_update_pending: Kritisk uppdatering väntar
     custom_emojis:
       assign_category: Tilldela kategori
@@ -676,6 +688,7 @@ sv:
       cancel: Avbryt
       category: Kategori
       category_description_html: Anledningen till att kontot och/eller innehållet rapporterades kommer att visas i kommunikation med det rapporterade kontot
+      collections: Samlingar (%{count})
       comment:
         none: Ingen
       comment_description_html: 'För att ge mer information, skrev %{name}:'
@@ -705,12 +718,13 @@ sv:
       report: 'Rapport #%{id}'
       reported_account: Anmält konto
       reported_by: Anmäld av
+      reported_content: Rapporterat innehåll
       reported_with_application: Rapporterat med applikation
       resolved: Löst
       resolved_msg: Anmälan har lösts framgångsrikt!
       skip_to_actions: Hoppa till åtgärder
       status: Status
-      statuses: Rapporterat innehåll
+      statuses: Inlägg (%{count})
       statuses_description_html: Stötande innehåll kommer att citeras i kommunikationen med det rapporterade kontot
       summary:
         action_preambles:
@@ -761,6 +775,8 @@ sv:
         administrator_description: Användare med denna behörighet kommer att kringgå alla behörigheter
         delete_user_data: Ta bort användardata
         delete_user_data_description: Tillåter användare att omedelbart radera andra användares data
+        invite_bypass_approval: Bjud in användare utan granskning
+        invite_bypass_approval_description: Tillåter personer som är inbjudna till servern av dessa användare att kringgå moderationsgodkännande
         invite_users: Bjud in användare
         invite_users_description: Tillåter användare att bjuda in nya personer till servern
         manage_announcements: Hantera kungörelser
@@ -799,6 +815,7 @@ sv:
         view_devops_description: Ger användare tillgång till instrumentpanelerna Sidekiq och pgHero
         view_feeds: Visa live- och ämnesflöden
         view_feeds_description: Ger användare tillgång till live-och ämnesflöden oavsett serverinställningar
+      requires_2fa: Kräver tvåfaktorsautentisering
       title: Roller
     rules:
       add_new: Lägg till regel
@@ -1211,7 +1228,6 @@ sv:
   application_mailer:
     notification_preferences: Ändra e-postpreferenser
     salutation: "%{name},"
-    settings: 'Ändra e-postinställningar: %{link}'
     unsubscribe: Avprenumerera
     view: 'Granska:'
     view_profile: Visa profil
@@ -1261,6 +1277,7 @@ sv:
     progress:
       confirm: Bekräfta e-postadress
       details: Dina uppgifter
+      list: Registreringsframsteg
       review: Vår recension
       rules: Acceptera regler
     providers:
@@ -1276,6 +1293,7 @@ sv:
       invited_by: 'Du kan gå med i %{domain} tack vare den inbjudan du har fått från:'
       preamble: Dessa bestäms och upprätthålls av moderatorerna för %{domain}.
       preamble_invited: Innan du fortsätter bör du överväga grundreglerna som fastställts av moderatorerna för %{domain}.
+      read_more: Läs mer
       title: Några grundregler.
       title_invited: Du har blivit inbjuden.
     security: Säkerhet
@@ -1631,21 +1649,6 @@ sv:
     failed_sign_in_html: Misslyckat inloggningsförsök med %{method} från %{ip} (%{browser})
     successful_sign_in_html: Lyckad inloggning med %{method} från %{ip} (%{browser})
     title: Autentiseringshistorik
-  mail_subscriptions:
-    unsubscribe:
-      action: Ja, avsluta prenumerationen
-      complete: Prenumeration avslutad
-      confirmation_html: Är du säker på att du vill avregistrera dig från att ta emot %{type} för Mastodon på %{domain} med din e-post på %{email}? Du kan alltid återprenumerera bland dina <a href="%{settings_path}">e-postmeddelandeinställningar</a>.
-      emails:
-        notification_emails:
-          favourite: aviseringsmejl för favoriserade inlägg
-          follow: aviseringsmejl för följda inlägg
-          follow_request: aviseringsmejl för följdförfrågningar
-          mention: aviseringsmejl för inlägg där du nämns
-          reblog: aviseringsmejl för förhöjda inlägg
-      resubscribe_html: Om du slutat prenumerera av misstag kan du återprenumerera i dina <a href="%{settings_path}">e-postaviseringsinställningar</a>.
-      success_html: Du får inte längre %{type} för Mastodon på %{domain} till din e-post på %{email}.
-      title: Avsluta prenumeration
   media_attachments:
     validations:
       images_and_video: Det går inte att bifoga en video till ett inlägg som redan innehåller bilder
@@ -2017,6 +2020,8 @@ sv:
     past_preamble_html: Vi har ändrat våra användarvillkor sedan ditt senaste besök. Vi uppmanar dig att granska de uppdaterade villkoren.
     review_link: Granska villkoren för tjänsten
     title: Villkoren för tjänsten i %{domain} ändras
+  themes:
+    default: Mastodon
   time:
     formats:
       default: "%d %b %Y, %H:%M"
@@ -2041,6 +2046,8 @@ sv:
     recovery_codes: Backup återställningskod
     recovery_codes_regenerated: Återställningskoder genererades på nytt
     recovery_instructions_html: Om du någonsin tappar åtkomst till din telefon kan du använda någon av återställningskoderna nedan för att återställa åtkomst till ditt konto. <strong> Håll återställningskoderna säkra </strong>. Du kan till exempel skriva ut dem och lagra dem med andra viktiga dokument.
+    resume_app_authorization: Fortsätt app-autentisering
+    role_requirement: "%{domain} kräver att du ställer in tvåfaktorsautentisering innan du kan använda Mastodon."
     webauthn: Säkerhetsnycklar
   user_mailer:
     announcement_published:

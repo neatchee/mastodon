@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
 import classNames from 'classnames';
 
@@ -10,8 +10,10 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { supportsPassiveEvents } from 'detect-passive-events';
 import Overlay from 'react-overlays/Overlay';
 
+import AddReactionIcon from '@/material-icons/400-24px/add_reaction.svg?react';
 import MoodIcon from '@/material-icons/400-20px/mood.svg?react';
 import { IconButton } from 'flavours/glitch/components/icon_button';
+import { injectIntl } from '@/flavours/glitch/components/intl';
 
 import { buildCustomEmojis, categoriesFromEmojis } from '../../emoji/emoji';
 import { EmojiPicker as EmojiPickerAsync } from '../../ui/util/async-components';
@@ -30,6 +32,7 @@ const messages = defineMessages({
   objects: { id: 'emoji_button.objects', defaultMessage: 'Objects' },
   symbols: { id: 'emoji_button.symbols', defaultMessage: 'Symbols' },
   flags: { id: 'emoji_button.flags', defaultMessage: 'Flags' },
+  react: { id: 'status.react', defaultMessage: 'React' },
 });
 
 let EmojiPicker, Emoji; // load asynchronously
@@ -326,6 +329,7 @@ class EmojiPickerDropdown extends PureComponent {
     skinTone: PropTypes.number.isRequired,
     title: PropTypes.string,
     icon: PropTypes.node,
+    react: PropTypes.bool,
     disabled: PropTypes.bool,
   };
 
@@ -389,7 +393,9 @@ class EmojiPickerDropdown extends PureComponent {
   };
 
   render() {
-    const { intl, onPickEmoji, onSkinTone, skinTone, frequentlyUsedEmojis, title, icon, disabled } = this.props;
+    const { intl, onPickEmoji, onSkinTone, skinTone, frequentlyUsedEmojis, react, disabled } = this.props;
+    const title = react ? intl.formatMessage(messages.react) : intl.formatMessage(messages.emoji);
+    const icon = react ? AddReactionIcon : MoodIcon;
     const { active, loading, placement } = this.state;
 
     return (
@@ -398,9 +404,10 @@ class EmojiPickerDropdown extends PureComponent {
           title={title || intl.formatMessage(messages.emoji)}
           aria-expanded={active}
           active={active}
-          disabled={disabled}
-          iconComponent={icon || MoodIcon}
+          iconComponent={icon}
           onClick={this.onToggle}
+          disabled={disabled}
+          id="emoji"
         />
 
         <Overlay show={active} placement={placement} flip target={this.findTarget} popperConfig={{ strategy: 'fixed', onFirstUpdate: this.handleOverlayEnter }}>

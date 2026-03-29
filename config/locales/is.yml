@@ -56,6 +56,7 @@ is:
         label: Breyta hlutverki
         no_role: Ekkert hlutverk
         title: Breyta hlutverki fyrir %{username}
+      collections: Söfn
       confirm: Staðfesta
       confirmed: Staðfest
       confirming: Staðfesti
@@ -266,6 +267,7 @@ is:
         demote_user_html: "%{name} lækkaði notandann %{target} í tign"
         destroy_announcement_html: "%{name} eyddi tilkynninguni %{target}"
         destroy_canonical_email_block_html: "%{name} tók af útilokun á tölvupósti með tætigildið %{target}"
+        destroy_collection_html: "%{name} fjarlægði safn frá %{target}"
         destroy_custom_emoji_html: "%{name} eyddi emoji-tákni %{target}"
         destroy_domain_allow_html: "%{name} bannaði skýjasamband með léninu %{target}"
         destroy_domain_block_html: "%{name} aflétti útilokun af léninu %{target}"
@@ -305,6 +307,7 @@ is:
         unsilence_account_html: "%{name} hætti að hylja notandaaðganginn %{target}"
         unsuspend_account_html: "%{name} tók notandaaðganginn %{target} úr frysti"
         update_announcement_html: "%{name} uppfærði tilkynningu %{target}"
+        update_collection_html: "%{name} uppfærði safn frá %{target}"
         update_custom_emoji_html: "%{name} uppfærði lyndistáknið %{target}"
         update_domain_block_html: "%{name} uppfærði útilokun lénsins %{target}"
         update_ip_block_html: "%{name} breytti reglu fyrir IP-vistfangið %{target}"
@@ -340,6 +343,15 @@ is:
       unpublish: Taka úr birtingu
       unpublished_msg: Það tókst að taka auglýsinguna úr birtingu!
       updated_msg: Það tókst að uppfæra auglýsinguna!
+    collections:
+      accounts: Notandaaðgangar
+      collection_title: Safn frá %{name}
+      contents: Efni
+      number_of_accounts:
+        one: 1 aðgangur
+        other: "%{count} aðgangar"
+      open: Opið
+      view_publicly: Skoða opinberlega
     critical_update_pending: Áríðandi uppfærsla í bið
     custom_emojis:
       assign_category: Úthluta flokki
@@ -679,6 +691,7 @@ is:
       cancel: Hætta við
       category: Flokkur
       category_description_html: Ástæðan fyrir því að þessi notandaaðgangur og/eða efni hans var kært mun verða tiltekin í samskiptum við kærðan notandaaðgang
+      collections: Söfn (%{count})
       comment:
         none: Ekkert
       comment_description_html: 'Til að gefa nánari upplýsingar skrifaði %{name}:'
@@ -708,12 +721,13 @@ is:
       report: 'Kæra #%{id}'
       reported_account: Kærður notandaaðgangur
       reported_by: Kært af
+      reported_content: Kært efni
       reported_with_application: Kærði með forritinu
       resolved: Leyst
       resolved_msg: Það tókst að leysa kæruna!
       skip_to_actions: Sleppa og fara í aðgerðir
       status: Staða
-      statuses: Kært efni
+      statuses: Færslur (%{count})
       statuses_description_html: Óviðeigandi efni verður tiltekið í samskiptum við kærðan notandaaðgang
       summary:
         action_preambles:
@@ -748,6 +762,7 @@ is:
       categories:
         administration: Stjórnun
         devops: DevOps
+        email: Tölvupóstur
         invites: Boðsgestir
         moderation: Umsjón
         special: Sérstakt
@@ -764,6 +779,8 @@ is:
         administrator_description: Notendur með þessa heimild fara framhjá öllum öðrum heimildum
         delete_user_data: Eyða gögnum notanda
         delete_user_data_description: Leyfir notendum að eyða gögnum annarra notenda án tafar
+        invite_bypass_approval: Bjóða notendum án samþykktar
+        invite_bypass_approval_description: Leyfir fólki sem boðið er á netþjóninn af þessum notendum að sleppa við samþykki umsjónaraðila
         invite_users: Bjóða notendum
         invite_users_description: Leyfir notendum að bjóða nýju fólki inn á netþjóninn
         manage_announcements: Sýsla með tilkynningar
@@ -774,6 +791,8 @@ is:
         manage_blocks_description: Leyfir notendum að loka á tölvupóstþjónustur og IP-vistföng
         manage_custom_emojis: Sýsla með sérsniðin lyndistákn
         manage_custom_emojis_description: Leyfir notendum að sýsla með sérsniðin lyndistákn á netþjóninum
+        manage_email_subscriptions: Sýsla með tölvupóstáskriftir
+        manage_email_subscriptions_description: Leyfa notendum að gerast áskrifendur að tölvupósti frá notendum með þessa heimild
         manage_federation: Sýsla með netþjónasambönd
         manage_federation_description: Leyfir notendum að loka á eða leyfa samþættingu við önnur lén (federation) og stýra afhendingu skilaboða
         manage_invites: Sýsla með boðsgesti
@@ -1217,7 +1236,6 @@ is:
   application_mailer:
     notification_preferences: Breyta kjörstillingum tölvupósts
     salutation: "%{name},"
-    settings: 'Breyta kjörstillingum tölvupósts: %{link}'
     unsubscribe: Taka úr áskrift
     view: 'Skoða:'
     view_profile: Skoða notandasnið
@@ -1269,6 +1287,7 @@ is:
     progress:
       confirm: Staðfesta tölvupóstfang
       details: Nánari upplýsingar þínar
+      list: Nýskráningarferli
       review: Yfirferð okkar
       rules: Samþykkja reglur
     providers:
@@ -1284,6 +1303,7 @@ is:
       invited_by: 'Þú getur tekið þátt í %{domain} þökk sé boði sem þú fékkst frá:'
       preamble: Þær eru settar og þeim framfylgt af umsjónarmönnum %{domain}.
       preamble_invited: Áður en haldið er lengra, vinsamlegast kynntu þér reglurnar sem stjórnendur %{domain} hafa sett.
+      read_more: Lesa meira
       title: Nokkrar grunnreglur.
       title_invited: Þér hefur verið boðið.
     security: Öryggi
@@ -1405,6 +1425,33 @@ is:
     basic_information: Grunnupplýsingar
     hint_html: "<strong>Sérsníddu hvað fólk sér á opinbera notandasniðinu þínu og næst færslunum þínum.</strong> Annað fólk er líklegra til að fylgjast með þér og eiga í samskiptum við þig ef þú fyllir út notandasniðið og setur auðkennismynd."
     other: Annað
+  email_subscription_mailer:
+    confirmation:
+      action: Staðfestu tölvupóstfangið
+      instructions_to_confirm: Staðfestu að þú viljir fá tölvupósta frá %{name} (@%{acct}) þegar viðkomandi birtir nýjar færslur.
+      subject: Staðfestu tölvupóstfangið þitt
+      title: Fá tilkynningar í tölvupósti frá %{name}?
+    notification:
+      create_account: Búa til nýjan Mastodon-aðgang
+      interact_with_this_post:
+        one: Eigðu í samskiptum við þessa færslu og finndu fleiri í sama dúr.
+        other: Eigðu í samskiptum við þessar færslur og finndu fleiri í sama dúr.
+      subject:
+        one: 'Ný færsla: "%{excerpt}"'
+        other: Nýjar færslur frá %{name}
+      title:
+        one: 'Ný færsla: "%{excerpt}"'
+        other: Nýjar færslur frá %{name}
+  email_subscriptions:
+    active: Virkur
+    confirmations:
+      show:
+        changed_your_mind: Skiptirðu um skoðun?
+        title: Þú hefur skráð þig
+        unsubscribe: Hætta í áskrift
+    inactive: Óvirkur
+    status: Staða
+    subscribers: Áskrifendur
   emoji_styles:
     auto: Sjálfvirkt
     native: Innbyggt
@@ -1639,21 +1686,6 @@ is:
     failed_sign_in_html: Misheppnuð tilraun til innskráningar með %{method} frá %{ip} (%{browser})
     successful_sign_in_html: Vel heppnuð tilraun til innskráningar með %{method} frá %{ip} (%{browser})
     title: Auðkenningarferill
-  mail_subscriptions:
-    unsubscribe:
-      action: Já, hætta í áskrift
-      complete: Hætta í áskrift
-      confirmation_html: Ertu viss um að þú viljir hætta áskrift sendinga á %{type} fyrir Mastodon á %{domain} til póstfangsins þíns %{email}? Þú getur alltaf aftur gerst áskrifandi í <a href="%{settings_path}">stillingunum fyrir tilkynningar í tölvupósti</a>.
-      emails:
-        notification_emails:
-          favourite: tilkynningum í tölvupósti um eftirlæti
-          follow: tilkynningum í tölvupósti um fylgjendur
-          follow_request: tilkynningum í tölvupósti um beiðnir um að fylgjast með
-          mention: tilkynningum í tölvupósti um tilvísanir
-          reblog: tilkynningum í tölvupósti um endurbirtingar
-      resubscribe_html: Ef þú hættir áskrift fyrir mistök, geturðu alltaf aftur gerst áskrifandi í <a href="%{settings_path}">stillingunum fyrir tilkynningar í tölvupósti</a>.
-      success_html: Þú munt ekki lengur fá sendingar með %{type} fyrir Mastodon á %{domain} á póstfangið þitt %{email}.
-      title: Taka úr áskrift
   media_attachments:
     validations:
       images_and_video: Ekki er hægt að hengja myndskeið við færslu sem þegar inniheldur myndir
@@ -1791,6 +1823,7 @@ is:
     posting_defaults: Sjálfgefin gildi við gerð færslna
     public_timelines: Opinberar tímalínur
   privacy:
+    email_subscriptions: Senda færslur með tölvupósti
     hint_html: "<strong>Sérsníddu hvernig þú vilt að finna megi notandasnið þitt og færslur.</strong> Ýmsir eiginleikar í Mastodon geta hjálpað þér að ná til breiðari áheyrendahóps, séu þeir virkjaðir. Taktu þér tíma til að yfirfara þessar stillingar svo að þær henti þér."
     privacy: Gagnaleynd
     privacy_hint_html: Stýrðu því hve miklar upplýsingar þú birtir sem gætu gagnast öðrum. Fólk uppgötvar áhugaverða notendur og sniðug forrit með því að skoða hvað annað fólk fylgist með og hvaða forrit það notar til að birta færslur, en hinsvegar er þér frjálst að halda þessu leyndu.
@@ -2054,6 +2087,28 @@ is:
     resume_app_authorization: Halda áfram með auðkenningu forrits
     role_requirement: "%{domain} krefst þess að þú setjir upp tveggja-þátta auðkenningu áður en þú getur notað Mastodon."
     webauthn: Öryggislyklar
+  unsubscriptions:
+    create:
+      action: Fara á heimasíðu netþjónsins
+      email_subscription:
+        confirmation_html: Þú munt ekki lengur fá tölvupósta frá %{name}.
+      title: Þú hefur sagt upp áskrift
+      user:
+        confirmation_html: Þú munt ekki lengur fá %{type} frá Mastodon á %{domain}.
+    notification_emails:
+      favourite: tölvupóst um eftirlæti
+      follow: tölvupóst um fylgjendur
+      follow_request: tölvupóst um fylgjendabeiðnir
+      mention: tölvupóst um tilvísanir í þig
+      reblog: tölvupóst um endurbirtingar
+    show:
+      action: Hætta í áskrift
+      email_subscription:
+        confirmation_html: Þú munt ekki lengur fá tölvupóst þegar þessi aðili birtir nýjar færslur.
+        title: Afpanta áskrift að %{name}?
+      user:
+        confirmation_html: Þú munt ekki lengur fá %{type} frá Mastodon á %{domain}.
+        title: Afpanta áskrift að %{type}?
   user_mailer:
     announcement_published:
       description: 'Stjórnendur %{domain} eru að senda frá sér yfirlýsingu:'

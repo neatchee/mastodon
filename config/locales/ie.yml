@@ -612,7 +612,6 @@ ie:
       resolved_msg: Raporte successosimen soluet!
       skip_to_actions: Ear rect al actiones
       status: Statu
-      statuses: Contenete raportat
       statuses_description_html: Ofensiv contenete va esser citat in comunication con li raportat conto
       summary:
         action_preambles:
@@ -1329,11 +1328,6 @@ ie:
     failed_sign_in_html: Fallit prova de apertion de session per %{method} de %{ip} (%{browser})
     successful_sign_in_html: Successosi apertion de session per %{method} de %{ip} (%{browser})
     title: Historie de autentication
-  mail_subscriptions:
-    unsubscribe:
-      action: Yes, desabonnar
-      complete: Desabonnat
-      title: Desabonnar
   media_attachments:
     validations:
       images_and_video: On ne posse atachar un video a un posta quel ja contene images

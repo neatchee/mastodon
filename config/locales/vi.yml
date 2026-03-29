@@ -8,7 +8,7 @@ vi:
     title: Giới thiệu
   accounts:
     errors:
-      cannot_be_added_to_collections: Tài khoản này không thể thêm vào bộ sưu tập.
+      cannot_be_added_to_collections: Tài khoản này không thể thêm vào gói khởi đầu.
     followers:
       other: Người theo dõi
     following:
@@ -53,6 +53,7 @@ vi:
         label: Đổi vai trò
         no_role: Chưa có vai trò
         title: Thay đổi vai trò %{username}
+      collections: Những gói khởi đầu
       confirm: Phê duyệt
       confirmed: Đã xác minh
       confirming: Chờ xác nhận
@@ -262,6 +263,7 @@ vi:
         demote_user_html: "%{name} đã hạ vai trò của %{target}"
         destroy_announcement_html: "%{name} đã xóa thông báo %{target}"
         destroy_canonical_email_block_html: "%{name} đã bỏ chặn địa chỉ email biến thể %{target}"
+        destroy_collection_html: "%{name} đã gỡ gói khởi đầu của %{target}"
         destroy_custom_emoji_html: "%{name} đã xóa emoji %{target}"
         destroy_domain_allow_html: "%{name} đã ngừng liên hợp với %{target}"
         destroy_domain_block_html: "%{name} đã bỏ chặn máy chủ %{target}"
@@ -301,6 +303,7 @@ vi:
         unsilence_account_html: "%{name} đã bỏ ẩn %{target}"
         unsuspend_account_html: "%{name} đã bỏ vô hiệu hóa %{target}"
         update_announcement_html: "%{name} đã cập nhật thông báo %{target}"
+        update_collection_html: "%{name} đã cập nhật gói khởi đầu của %{target}"
         update_custom_emoji_html: "%{name} đã cập nhật emoji %{target}"
         update_domain_block_html: "%{name} đã cập nhật chặn máy chủ %{target}"
         update_ip_block_html: "%{name} đã cập nhật chặn IP %{target}"
@@ -336,6 +339,14 @@ vi:
       unpublish: Hủy đăng
       unpublished_msg: Xóa bỏ thông báo thành xong!
       updated_msg: Cập nhật thông báo thành công!
+    collections:
+      accounts: Tài khoản
+      collection_title: Gói khởi đầu bởi %{name}
+      contents: Nội dung
+      number_of_accounts:
+        other: "%{count} tài khoản"
+      open: Mở
+      view_publicly: Xem công khai
     critical_update_pending: Cập nhật quan trọng đang chờ
     custom_emojis:
       assign_category: Xếp vào danh mục
@@ -666,6 +677,7 @@ vi:
       cancel: Hủy bỏ
       category: Phân loại
       category_description_html: Lý do tài khoản hoặc nội dung này bị báo cáo sẽ được trích dẫn khi giao tiếp với họ
+      collections: Gói khởi đầu (%{count})
       comment:
         none: Không có mô tả
       comment_description_html: "%{name} cho biết thêm:"
@@ -695,12 +707,13 @@ vi:
       report: 'Báo cáo #%{id}'
       reported_account: Tài khoản bị báo cáo
       reported_by: Báo cáo bởi
+      reported_content: Nội dung bị báo cáo
       reported_with_application: Báo cáo bằng ứng dụng
       resolved: Đã xong
       resolved_msg: Đã xử lý báo cáo xong!
       skip_to_actions: Kiểm duyệt
       status: Trạng thái
-      statuses: Nội dung bị báo cáo
+      statuses: Tút (%{count})
       statuses_description_html: Lý do tài khoản hoặc nội dung này bị báo cáo sẽ được trích dẫn khi giao tiếp với họ
       summary:
         action_preambles:
@@ -734,6 +747,7 @@ vi:
       categories:
         administration: Quản trị viên
         devops: Nhà phát triển
+        email: Email
         invites: Lời mời
         moderation: Kiểm duyệt
         special: Đặc biệt
@@ -749,6 +763,8 @@ vi:
         administrator_description: Người này có thể truy cập mọi quyền hạn
         delete_user_data: Xóa dữ liệu
         delete_user_data_description: Cho phép xóa dữ liệu của mọi người khác lập tức
+        invite_bypass_approval: Mời người dùng mà không xem lại
+        invite_bypass_approval_description: Cho phép những người được người dùng này mời vào máy chủ bỏ qua bước phê duyệt
         invite_users: Mời tham gia
         invite_users_description: Cho phép mời những người mới vào máy chủ
         manage_announcements: Quản lý thông báo
@@ -759,6 +775,8 @@ vi:
         manage_blocks_description: Cho phép người dùng tự chặn các nhà cung cấp email và địa chỉ IP
         manage_custom_emojis: Quản lý emoji
         manage_custom_emojis_description: Cho phép quản lý các emoji tùy chỉnh trên máy chủ
+        manage_email_subscriptions: Quản lý đăng ký đọc qua email
+        manage_email_subscriptions_description: Cho phép người dùng đăng ký nhận thông báo qua email từ những người dùng có quyền này
         manage_federation: Quản lý liên hợp
         manage_federation_description: Cho phép chặn hoặc liên hợp với các máy chủ khác và kiểm soát khả năng phân phối
         manage_invites: Quản lý lời mời
@@ -787,6 +805,7 @@ vi:
         view_devops_description: Cho phép truy cập trang tổng quan Sidekiq và pgHero
         view_feeds: Xem nguồn cấp dữ liệu trực tiếp và theo chủ đề
         view_feeds_description: Cho phép người dùng truy cập nguồn cấp dữ liệu trực tiếp và theo chủ đề bất kể cài đặt máy chủ
+      requires_2fa: Bắt buộc xác thực 2 bước
       title: Danh sách vai trò
     rules:
       add_new: Thêm nội quy
@@ -1194,7 +1213,6 @@ vi:
   application_mailer:
     notification_preferences: Thay đổi thiết lập email
     salutation: "%{name},"
-    settings: 'Thay đổi thiết lập email: %{link}'
     unsubscribe: Hủy đăng ký
     view: 'Chi tiết:'
     view_profile: Xem trang hồ sơ
@@ -1244,6 +1262,7 @@ vi:
     progress:
       confirm: Xác nhận email
       details: Điền thông tin
+      list: Quy trình đăng ký
       review: Đợi duyệt
       rules: Đọc nội quy
     providers:
@@ -1259,6 +1278,7 @@ vi:
       invited_by: 'Bạn có thể tham gia %{domain} với thư mời từ:'
       preamble: Được ban hành và áp dụng bởi quản trị máy chủ %{domain}.
       preamble_invited: Trước khi tiếp tục, hãy đọc nội quy của %{domain}.
+      read_more: Đọc tiếp
       title: Nội quy máy chủ.
       title_invited: Bạn vừa được mời.
     security: Bảo mật
@@ -1380,6 +1400,35 @@ vi:
     basic_information: Thông tin cơ bản
     hint_html: Mọi người sẽ muốn theo dõi và tương tác với bạn hơn nếu bạn có ảnh đại diện và hồ sơ hoàn chỉnh.
     other: Khác
+  email_subscription_mailer:
+    confirmation:
+      action: Xác nhận địa chỉ email
+      instructions_to_confirm: Xác nhận bạn muốn nhận email từ %{name} (@%{acct}) khi họ đăng tút mới.
+      instructions_to_ignore: Nếu bạn không chắc tại sao mình nhận được email này, bạn có thể xóa nó. Bạn sẽ không được đăng ký nếu không nhấn vào liên kết ở trên.
+      subject: Xác nhận địa chỉ email của bạn
+      title: Nhận cập nhật qua email từ %{name}?
+    notification:
+      create_account: Tạo một tài khoản Mastodon
+      footer:
+        privacy_html: Các email sẽ được gửi từ %{domain}, một máy chủ vận hành nhờ Mastodon. Để hiểu cách máy chủ này xử lý dữ liệu cá nhân của bạn, vui lòng tham khảo <a href="%{privacy_policy_path}">Chính sách bảo mật</a>.
+        reason_for_email_html: Bạn nhận được email này vì bạn đã đăng ký nhận tút mới qua email từ %{name}. Không muốn nhận email này? <a href="%{unsubscribe_path}">Hủy đăng ký đọc</a>
+      interact_with_this_post:
+        other: Hãy tương tác với những tút này và khám phá thêm nhiều điều thú vị.
+      subject:
+        other: Tút mới từ %{name}
+      title:
+        other: Những tút mới từ %{name}
+  email_subscriptions:
+    active: Hoạt động
+    confirmations:
+      show:
+        changed_your_mind: Thay đổi ý định?
+        success_html: Bạn sẽ bắt đầu nhận được email khi %{name} đăng tút mới. Thêm %{sender} vào danh bạ của bạn để những tút này không bị chuyển vào thư mục Spam.
+        title: Bạn đã đăng ký đọc
+        unsubscribe: Hủy đăng ký đọc
+    inactive: Không hoạt động
+    status: Trạng thái
+    subscribers: Người đăng ký đọc
   emoji_styles:
     auto: Tự động
     native: Nguyên bản
@@ -1415,7 +1464,7 @@ vi:
     csv: CSV
     domain_blocks: Máy chủ chặn
     lists: Danh sách
-    mutes: Trạm tút bị phớt lờ
+    mutes: Tài khoản bị phớt lờ
     storage: Tập tin
   featured_tags:
     add_new: Thêm mới
@@ -1508,7 +1557,7 @@ vi:
       lists_html:
         other: Bạn sắp <strong>thay thế danh sách</strong> với nội dung của <strong>%{filename}</strong>. Có <strong>%{count} người</strong> sẽ được thêm vào những danh sách mới.
       muting_html:
-        other: Bạn sắp <strong>thay thế danh sách trạm tút chặn</strong> tới <strong>%{count} trạm tút</strong> từ <strong>%{filename}</strong>.
+        other: Bạn sắp <strong>thay thế danh sách tài khoản chặn</strong> tới <strong>%{count} tài khoản</strong> từ <strong>%{filename}</strong>.
     preambles:
       blocking_html:
         other: Bạn sắp <strong>chặn</strong> tới <strong>%{count} người</strong> từ <strong>%{filename}</strong>.
@@ -1521,7 +1570,7 @@ vi:
       lists_html:
         other: Bạn sắp thêm tới <strong>%{count} người</strong> từ <strong>%{filename}</strong> vào <strong>danh sách của bạn</strong>. Những danh sách mới sẽ được tạo nếu không có danh sách để thêm.
       muting_html:
-        other: Bạn sắp <strong>phớt lờ</strong> tới <strong>%{count} trạm tút</strong> từ <strong>%{filename}</strong>.
+        other: Bạn sắp <strong>phớt lờ</strong> tới <strong>%{count} tài khoản</strong> từ <strong>%{filename}</strong>.
     preface: Bạn có thể nhập dữ liệu mà bạn đã xuất từ một máy chủ khác, chẳng hạn danh sách những người đang theo dõi hoặc chặn.
     recent_imports: Đã nhập gần đây
     states:
@@ -1538,7 +1587,7 @@ vi:
       domain_blocking: Đang nhập máy chủ đã chặn
       following: Đang nhập người theo dõi
       lists: Nhập danh sách
-      muting: Nhập danh sách trạm tút phớt lờ
+      muting: Nhập danh sách tài khoản phớt lờ
     type: Kiểu nhập
     type_groups:
       constructive: Theo dõi và lưu
@@ -1594,21 +1643,6 @@ vi:
     failed_sign_in_html: Đăng nhập thất bại bằng %{method} từ %{ip} (%{browser})
     successful_sign_in_html: Đăng nhập bằng %{method} từ %{ip} (%{browser})
     title: Lịch sử đăng nhập
-  mail_subscriptions:
-    unsubscribe:
-      action: Đúng, hủy đăng ký
-      complete: Đã hủy đăng ký
-      confirmation_html: Bạn có chắc muốn hủy đăng ký %{type} Mastodon trên %{domain} tới %{email}? Bạn có thể đăng ký lại từ <a href="%{settings_path}">cài đặt thông báo email</a>.
-      emails:
-        notification_emails:
-          favourite: email thông báo lượt thích
-          follow: email thông báo người theo dõi mới
-          follow_request: email thông báo yêu cầu theo dõi
-          mention: email thông báo lượt nhắc đến
-          reblog: email thông báo lượt đăng lại
-      resubscribe_html: Nếu đổi ý, bạn có thể đăng ký lại từ <a href="%{settings_path}">cài đặt thông báo email</a>.
-      success_html: Bạn sẽ không còn nhận %{type} Mastodon trên %{domain} tới %{email}.
-      title: Hủy đăng ký
   media_attachments:
     validations:
       images_and_video: Không thể đính kèm video vào tút đã chứa hình ảnh
@@ -1650,7 +1684,7 @@ vi:
     title: Kiểm duyệt
   move_handler:
     carry_blocks_over_text: Tài khoản này chuyển từ %{acct}, máy chủ mà bạn đã chặn trước đó.
-    carry_mutes_over_text: Trạm tút này chuyển sang từ %{acct}, máy chủ mà bạn đã phớt lờ trước đó.
+    carry_mutes_over_text: Tài khoản này chuyển sang từ %{acct}, máy chủ mà bạn đã phớt lờ trước đó.
     copy_account_note_text: 'Tài khoản này chuyển từ %{acct}, đây là lịch sử kiểm duyệt của họ:'
   navigation:
     toggle_menu: Bật/tắt menu
@@ -1746,6 +1780,8 @@ vi:
     posting_defaults: Mặc định cho tút
     public_timelines: Bảng tin
   privacy:
+    email_subscriptions: Gửi tút qua email
+    email_subscriptions_hint_html: Thêm biểu mẫu đăng ký email vào hồ sơ của bạn, biểu mẫu này sẽ hiển thị cho cả người dùng chưa đăng nhập. Khi khách truy cập nhập địa chỉ email của họ và chọn đăng ký, Mastodon sẽ gửi thông báo qua email về các tút công khai của bạn.
     hint_html: Tùy chỉnh cách mọi người tìm thấy hồ sơ và tút của bạn.
     privacy: Riêng tư
     privacy_hint_html: Kiểm soát mức độ tiết lộ chi tiết. Mọi người khám phá các hồ sơ thú vị và các ứng dụng thú vị bằng cách xem bạn theo dõi ai và bạn đăng bằng ứng dụng nào, nhưng có thể bạn muốn ẩn nó đi.
@@ -2002,7 +2038,31 @@ vi:
     recovery_codes: Mã khôi phục dự phòng
     recovery_codes_regenerated: Mã khôi phục được phục hồi thành công
     recovery_instructions_html: Nếu bạn bị mất điện thoại, hãy dùng một trong các mã khôi phục bên dưới để lấy lại quyền truy cập vào tài khoản của mình. <strong>Giữ mã khôi phục an toàn</strong>. Ví dụ, bạn có thể in chúng ra giấy.
+    resume_app_authorization: Tiếp tục xác thực bằng ứng dụng
+    role_requirement: "%{domain} yêu cầu bạn thiết lập Xác thụec 2 bước trước khi sử dụng Mastodon."
     webauthn: Khóa bảo mật
+  unsubscriptions:
+    create:
+      action: Đến trang chủ máy chủ
+      email_subscription:
+        confirmation_html: Bạn sẽ không còn nhận được email từ %{name}.
+      title: Bạn đã hủy đăng ký đọc
+      user:
+        confirmation_html: Bạn sẽ không còn nhận %{type} từ Mastodon trên %{domain}.
+    notification_emails:
+      favourite: email thông báo lượt thích
+      follow: email thông báo người theo dõi mới
+      follow_request: email thông báo yêu cầu theo dõi
+      mention: email thông báo lượt nhắc đến
+      reblog: email thông báo lượt đăng lại
+    show:
+      action: Hủy đăng ký đọc
+      email_subscription:
+        confirmation_html: Bạn sẽ ngừng nhận email khi tài khoản này đăng tút mới.
+        title: Hủy đăng ký đọc %{name}?
+      user:
+        confirmation_html: Bạn sẽ không còn nhận %{type} từ Mastodon trên %{domain}.
+        title: Hủy đăng ký đọc %{type}?
   user_mailer:
     announcement_published:
       description: 'Quản trị viên %{domain} gửi một thông báo:'

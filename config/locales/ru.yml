@@ -724,7 +724,6 @@ ru:
       resolved_msg: Жалоба обработана, спасибо!
       skip_to_actions: Перейти к действиям
       status: Статус
-      statuses: Содержимое относящееся к жалобе
       statuses_description_html: Нарушающее правила содержимое будет процитировано при коммуникации с фигурирующим в жалобе аккаунтом
       summary:
         action_preambles:
@@ -1228,7 +1227,6 @@ ru:
   application_mailer:
     notification_preferences: Настроить оповещения по электронной почте
     salutation: Привет, %{name}!
-    settings: 'Настроить оповещения по электронной почте можно здесь: %{link}'
     unsubscribe: Отписаться
     view: 'Открыть в браузере:'
     view_profile: Перейти к профилю
@@ -1674,21 +1672,6 @@ ru:
     failed_sign_in_html: Неудачная попытка входа при помощи %{method} с IP-адреса %{ip} (%{browser})
     successful_sign_in_html: Вход при помощи %{method} с IP-адреса %{ip} (%{browser})
     title: История входов
-  mail_subscriptions:
-    unsubscribe:
-      action: Да, я хочу отписаться
-      complete: Подписка отменена
-      confirmation_html: Вы уверены в том, что хотите отписаться от всех %{type}, которые вы получаете на адрес %{email} для учётной записи на сервере Mastodon %{domain}? Вы всегда сможете подписаться снова в <a href="%{settings_path}">настройках уведомлений по электронной почте</a>.
-      emails:
-        notification_emails:
-          favourite: уведомлений о добавлении ваших постов в избранное
-          follow: уведомлений о новых подписчиках
-          follow_request: уведомлений о новых запросах на подписку
-          mention: уведомлений о новых упоминаниях
-          reblog: уведомлений о продвижении ваших постов
-      resubscribe_html: Если вы отписались по ошибке и хотите подписаться снова, перейдите на страницу <a href="%{settings_path}">настройки уведомлений по электронной почте</a>.
-      success_html: Вы отказались от %{type}, которые вы получали на адрес %{email} для вашей учётной записи на сервере Mastodon %{domain}.
-      title: Отписаться
   media_attachments:
     validations:
       images_and_video: Нельзя добавить видео к посту с изображениями

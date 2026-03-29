@@ -28,10 +28,9 @@ import { DisplayName } from 'flavours/glitch/components/display_name';
 import ScrollableList from 'flavours/glitch/components/scrollable_list';
 import { ShortNumber } from 'flavours/glitch/components/short_number';
 import { VerifiedBadge } from 'flavours/glitch/components/verified_badge';
+import { useSearchAccounts } from 'flavours/glitch/hooks/useSearchAccounts';
 import { me } from 'flavours/glitch/initial_state';
 import { useAppDispatch, useAppSelector } from 'flavours/glitch/store';
-
-import { useSearchAccounts } from './use_search_accounts';
 
 export const messages = defineMessages({
   manageMembers: {
@@ -165,10 +164,11 @@ const ListMembers: React.FC<{
   const [mode, setMode] = useState<Mode>('remove');
 
   const {
-    accountIds: searchAccountIds = [],
+    accountIds: searchAccountIds,
     isLoading: loadingSearchResults,
     searchAccounts: handleSearch,
   } = useSearchAccounts({
+    resetOnInputClear: false,
     onSettled: (value) => {
       if (value.trim().length === 0) {
         setSearching(false);
@@ -285,6 +285,7 @@ const ListMembers: React.FC<{
             <FormattedMessage
               id='lists.no_results_found'
               defaultMessage='No results found.'
+              tagName='span'
             />
           )
         }

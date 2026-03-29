@@ -88,7 +88,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
       }
     });
   },
-  
+
   onQuote (status) {
     dispatch(quoteComposeById(status.get('id')));
   },
@@ -244,10 +244,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     });
   },
 
-  onInteractionModal (status) {
+  onInteractionModal (status, intent) {
     dispatch(openModal({
       modalType: 'INTERACTION',
       modalProps: {
+        intent,
         accountId: status.getIn(['account', 'id']),
         url: status.get('uri'),
       },

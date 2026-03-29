@@ -211,10 +211,13 @@ export const AccountHeader: React.FC<{
                   ))}
 
                 <AccountBio
+                  showDropdown
                   accountId={accountId}
-                  className='account__header__content'
+                  className={classNames(
+                    'account__header__content',
+                    isRedesign && redesignClasses.bio,
+                  )}
                 />
-
                 <AccountHeaderFields accountId={accountId} />
               </div>
 

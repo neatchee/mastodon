@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe Account do
-  it_behaves_like 'Account::Search'
   it_behaves_like 'Reviewable'
 
   describe 'Associations' do
@@ -547,9 +546,6 @@ RSpec.describe Account do
 
       it { is_expected.to_not allow_values(account_note_over_limit).for(:note) }
 
-      it { is_expected.to allow_value(fields_empty_name_value).for(:fields) }
-      it { is_expected.to_not allow_values(fields_over_limit, fields_empty_name).for(:fields) }
-
       it { is_expected.to validate_absence_of(:followers_url).on(:create) }
       it { is_expected.to validate_absence_of(:inbox_url).on(:create) }
       it { is_expected.to validate_absence_of(:shared_inbox_url).on(:create) }
@@ -590,18 +586,6 @@ RSpec.describe Account do
 
     def account_note_over_limit
       'a' * described_class::NOTE_LENGTH_LIMIT * 2
-    end
-
-    def fields_empty_name_value
-      Array.new(4) { { 'name' => '', 'value' => '' } }
-    end
-
-    def fields_over_limit
-      Array.new(described_class::DEFAULT_FIELDS_SIZE + 1) { { 'name' => 'Name', 'value' => 'Value', 'verified_at' => '01/01/1970' } }
-    end
-
-    def fields_empty_name
-      [{ 'name' => '', 'value' => 'Value', 'verified_at' => '01/01/1970' }]
     end
   end
 
@@ -773,9 +757,6 @@ RSpec.describe Account do
     end
   end
 
-  it_behaves_like 'AccountAvatar', :account
-  it_behaves_like 'AccountHeader', :account
-
   describe '#increment_count!' do
     subject { Fabricate(:account) }
 
@@ -790,17 +771,20 @@ RSpec.describe Account do
     end
   end
 
-  describe '#featureable?' do
-    subject { Fabricate.build(:account, domain: (local ? nil : 'example.com'), discoverable:) }
+  describe '#featureable_by?' do
+    subject { Fabricate.build(:account, domain: (local ? nil : 'example.com'), discoverable:, feature_approval_policy:) }
+
+    let(:local_account) { Fabricate(:account) }
 
     context 'when account is local' do
       let(:local) { true }
+      let(:feature_approval_policy) { nil }
 
       context 'when account is discoverable' do
         let(:discoverable) { true }
 
         it 'returns `true`' do
-          expect(subject.featureable?).to be true
+          expect(subject.featureable_by?(local_account)).to be true
         end
       end
 
@@ -808,7 +792,7 @@ RSpec.describe Account do
         let(:discoverable) { false }
 
         it 'returns `false`' do
-          expect(subject.featureable?).to be false
+          expect(subject.featureable_by?(local_account)).to be false
         end
       end
     end
@@ -816,9 +800,26 @@ RSpec.describe Account do
     context 'when account is remote' do
       let(:local) { false }
       let(:discoverable) { true }
+      let(:feature_approval_policy) { (0b10 << 16) | 0 }
 
       it 'returns `false`' do
-        expect(subject.featureable?).to be false
+        expect(subject.featureable_by?(local_account)).to be false
+      end
+
+      context 'when collections federation is enabled', feature: :collections_federation do
+        context 'when the policy allows it' do
+          it 'returns `true`' do
+            expect(subject.featureable_by?(local_account)).to be true
+          end
+        end
+
+        context 'when the policy forbids it' do
+          let(:feature_approval_policy) { 0 }
+
+          it 'returns `false`' do
+            expect(subject.featureable_by?(local_account)).to be false
+          end
+        end
       end
     end
   end

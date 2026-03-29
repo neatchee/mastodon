@@ -656,7 +656,6 @@ sr:
       resolved_msg: Пријава успешно разрешена!
       skip_to_actions: Прескочи до радњи
       status: Статус
-      statuses: Пријављени садржај
       statuses_description_html: Спорни садржај ће бити наведен у комуникацији са пријављеним налогом
       summary:
         action_preambles:
@@ -1388,11 +1387,6 @@ sr:
     failed_sign_in_html: Неуспешан покушај пријављивања путем %{method} са %{ip} (%{browser})
     successful_sign_in_html: Успешан покушај пријављивања путем %{method} са %{ip} (%{browser})
     title: Историја аутентификације
-  mail_subscriptions:
-    unsubscribe:
-      action: Да, одјави ме
-      complete: Одјављен
-      title: Одјави се
   media_attachments:
     validations:
       images_and_video: Не може да се прикачи видео на статус који већ има слике

@@ -56,9 +56,10 @@ fr:
         label: Modifier le rôle
         no_role: Aucun rôle
         title: Modifier le rôle de %{username}
+      collections: Collections
       confirm: Confirmer
       confirmed: Confirmé
-      confirming: Confirmation
+      confirming: Confirmation en attente
       custom: Personnaliser
       delete: Supprimer les données
       deleted: Supprimé
@@ -79,7 +80,7 @@ fr:
       enabled_msg: Le compte de %{username} a été dégelé avec succès
       followers: Abonné·e·s
       follows: Abonnements
-      header: Entête
+      header: Image de couverture
       inbox_url: URL d’entrée
       invite_request_text: Raisons de l’adhésion
       invited_by: Invité par
@@ -127,7 +128,7 @@ fr:
       remote_suspension_irreversible: Les données de ce compte ont été supprimées définitivement.
       remote_suspension_reversible_hint_html: Ce compte a été suspendu par son serveur d'accueil, et les données rattachées seront supprimées le %{date}. Jusqu'à cette date, il peut être restauré sans aucune perte par le serveur distant. Si vous souhaitez supprimer immédiatement toutes les données de ce compte, vous pouvez le faire ci-dessous.
       remove_avatar: Supprimer l’avatar
-      remove_header: Supprimer l’entête
+      remove_header: Supprimer l'image de couverture
       removed_avatar_msg: L’avatar de %{username} a été supprimé avec succès
       removed_header_msg: L’image d’en-tête de %{username} a été supprimée avec succès
       resend_confirmation:
@@ -266,6 +267,7 @@ fr:
         demote_user_html: "%{name} a rétrogradé l'utilisateur·rice %{target}"
         destroy_announcement_html: "%{name} a supprimé l'annonce %{target}"
         destroy_canonical_email_block_html: "%{name} a débloqué l'adresse email avec le hachage %{target}"
+        destroy_collection_html: "%{name} a supprimé la collection de %{target}"
         destroy_custom_emoji_html: "%{name} a supprimé l'émoji %{target}"
         destroy_domain_allow_html: "%{name} a rejeté la fédération avec le domaine %{target}"
         destroy_domain_block_html: "%{name} a débloqué le domaine %{target}"
@@ -305,6 +307,7 @@ fr:
         unsilence_account_html: "%{name} a annulé la limitation du compte de %{target}"
         unsuspend_account_html: "%{name} a réactivé le compte de %{target}"
         update_announcement_html: "%{name} a mis à jour l'annonce %{target}"
+        update_collection_html: "%{name} a mis à jour la collections de %{target}"
         update_custom_emoji_html: "%{name} a mis à jour l'émoji %{target}"
         update_domain_block_html: "%{name} a mis à jour le blocage de domaine pour %{target}"
         update_ip_block_html: "%{name} a modifié la règle pour l'IP %{target}"
@@ -340,6 +343,15 @@ fr:
       unpublish: Retirer l'annonce
       unpublished_msg: L’annonce a été dépubliée avec succès !
       updated_msg: L’annonce a été mise à jour avec succès !
+    collections:
+      accounts: Comptes
+      collection_title: Collection par %{name}
+      contents: Contenu
+      number_of_accounts:
+        one: 1 compte
+        other: "%{count} comptes"
+      open: Ouvrir
+      view_publicly: Afficher publiquement
     critical_update_pending: Mise à jour critique en attente
     custom_emojis:
       assign_category: Attribuer une catégorie
@@ -682,6 +694,7 @@ fr:
       cancel: Annuler
       category: Catégorie
       category_description_html: La raison pour laquelle ce compte et/ou ce contenu a été signalé sera citée dans la communication avec le compte signalé
+      collections: Collections (%{count})
       comment:
         none: Aucun
       comment_description_html: 'Pour fournir plus d''informations, %{name} a écrit :'
@@ -711,12 +724,13 @@ fr:
       report: 'Signalement #%{id}'
       reported_account: Compte signalé
       reported_by: Signalé par
+      reported_content: Contenu signalé
       reported_with_application: Signalé avec l'application
       resolved: Résolus
       resolved_msg: Signalement résolu avec succès !
       skip_to_actions: Passer aux actions
       status: Statut
-      statuses: Contenu signalé
+      statuses: Messages (%{count})
       statuses_description_html: Le contenu offensant sera cité dans la communication avec le compte signalé
       summary:
         action_preambles:
@@ -767,6 +781,8 @@ fr:
         administrator_description: Les utilisateur⋅rice⋅s ayant cette autorisation pourront contourner toutes les autorisations
         delete_user_data: Supprimer les données de l'utilisateur⋅rice
         delete_user_data_description: Permet aux utilisateur⋅rice⋅s de supprimer sans délai les données des autres utilisateur⋅rice⋅s
+        invite_bypass_approval: Inviter des utilisateurs sans vérifications
+        invite_bypass_approval_description: Permet aux personnes invitées sur le serveur par ces utilisateur·rice·s de s'inscrire sans être soumises à l'approbation de la modération
         invite_users: Inviter des utilisateur⋅rice⋅s
         invite_users_description: Permet aux utilisateur⋅rice⋅s d'inviter de nouvelles personnes sur le serveur
         manage_announcements: Gérer les annonces
@@ -1218,7 +1234,6 @@ fr:
   application_mailer:
     notification_preferences: Modification des préférences de la messagerie
     salutation: "%{name},"
-    settings: 'Modifier les préférences de la messagerie : %{link}'
     unsubscribe: Se désabonner
     view: 'Voir :'
     view_profile: Voir le profil
@@ -1268,6 +1283,7 @@ fr:
     progress:
       confirm: Confirmation de l'adresse mail
       details: Vos infos
+      list: Progression de l'inscription
       review: Notre avis
       rules: Accepter les règles
     providers:
@@ -1283,6 +1299,7 @@ fr:
       invited_by: 'Vous pouvez rejoindre %{domain} grâce à l''invitation de :'
       preamble: Celles-ci sont définies et appliqués par les modérateurs de %{domain}.
       preamble_invited: Avant de continuer, veuillez lire les règles de base définies par les modérateurs de %{domain}.
+      read_more: Lire plus
       title: Quelques règles de base.
       title_invited: Vous avez été invité·e.
     security: Sécurité
@@ -1638,21 +1655,6 @@ fr:
     failed_sign_in_html: Tentative de connexion échouée avec %{method} de %{ip} (%{browser})
     successful_sign_in_html: Connexion réussie avec %{method} de %{ip} (%{browser})
     title: Historique d'authentification
-  mail_subscriptions:
-    unsubscribe:
-      action: Oui, se désinscrire
-      complete: Désinscrit
-      confirmation_html: Êtes-vous sûr de vouloir vous désabonner de la réception de %{type} pour Mastodon sur %{domain} à votre adresse e-mail %{email} ? Vous pouvez toujours vous réabonner à partir de vos paramètres de <a href="%{settings_path}">notification par messagerie</a>.
-      emails:
-        notification_emails:
-          favourite: e-mails de notifications de favoris
-          follow: e-mails de notifications d’abonnements
-          follow_request: e-mails de demandes d’abonnements
-          mention: e-mails de notifications de mentions
-          reblog: e-mails de notifications de partages
-      resubscribe_html: Si vous vous êtes désinscrit par erreur, vous pouvez vous réinscrire à partir de vos <a href="%{settings_path}">paramètres de notification par e-mail</a>.
-      success_html: Vous ne recevrez plus de %{type} pour Mastodon sur %{domain} à votre adresse e-mail à %{email}.
-      title: Se désinscrire
   media_attachments:
     validations:
       images_and_video: Impossible de joindre une vidéo à un message contenant déjà des images

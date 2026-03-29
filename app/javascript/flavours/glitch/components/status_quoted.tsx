@@ -336,7 +336,6 @@ export const QuotedStatus: React.FC<QuotedStatusProps> = ({
 
   return (
     <div className='status__quote'>
-      {}
       <StatusContainer
         isQuotedPost
         id={quotedStatusId}

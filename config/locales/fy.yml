@@ -708,7 +708,6 @@ fy:
       resolved_msg: Rapportaazje oplosse slagge!
       skip_to_actions: Gean daliks nei de maatregels
       status: Steat
-      statuses: Rapportearre ynhâld
       statuses_description_html: De problematyske ynhâld wurdt oan it rapportearre account meidield
       summary:
         action_preambles:
@@ -1190,7 +1189,6 @@ fy:
   application_mailer:
     notification_preferences: E-mailynstellingen wizigje
     salutation: "%{name},"
-    settings: 'E-mailfoarkarren wizigje: %{link}'
     unsubscribe: Ofmelde
     view: 'Besjoch:'
     view_profile: Profyl besjen
@@ -1596,21 +1594,6 @@ fy:
     failed_sign_in_html: Mislearre oanmeldbesykjen mei %{method} fan %{ip} (%{browser})
     successful_sign_in_html: Mei sukses oanmeld mei %{method} fan %{ip} (%{browser})
     title: Oanmeldskiednis
-  mail_subscriptions:
-    unsubscribe:
-      action: Ja, ôfmelde
-      complete: Ofmelden
-      confirmation_html: Binne jo wis dat jo jo ôfmelde wolle foar it ûntfangen fan %{type} fan Mastodon op %{domain} op jo e-mailadres %{email}? Jo kinne jo altyd opnij abonnearje yn jo <a href="%{settings_path}">ynstellingen foar e-mailmeldingen</a>.
-      emails:
-        notification_emails:
-          favourite: e-mailmeldingen foar favoriten
-          follow: e-mailmeldingen foar nije folgers
-          follow_request: e-mailmeldingen foar folchfersiken
-          mention: e-mailmeldingen foar fermeldingen
-          reblog: e-mailmeldingen foar boosts
-      resubscribe_html: As jo jo mei fersin ôfmeld hawwe, kinne jo jo opnij abonnearje yn jo <a href="%{settings_path}">ynstellingen foar e-mailmeldingen</a>.
-      success_html: Jo ûntfange net langer %{type} fan Mastodon op %{domain} op jo e-mailadres %{email}.
-      title: Ofmelde
   media_attachments:
     validations:
       images_and_video: In fideo kin net oan in berjocht mei ôfbyldingen keppele wurde

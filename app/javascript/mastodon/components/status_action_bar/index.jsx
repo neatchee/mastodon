@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { defineMessages, injectIntl } from 'react-intl';
+import { defineMessages } from 'react-intl';
 
 import { withRouter } from 'react-router-dom';
 
@@ -22,6 +22,7 @@ import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 
 import { me, quickBoosting } from '../../initial_state';
 import { IconButton } from '../icon_button';
+import { injectIntl } from '../intl';
 import { BoostButton } from '../status/boost_button';
 import { quoteItemState, selectStatusState } from '../status/boost_button_utils';
 
@@ -124,7 +125,7 @@ class StatusActionBar extends ImmutablePureComponent {
     if (signedIn) {
       this.props.onReply(this.props.status);
     } else {
-      this.props.onInteractionModal(this.props.status);
+      this.props.onInteractionModal(this.props.status, 'reply');
     }
   };
 
@@ -146,7 +147,7 @@ class StatusActionBar extends ImmutablePureComponent {
     if (signedIn) {
       this.props.onFavourite(this.props.status);
     } else {
-      this.props.onInteractionModal(this.props.status);
+      this.props.onInteractionModal(this.props.status, 'favourite');
     }
   };
 
