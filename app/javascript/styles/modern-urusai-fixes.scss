@@ -96,3 +96,7 @@ body > [data-popper-placement] {
 .navigation-panel__list-panel__header__sep {
   display: none !important;
 }
+
+.account__header__buttons .icon-button {
+  z-index: 0;
+}
