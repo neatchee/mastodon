@@ -4,7 +4,6 @@ import { FormattedMessage, useIntl, defineMessages } from 'react-intl';
 
 import { List as ImmutableList, isList } from 'immutable';
 
-import { isServerFeatureEnabled } from '@/flavours/glitch/utils/environment';
 import PersonIcon from '@/material-icons/400-24px/person.svg?react';
 import { openModal } from 'flavours/glitch/actions/modal';
 import { expandAccountMediaTimeline } from 'flavours/glitch/actions/timelines';
@@ -30,8 +29,6 @@ const messages = defineMessages({
 });
 
 const emptyList = ImmutableList<MediaAttachment>();
-
-const redesignEnabled = isServerFeatureEnabled('profile_redesign');
 
 const selectGalleryTimeline = createAppSelector(
   [
@@ -62,7 +59,7 @@ const selectGalleryTimeline = createAppSelector(
 
     const { show_media, show_media_replies } = account;
     // If the account disabled showing media, don't display anything.
-    if (!show_media && redesignEnabled) {
+    if (!show_media) {
       return {
         items,
         hasMore: false,
@@ -71,7 +68,7 @@ const selectGalleryTimeline = createAppSelector(
       };
     }
 
-    const withReplies = show_media_replies && redesignEnabled;
+    const withReplies = show_media_replies;
     const timeline = timelines.get(
       `account:${accountId}:media${withReplies ? ':with_replies' : ''}`,
     );
@@ -233,7 +230,7 @@ export const AccountGallery: React.FC<{
         alwaysPrepend
         append={accountId && <RemoteHint accountId={accountId} />}
         scrollKey='account_gallery'
-        showLoading={isLoading}
+        isLoading={isLoading}
         hasMore={!forceEmptyState && hasMore}
         onLoadMore={handleLoadMore}
         emptyMessage={emptyMessage}

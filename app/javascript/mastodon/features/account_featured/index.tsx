@@ -7,9 +7,7 @@ import { useHistory } from 'react-router';
 import { List as ImmutableList } from 'immutable';
 
 import { useAccount } from '@/mastodon/hooks/useAccount';
-import { isServerFeatureEnabled } from '@/mastodon/utils/environment';
 import { fetchEndorsedAccounts } from 'mastodon/actions/accounts';
-import { fetchFeaturedTags } from 'mastodon/actions/featured_tags';
 import { Account } from 'mastodon/components/account';
 import { ColumnBackButton } from 'mastodon/components/column_back_button';
 import { LoadingIndicator } from 'mastodon/components/loading_indicator';
@@ -34,8 +32,6 @@ import { CollectionListItem } from '../collections/detail/collection_list_item';
 import { areCollectionsEnabled } from '../collections/utils';
 
 import { EmptyMessage } from './components/empty_message';
-import { FeaturedTag } from './components/featured_tag';
-import type { TagMap } from './components/featured_tag';
 
 const AccountFeatured: React.FC<{ multiColumn: boolean }> = ({
   multiColumn,
@@ -49,37 +45,22 @@ const AccountFeatured: React.FC<{ multiColumn: boolean }> = ({
 
   const history = useHistory();
   useEffect(() => {
-    if (
-      account &&
-      !account.show_featured &&
-      isServerFeatureEnabled('profile_redesign')
-    ) {
+    if (account && !account.show_featured) {
       history.push(`/@${account.acct}`);
     }
   }, [account, history]);
 
   useEffect(() => {
     if (accountId) {
-      void dispatch(fetchFeaturedTags({ accountId }));
       void dispatch(fetchEndorsedAccounts({ accountId }));
+
       if (areCollectionsEnabled()) {
         void dispatch(fetchAccountCollections({ accountId }));
       }
     }
   }, [accountId, dispatch]);
 
-  const isLoading = useAppSelector(
-    (state) =>
-      !accountId ||
-      !!state.user_lists.getIn(['featured_tags', accountId, 'isLoading']),
-  );
-  const featuredTags = useAppSelector(
-    (state) =>
-      state.user_lists.getIn(
-        ['featured_tags', accountId, 'items'],
-        ImmutableList(),
-      ) as ImmutableList<TagMap>,
-  );
+  const isLoading = !accountId;
   const featuredAccountIds = useAppSelector(
     (state) =>
       state.user_lists.getIn(
@@ -111,14 +92,7 @@ const AccountFeatured: React.FC<{ multiColumn: boolean }> = ({
     );
   }
 
-  const noTags =
-    featuredTags.isEmpty() || isServerFeatureEnabled('profile_redesign');
-
-  if (
-    noTags &&
-    featuredAccountIds.isEmpty() &&
-    listedCollections.length === 0
-  ) {
+  if (featuredAccountIds.isEmpty() && listedCollections.length === 0) {
     return (
       <AccountFeaturedWrapper accountId={accountId}>
         <EmptyMessage
@@ -158,28 +132,6 @@ const AccountFeatured: React.FC<{ multiColumn: boolean }> = ({
                   positionInList={index + 1}
                   listSize={listedCollections.length}
                 />
-              ))}
-            </ItemList>
-          </>
-        )}
-        {!noTags && (
-          <>
-            <h4 className='column-subheading'>
-              <FormattedMessage
-                id='account.featured.hashtags'
-                defaultMessage='Hashtags'
-              />
-            </h4>
-            <ItemList>
-              {featuredTags.map((tag, index) => (
-                <Article
-                  focusable
-                  key={tag.get('id')}
-                  aria-posinset={index + 1}
-                  aria-setsize={featuredTags.size}
-                >
-                  <FeaturedTag tag={tag} account={account?.acct ?? ''} />
-                </Article>
               ))}
             </ItemList>
           </>

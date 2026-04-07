@@ -101,7 +101,7 @@ module SignatureVerification
     end
 
     if key_id.start_with?('acct:')
-      stoplight_wrapper.run { ResolveAccountService.new.call(key_id.delete_prefix('acct:'), suppress_errors: false) }
+      stoplight_wrapper.run { fetch_key_from_acct(key_id.delete_prefix('acct:')) }
     elsif !ActivityPub::TagManager.instance.local_uri?(key_id)
       keypair = Keypair.from_keyid(key_id)
       return keypair if keypair.present?
@@ -114,6 +114,15 @@ module SignatureVerification
     raise Mastodon::SignatureVerificationError, e.message
   end
 
+  def fetch_key_from_acct(acct)
+    # This is legacy and can't let us pick a specific key, so pick the first
+
+    account = ResolveAccountService.new.call(acct, suppress_errors: false)
+    return if account.nil?
+
+    account.keypairs.first || Keypair.from_legacy_account(account)
+  end
+
   def stoplight_wrapper
     Stoplight(
       "source:#{request.remote_ip}",
@@ -124,11 +133,22 @@ module SignatureVerification
   end
 
   def keypair_refresh_key!(keypair)
-    # TODO: this currently only is concerned with refreshing the actor and returning the legacy key, this needs to be reworked
     return if keypair.actor.local? || !keypair.actor.activitypub?
-    return keypair.actor.refresh! if keypair.actor.respond_to?(:refresh!) && keypair.actor.possibly_stale?
 
-    Keypair.from_legacy_account(ActivityPub::FetchRemoteActorService.new.call(keypair.actor.uri, only_key: true, suppress_errors: false))
+    actor = if keypair.actor.possibly_stale?
+              # Doing a full profile refresh
+              keypair.actor.refresh!
+            else
+              # Only refreshing keys, skipping potentially more expensive requests
+              ActivityPub::FetchRemoteActorService.new.call(keypair.actor.uri, only_key: true, suppress_errors: false)
+            end
+
+    keypair_uri = keypair.uri
+
+    keypair = actor.keypairs.find_by(uri: keypair_uri)
+    return keypair if keypair.present?
+
+    Keypair.from_legacy_account(actor, uri: keypair_uri) if actor.public_key.present?
   rescue Mastodon::PrivateNetworkAddressError => e
     raise Mastodon::SignatureVerificationError, "Requests to private network addresses are disallowed (tried to query #{e.host})"
   rescue Mastodon::HostValidationError, ActivityPub::FetchRemoteActorService::Error, Webfinger::Error => e

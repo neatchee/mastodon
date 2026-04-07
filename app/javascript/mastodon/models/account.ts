@@ -62,6 +62,7 @@ export const accountDefaultValues: AccountShape = {
   acct: '',
   avatar: '',
   avatar_static: '',
+  avatar_description: '',
   bot: false,
   created_at: '',
   discoverable: false,
@@ -78,6 +79,7 @@ export const accountDefaultValues: AccountShape = {
   group: false,
   header: '',
   header_static: '',
+  header_description: '',
   id: '',
   last_status_at: '',
   locked: false,
@@ -101,6 +103,7 @@ export const accountDefaultValues: AccountShape = {
   limited: false,
   moved: null,
   hide_collections: false,
+  email_subscriptions: false,
   // This comes from `ApiMutedAccountJSON`, but we should eventually
   // store that in a different object.
   mute_expires_at: null,

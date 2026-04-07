@@ -10,6 +10,7 @@ import {
   expandTimelineByKey,
   timelineKey,
 } from '@/flavours/glitch/actions/timelines_typed';
+import { Badge } from '@/flavours/glitch/components/badge';
 import { Button } from '@/flavours/glitch/components/button';
 import { Icon } from '@/flavours/glitch/components/icon';
 import { StatusHeader } from '@/flavours/glitch/components/status/header';
@@ -17,9 +18,6 @@ import type { StatusHeaderRenderFn } from '@/flavours/glitch/components/status/h
 import { selectTimelineByKey } from '@/flavours/glitch/selectors/timelines';
 import { useAppDispatch, useAppSelector } from '@/flavours/glitch/store';
 import IconPinned from '@/images/icons/icon_pinned.svg?react';
-
-import { isRedesignEnabled } from '../common';
-import { PinnedBadge } from '../components/badges';
 
 import { useAccountContext } from './context';
 import classes from './styles.module.scss';
@@ -80,17 +78,22 @@ export const renderPinnedStatusHeader: StatusHeaderRenderFn = ({
   }
   return (
     <StatusHeader {...args} className={classes.pinnedStatusHeader}>
-      <PinnedBadge />
+      <Badge
+        className={classes.pinnedBadge}
+        icon={<Icon id='pinned' icon={IconPinned} />}
+        label={
+          <FormattedMessage
+            id='account.timeline.pinned'
+            defaultMessage='Pinned'
+          />
+        }
+      />
     </StatusHeader>
   );
 };
 
 export const PinnedShowAllButton: FC = () => {
   const { onShowAllPinned } = useAccountContext();
-
-  if (!isRedesignEnabled()) {
-    return null;
-  }
 
   return (
     <Button
