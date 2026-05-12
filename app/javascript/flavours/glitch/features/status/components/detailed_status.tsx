@@ -30,7 +30,7 @@ import { IconLogo } from 'flavours/glitch/components/logo';
 import MediaGallery from 'flavours/glitch/components/media_gallery';
 import { Permalink } from 'flavours/glitch/components/permalink';
 import { MentionsPlaceholder } from 'flavours/glitch/components/status/legacy/mentions_placeholder';
-import StatusReactions from 'flavours/glitch/components/status/legacy/reactions';
+import { StatusReactions } from 'flavours/glitch/components/status/legacy/reactions';
 import { VisibilityIcon } from 'flavours/glitch/components/visibility_icon';
 import { Audio } from 'flavours/glitch/features/audio';
 import { CollectionPreviewCard } from 'flavours/glitch/features/collections/components/collection_preview_card';
@@ -90,8 +90,6 @@ export const DetailedStatus: React.FC<{
   pictureInPicture,
   onToggleMediaVisibility,
   onToggleHidden,
-  onReactionAdd,
-  onReactionRemove,
   ancestors = 0,
   multiColumn = false,
   expanded,
@@ -563,11 +561,8 @@ export const DetailedStatus: React.FC<{
 
         {!!visibleReactions && (
           <StatusReactions
-            statusId={status.get('id')}
-            reactions={status.get('reactions')}
-            addReaction={onReactionAdd}
-            removeReaction={onReactionRemove}
-            canReact={signedIn}
+            id={status.get('id')}
+            reactions={status.get('reactions').toArray()}
           />
         )}
 

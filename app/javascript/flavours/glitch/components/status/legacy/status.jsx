@@ -35,7 +35,7 @@ import StatusActionBar from './action_bar';
 import StatusContent from './content';
 import StatusIcons from './icons';
 import StatusPrepend from './prepend';
-import StatusReactions from './reactions';
+import { StatusReactions } from './reactions';
 
 const domParser = new DOMParser();
 
@@ -789,12 +789,8 @@ class Status extends ImmutablePureComponent {
             {!expanded && <MentionsPlaceholder status={status} />}
 
             <StatusReactions
-              statusId={status.get('id')}
-              reactions={status.get('reactions')}
-              numVisible={visibleReactions}
-              addReaction={this.props.onReactionAdd}
-              removeReaction={this.props.onReactionRemove}
-              canReact={this.props.identity.signedIn}
+              id={status.get('id')}
+              reactions={status.get('reactions').toArray()}
             />
 
             {(showActions && !isQuotedPost) &&
