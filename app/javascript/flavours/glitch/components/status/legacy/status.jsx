@@ -8,7 +8,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { ImmutablePureComponent } from 'react-immutable-pure-component';
 
 import { Hotkeys } from '@/flavours/glitch/components/hotkeys';
-import { AnimateEmojiProvider } from '@flavours/glitch/components/emoji/context';
 import { PictureInPicturePlaceholder } from './picture_in_picture_placeholder';
 import { identityContextPropShape, withIdentity } from 'flavours/glitch/identity_context';
 import { withOptionalRouter, WithOptionalRouterPropTypes } from 'flavours/glitch/utils/react_router';
@@ -789,12 +788,10 @@ class Status extends ImmutablePureComponent {
             {/* This is a glitch-soc addition to have a placeholder */}
             {!expanded && <MentionsPlaceholder status={status} />}
 
-            <AnimateEmojiProvider>
-              <StatusReactions
-                id={status.get('id')}
-                reactions={status.get('reactions').toArray()}
-              />
-            </AnimateEmojiProvider>
+            <StatusReactions
+              id={status.get('id')}
+              reactions={status.get('reactions').toArray()}
+            />
 
             {(showActions && !isQuotedPost) &&
               <StatusActionBar

@@ -24,7 +24,6 @@ import AttachmentList from 'flavours/glitch/components/attachment_list';
 import { Avatar } from 'flavours/glitch/components/avatar';
 import { DisplayName } from 'flavours/glitch/components/display_name';
 import { EditedTimestamp } from 'flavours/glitch/components/edited_timestamp';
-import { AnimateEmojiProvider } from 'flavours/glitch/components/emoji/context';
 import { FormattedDateWrapper } from 'flavours/glitch/components/formatted_date';
 import { Icon } from 'flavours/glitch/components/icon';
 import { IconLogo } from 'flavours/glitch/components/logo';
@@ -561,12 +560,10 @@ export const DetailedStatus: React.FC<{
         {!expanded && <MentionsPlaceholder status={status} />}
 
         {!!visibleReactions && (
-          <AnimateEmojiProvider>
-            <StatusReactions
-              id={status.get('id')}
-              reactions={status.get('reactions').toArray()}
-            />
-          </AnimateEmojiProvider>
+          <StatusReactions
+            id={status.get('id')}
+            reactions={status.get('reactions').toArray()}
+          />
         )}
 
         <div className='detailed-status__meta'>
