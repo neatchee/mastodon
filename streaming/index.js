@@ -476,28 +476,28 @@ const startServer = async () => {
     const onlyMedia = isTruthy(query.only_media);
 
     switch (path) {
-      case '/api/v1/streaming/user':
-        return 'user';
-      case '/api/v1/streaming/user/notification':
-        return 'user:notification';
-      case '/api/v1/streaming/public':
-        return onlyMedia ? 'public:media' : 'public';
-      case '/api/v1/streaming/public/local':
-        return onlyMedia ? 'public:local:media' : 'public:local';
-      case '/api/v1/streaming/public/bubble':
-        return onlyMedia ? 'public:bubble:media' : 'public:bubble';
-      case '/api/v1/streaming/public/remote':
-        return onlyMedia ? 'public:remote:media' : 'public:remote';
-      case '/api/v1/streaming/hashtag':
-        return 'hashtag';
-      case '/api/v1/streaming/hashtag/local':
-        return 'hashtag:local';
-      case '/api/v1/streaming/direct':
-        return 'direct';
-      case '/api/v1/streaming/list':
-        return 'list';
-      default:
-        return undefined;
+    case '/api/v1/streaming/user':
+      return 'user';
+    case '/api/v1/streaming/user/notification':
+      return 'user:notification';
+    case '/api/v1/streaming/public':
+      return onlyMedia ? 'public:media' : 'public';
+    case '/api/v1/streaming/public/local':
+      return onlyMedia ? 'public:local:media' : 'public:local';
+    case '/api/v1/streaming/public/bubble':
+      return onlyMedia ? 'public:bubble:media' : 'public:bubble';
+    case '/api/v1/streaming/public/remote':
+      return onlyMedia ? 'public:remote:media' : 'public:remote';
+    case '/api/v1/streaming/hashtag':
+      return 'hashtag';
+    case '/api/v1/streaming/hashtag/local':
+      return 'hashtag:local';
+    case '/api/v1/streaming/direct':
+      return 'direct';
+    case '/api/v1/streaming/list':
+      return 'list';
+    default:
+      return undefined;
     }
   };
 

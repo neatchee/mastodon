@@ -50,6 +50,7 @@ const mapStateToProps = state => ({
   locale: state.getIn(['meta', 'locale']),
   extendedDescription: state.server.extendedDescription,
   domainBlocks: state.server.domainBlocks,
+  bubbleDomains: state.server.bubbleDomains,
 });
 
 class About extends PureComponent {
@@ -151,15 +152,15 @@ class About extends PureComponent {
           <RulesSection />
 
           <Section title={intl.formatMessage(messages.bubble)} onOpen={this.handleBubbleDomainsOpen}>
-            {bubbleDomains.get('isLoading') ? (
+            {bubbleDomains.isLoading ? (
               <Skeleton width='100%' />
-            ) : (bubbleDomains.get('isAvailable') ? (
+            ) : (bubbleDomains.isAvailable ? (
               <>
                 <p><FormattedMessage id='about.bubble.preamble' defaultMessage='This server provides a "bubble timeline", which displays content from these other servers in the fediverse that have been chosen by the admins of this server.' /></p>
 
-                {bubbleDomains.get('items').size > 0 && (
+                {bubbleDomains.items.length > 0 && (
                   <div className='about__bubble-domains'>
-                    {bubbleDomains.get('items').map(domain => (
+                    {bubbleDomains.items.map(domain => (
                       <div className='about__bubble-domains__domain' key={domain}>
                         <h6 className='about__bubble-domains__domain__header'>{domain}</h6>
                       </div>
