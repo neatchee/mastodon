@@ -72,7 +72,7 @@ class ActivityPub::ProcessAccountService < BaseService
     unless @options[:only_key] || @account.suspended?
       check_featured_collection! if @json['featured'].present?
       check_featured_tags_collection! if @json['featuredTags'].present?
-      check_featured_collections_collection! if @json['featuredCollections'].present? && Mastodon::Feature.collections_enabled?
+      check_featured_collections_collection! if @json['featuredCollections'].present?
       check_links! if @account.fields.any?(&:requires_verification?)
     end
 
@@ -121,7 +121,7 @@ class ActivityPub::ProcessAccountService < BaseService
     @account.uri                     = @uri
     @account.actor_type              = actor_type
     @account.created_at              = @json['published'] if @json['published'].present?
-    @account.feature_approval_policy = feature_approval_policy if Mastodon::Feature.collections_enabled?
+    @account.feature_approval_policy = feature_approval_policy
   end
 
   def valid_collection_uri(uri)
@@ -150,7 +150,7 @@ class ActivityPub::ProcessAccountService < BaseService
     @account.show_featured           = @json['showFeatured'] if @json.key?('showFeatured')
     @account.show_media              = @json['showMedia'] if @json.key?('showMedia')
     @account.show_media_replies      = @json['showRepliesInMedia'] if @json.key?('showRepliesInMedia')
-    @account.attribution_domains     = as_array(@json['attributionDomains'] || []).take(Account::ATTRIBUTION_DOMAINS_HARD_LIMIT).map { |item| value_or_id(item) }
+    @account.attribution_domains     = as_array(@json['attributionDomains'] || []).take(Account::ATTRIBUTION_DOMAINS_HARD_LIMIT).grep(String)
   end
 
   def set_fetchable_key!
@@ -256,7 +256,7 @@ class ActivityPub::ProcessAccountService < BaseService
     if value.is_a?(Hash) && value['type'] == 'Image'
       url = first_of_value(value['url'])
       url = url['href'] if url.is_a?(Hash)
-      description = value['summary'].presence || value['name'].presence
+      description = first_lang_string(value, 'summary').presence || first_lang_string(value, 'name').presence
       description = description.strip[0...MediaAttachment::MAX_DESCRIPTION_HARD_LENGTH_LIMIT] if description.present?
     else
       url = value
@@ -271,9 +271,11 @@ class ActivityPub::ProcessAccountService < BaseService
   end
 
   def public_keys
-    # TODO: handle FEP-521a
+    @public_keys ||= (fep_521a_public_keys + legacy_public_keys).uniq { |key| key[:uri] }
+  end
 
-    @public_keys ||= as_array(@json['publicKey']).take(MAX_PUBLIC_KEYS).filter_map do |value|
+  def legacy_public_keys
+    as_array(@json['publicKey']).take(MAX_PUBLIC_KEYS).filter_map do |value|
       next if value.nil?
 
       if value.is_a?(Hash)
@@ -290,6 +292,7 @@ class ActivityPub::ProcessAccountService < BaseService
 
       # Key is fetched without ID validation because of a GoToSocial bug
       value = fetch_resource_without_id_validation(key_id)
+      next if value.blank?
 
       # Special handling for GoToSocial which returns the whole actor for the key ID
       value = first_of_value(value['publicKey']) if value.is_a?(Hash) && value.key?('publicKey')
@@ -299,6 +302,41 @@ class ActivityPub::ProcessAccountService < BaseService
       key = value['publicKeyPem']
       { type: :rsa, public_key: key, uri: key_id }
     end
+  end
+
+  def fep_521a_public_keys
+    as_array(@json['assertionMethod']).take(MAX_PUBLIC_KEYS).filter_map do |value|
+      next if value.nil?
+
+      if value.is_a?(Hash)
+        next unless value['type'] == 'Multikey' && value['controller'] == @account.uri
+
+        key_type, key = key_from_multikey(value['publicKeyMultibase'])
+        next if key_type.nil?
+
+        value = value['id']
+
+        # Key is contained within the actor document, no need to fetch anything else
+        next { type: key_type, public_key: key, uri: value } if value.split('#').first == @account.uri
+      end
+
+      key_id = value
+
+      value = fetch_resource(key_id, true)
+
+      next unless value['type'] == 'Multikey' && value['controller'] == @account.uri
+
+      key_type, key = key_from_multikey(value['publicKeyMultibase'])
+      next if key_type.nil?
+
+      { type: key_type, public_key: key, uri: key_id }
+    end
+  end
+
+  def key_from_multikey(value)
+    Multibase.decode_key_to_pem(value)
+  rescue Multibase::Error
+    nil
   end
 
   def url

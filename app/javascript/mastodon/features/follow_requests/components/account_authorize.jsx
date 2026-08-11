@@ -8,11 +8,11 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
 
+import { AccountBio } from '@/mastodon/components/account_bio';
 import { Avatar } from '@/mastodon/components/avatar';
 import { DisplayName } from '@/mastodon/components/display_name';
 import { IconButton } from '@/mastodon/components/icon_button';
 import { injectIntl } from '@/mastodon/components/intl';
-import { EmojiHTML } from '@/mastodon/components/emoji/html';
 import CheckIcon from '@/material-icons/400-24px/check.svg?react';
 import CloseIcon from '@/material-icons/400-24px/close.svg?react';
 
@@ -41,11 +41,7 @@ class AccountAuthorize extends ImmutablePureComponent {
             <DisplayName account={account} />
           </Link>
 
-          <EmojiHTML
-            className='account__header__content translate'
-            htmlString={account.get('note_emojified')}
-            extraEmojis={account.get('emojis')}
-          />
+          <AccountBio accountId={account.id} />
         </div>
 
         <div className='account--panel'>

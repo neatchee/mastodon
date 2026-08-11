@@ -3,7 +3,7 @@ import { useRef, useCallback, useEffect, useState } from 'react';
 
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
 
-import { Helmet } from 'react-helmet';
+import { Helmet } from '@unhead/react/helmet';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -133,7 +133,7 @@ const SelectRow = ({selectAllChecked, toggleSelectAll, selectedItems, selectionM
         direction='right'
         title={intl.formatMessage(messages.more)}
       >
-        <button className='dropdown-button column-header__select-row__select-menu' disabled={selectedItems.length === 0}>
+        <button className='dropdown-button column-header__select-row__select-menu' disabled={selectedItems.length === 0} type='button'>
           <span className='dropdown-button__label'>
             {selectedCount} selected
           </span>
@@ -141,7 +141,7 @@ const SelectRow = ({selectAllChecked, toggleSelectAll, selectedItems, selectionM
         </button>
       </Dropdown>
       <div className='column-header__select-row__mode-button'>
-        <button className='text-btn' tabIndex={0} onClick={handleToggleSelectionMode}>
+        <button className='text-btn' tabIndex={0} onClick={handleToggleSelectionMode} type='button'>
           {selectionMode ? (
             <FormattedMessage id='notification_requests.exit_selection' defaultMessage='Done' />
           ) :

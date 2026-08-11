@@ -12,7 +12,7 @@ RSpec.describe ThemeHelper do
       it 'returns the default stylesheet' do
         expect(html_links.last.attributes.symbolize_keys)
           .to include(
-            href: have_attributes(value: match(/default/))
+            href: have_attributes(value: include('default'))
           )
       end
     end
@@ -105,6 +105,21 @@ RSpec.describe ThemeHelper do
 
     context 'when user is not signed in' do
       context 'when theme was not changed in settings' do
+        it { is_expected.to eq(['glitch', 'default']) }
+      end
+
+      context 'when theme is changed in settings' do
+        before do
+          allow(Themes.instance).to receive(:skins_for).with('glitch').and_return(%w(default contrast))
+          Setting.skin = 'contrast'
+        end
+
+        it { is_expected.to eq(['glitch', 'contrast']) }
+      end
+
+      context 'when theme is changed to invalid value' do
+        before { Setting.skin = 'fakethemename' }
+
         it { is_expected.to eq(['glitch', 'default']) }
       end
     end

@@ -142,6 +142,7 @@ module SignatureVerification
               # Only refreshing keys, skipping potentially more expensive requests
               ActivityPub::FetchRemoteActorService.new.call(keypair.actor.uri, only_key: true, suppress_errors: false)
             end
+    return if actor.nil?
 
     keypair_uri = keypair.uri
 
@@ -156,7 +157,7 @@ module SignatureVerification
   end
 
   def check_keypair_validity!(keypair)
-    raise Mastodon::SignatureVerification, "Key #{signature_key_id} is revoked" if keypair.revoked?
-    raise Mastodon::SignatureVerification, "Key #{signature_key_id} has expired" if keypair.expired?
+    raise Mastodon::SignatureVerificationError, "Key #{signature_key_id} is revoked" if keypair.revoked?
+    raise Mastodon::SignatureVerificationError, "Key #{signature_key_id} has expired" if keypair.expired?
   end
 end

@@ -53,14 +53,14 @@ export interface BaseApiAccountJSON {
   header_static: string;
   header_description: string;
   id: string;
-  last_status_at: string;
+  last_status_at: string | null;
   locked: boolean;
   show_media: boolean;
   show_media_replies: boolean;
   show_featured: boolean;
   noindex?: boolean;
   note: string;
-  roles?: ApiAccountJSON[];
+  roles?: ApiAccountRoleJSON[];
   statuses_count: number;
   uri: string;
   url?: string;

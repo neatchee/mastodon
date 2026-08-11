@@ -3,7 +3,7 @@ import { PureComponent } from 'react';
 
 import { FormattedMessage } from 'react-intl';
 
-import { Helmet } from 'react-helmet';
+import { Helmet } from '@unhead/react/helmet';
 
 import { connect } from 'react-redux';
 
@@ -43,6 +43,7 @@ class HashtagTimeline extends PureComponent {
     columnId: PropTypes.string,
     dispatch: PropTypes.func.isRequired,
     hasUnread: PropTypes.bool,
+    hasFeedAccess: PropTypes.bool,
     multiColumn: PropTypes.bool,
     local: PropTypes.bool,
   };

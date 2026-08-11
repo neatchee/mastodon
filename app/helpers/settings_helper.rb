@@ -9,6 +9,12 @@ module SettingsHelper
     LanguagesHelper.sorted_locale_keys(I18n.available_locales)
   end
 
+  def inline_qrcode_svg(code)
+    code
+      .as_svg(padding: 0, module_size: 4, use_path: true)
+      .html_safe # rubocop:disable Rails/OutputSafety
+  end
+
   def featured_tags_hint(recently_used_tags)
     recently_used_tags.present? &&
       safe_join(
@@ -21,6 +27,10 @@ module SettingsHelper
         ],
         ' '
       )
+  end
+
+  def user_settings_collection(value)
+    UserSettings.definition_for(value)&.in || []
   end
 
   def author_attribution_name(account)
@@ -61,6 +71,10 @@ module SettingsHelper
         content_tag(:span, t("simple_form.hints.defaults.setting_default_content_type_#{variant}"), class: 'hint'),
       ]
     )
+  end
+
+  def time_zone_options
+    ActiveSupport::TimeZone.all.map { |tz| ["(GMT#{tz.now.formatted_offset}) #{tz.name}", tz.tzinfo.name] }
   end
 
   private

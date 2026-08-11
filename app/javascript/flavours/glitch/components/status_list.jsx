@@ -5,10 +5,10 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 
 import { debounce } from 'lodash';
 
-import { PinnedShowAllButton } from '@/flavours/glitch/features/account_timeline/v2/pinned_statuses';
 import { TIMELINE_GAP, TIMELINE_PINNED_VIEW_ALL, TIMELINE_SUGGESTIONS } from 'flavours/glitch/actions/timelines';
 import { RegenerationIndicator } from 'flavours/glitch/components/regeneration_indicator';
 import { InlineFollowSuggestions } from 'flavours/glitch/features/home_timeline/components/inline_follow_suggestions';
+import { PinnedShowAllButton } from '@/flavours/glitch/features/account_timeline/components/pinned_statuses';
 
 
 import { LoadGap } from './load_gap';

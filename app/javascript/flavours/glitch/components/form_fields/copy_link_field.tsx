@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 
 import classNames from 'classnames';
 
-import { CopyIconButton } from 'flavours/glitch/components/copy_icon_button';
+import { CopyIconButton } from '@/flavours/glitch/components/copy_button';
 
 import classes from './copy_link_field.module.scss';
 import { FormFieldWrapper } from './form_field_wrapper';
@@ -26,7 +26,7 @@ export const CopyLinkField = forwardRef<HTMLInputElement, CopyLinkFieldProps>(
     ref,
   ) => {
     const intl = useIntl();
-    const inputRef = useRef<HTMLInputElement | null>();
+    const inputRef = useRef<HTMLInputElement>(null);
     const handleFocus = useCallback(() => {
       inputRef.current?.select();
     }, []);

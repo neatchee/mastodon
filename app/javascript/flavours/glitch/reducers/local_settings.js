@@ -9,7 +9,7 @@ const initialState = ImmutableMap({
   fullwidth_columns: false,
   stretch   : true,
   side_arm  : 'none',
-  side_arm_reply_mode : 'keep',
+  side_arm_reply_mode : 'restrict',
   show_reply_count : true,
   zoom_emojis_on_hover : true,
   always_show_spoilers_field: false,

@@ -1,19 +1,36 @@
 .badge {
   color: var(--color-text-primary);
   font-size: 13px;
+  font-weight: 400;
   display: inline-flex;
+  max-width: 100%;
   padding: 4px;
-  padding-inline-end: 8px;
   gap: 4px;
-  border-radius: 6px;
+  border-radius: 8px;
   align-items: center;
 
   > svg {
+    flex-shrink: 0;
     width: auto;
-    height: 15px;
+    height: 17px;
     fill: currentColor;
     opacity: 0.85;
   }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &:not(.badgeWithoutIcon) {
+    padding-inline-end: 8px;
+  }
+}
+
+.content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .domain {
@@ -41,12 +58,10 @@
 
 .success {
   background-color: var(--color-bg-success-softest);
-  color: var(--color-text-success);
 }
 
 .warning {
   background-color: var(--color-bg-warning-softest);
-  color: var(--color-text-warning);
 }
 
 .danger {

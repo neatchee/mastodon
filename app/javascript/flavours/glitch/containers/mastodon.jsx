@@ -1,16 +1,15 @@
 import { PureComponent } from 'react';
 
-import { Helmet } from 'react-helmet';
+import { Helmet } from '@unhead/react/helmet';
 import { Route } from 'react-router-dom';
 
 import { Provider as ReduxProvider } from 'react-redux';
 
-
-import { fetchCustomEmojis } from 'flavours/glitch/actions/custom_emojis';
 import { checkDeprecatedLocalSettings } from 'flavours/glitch/actions/local_settings';
 import { hydrateStore } from 'flavours/glitch/actions/store';
 import { connectUserStream } from 'flavours/glitch/actions/streaming';
 import ErrorBoundary from 'flavours/glitch/components/error_boundary';
+import { FocusTargetProvider } from '@/flavours/glitch/components/navigation_focus_target';
 import { Router } from 'flavours/glitch/components/router';
 import UI from 'flavours/glitch/features/ui';
 import { BodyScrollLock } from 'flavours/glitch/features/ui/components/body_scroll_lock';
@@ -30,10 +29,6 @@ store.dispatch(hydrateAction);
 
 // check for deprecated local settings
 store.dispatch(checkDeprecatedLocalSettings());
-
-if (initialState.meta.me) {
-  store.dispatch(fetchCustomEmojis());
-}
 
 export default class Mastodon extends PureComponent {
   identity = createIdentityContext(initialState);
@@ -59,7 +54,9 @@ export default class Mastodon extends PureComponent {
             <ErrorBoundary>
               <Router>
                 <ScrollContext>
-                  <Route path='/' component={UI} />
+                  <FocusTargetProvider>
+                    <Route path='/' component={UI} />
+                  </FocusTargetProvider>
                 </ScrollContext>
                 <BodyScrollLock />
               </Router>

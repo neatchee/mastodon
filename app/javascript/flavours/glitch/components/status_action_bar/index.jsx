@@ -8,7 +8,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { connect } from 'react-redux';
 
-import AddReactionIcon from '@/material-icons/400-24px/add_reaction.svg?react';
 import BookmarkIcon from '@/material-icons/400-24px/bookmark-fill.svg?react';
 import BookmarkBorderIcon from '@/material-icons/400-24px/bookmark.svg?react';
 import MoreHorizIcon from '@/material-icons/400-24px/more_horiz.svg?react';
@@ -17,12 +16,12 @@ import ReplyAllIcon from '@/material-icons/400-24px/reply_all.svg?react';
 import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
 import StarBorderIcon from '@/material-icons/400-24px/star.svg?react';
 import VisibilityIcon from '@/material-icons/400-24px/visibility.svg?react';
-import { Dropdown } from 'flavours/glitch/components/dropdown_menu';
 import { identityContextPropShape, withIdentity } from 'flavours/glitch/identity_context';
 import { PERMISSION_MANAGE_USERS, PERMISSION_MANAGE_FEDERATION } from 'flavours/glitch/permissions';
 import { accountAdminLink, statusAdminLink } from 'flavours/glitch/utils/backend_links';
 import { WithRouterPropTypes } from 'flavours/glitch/utils/react_router';
 
+import { Dropdown } from 'flavours/glitch/components/dropdown_menu';
 import EmojiPickerDropdown from '../../features/compose/containers/emoji_picker_dropdown_container';
 import { me, maxReactions, quickBoosting } from '../../initial_state';
 
@@ -30,9 +29,10 @@ import { IconButton } from '../icon_button';
 import { injectIntl } from '../intl';
 import { RelativeTimestamp } from '../relative_timestamp';
 import { BoostButton } from '../status/boost_button';
-import { quoteItemState, selectStatusState } from '../status/boost_button_utils';
-
 import { RemoveQuoteHint } from './remove_quote_hint';
+import { quoteItemState } from '../status/boost_button_utils';
+import { selectStatusConditions } from '@/flavours/glitch/selectors/statuses';
+
 
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
@@ -47,7 +47,6 @@ const messages = defineMessages({
   more: { id: 'status.more', defaultMessage: 'More' },
   replyAll: { id: 'status.replyAll', defaultMessage: 'Reply to thread' },
   favourite: { id: 'status.favourite', defaultMessage: 'Favorite' },
-  react: { id: 'status.react', defaultMessage: 'React' },
   removeFavourite: { id: 'status.remove_favourite', defaultMessage: 'Remove from favorites' },
   bookmark: { id: 'status.bookmark', defaultMessage: 'Bookmark' },
   removeBookmark: { id: 'status.remove_bookmark', defaultMessage: 'Remove bookmark' },
@@ -74,7 +73,7 @@ const mapStateToProps = (state, { status }) => {
   const quotedStatusId = status.getIn(['quote', 'quoted_status']);
   return ({
     quotedAccountId: quotedStatusId ? state.getIn(['statuses', quotedStatusId, 'account']) : null,
-    statusQuoteState: selectStatusState(state, status),
+    statusQuoteState: selectStatusConditions(state, status.get('id')),
   });
 };
 
@@ -369,7 +368,7 @@ class StatusActionBar extends ImmutablePureComponent {
           />
         </div>
         <div className='status__action-bar__button-wrapper'>
-          <BoostButton status={status} counters={withCounters} />
+          <BoostButton statusId={status.get('id')} counters={withCounters} />
         </div>
         <div className='status__action-bar__button-wrapper'>
           <IconButton className='status__action-bar-button star-icon' animate active={status.get('favourited')} title={favouriteTitle} icon='star' iconComponent={status.get('favourited') ? StarIcon : StarBorderIcon} onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
@@ -384,7 +383,7 @@ class StatusActionBar extends ImmutablePureComponent {
         {filterButton}
 
         <RemoveQuoteHint className='status__action-bar__button-wrapper' canShowHint={shouldShowQuoteRemovalHint}>
-	        {(dismissQuoteHint) => (
+          {(dismissQuoteHint) => (
             <Dropdown
               scrollKey={scrollKey}
               status={status}
@@ -413,7 +412,6 @@ class StatusActionBar extends ImmutablePureComponent {
         <a href={status.get('url')} className='status__relative-time' target='_blank' rel='noopener'>
           <RelativeTimestamp
             timestamp={status.get('created_at')}
-            noFuture
           />{status.get('edited_at') && <abbr title={intl.formatMessage(messages.edited, { date: intl.formatDate(status.get('edited_at'), { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }) })}> *</abbr>}
         </a>
       </div>

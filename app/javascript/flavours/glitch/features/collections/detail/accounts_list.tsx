@@ -1,25 +1,30 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 
-import type { ApiCollectionJSON } from 'flavours/glitch/api_types/collections';
-import { Account } from 'flavours/glitch/components/account';
-import { Button } from 'flavours/glitch/components/button';
-import { Callout } from 'flavours/glitch/components/callout';
-import { FollowButton } from 'flavours/glitch/components/follow_button';
+import { PendingBadge } from '@/flavours/glitch/components/badge';
+import { SelectField } from '@/flavours/glitch/components/form_fields';
+import { useSearchParam } from '@/flavours/glitch/hooks/useSearchParam';
+import VisibilityOffIcon from '@/material-icons/400-24px/visibility_off.svg?react';
+import type {
+  ApiCollectionJSON,
+  CollectionAccountItem,
+} from 'flavours/glitch/api_types/collections';
+import type { RenderButtonOptions } from 'flavours/glitch/components/account_list_item';
 import {
-  NumberFields,
-  NumberFieldsItem,
-} from 'flavours/glitch/components/number_fields';
-import { RelativeTimestamp } from 'flavours/glitch/components/relative_timestamp';
+  AccountListItem,
+  AccountListItemFollowButton,
+} from 'flavours/glitch/components/account_list_item';
+import { Button } from 'flavours/glitch/components/button';
 import {
   Article,
   ItemList,
 } from 'flavours/glitch/components/scrollable_list/components';
-import { ShortNumber } from 'flavours/glitch/components/short_number';
-import { useAccount } from 'flavours/glitch/hooks/useAccount';
-import { useRelationship } from 'flavours/glitch/hooks/useRelationship';
+import type { TruncatedListItemInfo } from 'flavours/glitch/components/truncated_list';
+import { TruncatedListItems } from 'flavours/glitch/components/truncated_list';
 import { me } from 'flavours/glitch/initial_state';
+import type { Account } from 'flavours/glitch/models/account';
+import { createAppSelector, useAppSelector } from 'flavours/glitch/store';
 
 import { useConfirmRevoke } from './revoke_collection_inclusion_modal';
 import classes from './styles.module.scss';
@@ -31,198 +36,240 @@ const messages = defineMessages({
   },
 });
 
-const AccountItem: React.FC<{
-  accountId: string | undefined;
-  collectionOwnerId: string;
-  onRevoke: () => void;
-  withBio?: boolean;
-  withBorder?: boolean;
-}> = ({
-  accountId,
-  collectionOwnerId,
-  onRevoke,
-  withBio = true,
-  withBorder = true,
-}) => {
-  const intl = useIntl();
-  const account = useAccount(accountId);
-  const relationship = useRelationship(accountId);
-
-  if (!accountId || !account) {
-    return null;
-  }
-
-  // When viewing your own collection, only show the Follow button
-  // for accounts you're not following (anymore).
-  // Otherwise, always show the follow button in its various states.
-  const isOwnAccount = accountId === me;
-  const withoutButton =
-    isOwnAccount ||
-    !relationship ||
-    (collectionOwnerId === me &&
-      (relationship.following || relationship.requested));
-
-  return (
-    <div className={classes.accountItemWrapper} data-with-border={withBorder}>
-      <Account
-        minimal
-        id={accountId}
-        withBio={withBio}
-        withBorder={false}
-        withMenu={false}
-        className={classes.accountItem}
-        extraAccountInfo={
-          <NumberFields>
-            <NumberFieldsItem
-              label={
-                <FormattedMessage
-                  id='account.followers'
-                  defaultMessage='Followers'
-                />
-              }
-              hint={intl.formatNumber(account.followers_count)}
-            >
-              <ShortNumber value={account.followers_count} />
-            </NumberFieldsItem>
-
-            <NumberFieldsItem
-              label={
-                <FormattedMessage id='account.posts' defaultMessage='Posts' />
-              }
-              hint={intl.formatNumber(account.statuses_count)}
-            >
-              <ShortNumber value={account.statuses_count} />
-            </NumberFieldsItem>
-
-            <NumberFieldsItem
-              label={
-                <FormattedMessage
-                  id='account.last_active'
-                  defaultMessage='Last active'
-                />
-              }
-            >
-              <RelativeTimestamp
-                long
-                timestamp={account.last_status_at}
-                noFuture
-              />
-            </NumberFieldsItem>
-          </NumberFields>
-        }
-      />
-      {!withoutButton && <FollowButton compact accountId={accountId} />}
-      {isOwnAccount && (
-        <Button secondary compact onClick={onRevoke}>
-          <FormattedMessage
-            id='collections.detail.revoke_inclusion'
-            defaultMessage='Remove me'
-          />
-        </Button>
-      )}
-    </div>
-  );
+type CollectionItemWithAccount = CollectionAccountItem & {
+  account?: Account | null;
 };
 
-const SensitiveScreen: React.FC<{
-  sensitive: boolean | undefined;
-  focusTargetRef: React.RefObject<HTMLHeadingElement>;
-  children: React.ReactNode;
-}> = ({ sensitive, focusTargetRef, children }) => {
-  const [isVisible, setIsVisible] = useState(!sensitive);
+const getCollectionItems = createAppSelector(
+  [
+    (state) => state.accounts,
+    (state, collectionId?: string) =>
+      state.collections.collections[collectionId ?? '']?.items,
+  ],
+  (accounts, collectionAccountItems) =>
+    (collectionAccountItems ?? []).map(
+      (item): CollectionItemWithAccount => ({
+        ...item,
+        account: item.account_id ? accounts.get(item.account_id) : null,
+      }),
+    ),
+);
 
-  const showAnyway = useCallback(() => {
-    setIsVisible(true);
-    setTimeout(() => {
-      focusTargetRef.current?.focus();
-    }, 0);
-  }, [focusTargetRef]);
-
-  if (isVisible) {
-    return children;
+function sortAccounts(
+  accounts: CollectionItemWithAccount[],
+  sortBy?: string,
+): CollectionItemWithAccount[] {
+  if (!sortBy || sortBy === 'date_added') {
+    return accounts;
   }
 
-  return (
-    <Callout
-      variant='warning'
-      title={
-        <FormattedMessage
-          id='collections.detail.sensitive_content'
-          defaultMessage='Sensitive content'
-        />
-      }
-      primaryLabel={
-        <FormattedMessage
-          id='content_warning.show_short'
-          defaultMessage='Show'
-        />
-      }
-      onPrimary={showAnyway}
-    >
-      <FormattedMessage
-        id='collections.detail.sensitive_note'
-        defaultMessage='The description and accounts may not be suitable for all viewers.'
-      />
-    </Callout>
-  );
-};
+  const sorted = [...accounts];
+
+  switch (sortBy) {
+    case 'alphabetical':
+      return sorted.sort((a, b) => {
+        const nameA = a.account?.display_name ?? '';
+        const nameB = b.account?.display_name ?? '';
+        return nameA.localeCompare(nameB);
+      });
+
+    case 'last_active':
+      return sorted.sort((a, b) => {
+        const dateA = a.account?.last_status_at ?? '';
+        const dateB = b.account?.last_status_at ?? '';
+        return new Date(dateB).getTime() - new Date(dateA).getTime();
+      });
+
+    case 'most_followers':
+      return sorted.sort((a, b) => {
+        const followersA = a.account?.followers_count ?? 0;
+        const followersB = b.account?.followers_count ?? 0;
+        return followersB - followersA;
+      });
+
+    default:
+      return accounts;
+  }
+}
 
 export const CollectionAccountsList: React.FC<{
-  collection?: ApiCollectionJSON;
-  isLoading: boolean;
-}> = ({ collection, isLoading }) => {
+  collection: ApiCollectionJSON;
+}> = ({ collection }) => {
   const intl = useIntl();
   const confirmRevoke = useConfirmRevoke(collection);
   const listHeadingRef = useRef<HTMLHeadingElement>(null);
 
-  const isOwnCollection = collection?.account_id === me;
-  const { items = [] } = collection ?? {};
+  const isOwnCollection = collection.account_id === me;
+  const { account_id: collectionOwnerId, id } = collection;
+
+  const relationships = useAppSelector((state) => state.relationships);
+  const collectionAccounts = useAppSelector((state) =>
+    getCollectionItems(state, id),
+  );
+
+  const [sortBy, setSortBy] = useSearchParam('sort', 'date_added');
+  const changeSortBy = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      setSortBy(event.target.value);
+    },
+    [setSortBy],
+  );
+  const sortedAccounts = sortAccounts(collectionAccounts, sortBy);
+
+  const { visibleAccounts, hiddenAccounts } = useMemo(() => {
+    const visibleAccounts: CollectionItemWithAccount[] = [];
+    const hiddenAccounts: CollectionItemWithAccount[] = [];
+
+    sortedAccounts.forEach((item) => {
+      const { account, account_id } = item;
+
+      if (!isOwnCollection && !account) {
+        // Hide unavailable accounts unless you own this collection
+        return;
+      }
+
+      const relationship = account_id ? relationships.get(account_id) : null;
+      if (relationship?.blocking || relationship?.muting) {
+        hiddenAccounts.push(item);
+      } else {
+        visibleAccounts.push(item);
+      }
+    });
+
+    return { visibleAccounts, hiddenAccounts };
+  }, [sortedAccounts, isOwnCollection, relationships]);
+
+  const renderAccountItemButton = useCallback(
+    ({ relationship, accountId }: RenderButtonOptions) => {
+      if (!me || !relationship) {
+        // Show follow button when logged out (it will trigger the remote interaction modal)
+        return <AccountListItemFollowButton accountId={accountId} />;
+      }
+
+      // When viewing your own collection, only show the Follow button
+      // for accounts you're not following anymore.
+      const withoutButton =
+        collectionOwnerId === me &&
+        (relationship.following || relationship.requested);
+
+      if (withoutButton) return null;
+
+      if (accountId === me) {
+        return (
+          <Button secondary compact onClick={confirmRevoke}>
+            <FormattedMessage
+              id='collections.detail.revoke_inclusion'
+              defaultMessage='Remove me'
+            />
+          </Button>
+        );
+      }
+
+      return <AccountListItemFollowButton accountId={accountId} />;
+    },
+    [collectionOwnerId, confirmRevoke],
+  );
+
+  const renderListItem = useCallback(
+    ({
+      item,
+      index,
+      totalListLength,
+      isLastElement,
+    }: TruncatedListItemInfo<CollectionItemWithAccount>) => (
+      <Article
+        key={item.id}
+        aria-posinset={index + 1}
+        aria-setsize={totalListLength}
+      >
+        <AccountListItem
+          accountId={item.account_id}
+          withBorder={!isLastElement}
+          badge={item.state === 'pending' ? <PendingBadge /> : null}
+          renderButton={renderAccountItemButton}
+        />
+      </Article>
+    ),
+    [renderAccountItemButton],
+  );
 
   return (
-    <ItemList
-      isLoading={isLoading}
-      emptyMessage={intl.formatMessage(messages.empty)}
-      className={classes.itemList}
-    >
-      <h3
-        className={classes.columnSubheading}
-        tabIndex={-1}
-        ref={listHeadingRef}
-      >
-        {collection ? (
+    <>
+      <div className={classes.subheadingWithSelect}>
+        <h3
+          className={classes.columnSubheading}
+          tabIndex={-1}
+          ref={listHeadingRef}
+        >
           <FormattedMessage
             id='collections.account_count'
             defaultMessage='{count, plural, one {# account} other {# accounts}}'
             values={{ count: collection.item_count }}
           />
-        ) : (
-          <FormattedMessage
-            id='collections.detail.accounts_heading'
-            defaultMessage='Accounts'
-          />
-        )}
-      </h3>
-      {collection && (
-        <SensitiveScreen
-          sensitive={!isOwnCollection && collection.sensitive}
-          focusTargetRef={listHeadingRef}
+        </h3>
+        <SelectField
+          label={
+            <FormattedMessage
+              id='collections.sort_by'
+              defaultMessage='Sort by:'
+            />
+          }
+          value={sortBy}
+          onChange={changeSortBy}
+          inputPlacement='inline-end'
+          className={classes.select}
+          wrapperClassName={classes.selectWrapper}
         >
-          {items.map(({ account_id }, index) => (
-            <Article
-              key={account_id}
-              aria-posinset={index + 1}
-              aria-setsize={items.length}
-            >
-              <AccountItem
-                withBorder={index !== items.length - 1}
-                accountId={account_id}
-                collectionOwnerId={collection.account_id}
-                onRevoke={confirmRevoke}
+          <option value='alphabetical'>
+            <FormattedMessage
+              id='collections.sort_alphabetical'
+              defaultMessage='Alphabetical'
+            />
+          </option>
+          <option value='last_active'>
+            <FormattedMessage
+              id='collections.sort_last_active'
+              defaultMessage='Last active'
+            />
+          </option>
+          <option value='most_followers'>
+            <FormattedMessage
+              id='collections.sort_most_followers'
+              defaultMessage='Most followers'
+            />
+          </option>
+          <option value='date_added'>
+            <FormattedMessage
+              id='collections.sort_date_added'
+              defaultMessage='Date added'
+            />
+          </option>
+        </SelectField>
+      </div>
+      <ItemList emptyMessage={intl.formatMessage(messages.empty)}>
+        <TruncatedListItems
+          visibleItems={visibleAccounts}
+          truncatedItems={hiddenAccounts}
+          toggleButton={{
+            icon: VisibilityOffIcon,
+            title: (
+              <FormattedMessage
+                id='collections.hidden_accounts_link'
+                defaultMessage='{count, plural, one {# hidden account} other {# hidden accounts}}'
+                values={{ count: hiddenAccounts.length }}
               />
-            </Article>
-          ))}
-        </SensitiveScreen>
-      )}
-    </ItemList>
+            ),
+            subtitle: (
+              <FormattedMessage
+                id='collections.hidden_accounts_description'
+                defaultMessage='You’ve blocked or muted {count, plural, one {this user} other {these users}}'
+                values={{ count: hiddenAccounts.length }}
+              />
+            ),
+          }}
+          renderListItem={renderListItem}
+        />
+      </ItemList>
+    </>
   );
 };

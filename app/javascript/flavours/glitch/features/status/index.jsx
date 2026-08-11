@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defineMessages } from 'react-intl';
 
 import classNames from 'classnames';
-import { Helmet } from 'react-helmet';
+import { Helmet } from '@unhead/react/helmet';
 import { withRouter } from 'react-router-dom';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -69,6 +69,7 @@ import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from
 import ActionBar from './components/action_bar';
 import { DetailedStatus } from './components/detailed_status';
 import { RefreshController } from './components/refresh_controller';
+import { FOCUS_TARGET, NavigationFocusTarget } from '@/flavours/glitch/components/navigation_focus_target';
 
 const messages = defineMessages({
   revealAll: { id: 'status.show_more_all', defaultMessage: 'Show more for all' },
@@ -646,7 +647,13 @@ class Status extends ImmutablePureComponent {
             {ancestors}
 
             <Hotkeys handlers={handlers}>
-              <div className={classNames('focusable', 'detailed-status__wrapper', `detailed-status__wrapper-${status.get('visibility')}`)} tabIndex={0} aria-label={textForScreenReader({intl, status, expanded: isExpanded})} ref={this.setStatusRef}>
+              <NavigationFocusTarget
+                as='div'
+                focusTargetName={FOCUS_TARGET.POST}
+                className={classNames('focusable', 'detailed-status__wrapper', `detailed-status__wrapper-${status.get('visibility')}`)}
+                tabIndex={0}
+                aria-label={textForScreenReader({intl, status, expanded: isExpanded})} ref={this.setStatusRef}
+              >
                 <DetailedStatus
                   key={`details-${status.get('id')}`}
                   status={status}
@@ -688,7 +695,7 @@ class Status extends ImmutablePureComponent {
                   onPin={this.handlePin}
                   onEmbed={this.handleEmbed}
                 />
-              </div>
+              </NavigationFocusTarget>
             </Hotkeys>
 
             {descendants}

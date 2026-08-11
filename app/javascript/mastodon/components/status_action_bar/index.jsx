@@ -24,9 +24,10 @@ import { me, quickBoosting } from '../../initial_state';
 import { IconButton } from '../icon_button';
 import { injectIntl } from '../intl';
 import { BoostButton } from '../status/boost_button';
-import { quoteItemState, selectStatusState } from '../status/boost_button_utils';
-
 import { RemoveQuoteHint } from './remove_quote_hint';
+import { quoteItemState } from '../status/boost_button_utils';
+import { selectStatusConditions } from '@/mastodon/selectors/statuses';
+
 
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
@@ -70,7 +71,7 @@ const mapStateToProps = (state, { status }) => {
   return ({
     relationship: state.getIn(['relationships', status.getIn(['account', 'id'])]),
     quotedAccountId: quotedStatusId ? state.getIn(['statuses', quotedStatusId, 'account']) : null,
-    statusQuoteState: selectStatusState(state, status),
+    statusQuoteState: selectStatusConditions(state, status.get('id')),
   });
 };
 
@@ -392,7 +393,7 @@ class StatusActionBar extends ImmutablePureComponent {
           <IconButton className='status__action-bar__button' title={replyTitle} icon={isReply ? 'reply' : replyIcon} iconComponent={isReply ? ReplyIcon : replyIconComponent} onClick={this.handleReplyClick} counter={status.get('replies_count')} />
         </div>
         <div className='status__action-bar__button-wrapper'>
-          <BoostButton status={status} counters={withCounters} />
+          <BoostButton statusId={status.get('id')} counters={withCounters} />
         </div>
         <div className='status__action-bar__button-wrapper'>
           <IconButton className='status__action-bar__button star-icon' animate active={status.get('favourited')} title={favouriteTitle} icon='star' iconComponent={status.get('favourited') ? StarIcon : StarBorderIcon} onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />

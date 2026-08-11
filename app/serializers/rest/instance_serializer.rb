@@ -26,10 +26,12 @@ class REST::InstanceSerializer < ActiveModel::Serializer
           '@1x': full_asset_url(object.thumbnail.file.url(:'@1x')),
           '@2x': full_asset_url(object.thumbnail.file.url(:'@2x')),
         },
+        description: Setting.thumbnail_description,
       }
     else
       {
         url: frontend_asset_url('images/preview.png'),
+        description: I18n.t('about.default_thumbnail_description', locale: object.languages[0]),
       }
     end
   end

@@ -6,5 +6,6 @@ export interface ApiStatusReactionJSON {
   static_url?: string | undefined;
   url?: string | undefined;
   count?: number;
+  me?: boolean;
   account?: ApiAccountJSON;
 }

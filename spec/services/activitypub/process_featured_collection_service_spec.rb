@@ -7,15 +7,17 @@ RSpec.describe ActivityPub::ProcessFeaturedCollectionService do
 
   let(:account) { Fabricate(:remote_account) }
   let(:summary) { '<p>A list of remote actors you should follow.</p>' }
+  let(:attributed_to) { account.uri }
   let(:base_json) do
     {
       '@context' => 'https://www.w3.org/ns/activitystreams',
       'id' => 'https://example.com/featured_collections/1',
       'type' => 'FeaturedCollection',
-      'attributedTo' => account.uri,
+      'attributedTo' => attributed_to,
       'name' => 'Good people from other servers',
       'sensitive' => false,
       'discoverable' => true,
+      'url' => 'https://example.com/c/1',
       'topic' => {
         'type' => 'Hashtag',
         'name' => '#people',
@@ -40,6 +42,16 @@ RSpec.describe ActivityPub::ProcessFeaturedCollectionService do
     end
   end
 
+  context 'when `attributedTo` does not match the given account' do
+    let(:attributed_to) { 'https://example.com/random/account' }
+
+    it 'does not create a collection and returns nil' do
+      expect do
+        expect(subject.call(account, featured_collection_json)).to be_nil
+      end.to_not change(Collection, :count)
+    end
+  end
+
   context 'when URIs match up' do
     it 'creates a collection and queues jobs to handle its items' do
       expect { subject.call(account, featured_collection_json) }.to change(account.collections, :count).by(1)
@@ -50,6 +62,7 @@ RSpec.describe ActivityPub::ProcessFeaturedCollectionService do
       expect(new_collection.description_html).to eq '<p>A list of remote actors you should follow.</p>'
       expect(new_collection.sensitive).to be false
       expect(new_collection.discoverable).to be true
+      expect(new_collection.url).to eq 'https://example.com/c/1'
       expect(new_collection.tag.formatted_name).to eq '#people'
 
       expect(ActivityPub::ProcessFeaturedItemWorker).to have_enqueued_sidekiq_job.with(new_collection.id, 'https://example.com/featured_items/1', 1, nil)
@@ -72,6 +85,18 @@ RSpec.describe ActivityPub::ProcessFeaturedCollectionService do
       new_collection = account.collections.last
       expect(new_collection.language).to eq 'en'
       expect(new_collection.description_html).to eq '<p>A list of remote actors you should follow.</p>'
+    end
+  end
+
+  context 'when the json does not include a `url`' do
+    let(:featured_collection_json) do
+      base_json.except('url')
+    end
+
+    it 'uses the `id` instead' do
+      subject.call(account, featured_collection_json)
+
+      expect(Collection.last.url).to eq 'https://example.com/featured_collections/1'
     end
   end
 

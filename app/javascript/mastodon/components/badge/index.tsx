@@ -5,18 +5,24 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import classNames from 'classnames';
 
 import AdminIcon from '@/images/icons/icon_admin.svg?react';
+import ClockIcon from '@/images/icons/icon_clock.svg?react';
+import FollowerIcon from '@/images/icons/icon_follower.svg?react';
+import IconVerified from '@/images/icons/icon_verified.svg?react';
+import type { OnAttributeHandler } from '@/mastodon/utils/html';
 import BlockIcon from '@/material-icons/400-24px/block.svg?react';
 import GroupsIcon from '@/material-icons/400-24px/group.svg?react';
 import PersonIcon from '@/material-icons/400-24px/person.svg?react';
 import SmartToyIcon from '@/material-icons/400-24px/smart_toy.svg?react';
 import VolumeOffIcon from '@/material-icons/400-24px/volume_off.svg?react';
 
+import { EmojiHTML } from '../emoji/html';
+import { Icon } from '../icon';
+
 import classes from './styles.module.scss';
 
-interface BadgeProps {
+interface BadgeProps extends React.ComponentPropsWithoutRef<'div'> {
   label: ReactNode;
   icon?: ReactNode;
-  className?: string;
   domain?: ReactNode;
   roleId?: string;
   variant?:
@@ -28,6 +34,11 @@ interface BadgeProps {
     | 'danger';
 }
 
+type PresetBadgeProps = Omit<
+  BadgeProps,
+  'label' | 'icon' | 'domain' | 'roleId'
+>;
+
 export const Badge: FC<BadgeProps> = ({
   icon = <PersonIcon />,
   variant = 'default',
@@ -35,14 +46,23 @@ export const Badge: FC<BadgeProps> = ({
   className,
   domain,
   roleId,
+  ...otherProps
 }) => (
   <div
-    className={classNames(classes.badge, classes[variant], className)}
+    {...otherProps}
+    className={classNames(
+      classes.badge,
+      !icon && classes.badgeWithoutIcon,
+      classes[variant],
+      className,
+    )}
     data-account-role-id={roleId}
   >
     {icon}
-    <span>{label}</span>
-    {domain && <span className={classes.domain}>{domain}</span>}
+    <span className={classes.content}>
+      {label}
+      {domain && <span className={classes.domain}> {domain}</span>}
+    </span>
   </div>
 );
 
@@ -70,13 +90,32 @@ export const GroupBadge: FC<Partial<BadgeProps>> = ({ label, ...props }) => (
   />
 );
 
-export const AutomatedBadge: FC<{ className?: string }> = ({ className }) => (
+export const AutomatedBadge: FC<PresetBadgeProps> = (props) => (
   <Badge
     icon={<SmartToyIcon />}
     label={
       <FormattedMessage id='account.badges.bot' defaultMessage='Automated' />
     }
-    className={className}
+    {...props}
+  />
+);
+
+export const FollowsYouBadge: FC<PresetBadgeProps> = (props) => (
+  <Badge
+    icon={<FollowerIcon />}
+    label={
+      <FormattedMessage id='account.follows_you' defaultMessage='Follows you' />
+    }
+    {...props}
+  />
+);
+
+export const PendingBadge: FC<PresetBadgeProps> = (props) => (
+  <Badge
+    variant='warning'
+    icon={<ClockIcon />}
+    label={<FormattedMessage id='account.pending' defaultMessage='Pending' />}
+    {...props}
   />
 );
 
@@ -132,5 +171,33 @@ export const BlockedBadge: FC<Partial<BadgeProps>> = ({ label, ...props }) => (
       )
     }
     {...props}
+  />
+);
+
+const onAttribute: OnAttributeHandler = (name, value, tagName) => {
+  if (name === 'rel' && tagName === 'a') {
+    if (value === 'me') {
+      return null;
+    }
+    return [
+      name,
+      value
+        .split(' ')
+        .filter((x) => x !== 'me')
+        .join(' '),
+    ];
+  }
+  return undefined;
+};
+
+export const VerifiedBadge: React.FC<{ link: string; className?: string }> = ({
+  link,
+  className,
+}) => (
+  <Badge
+    variant='success'
+    icon={<Icon id='verified' icon={IconVerified} noFill />}
+    label={<EmojiHTML as='span' htmlString={link} onAttribute={onAttribute} />}
+    className={className}
   />
 );

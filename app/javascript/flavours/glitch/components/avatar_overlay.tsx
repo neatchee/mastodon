@@ -1,12 +1,19 @@
-import { Emoji } from 'flavours/glitch/components/status_reactions';
+import { Emoji } from 'flavours/glitch/components/emoji';
+import { CustomEmojiProvider } from 'flavours/glitch/components/emoji/context';
+import { isUnicodeEmoji } from 'flavours/glitch/features/emoji/utils';
 import { useHovering } from 'flavours/glitch/hooks/useHovering';
 import { autoPlayGif } from 'flavours/glitch/initial_state';
-import type { Account } from 'flavours/glitch/models/account';
+import type { Account, AccountShapeFull } from 'flavours/glitch/models/account';
 import type { StatusReaction } from 'flavours/glitch/models/reaction';
 
+type AvatarAccount = Pick<
+  Account | AccountShapeFull,
+  'acct' | 'avatar' | 'avatar_static'
+>;
+
 interface Props {
-  account: Account | undefined; // FIXME: remove `undefined` once we know for sure its always there
-  friend?: Account;
+  account?: AvatarAccount;
+  friend?: AvatarAccount;
   emoji?: StatusReaction;
   size?: number;
   baseSize?: number;
@@ -31,12 +38,8 @@ export const AvatarOverlay: React.FC<Props> = ({
 }) => {
   const { hovering, handleMouseEnter, handleMouseLeave } =
     useHovering(autoPlayGif);
-  const accountSrc = hovering
-    ? account?.get('avatar')
-    : account?.get('avatar_static');
-  const friendSrc = hovering
-    ? friend?.get('avatar')
-    : friend?.get('avatar_static');
+  const accountSrc = hovering ? account?.avatar : account?.avatar_static;
+  const friendSrc = hovering ? friend?.avatar : friend?.avatar_static;
 
   let overlayElement;
   if (friendSrc) {
@@ -44,28 +47,35 @@ export const AvatarOverlay: React.FC<Props> = ({
       <div
         className='account__avatar'
         style={{ width: `${overlaySize}px`, height: `${overlaySize}px` }}
-        data-avatar-of={`@${friend?.get('acct')}`}
+        data-avatar-of={`@${friend?.acct}`}
       >
         {friendSrc && (
           <img
             src={friendSrc}
-            alt={friend?.get('acct')}
+            alt={friend?.acct}
             onError={handleImgLoadError}
           />
         )}
       </div>
     );
-  } else {
+  } else if (emoji) {
+    const code = isUnicodeEmoji(emoji.name) ? emoji.name : `:${emoji.name}:`;
+    let custom;
+    if (emoji.url) {
+      custom = {
+        [emoji.name]: {
+          shortcode: emoji.name,
+          static_url: emoji.static_url,
+          url: emoji.url,
+        },
+      };
+    }
+
     overlayElement = (
-      <div className='account__emoji' data-emoji-name={emoji?.name}>
-        {emoji && (
-          <Emoji
-            emoji={emoji.name}
-            hovered={hovering}
-            url={emoji.url}
-            staticUrl={emoji.static_url}
-          />
-        )}
+      <div className='account__emoji' data-emoji-name={emoji.name}>
+        <CustomEmojiProvider emojis={custom}>
+          <Emoji code={code} />
+        </CustomEmojiProvider>
       </div>
     );
   }
@@ -81,12 +91,12 @@ export const AvatarOverlay: React.FC<Props> = ({
         <div
           className='account__avatar'
           style={{ width: `${baseSize}px`, height: `${baseSize}px` }}
-          data-avatar-of={`@${account?.get('acct')}`}
+          data-avatar-of={`@${account?.acct}`}
         >
           {accountSrc && (
             <img
               src={accountSrc}
-              alt={account?.get('acct')}
+              alt={account?.acct}
               onError={handleImgLoadError}
             />
           )}

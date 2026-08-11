@@ -2,6 +2,7 @@ import type { FC } from 'react';
 
 import { FormattedMessage } from 'react-intl';
 
+import type { AccountField } from '@/flavours/glitch/components/account_header/fields';
 import { Button } from '@/flavours/glitch/components/button';
 import { EmojiHTML } from '@/flavours/glitch/components/emoji/html';
 import {
@@ -9,11 +10,11 @@ import {
   ModalShellActions,
   ModalShellBody,
 } from '@/flavours/glitch/components/modal_shell';
+import { NavigationFocusTarget } from '@/flavours/glitch/components/navigation_focus_target';
 
-import type { AccountField } from '../common';
 import { useFieldHtml } from '../hooks/useFieldHtml';
 
-import classes from './styles.module.css';
+import classes from './styles.module.scss';
 
 export const AccountFieldModal: FC<{
   onClose: () => void;
@@ -24,12 +25,14 @@ export const AccountFieldModal: FC<{
   return (
     <ModalShell>
       <ModalShellBody>
-        <EmojiHTML
-          as='h2'
-          htmlString={field.name_emojified}
-          onElement={handleLabelElement}
-          className={classes.fieldName}
-        />
+        <NavigationFocusTarget as='h1'>
+          <EmojiHTML
+            as='span'
+            htmlString={field.name_emojified}
+            onElement={handleLabelElement}
+            className={classes.fieldName}
+          />
+        </NavigationFocusTarget>
         <EmojiHTML
           as='p'
           htmlString={field.value_emojified}

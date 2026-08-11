@@ -3,10 +3,9 @@ import { useState, useMemo, useCallback, createRef } from 'react';
 import { useIntl, defineMessages, FormattedMessage } from 'react-intl';
 
 import classNames from 'classnames';
-import { Helmet } from 'react-helmet';
 import { useHistory } from 'react-router-dom';
 
-import Toggle from 'react-toggle';
+import { Helmet } from '@unhead/react/helmet';
 
 import AddPhotoAlternateIcon from '@/material-icons/400-24px/add_photo_alternate.svg?react';
 import EditIcon from '@/material-icons/400-24px/edit.svg?react';
@@ -19,6 +18,7 @@ import { ColumnHeader } from 'flavours/glitch/components/column_header';
 import {
   TextAreaField,
   TextInputField,
+  Toggle,
 } from 'flavours/glitch/components/form_fields';
 import { Icon } from 'flavours/glitch/components/icon';
 import { LoadingIndicator } from 'flavours/glitch/components/loading_indicator';
@@ -71,6 +71,11 @@ export const Profile: React.FC<{
   const dispatch = useAppDispatch();
   const intl = useIntl();
   const history = useHistory();
+
+  const maxDisplayNameLength = useAppSelector(
+    (state) =>
+      state.server.server.item?.configuration.accounts.max_display_name_length,
+  );
 
   const handleDisplayNameChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -218,7 +223,7 @@ export const Profile: React.FC<{
 
           <div className='fields-group'>
             <TextInputField
-              maxLength={30}
+              maxLength={maxDisplayNameLength ?? 40}
               label={
                 <FormattedMessage
                   id='onboarding.profile.display_name'

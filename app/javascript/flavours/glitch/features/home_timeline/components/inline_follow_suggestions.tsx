@@ -16,12 +16,12 @@ import {
 } from 'flavours/glitch/actions/suggestions';
 import type { ApiSuggestionSourceJSON } from 'flavours/glitch/api_types/suggestions';
 import { Avatar } from 'flavours/glitch/components/avatar';
+import { Badge, VerifiedBadge } from 'flavours/glitch/components/badge';
 import { DisplayName } from 'flavours/glitch/components/display_name';
 import { FollowButton } from 'flavours/glitch/components/follow_button';
 import { Icon } from 'flavours/glitch/components/icon';
 import { IconButton } from 'flavours/glitch/components/icon_button';
 import { LoadingIndicator } from 'flavours/glitch/components/loading_indicator';
-import { VerifiedBadge } from 'flavours/glitch/components/verified_badge';
 import { domain } from 'flavours/glitch/initial_state';
 import { useAppDispatch, useAppSelector } from 'flavours/glitch/store';
 
@@ -110,13 +110,12 @@ const Source: React.FC<{ id: ApiSuggestionSourceJSON }> = ({ id }) => {
   }
 
   return (
-    <div
+    <Badge
       className='inline-follow-suggestions__body__scrollable__card__text-stack__source'
       title={hint}
-    >
-      <Icon id='' icon={InfoIcon} />
-      <span>{label}</span>
-    </div>
+      label={label}
+      icon={<InfoIcon />}
+    />
   );
 };
 
@@ -213,12 +212,12 @@ export const InlineFollowSuggestions: React.FC<{ hidden?: boolean }> = ({
       tabIndex={-1}
     >
       <div className='inline-follow-suggestions__header'>
-        <h3 id={uniqueId}>
+        <h2 id={uniqueId} className='inline-follow-suggestions__title'>
           <FormattedMessage
             id='follow_suggestions.who_to_follow'
             defaultMessage='Who to follow'
           />
-        </h3>
+        </h2>
 
         <div className='inline-follow-suggestions__header__actions'>
           <button className='link-button' onClick={handleDismiss} type='button'>

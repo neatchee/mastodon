@@ -5,6 +5,9 @@ import { emojiRegexPolyfill } from '@/flavours/glitch/polyfills';
 import { VARIATION_SELECTOR_CODE } from './constants';
 
 export function emojiLogger(segment: string) {
+  if (typeof window === 'undefined') {
+    return debug(`emojis:worker:${segment}`);
+  }
   return debug(`emojis:${segment}`);
 }
 
@@ -31,7 +34,7 @@ export function stringHasUnicodeFlags(input: string): boolean {
 }
 
 // Constant as this is supported by all browsers.
-const CUSTOM_EMOJI_REGEX = /:([a-z0-9_]+):/i;
+const CUSTOM_EMOJI_REGEX = /:([a-z0-9_]+)((@[a-z0-9\-.]+)|):/i;
 // Use the polyfill regex or the Unicode property escapes if supported.
 const EMOJI_REGEX = emojiRegexPolyfill?.source ?? '\\p{RGI_Emoji}';
 

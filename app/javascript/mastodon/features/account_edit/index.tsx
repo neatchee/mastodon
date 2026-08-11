@@ -17,6 +17,7 @@ import { ToggleField } from '@/mastodon/components/form_fields';
 import { useElementHandledLink } from '@/mastodon/components/status/handled_link';
 import { useAccount } from '@/mastodon/hooks/useAccount';
 import { useCurrentAccountId } from '@/mastodon/hooks/useAccountId';
+import { useCustomEmojis } from '@/mastodon/hooks/useCustomEmojis';
 import { autoPlayGif } from '@/mastodon/initial_state';
 import {
   fetchProfile,
@@ -106,11 +107,11 @@ export const messages = defineMessages({
   },
   profileTabTitle: {
     id: 'account_edit.profile_tab.title',
-    defaultMessage: 'Profile tab settings',
+    defaultMessage: 'Profile display settings',
   },
   profileTabSubtitle: {
     id: 'account_edit.profile_tab.subtitle',
-    defaultMessage: 'Customize the tabs on your profile and what they display.',
+    defaultMessage: 'Customize how your profile is displayed.',
   },
   advancedSettingsTitle: {
     id: 'account_edit.advanced_settings.title',
@@ -132,25 +133,32 @@ export const AccountEdit: FC = () => {
 
   const maxFieldCount = useAppSelector(
     (state) =>
-      (state.server.getIn([
-        'server',
-        'configuration',
-        'accounts',
-        'max_profile_fields',
-      ]) as number | undefined) ?? 4,
+      state.server.server.item?.configuration.accounts.max_profile_fields ?? 4,
   );
 
   const handleOpenModal = useCallback(
-    (type: ModalType, props?: Record<string, unknown>) => {
-      dispatch(openModal({ modalType: type, modalProps: props ?? {} }));
+    (
+      type: ModalType,
+      {
+        modalProps = {},
+        ignoreFocus = false,
+      }: { modalProps?: Record<string, unknown>; ignoreFocus?: boolean } = {},
+    ) => {
+      dispatch(
+        openModal({
+          modalType: type,
+          modalProps,
+          ignoreFocus,
+        }),
+      );
     },
     [dispatch],
   );
   const handleNameEdit = useCallback(() => {
-    handleOpenModal('ACCOUNT_EDIT_NAME');
+    handleOpenModal('ACCOUNT_EDIT_NAME', { ignoreFocus: true });
   }, [handleOpenModal]);
   const handleBioEdit = useCallback(() => {
-    handleOpenModal('ACCOUNT_EDIT_BIO');
+    handleOpenModal('ACCOUNT_EDIT_BIO', { ignoreFocus: true });
   }, [handleOpenModal]);
   const handleCustomFieldAdd = useCallback(() => {
     handleOpenModal('ACCOUNT_EDIT_FIELD_EDIT');
@@ -175,7 +183,7 @@ export const AccountEdit: FC = () => {
   }, [dispatch, profile?.bot]);
 
   // Normally we would use the account emoji, but we want all custom emojis to be available to render after editing.
-  const emojis = useAppSelector((state) => state.custom_emojis);
+  const emojis = useCustomEmojis();
   const htmlHandlers = useElementHandledLink({
     hashtagAccountId: profile?.id,
   });

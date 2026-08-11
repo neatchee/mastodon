@@ -12,6 +12,7 @@ class ActivityPub::ProcessFeaturedCollectionService
     @json = json
     @request_id = request_id
     return if non_matching_uri_hosts?(@account.uri, @json['id'])
+    return unless @json['attributedTo'] == @account.uri
 
     with_redis_lock("collection:#{@json['id']}") do
       Collection.transaction do
@@ -25,12 +26,17 @@ class ActivityPub::ProcessFeaturedCollectionService
       end
 
       process_items!
+      notify_about_update!
 
       @collection
     end
   end
 
   private
+
+  def notify_about_update!
+    NotifyOfCollectionUpdateService.new.call(@collection)
+  end
 
   def truncated_summary
     text = @json['summaryMap']&.values&.first || @json['summary'] || ''
@@ -39,6 +45,13 @@ class ActivityPub::ProcessFeaturedCollectionService
 
   def language
     @json['summaryMap']&.keys&.first
+  end
+
+  def url
+    url = url_to_href(@json['url'], 'text/html')
+    return @json['id'] if url.blank? || unsupported_uri_scheme?(url)
+
+    url
   end
 
   def collection_attributes
@@ -51,6 +64,7 @@ class ActivityPub::ProcessFeaturedCollectionService
       discoverable: @json['discoverable'],
       original_number_of_items: @json['totalItems'] || 0,
       tag_name: @json.dig('topic', 'name'),
+      url:,
     }
   end
 

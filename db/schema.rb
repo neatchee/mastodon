@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_26_112324) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_06_122112) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -227,6 +227,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_26_112324) do
     t.datetime "created_at", precision: nil, null: false
     t.string "human_identifier"
     t.string "permalink"
+    t.jsonb "recorded_changes"
+    t.string "recorded_changes_format"
     t.string "route_param"
     t.bigint "target_id"
     t.string "target_type"
@@ -345,6 +347,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_26_112324) do
     t.datetime "finished_at", precision: nil
     t.integer "imported_items", default: 0, null: false
     t.boolean "likely_mismatched", default: false, null: false
+    t.boolean "missing_status", default: false, null: false
     t.string "original_filename", default: "", null: false
     t.boolean "overwrite", default: false, null: false
     t.integer "processed_items", default: 0, null: false
@@ -377,9 +380,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_26_112324) do
     t.integer "state", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "uri"
-    t.index ["account_id"], name: "index_collection_items_on_account_id"
+    t.index ["account_id", "collection_id"], name: "index_collection_items_on_account_id_and_collection_id", unique: true
     t.index ["approval_uri"], name: "index_collection_items_on_approval_uri", unique: true, where: "(approval_uri IS NOT NULL)"
     t.index ["collection_id"], name: "index_collection_items_on_collection_id"
+    t.index ["state"], name: "index_collection_items_on_state", where: "(state = ANY (ARRAY[2, 3]))"
     t.index ["uri"], name: "index_collection_items_on_uri", unique: true, where: "(uri IS NOT NULL)"
   end
 
@@ -407,6 +411,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_26_112324) do
     t.bigint "tag_id"
     t.datetime "updated_at", null: false
     t.string "uri"
+    t.string "url"
     t.index ["account_id"], name: "index_collections_on_account_id"
     t.index ["tag_id"], name: "index_collections_on_tag_id"
     t.index ["uri"], name: "index_collections_on_uri", unique: true, where: "(uri IS NOT NULL)"
@@ -521,7 +526,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_26_112324) do
     t.string "locale", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id", "email"], name: "index_email_subscriptions_on_account_id_and_email", unique: true
-    t.index ["account_id"], name: "index_email_subscriptions_on_account_id"
     t.index ["confirmation_token"], name: "index_email_subscriptions_on_confirmation_token", unique: true, where: "(confirmation_token IS NOT NULL)"
   end
 
@@ -708,12 +712,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_26_112324) do
     t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "expires_at"
+    t.string "local_fragment"
     t.string "private_key"
     t.string "public_key", null: false
     t.boolean "revoked", default: false, null: false
     t.integer "type", null: false
     t.datetime "updated_at", null: false
-    t.string "uri", null: false
+    t.string "uri"
+    t.index ["account_id", "local_fragment"], name: "index_keypairs_on_account_id_and_local_fragment", unique: true
     t.index ["account_id"], name: "index_keypairs_on_account_id"
     t.index ["uri"], name: "index_keypairs_on_uri", unique: true
   end
@@ -824,6 +830,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_26_112324) do
   create_table "notification_policies", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.datetime "created_at", null: false
+    t.integer "for_bots", default: 0, null: false
     t.integer "for_limited_accounts", default: 1, null: false
     t.integer "for_new_accounts", default: 0, null: false
     t.integer "for_not_followers", default: 0, null: false
@@ -1159,6 +1166,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_26_112324) do
 
   create_table "software_updates", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.date "end_of_support"
     t.string "release_notes", default: "", null: false
     t.integer "type", default: 0, null: false
     t.datetime "updated_at", null: false
@@ -1359,6 +1367,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_26_112324) do
   end
 
   create_table "user_roles", force: :cascade do |t|
+    t.integer "collection_limit", default: 10, null: false
     t.string "color", default: "", null: false
     t.datetime "created_at", null: false
     t.boolean "highlighted", default: false, null: false

@@ -100,9 +100,8 @@ class Request
   def on_behalf_of(actor, sign_with: nil)
     raise ArgumentError, 'actor must not be nil' if actor.nil?
 
-    key_id = ActivityPub::TagManager.instance.key_uri_for(actor)
-    keypair = sign_with.present? ? OpenSSL::PKey::RSA.new(sign_with) : actor.keypair
-    @signing = HttpSignatureDraft.new(keypair, key_id)
+    keypair = sign_with.presence || actor.keypair(type: :rsa)
+    @signing = HttpSignatureDraft.new(keypair.keypair, keypair.full_uri)
 
     self
   end
@@ -290,13 +289,11 @@ class Request
 
         addresses = []
         begin
-          addresses = [IPAddr.new(host)]
+          addresses = [IPAddr.new(host).to_s]
         rescue IPAddr::InvalidAddressError
-          Resolv::DNS.open do |dns|
-            dns.timeouts = 5
-            addresses = dns.getaddresses(host)
-            addresses = addresses.grep(Resolv::IPv6).take(2) + addresses.grep_v(Resolv::IPv6).take(2)
-          end
+          resolvers = [Resolv::Hosts.new, Resolv::DNS.new.tap { |dns| dns.timeouts = 5 }]
+          addresses = Resolv.new(resolvers).getaddresses(host)
+          addresses = addresses.grep(Resolv::IPv6::Regex).take(2) + addresses.grep_v(Resolv::IPv6::Regex).take(2)
         end
 
         socks = []
@@ -305,7 +302,7 @@ class Request
         addresses.each do |address|
           check_private_address(address, host)
 
-          sock     = ::Socket.new(address.is_a?(Resolv::IPv6) ? ::Socket::AF_INET6 : ::Socket::AF_INET, ::Socket::SOCK_STREAM, 0)
+          sock     = ::Socket.new(address.match?(Resolv::IPv6::Regex) ? ::Socket::AF_INET6 : ::Socket::AF_INET, ::Socket::SOCK_STREAM, 0)
           sockaddr = ::Socket.pack_sockaddr_in(port, address.to_s)
 
           sock.setsockopt(::Socket::IPPROTO_TCP, ::Socket::TCP_NODELAY, 1)
