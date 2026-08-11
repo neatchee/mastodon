@@ -6,8 +6,6 @@ import { defineMessages } from 'react-intl';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
-import { BoostButton } from '@/mastodon/components/status/boost_button';
-import { quoteItemState, selectStatusState } from '@/mastodon/components/status/boost_button_utils';
 import BookmarkIcon from '@/material-icons/400-24px/bookmark-fill.svg?react';
 import BookmarkBorderIcon from '@/material-icons/400-24px/bookmark.svg?react';
 import MoreHorizIcon from '@/material-icons/400-24px/more_horiz.svg?react';
@@ -15,13 +13,15 @@ import ReplyIcon from '@/material-icons/400-24px/reply.svg?react';
 import ReplyAllIcon from '@/material-icons/400-24px/reply_all.svg?react';
 import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
 import StarBorderIcon from '@/material-icons/400-24px/star.svg?react';
-import { Dropdown } from 'mastodon/components/dropdown_menu';
 import { injectIntl } from '@/mastodon/components/intl';
 import { identityContextPropShape, withIdentity } from 'mastodon/identity_context';
 import { PERMISSION_MANAGE_USERS, PERMISSION_MANAGE_FEDERATION } from 'mastodon/permissions';
 
 import { IconButton } from '../../../components/icon_button';
+import { Dropdown } from 'mastodon/components/dropdown_menu';
 import { me, quickBoosting } from '../../../initial_state';
+import { BoostButton } from '@/mastodon/components/status/boost_button';
+import { quoteItemState } from '@/mastodon/components/status/boost_button_utils';
 import { selectStatusConditions } from '@/mastodon/selectors/statuses';
 
 const messages = defineMessages({
