@@ -1,4 +1,4 @@
-@use '../../mastodon/theme/utils';
+@use '../../mastodon/tokens/theme/utils';
 
 @mixin tokens {
   /* TEXT TOKENS */
@@ -203,4 +203,3 @@
 
   --border-strength-primary: 18%;
 }
-
