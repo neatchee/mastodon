@@ -2,6 +2,124 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.7.0] - UNRELEASED
+
+### Added
+
+- Add audit logs for Hashtags (#39473, #39337 and #39670 by @arte7)
+- Add search field to admin ip blocks (#39404 by @arte7)
+- Add notifications for out-of-support versions of Mastodon (#39732 and #39734 by @ClearlyClaire)
+- Add Elasticsearch request timeout of 10s (can be overridden through `ES_QUERY_TIMEOUT`) (#40064 by @ClearlyClaire)
+- Add ActivityPub attributes to current span when processing Activities (#40041 by @jhbabon)
+- Add OTel span attribute to deprecated endpoints (#40030 by @jhbabon)
+- Add default permission check to admin area (#39974 by @oneiros)
+- Add uniqueness constraint on Account `uri` (#39882, #39999 and #39861 by @ClearlyClaire)
+- Add new theme tokens `bg-blend`, `bg-highlight`, and `border-strong` (#39786 by @diondiondion)
+- Add support for `Link` objects in `attachment` (FEP-8967) (#36104, #39977 and #39983 by @Gargron, @TheEssem and @shleeable)
+  - Mastodon will use the first `Link` attachment, if any, as preview card.
+  - If there is no `Link` attachment, Mastodon will still scan the message content's to populate one. This may change in a later release.
+  - Mastodon sets a `Link` attachment for outgoing posts with a preview card.
+- Add support for remote accounts changing handles (#39785, #39850, #39865 and #40045 by @ClearlyClaire)
+  - ActivityPub actor `id` is now used as the primary identifier, instead of webfinger handle.
+  - Remote actors that change handles are now renamed instead of a duplicate account being created then the two merged.
+  - Mastodon does not offer its users to change handles yet.
+  - The concept of “invalid handles” has been added to handle some edge cases. An account with an invalid handle
+    is an account for which the handle cannot be currently verified, but is otherwise valid.
+    In the REST API, they have their `username` and `domain` attribute overridden and this is made explicit through the [`invalid_handle` attribute](https://docs.joinmastodon.org/entities/Account/#invalid_handle).
+- Add outgoing RFC9421 HTTP Message Signatures as fallback to earlier draft (#39756 by @ClearlyClaire)
+- Change how local users' keypairs are stored (#39658, #39668, #39662, #39684, #39686 and #39690 by @ClearlyClaire)
+  - This moves local users' keypairs to the dedicated table that was created in 4.6.
+  - Private keys are now encrypted at rest, and the new infrastructure will allow for key rotation in the future.
+- Add support for `expires` in Linked Data Signatures and Object Integrity Proofs (#39701 by @ClearlyClaire)
+- Add verification of FEP-8b32 Object Integrity Proofs (#39530, #39728, #39754, #39760, #39522 and #39747 by @ClearlyClaire)
+  - Both `eddsa-jcs-2022` and `mldsa44-jcs-2024` are supported.
+  - `mldsa44-jcs-2024` verification requires OpenSSL >= 3.5 to be verified.
+- Add support for Ed25519 signatures in HTTP Message Signatures (#39518 by @ClearlyClaire)
+- Add inbound support for FEP-521a (#39497, #39618, and #39725 by @ClearlyClaire and @shleeable)
+
+### Fixed
+
+- Fix performance of listing follow requests by adding appropriate index (#40033 by @ClearlyClaire)
+- Fix missing `on_delete: :cascade` on `GeneratedAnnualReport` foreign key (#40063 by @ClearlyClaire)
+- Fix `DeleteAccountService#purge_favourites!` only invalidating deprecated cache keys (#40048 by @shleeable)
+- Fix spam-filtered scheduled posts raising an error rather than being silently ignored (#40051 by @shleeable)
+- Fix error when processing backups for deleted accounts (#40053 by @shleeable)
+- Fix notification filter selection after settings change (#39872 by @sharlayan)
+- Fix timeline unable to load more when the last item is a `inline-follow-suggestions` (#39773 by @sharlayan)
+- Fix embedded videos restarting when interacting with post (or other posts in the same feed) (#39746 by @diondiondion)
+- Fix N+1 queries when rendering accounts on the admin collection page (#39738 by @rubys)
+- Fix authored posts not immediately appearing in timelines (#39733 by @ChaosExAnima)
+- Fix newletter button display on some e-mail clients (#39634 by @diondiondion)
+- Fix handling of `rdf:langString` in media `summary` and `name` (#39590 by @ClearlyClaire)
+- Fix error when rejecting appeal of already-deleted user (#39490 by @shleeable)
+- Fix navigation switching to user “Account” category when viewing appeal for moderation interface (#39476, #39619 and #40026 by @ClearlyClaire and @shleeable)
+
+### Changed
+
+- Change follow recommendation materialized views to manually-maintained tables (#40039 by @ClearlyClaire)
+- Change database schema to distinguish deleted-but-not-suspended accounts (#23617, #40027, #40029, #40034, #40083 and #40078 by @ClearlyClaire and @shleeable)
+- Change reblogs to be deduplicated within the last 80 posts instead of the last 40 (#39784 by @ClearlyClaire)
+- Change `AttachmentBatch` to reset retry attempt counter for each S3 batch (#39979 by @shleeable)
+- Change featured tag recommendation criteria (#39567 by @renchap)
+
+### Removed
+
+- Remove inbox processing of collections of activities (#39932 by @ClearlyClaire)
+- Remove support for `Reject` and `Accept` of `QuoteRequest` that cannot be found by `id` (#39833 by @ClearlyClaire)
+- Remove deprecated `bin/update` script (#39443 by @mjankowski)
+- Remove support for pre-Mastodon 4.3.0 cookies (#38918 by @ClearlyClaire)
+
+## [4.6.5] - 2026-08-06
+
+### Fixed
+
+- Fix Collection items being rejected because of incorrect attribute being read (#40052 by @shleeable)
+- Fix typo in embedded quote handling code (#40049 by @shleeable)
+- Fix account merging worker incorrectly merging `Appeal` and `AccountWarning` records (#39982 by @shleeable)
+- Fix off-by-one in handling of updated remote posts allowing up to 5 attachments (#39978 by @shleeable)
+- Fix collection items limit not being consistently applied (#39969 by @oneiros)
+- Fix oversized profile image crop uploads (#39958 by @sharlayan)
+- Fix emoji autocomplete sometimes suggesting emojis for earlier keystrokes (#39947 by @ChaosExAnima)
+
+## [4.6.4] - 2026-07-27
+
+### Security
+
+- Fix incorrect permission enforcement ([GHSA-7jvv-fhmg-wpfw](https://github.com/mastodon/mastodon/security/advisories/GHSA-7jvv-fhmg-wpfw), [GHSA-hx34-2pfw-2qfj](https://github.com/mastodon/mastodon/security/advisories/GHSA-hx34-2pfw-2qfj))
+- Fix SSRF protection bypass via IPv4-compatible IPv6 addresses ([GHSA-vwhj-3g83-v276](https://github.com/mastodon/mastodon/security/advisories/GHSA-vwhj-3g83-v276))
+- Update dependencies
+
+### Changed
+
+- Change autosuggestions to include second word in web UI (#39622 and #39696 by @Gargron and @zunda)
+
+### Fixed
+
+- Fix being unable to vote in polls without an expiration date (#39949 by @ClearlyClaire)
+- Fix “Hide media with a warning” filters not being applied correctly (#39946 by @ClearlyClaire)
+- Fix performance of user-focused queries in admin dashboard (#39929 by @ClearlyClaire)
+- Fix Web Push subscription deletion endpoint incorrectly expecting anti-CSRF tokens (#39918 by @ClearlyClaire)
+- Fix `ActivityPub::Activity::Create` trying to re-create known statuses when author changes (#39916 by @ClearlyClaire)
+- Fix typo in quotes list error handling (#39904 by @shleeable)
+- Fix lax relevancy check in inbound activity processing (#39892 by @ClearlyClaire)
+- Fix `Account::Merging` concern not supporting Quotes or Collections, refactor it (#39884 by @ClearlyClaire)
+- Fix various emoji search issues (#39815 by @ChaosExAnima)
+- Fix swapped order of "accept/reject" actions in follow requests (#39862 by @diondiondion)
+- Fix suspended accounts not being removed from follow request count in `/api/v1/accounts/verify_credentials` (#39858 by @ClearlyClaire)
+- Fix "Learn more" link target in column post privacy hint (#39829 by @diondiondion)
+- Fix page refresh when trying to save custom profile fields (#39828 by @diondiondion)
+- Fix followed tags not being properly cleaned up when an account is deleted (#39824 by @shleeable)
+- Fix CW being copied to body when editing quote posts with empty text (#39823 and #39837 by @shleeable and @ClearlyClaire)
+- Fix handling of `QuoteRequest` rejections when those can't be found by `id` (#39820 by @shleeable)
+- Fix autofollow option being ignored in invite moderation interface (#39819 by @shleeable)
+- Fix pagination overlapping announcement reactions bar (#39814 by @diondiondion)
+- Fix very wide images overflowing posts horizontally (#39812 by @diondiondion)
+- Fix collections not being removed when an account is deleted (#39809 by @oneiros)
+- Fix account followed languages selector (#39801 by @ChaosExAnima)
+- Fix error handling in `ActivityPub::ProcessFeaturedItemService` (#39787 by @ClearlyClaire)
+- Fix display of past relative times (#39742 by @ClearlyClaire)
+- Fix pinned post button width (#39724 by @ChaosExAnima)
+
 ## [4.6.3] - 2026-07-03
 
 ### Security

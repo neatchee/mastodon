@@ -62,7 +62,7 @@ gem 'ipaddr', '~> 1.2'
 gem 'irb', '~> 1.8'
 gem 'kaminari', '~> 1.2'
 gem 'link_header', '~> 0.0'
-gem 'linzer', '~> 0.7.7'
+gem 'linzer', '~> 0.8.0'
 gem 'mario-redis-lock', '~> 1.2', require: 'redis_lock'
 gem 'mime-types', '~> 3.7.0', require: 'mime/types/columnar'
 gem 'mutex_m'
@@ -74,6 +74,7 @@ gem 'public_suffix', '~> 7.0'
 gem 'pundit', '~> 2.3'
 gem 'rack-attack', '~> 6.6'
 gem 'rack-cors', require: 'rack/cors'
+gem 'rack-proxy', require: 'rack/proxy'
 gem 'rails-i18n', '~> 8.0'
 gem 'redcarpet', '~> 3.6'
 gem 'redis', '~> 5'
@@ -103,7 +104,7 @@ gem 'rdf-normalize', '~> 0.5'
 
 gem 'prometheus_exporter', '~> 2.2', require: false
 
-gem 'opentelemetry-api', '~> 1.10.0'
+gem 'opentelemetry-api', '~> 1.11.0'
 
 group :opentelemetry do
   gem 'opentelemetry-exporter-otlp', '~> 0.34.0', require: false
@@ -115,7 +116,7 @@ group :opentelemetry do
   gem 'opentelemetry-instrumentation-http', '~> 0.30.0', require: false
   gem 'opentelemetry-instrumentation-http_client', '~> 0.29.0', require: false
   gem 'opentelemetry-instrumentation-net_http', '~> 0.29.0', require: false
-  gem 'opentelemetry-instrumentation-pg', '~> 0.36.0', require: false
+  gem 'opentelemetry-instrumentation-pg', '~> 0.37.0', require: false
   gem 'opentelemetry-instrumentation-rack', '~> 0.31.0', require: false
   gem 'opentelemetry-instrumentation-rails', '~> 0.42.0', require: false
   gem 'opentelemetry-instrumentation-redis', '~> 0.29.0', require: false
@@ -136,7 +137,7 @@ group :test do
   # Browser integration testing
   gem 'capybara', '~> 3.39'
   gem 'capybara-playwright-driver'
-  gem 'playwright-ruby-client', '1.60.0', require: false # Pinning the exact version as it needs to be kept in sync with the installed npm package
+  gem 'playwright-ruby-client', require: false
 
   # Used to reset the database between system tests
   gem 'database_cleaner-active_record'
@@ -153,7 +154,7 @@ group :test do
   gem 'shoulda-matchers'
 
   # Coverage formatter for RSpec
-  gem 'simplecov', '~> 0.22', require: false
+  gem 'simplecov', require: false
   gem 'simplecov-lcov', '~> 0.8', require: false
 
   # Stub web requests for specs
@@ -230,7 +231,5 @@ gem 'rubyzip', '~> 3.0'
 gem 'hcaptcha', '~> 7.1'
 
 gem 'mail', '~> 2.8'
-
-gem 'vite_rails'
 
 gem 'base58', '~> 0.2.3'

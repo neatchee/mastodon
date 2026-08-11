@@ -143,6 +143,7 @@ const messages = defineMessages({
 export const StatusActionBar: React.FC<StatusActionBarProps> = ({
   statusId,
   contextType,
+  withDismiss,
   withCounters,
   scrollKey,
 }) => {
@@ -236,6 +237,7 @@ export const StatusActionBar: React.FC<StatusActionBarProps> = ({
             dismissQuoteHint={dismissQuoteHint}
             status={status}
             contextType={contextType}
+            withDismiss={withDismiss}
             scrollKey={scrollKey}
           />
         )}
@@ -466,23 +468,25 @@ function getMenuItems({
     return menu;
   }
 
-  menu.push({
-    text: intl.formatMessage(messages.mention, {
-      name: account.username,
-    }),
-    action: () => {
-      dispatch(mentionCompose(account));
-    },
-  });
-  menu.push({
-    text: intl.formatMessage(messages.direct, {
-      name: account.username,
-    }),
-    action: () => {
-      dispatch(directCompose(account));
-    },
-  });
-  menu.push(null);
+  if (!account.invalid_handle) {
+    menu.push({
+      text: intl.formatMessage(messages.mention, {
+        name: account.username,
+      }),
+      action: () => {
+        dispatch(mentionCompose(account));
+      },
+    });
+    menu.push({
+      text: intl.formatMessage(messages.direct, {
+        name: account.username,
+      }),
+      action: () => {
+        dispatch(directCompose(account));
+      },
+    });
+    menu.push(null);
+  }
 
   if (interactions.revokeQuote) {
     menu.push({
