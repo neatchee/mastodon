@@ -19,8 +19,8 @@ import { ServerHeroImage } from 'flavours/glitch/components/server_hero_image';
 import { Skeleton } from 'flavours/glitch/components/skeleton';
 import { LinkFooter} from 'flavours/glitch/features/ui/components/link_footer';
 
-import { RulesSection } from './components/rules';
 import { Section } from './components/section';
+import { RulesSection } from './components/rules';
 import { getColumnSkipLinkId } from '../ui/components/skip_links';
 
 const messages = defineMessages({
