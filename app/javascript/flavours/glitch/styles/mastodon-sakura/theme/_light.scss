@@ -1,4 +1,4 @@
-@use '../../mastodon/theme/utils';
+@use '../../mastodon/tokens/theme/utils';
 
 @mixin tokens {
   /* TEXT TOKENS */
@@ -46,7 +46,6 @@
       var(--color-bg-primary),
       var(--color-bg-secondary-base) calc(2 * var(--overlay-strength-secondary))
     )};
-
   --color-bg-ambient: var(--color-bg-primary);
   --color-bg-elevated: var(--color-bg-primary);
   --color-bg-inverted: var(--color-sakura-secondary-text);
@@ -58,7 +57,6 @@
     )};
   --color-bg-overlay: var(--color-bg-primary);
   --color-bg-disabled: #e0e3ff;
-
   --overlay-strength-brand: 8%;
   --color-bg-brand-base: var(--color-sakura-primary);
   --color-bg-brand-base-hover: color-mix(
@@ -74,7 +72,6 @@
       var(--color-bg-brand-base),
       var(--overlay-strength-brand)
     )};
-
   --overlay-strength-error: 12%;
   --color-bg-error-base: #df405a;
   --color-bg-error-base-hover: color-mix(
@@ -90,7 +87,6 @@
       var(--color-bg-error-base),
       var(--overlay-strength-error)
     )};
-
   --overlay-strength-warning: 10%;
   --color-bg-warning-base: #ffb900;
   --color-bg-warning-base-hover: color-mix(
@@ -106,7 +102,6 @@
       var(--color-bg-warning-base),
       var(--overlay-strength-warning)
     )};
-
   --overlay-strength-success: 15%;
   --color-bg-success-base: #05df72;
   --color-bg-success-base-hover: color-mix(
@@ -146,5 +141,3 @@
       30%
     )};
 }
-
-
