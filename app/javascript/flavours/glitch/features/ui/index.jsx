@@ -705,6 +705,7 @@ class UI extends PureComponent {
         <div className={className} ref={this.setRef}>
           {!minimalShell && (
             <SkipLinks
+              // TODO: Remove these props & related methods when isRedesignEnabled() flag is removed
               multiColumn={layout === 'multi-column'}
               onFocusGettingStartedColumn={this.handleHotkeyGoToStart}
             />
