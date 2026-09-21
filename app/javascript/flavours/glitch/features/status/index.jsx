@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 
-import { defineMessages } from 'react-intl';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
 import classNames from 'classnames';
 import { Helmet } from '@unhead/react/helmet';
 import { withRouter } from 'react-router-dom';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutablePureComponent from 'react-immutable-pure-component';
+import { ImmutablePureComponent } from 'react-immutable-pure-component';
 import { connect } from 'react-redux';
 
 import { difference } from 'lodash';
@@ -16,23 +16,27 @@ import { quoteComposeById } from '@/flavours/glitch/actions/compose_typed';
 import ChatIcon from '@/material-icons/400-24px/chat.svg?react';
 import VisibilityIcon from '@/material-icons/400-24px/visibility.svg?react';
 import VisibilityOffIcon from '@/material-icons/400-24px/visibility_off.svg?react';
+import { Column } from '@/flavours/glitch/components/column';
+import { ColumnHeader as LegacyColumnHeader } from '@/flavours/glitch/components/column/header';
+import { ColumnHeader, ColumnSettingsMenu } from '@/flavours/glitch/components/column_header';
+import { DisplayNameSimple } from '@/flavours/glitch/components/display_name/simple';
 import { Hotkeys }  from 'flavours/glitch/components/hotkeys';
 import { Icon }  from 'flavours/glitch/components/icon';
 import { injectIntl } from '@/flavours/glitch/components/intl';
 import { LoadingIndicator } from 'flavours/glitch/components/loading_indicator';
 import { ScrollContainer } from 'flavours/glitch/containers/scroll_container';
-import BundleColumnError from 'flavours/glitch/features/ui/components/bundle_column_error';
+import { BundleColumnError } from 'flavours/glitch/features/ui/components/bundle_column_error';
 import { identityContextPropShape, withIdentity } from 'flavours/glitch/identity_context';
 import { getAncestorsIds, getDescendantsIds } from 'flavours/glitch/selectors/contexts';
 import { autoUnfoldCW } from 'flavours/glitch/utils/content_warning';
 import { WithRouterPropTypes } from 'flavours/glitch/utils/react_router';
 
-import { initBlockModal } from '../../actions/blocks';
+import { initBlockModal } from '@/flavours/glitch/actions/blocks';
 import {
   replyCompose,
   mentionCompose,
   directCompose,
-} from '../../actions/compose';
+} from '@/flavours/glitch/actions/compose';
 import {
   toggleFavourite,
   bookmark,
@@ -42,10 +46,10 @@ import {
   unpin,
   addReaction,
   removeReaction,
-} from '../../actions/interactions';
-import { openModal } from '../../actions/modal';
-import { initMuteModal } from '../../actions/mutes';
-import { initReport } from '../../actions/reports';
+} from '@/flavours/glitch/actions/interactions';
+import { openModal } from '@/flavours/glitch/actions/modal';
+import { initMuteModal } from '@/flavours/glitch/actions/mutes';
+import { initReport } from '@/flavours/glitch/actions/reports';
 import {
   fetchStatus,
   muteStatus,
@@ -56,20 +60,19 @@ import {
   revealStatus,
   translateStatus,
   undoStatusTranslation,
-} from '../../actions/statuses';
-import { setStatusQuotePolicy } from '../../actions/statuses_typed';
-import ColumnHeader from '../../components/column_header';
-import { textForScreenReader, defaultMediaVisibility } from '../../components/status';
-import { StatusQuoteManager } from '../../components/status_quoted';
-import { deleteModal } from '../../initial_state';
-import { makeGetStatus, makeGetPictureInPicture } from '../../selectors';
-import Column from '../ui/components/column';
+} from '@/flavours/glitch/actions/statuses';
+import { setStatusQuotePolicy } from '@/flavours/glitch/actions/statuses_typed';
+import { textForScreenReader, defaultMediaVisibility } from '@/flavours/glitch/components/status/legacy/status';
+import { Status as StatusComponent } from '@/flavours/glitch/components/status';
+import { deleteModal } from '@/flavours/glitch/initial_state';
+import { makeGetStatus, makeGetPictureInPicture } from '@/flavours/glitch/selectors';
 import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from '../ui/util/fullscreen';
 
 import ActionBar from './components/action_bar';
 import { DetailedStatus } from './components/detailed_status';
 import { RefreshController } from './components/refresh_controller';
 import { FOCUS_TARGET, NavigationFocusTarget } from '@/flavours/glitch/components/navigation_focus_target';
+import { isRedesignEnabled } from '@/flavours/glitch/utils/environment';
 
 const messages = defineMessages({
   revealAll: { id: 'status.show_more_all', defaultMessage: 'Show more for all' },
@@ -499,15 +502,11 @@ class Status extends ImmutablePureComponent {
     this.handleTranslate(this.props.status);
   };
 
-  handleHeaderClick = () => {
-    this.column.scrollTop();
-  };
-
   renderChildren (list, ancestors) {
     const { params: { statusId } } = this.props;
 
     return list.map((id, i) => (
-      <StatusQuoteManager
+      <StatusComponent
         key={id}
         id={id}
         expanded={this.state.threadExpanded}
@@ -526,10 +525,6 @@ class Status extends ImmutablePureComponent {
 
   setContainerRef = c => {
     this.node = c;
-  };
-
-  setColumnRef = c => {
-    this.column = c;
   };
 
   setStatusRef = c => {
@@ -611,6 +606,7 @@ class Status extends ImmutablePureComponent {
       descendants = <>{this.renderChildren(descendantsIds)}</>;
     }
 
+    const account = status.get('account');
     const isLocal = status.getIn(['account', 'acct'], '').indexOf('@') === -1;
     const isIndexable = !status.getIn(['account', 'noindex']);
 
@@ -628,19 +624,56 @@ class Status extends ImmutablePureComponent {
       onTranslate: this.handleHotkeyTranslate,
     };
 
+    const pageTitle = status.get('visibility') === 'direct' ? (
+      <FormattedMessage
+        id='status.title.message'
+        defaultMessage='Message by {name}'
+        values={{
+          name: <DisplayNameSimple account={account} />
+        }}
+      />
+    ) : (
+      <FormattedMessage
+        id='status.title'
+        defaultMessage='Post by {name}'
+        values={{
+          name: <DisplayNameSimple account={account} />
+        }}
+      />
+    );
+
     return (
-      <Column bindToDocument={!multiColumn} ref={this.setColumnRef} label={intl.formatMessage(messages.detailedStatus)}>
-        <ColumnHeader
-          icon='comment'
-          iconComponent={ChatIcon}
-          title={intl.formatMessage(messages.tootHeading)}
-          onClick={this.handleHeaderClick}
-          showBackButton
-          multiColumn={multiColumn}
-          extraButton={(
-            <button type='button' className='column-header__button' title={intl.formatMessage(!isExpanded ? messages.revealAll : messages.hideAll)} aria-label={intl.formatMessage(!isExpanded ? messages.revealAll : messages.hideAll)} onClick={this.handleToggleAll}><Icon id={!isExpanded ? 'eye' : 'eye-slash'} icon={isExpanded ? VisibilityIcon : VisibilityOffIcon} /></button>
-          )}
-        />
+      <Column bindToDocument={!multiColumn} label={intl.formatMessage(messages.detailedStatus)}>
+        {isRedesignEnabled() ? (
+          <ColumnHeader
+            withBackButton
+            title={pageTitle}
+            extraButtons={
+              <ColumnSettingsMenu
+                label={
+                  <FormattedMessage
+                    id='status.options'
+                    defaultMessage='Post options'
+                  />
+                }
+              >
+                WIP: This menu will contain post actions from the new Status component
+              </ColumnSettingsMenu>
+            }
+          />
+        ) : (
+          <LegacyColumnHeader
+            icon='comment'
+            iconComponent={ChatIcon}
+            title={intl.formatMessage(messages.tootHeading)}
+            showBackButton
+            multiColumn={multiColumn}
+            scrollTopOnClick
+            extraButton={(
+              <button type='button' className='column-header__button' title={intl.formatMessage(!isExpanded ? messages.revealAll : messages.hideAll)} aria-label={intl.formatMessage(!isExpanded ? messages.revealAll : messages.hideAll)} onClick={this.handleToggleAll}><Icon id={!isExpanded ? 'eye' : 'eye-slash'} icon={isExpanded ? VisibilityIcon : VisibilityOffIcon} /></button>
+            )}
+          />
+        )}
 
         <ScrollContainer scrollKey='thread' shouldUpdateScroll={this.shouldUpdateScroll} childRef={this.setContainerRef}>
           <div className={classNames('item-list scrollable scrollable--flex', { fullscreen })} ref={this.setContainerRef}>

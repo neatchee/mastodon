@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useRef, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
 
@@ -19,15 +19,17 @@ import {
 } from 'flavours/glitch/actions/notification_requests';
 import { changeSetting } from 'flavours/glitch/actions/settings';
 import { CheckBox } from 'flavours/glitch/components/check_box';
-import Column from 'flavours/glitch/components/column';
-import ColumnHeader from 'flavours/glitch/components/column_header';
 import { Dropdown } from 'flavours/glitch/components/dropdown_menu';
+import { Column } from '@/flavours/glitch/components/column';
+import { ColumnHeader as LegacyColumnHeader } from '@/flavours/glitch/components/column/header';
 import { Icon } from 'flavours/glitch/components/icon';
 import ScrollableList from 'flavours/glitch/components/scrollable_list';
 
 import { NotificationRequest } from './components/notification_request';
 import { PolicyControls } from './components/policy_controls';
 import SettingToggle from './components/setting_toggle';
+import { isRedesignEnabled } from '@/flavours/glitch/utils/environment';
+import { ColumnHeader } from '@/flavours/glitch/components/column_header';
 
 const messages = defineMessages({
   title: { id: 'notification_requests.title', defaultMessage: 'Filtered notifications' },
@@ -133,7 +135,7 @@ const SelectRow = ({selectAllChecked, toggleSelectAll, selectedItems, selectionM
         direction='right'
         title={intl.formatMessage(messages.more)}
       >
-        <button className='dropdown-button column-header__select-row__select-menu' disabled={selectedItems.length === 0} type='button'>
+        <button type='button' className='dropdown-button column-header__select-row__select-menu' disabled={selectedItems.length === 0}>
           <span className='dropdown-button__label'>
             {selectedCount} selected
           </span>
@@ -141,7 +143,7 @@ const SelectRow = ({selectAllChecked, toggleSelectAll, selectedItems, selectionM
         </button>
       </Dropdown>
       <div className='column-header__select-row__mode-button'>
-        <button className='text-btn' tabIndex={0} onClick={handleToggleSelectionMode} type='button'>
+        <button type='button' className='text-btn' tabIndex={0} onClick={handleToggleSelectionMode}>
           {selectionMode ? (
             <FormattedMessage id='notification_requests.exit_selection' defaultMessage='Done' />
           ) :
@@ -163,7 +165,6 @@ SelectRow.propTypes = {
 };
 
 export const NotificationRequests = ({ multiColumn }) => {
-  const columnRef = useRef();
   const intl = useIntl();
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.notificationRequests.isLoading);
@@ -173,10 +174,6 @@ export const NotificationRequests = ({ multiColumn }) => {
   const [selectionMode, setSelectionMode] = useState(false);
   const [checkedRequestIds, setCheckedRequestIds] = useState([]);
   const [selectAllChecked, setSelectAllChecked] = useState(false);
-
-  const handleHeaderClick = useCallback(() => {
-    columnRef.current?.scrollTop();
-  }, [columnRef]);
 
   const handleCheck = useCallback(id => {
     setCheckedRequestIds(ids => {
@@ -212,22 +209,31 @@ export const NotificationRequests = ({ multiColumn }) => {
     dispatch(fetchNotificationRequests());
   }, [dispatch]);
 
+  const selectionRow = notificationRequests.length > 0 && (
+    <SelectRow selectionMode={selectionMode} setSelectionMode={setSelectionMode} selectAllChecked={selectAllChecked} toggleSelectAll={toggleSelectAll} selectedItems={checkedRequestIds} />
+  );
+
   return (
-    <Column bindToDocument={!multiColumn} ref={columnRef} label={intl.formatMessage(messages.title)}>
-      <ColumnHeader
-        icon='archive'
-        iconComponent={InventoryIcon}
-        title={intl.formatMessage(messages.title)}
-        onClick={handleHeaderClick}
-        multiColumn={multiColumn}
-        showBackButton
-        appendContent={
-          notificationRequests.length > 0 && (
-            <SelectRow selectionMode={selectionMode} setSelectionMode={setSelectionMode} selectAllChecked={selectAllChecked} toggleSelectAll={toggleSelectAll} selectedItems={checkedRequestIds} />
-          )}
-      >
-        <ColumnSettings />
-      </ColumnHeader>
+    <Column bindToDocument={!multiColumn} label={intl.formatMessage(messages.title)}>
+      {isRedesignEnabled() ? (
+        <ColumnHeader
+          withBackButton
+          title={intl.formatMessage(messages.title)}
+          extraStickyContent={selectionRow}
+        />
+      ) : (
+        <LegacyColumnHeader
+          icon='archive'
+          iconComponent={InventoryIcon}
+          title={intl.formatMessage(messages.title)}
+          multiColumn={multiColumn}
+          showBackButton
+          scrollTopOnClick
+          appendContent={selectionRow}
+        >
+          <ColumnSettings />
+        </LegacyColumnHeader>
+      )}
 
       <ScrollableList
         scrollKey='notification_requests'

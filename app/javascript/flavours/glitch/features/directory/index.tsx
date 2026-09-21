@@ -1,5 +1,5 @@
 import type { ChangeEventHandler } from 'react';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { defineMessages, useIntl } from 'react-intl';
 
@@ -7,6 +7,14 @@ import { List as ImmutableList } from 'immutable';
 
 import { Helmet } from '@unhead/react/helmet';
 
+import { Column } from '@/flavours/glitch/components/column';
+import { ColumnHeader as LegacyColumnHeader } from '@/flavours/glitch/components/column/header';
+import {
+  ColumnHeader,
+  ColumnSettingsMenu,
+} from '@/flavours/glitch/components/column_header';
+import { MultiColumnMenuItems } from '@/flavours/glitch/components/column_header/multicolumn_settings';
+import { isRedesignEnabled } from '@/flavours/glitch/utils/environment';
 import PeopleIcon from '@/material-icons/400-24px/group.svg?react';
 import {
   addColumn,
@@ -18,9 +26,6 @@ import {
   fetchDirectory,
   expandDirectory,
 } from 'flavours/glitch/actions/directory';
-import { Column } from 'flavours/glitch/components/column';
-import type { ColumnRef } from 'flavours/glitch/components/column';
-import { ColumnHeader } from 'flavours/glitch/components/column_header';
 import { LoadMore } from 'flavours/glitch/components/load_more';
 import { LoadingIndicator } from 'flavours/glitch/components/loading_indicator';
 import { RadioButton } from 'flavours/glitch/components/radio_button';
@@ -51,8 +56,6 @@ export const Directory: React.FC<{
 }> = ({ columnId, multiColumn, params }) => {
   const intl = useIntl();
   const dispatch = useAppDispatch();
-
-  const column = useRef<ColumnRef>(null);
 
   const [orderParam, setOrderParam] = useSearchParam('order');
   const [localParam, setLocalParam] = useSearchParam('local');
@@ -100,10 +103,6 @@ export const Directory: React.FC<{
     },
     [dispatch, columnId],
   );
-
-  const handleHeaderClick = useCallback(() => {
-    column.current?.scrollTop();
-  }, []);
 
   const handleChangeOrder = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (e) => {
@@ -197,19 +196,38 @@ export const Directory: React.FC<{
   return (
     <Column
       bindToDocument={!multiColumn}
-      ref={column}
       label={intl.formatMessage(messages.title)}
     >
-      <ColumnHeader
-        icon='address-book-o'
-        iconComponent={PeopleIcon}
-        title={intl.formatMessage(messages.title)}
-        onPin={handlePin}
-        onMove={handleMove}
-        onClick={handleHeaderClick}
-        pinned={pinned}
-        multiColumn={multiColumn}
-      />
+      {isRedesignEnabled() ? (
+        <ColumnHeader
+          title={intl.formatMessage(messages.title)}
+          withBackButton={multiColumn && !pinned && 'auto'}
+          extraButtons={
+            multiColumn && (
+              <ColumnSettingsMenu
+                labelPrefix={intl.formatMessage(messages.title)}
+              >
+                <MultiColumnMenuItems
+                  pinned={pinned}
+                  onPin={handlePin}
+                  onMove={handleMove}
+                />
+              </ColumnSettingsMenu>
+            )
+          }
+        />
+      ) : (
+        <LegacyColumnHeader
+          icon='address-book-o'
+          iconComponent={PeopleIcon}
+          title={intl.formatMessage(messages.title)}
+          onPin={handlePin}
+          onMove={handleMove}
+          pinned={pinned}
+          multiColumn={multiColumn}
+          scrollTopOnClick
+        />
+      )}
 
       {multiColumn && !pinned ? (
         <ScrollContainer scrollKey='directory'>

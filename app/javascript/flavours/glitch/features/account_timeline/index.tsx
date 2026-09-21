@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 import type { FC } from 'react';
 
 import { FormattedMessage } from 'react-intl';
@@ -14,19 +14,23 @@ import {
 } from '@/flavours/glitch/actions/timelines_typed';
 import { AccountHeader } from '@/flavours/glitch/components/account_header';
 import { Column } from '@/flavours/glitch/components/column';
-import type { ColumnRef } from '@/flavours/glitch/components/column';
+import { ColumnHeader } from '@/flavours/glitch/components/column_header';
+import { DisplayNameSimple } from '@/flavours/glitch/components/display_name/simple';
 import { LimitedAccountHint } from '@/flavours/glitch/components/limited_account_hint';
 import { LoadingIndicator } from '@/flavours/glitch/components/loading_indicator';
 import { RemoteHint } from '@/flavours/glitch/components/remote_hint';
 import StatusList from '@/flavours/glitch/components/status_list';
 import { BundleColumnError } from '@/flavours/glitch/features/ui/components/bundle_column_error';
+import { useAccount } from '@/flavours/glitch/hooks/useAccount';
 import {
   useAccountId,
   useCurrentAccountId,
 } from '@/flavours/glitch/hooks/useAccountId';
 import { useAccountVisibility } from '@/flavours/glitch/hooks/useAccountVisibility';
+import type { Account } from '@/flavours/glitch/models/account';
 import { selectTimelineByKey } from '@/flavours/glitch/selectors/timelines';
 import { useAppDispatch, useAppSelector } from '@/flavours/glitch/store';
+import { isRedesignEnabled } from '@/flavours/glitch/utils/environment';
 
 import { ProfileColumnHeader } from '../account/components/profile_column_header';
 
@@ -47,13 +51,14 @@ const emptyList = ImmutableList<string>();
 const AccountTimeline: FC<{ multiColumn: boolean }> = ({ multiColumn }) => {
   const accountId = useAccountId();
   const accountContext = useAccountContextValue(accountId);
+  const account = useAccount(accountId);
 
   // Null means accountId does not exist (e.g. invalid acct). Undefined means loading.
   if (accountId === null) {
     return <BundleColumnError multiColumn={multiColumn} errorType='routing' />;
   }
 
-  if (!accountId) {
+  if (!accountId || !account) {
     return (
       <Column bindToDocument={!multiColumn}>
         <LoadingIndicator />
@@ -65,7 +70,7 @@ const AccountTimeline: FC<{ multiColumn: boolean }> = ({ multiColumn }) => {
   return (
     <AccountTimelineContext.Provider value={accountContext}>
       <InnerTimeline
-        accountId={accountId}
+        account={account}
         key={accountId}
         multiColumn={multiColumn}
       />
@@ -73,10 +78,11 @@ const AccountTimeline: FC<{ multiColumn: boolean }> = ({ multiColumn }) => {
   );
 };
 
-const InnerTimeline: FC<{ accountId: string; multiColumn: boolean }> = ({
-  accountId,
+const InnerTimeline: FC<{ account: Account; multiColumn: boolean }> = ({
+  account,
   multiColumn,
 }) => {
+  const accountId = account.id;
   const { tagged } = useParams<{ tagged?: string }>();
   const { boosts, replies } = useAccountContext();
   const key = timelineKey({
@@ -110,19 +116,18 @@ const InnerTimeline: FC<{ accountId: string; multiColumn: boolean }> = ({
   const { isLoading: isPinnedLoading, statusIds: pinnedStatusIds } =
     usePinnedStatusIds({ accountId, tagged, forceEmptyState });
 
-  const columnRef = useRef<ColumnRef>(null);
-  const handleHeaderClick = useCallback(() => {
-    columnRef.current?.scrollTop();
-  }, []);
-
   const isLoading = !!timeline?.isLoading || isPinnedLoading;
 
   return (
-    <Column bindToDocument={!multiColumn} ref={columnRef}>
-      <ProfileColumnHeader
-        onClick={handleHeaderClick}
-        multiColumn={multiColumn}
-      />
+    <Column bindToDocument={!multiColumn}>
+      {isRedesignEnabled() ? (
+        <ColumnHeader
+          withBackButton
+          title={<DisplayNameSimple account={account} />}
+        />
+      ) : (
+        <ProfileColumnHeader multiColumn={multiColumn} />
+      )}
 
       <StatusList
         alwaysPrepend

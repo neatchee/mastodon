@@ -7,6 +7,11 @@ import { Link } from 'react-router-dom';
 import { Helmet } from '@unhead/react/helmet';
 import { useDebouncedCallback } from 'use-debounce';
 
+import { Column } from '@/flavours/glitch/components/column';
+import { ColumnHeader as LegacyColumnHeader } from '@/flavours/glitch/components/column/header';
+import { ColumnSearchHeader } from '@/flavours/glitch/components/column/search_header';
+import { ColumnHeader } from '@/flavours/glitch/components/column_header';
+import { isRedesignEnabled } from '@/flavours/glitch/utils/environment';
 import PersonIcon from '@/material-icons/400-24px/person.svg?react';
 import { fetchRelationships } from 'flavours/glitch/actions/accounts';
 import { importFetchedAccounts } from 'flavours/glitch/actions/importer';
@@ -15,9 +20,6 @@ import { markAsPartial } from 'flavours/glitch/actions/timelines';
 import { apiRequest } from 'flavours/glitch/api';
 import type { ApiAccountJSON } from 'flavours/glitch/api_types/accounts';
 import { Account } from 'flavours/glitch/components/account';
-import { Column } from 'flavours/glitch/components/column';
-import { ColumnHeader } from 'flavours/glitch/components/column_header';
-import { ColumnSearchHeader } from 'flavours/glitch/components/column_search_header';
 import ScrollableList from 'flavours/glitch/components/scrollable_list';
 import { useAppSelector, useAppDispatch } from 'flavours/glitch/store';
 
@@ -116,12 +118,19 @@ export const Follows: React.FC<{
       bindToDocument={!multiColumn}
       label={intl.formatMessage(messages.title)}
     >
-      <ColumnHeader
-        title={intl.formatMessage(messages.title)}
-        icon='person'
-        iconComponent={PersonIcon}
-        multiColumn={multiColumn}
-      />
+      {isRedesignEnabled() ? (
+        <ColumnHeader
+          withBackButton
+          title={intl.formatMessage(messages.title)}
+        />
+      ) : (
+        <LegacyColumnHeader
+          title={intl.formatMessage(messages.title)}
+          icon='person'
+          iconComponent={PersonIcon}
+          multiColumn={multiColumn}
+        />
+      )}
 
       <ColumnSearchHeader
         placeholder={intl.formatMessage(messages.search)}
@@ -169,7 +178,13 @@ export const Follows: React.FC<{
         }
       >
         {displayedAccountIds.map((accountId) => (
-          <Account id={accountId} key={accountId} withBio withMenu={false} />
+          <Account
+            id={accountId}
+            key={accountId}
+            withBio
+            withMenu={false}
+            reference='onboarding'
+          />
         ))}
       </ScrollableList>
 

@@ -29,9 +29,11 @@ const AutosuggestTextarea = forwardRef(({
   onPaste,
   onDrop,
   onFocus,
+  onBlur,
   autoFocus = true,
   lang,
   className,
+  ...props
 }, textareaRef) => {
 
   const [suggestionsHidden, setSuggestionsHidden] = useState(true);
@@ -111,14 +113,13 @@ const AutosuggestTextarea = forwardRef(({
     onKeyDown(e);
   }, [disabled, suggestions, suggestionsHidden, selectedSuggestion, setSelectedSuggestion, setSuggestionsHidden, onSuggestionSelected, onKeyDown]);
 
-  const closeMenu = useCallback(() => {
+  const closeMenu = useCallback((e) => {
     setSuggestionsHidden(true);
+    onBlur?.(e);
   }, [setSuggestionsHidden]);
 
   const handleFocus = useCallback((e) => {
-    if (onFocus) {
-      onFocus(e);
-    }
+    onFocus?.(e);
   }, [onFocus]);
 
   const handleSuggestionClick = useCallback((e) => {
@@ -141,7 +142,7 @@ const AutosuggestTextarea = forwardRef(({
   // Show the suggestions again whenever they change and the textarea is focused
   useEffect(() => {
     if (suggestions.size > 0 && textareaRef.current === document.activeElement) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+       
       setSuggestionsHidden(false);
     }
   }, [suggestions, textareaRef, setSuggestionsHidden]);
@@ -183,6 +184,7 @@ const AutosuggestTextarea = forwardRef(({
   return (
     <div className={classNames('autosuggest-textarea', className)}>
       <Textarea
+        {...props}
         ref={handleRef}
         className='autosuggest-textarea__textarea'
         disabled={disabled}
@@ -235,7 +237,8 @@ AutosuggestTextarea.propTypes = {
   onKeyDown: PropTypes.func,
   onPaste: PropTypes.func.isRequired,
   onDrop: PropTypes.func,
-  onFocus:PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
   autoFocus: PropTypes.bool,
   className: PropTypes.string,
   lang: PropTypes.string,

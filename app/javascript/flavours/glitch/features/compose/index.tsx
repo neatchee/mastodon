@@ -8,6 +8,10 @@ import type { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 
 import { Helmet } from '@unhead/react/helmet';
 
+import { Column } from '@/flavours/glitch/components/column';
+import { ColumnHeader as LegacyColumnHeader } from '@/flavours/glitch/components/column/header';
+import { ColumnHeader } from '@/flavours/glitch/components/column_header';
+import { isRedesignEnabled } from '@/flavours/glitch/utils/environment';
 import elephantUIPlane from '@/images/elephant_ui_plane.svg';
 import BubbleChartIcon from '@/material-icons/400-24px/bubble_chart.svg?react';
 import EditIcon from '@/material-icons/400-24px/edit_square.svg?react';
@@ -20,8 +24,6 @@ import NotificationsIcon from '@/material-icons/400-24px/notifications-fill.svg?
 import PublicIcon from '@/material-icons/400-24px/public.svg?react';
 import { mountCompose, unmountCompose } from 'flavours/glitch/actions/compose';
 import { openModal } from 'flavours/glitch/actions/modal';
-import { Column } from 'flavours/glitch/components/column';
-import { ColumnHeader } from 'flavours/glitch/components/column_header';
 import { Icon } from 'flavours/glitch/components/icon';
 import glitchedElephant1 from 'flavours/glitch/images/mbstobon-ui-0.png';
 import glitchedElephant2 from 'flavours/glitch/images/mbstobon-ui-1.png';
@@ -77,7 +79,6 @@ const Compose: React.FC<{ multiColumn: boolean }> = ({ multiColumn }) => {
   );
   const showNotificationsBadge = useAppSelector(
     (state) =>
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       state.local_settings.getIn(
         ['notifications', 'tab_badge'],
         false,
@@ -252,13 +253,20 @@ const Compose: React.FC<{ multiColumn: boolean }> = ({ multiColumn }) => {
       bindToDocument={!multiColumn}
       label={intl.formatMessage(navbarMessages.publish)}
     >
-      <ColumnHeader
-        icon='pencil'
-        iconComponent={EditIcon}
-        title={intl.formatMessage(navbarMessages.publish)}
-        multiColumn={multiColumn}
-        showBackButton
-      />
+      {isRedesignEnabled() ? (
+        <ColumnHeader
+          withBackButton
+          title={intl.formatMessage(navbarMessages.publish)}
+        />
+      ) : (
+        <LegacyColumnHeader
+          icon='pencil'
+          iconComponent={EditIcon}
+          title={intl.formatMessage(navbarMessages.publish)}
+          multiColumn={multiColumn}
+          showBackButton
+        />
+      )}
 
       <div className='scrollable'>
         <ComposeFormContainer

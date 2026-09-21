@@ -5,8 +5,10 @@ import { defineMessages, useIntl } from 'react-intl';
 
 import { followAccount } from '@/flavours/glitch/actions/accounts';
 import { useAccount } from '@/flavours/glitch/hooks/useAccount';
+import { useFollowReference } from '@/flavours/glitch/hooks/useFollowReference';
 import { getAccountHidden } from '@/flavours/glitch/selectors/accounts';
 import { useAppDispatch, useAppSelector } from '@/flavours/glitch/store';
+import { isRedesignEnabled } from '@/flavours/glitch/utils/environment';
 import NotificationsIcon from '@/material-icons/400-24px/notifications.svg?react';
 import NotificationsActiveIcon from '@/material-icons/400-24px/notifications_active-fill.svg?react';
 import ShareIcon from '@/material-icons/400-24px/share.svg?react';
@@ -69,6 +71,7 @@ const AccountButtonsOther: FC<
   const dispatch = useAppDispatch();
   const handleNotifyToggle = useCallback(() => {
     if (account) {
+      // @ts-expect-error this action is not typed yet
       dispatch(followAccount(account.id, { notify: !relationship?.notifying }));
     }
   }, [dispatch, account, relationship]);
@@ -81,6 +84,8 @@ const AccountButtonsOther: FC<
     }
   }, [accountUrl]);
 
+  const reference = useFollowReference('profile');
+
   if (!account) {
     return null;
   }
@@ -92,9 +97,12 @@ const AccountButtonsOther: FC<
     <>
       {!isMovedAndUnfollowedAccount && (
         <FollowButton
+          compact={isRedesignEnabled()}
           accountId={accountId}
           className={classes.followButton}
+          withUnmute={false}
           labelLength='long'
+          reference={reference}
         />
       )}
       {isFollowing && (

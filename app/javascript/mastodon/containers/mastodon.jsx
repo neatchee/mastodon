@@ -7,11 +7,11 @@ import { Provider as ReduxProvider } from 'react-redux';
 
 import { hydrateStore } from 'mastodon/actions/store';
 import { connectUserStream } from 'mastodon/actions/streaming';
+import { BodyScrollLock } from '@/mastodon/hooks/useBodyScrollLock';
 import ErrorBoundary from 'mastodon/components/error_boundary';
 import { FocusTargetProvider } from '@/mastodon/components/navigation_focus_target';
 import { Router } from 'mastodon/components/router';
 import UI from 'mastodon/features/ui';
-import { BodyScrollLock } from 'mastodon/features/ui/components/body_scroll_lock';
 import { IdentityContext, createIdentityContext } from 'mastodon/identity_context';
 import { initialState, title as siteTitle } from 'mastodon/initial_state';
 import { IntlProvider } from 'mastodon/locales';

@@ -11,8 +11,8 @@ import { FormattedMessage } from 'react-intl';
 
 import classNames from 'classnames';
 
+import { Status } from 'flavours/glitch/components/status';
 import { InterceptStatusClicks } from 'flavours/glitch/components/status/intercept_status_clicks';
-import { StatusQuoteManager } from 'flavours/glitch/components/status_quoted';
 import type { TopStatuses } from 'flavours/glitch/models/annual_report';
 import { makeGetStatus } from 'flavours/glitch/selectors';
 import { useAppSelector } from 'flavours/glitch/store';
@@ -95,7 +95,7 @@ export const HighlightedPost: React.FC<{
       </div>
 
       <InterceptStatusClicks onPreventedClick={handleClick}>
-        <StatusQuoteManager showActions={false} id={statusId} />
+        <Status showActions={false} id={statusId} />
       </InterceptStatusClicks>
     </div>
   );

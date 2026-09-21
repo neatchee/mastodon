@@ -8,7 +8,7 @@ import type { ApiMentionJSON } from '@/flavours/glitch/api_types/statuses';
 import { getCollectionPath } from '@/flavours/glitch/features/collections/utils';
 import { useAppSelector } from '@/flavours/glitch/store';
 import type { OnElementHandler } from '@/flavours/glitch/utils/html';
-import { decode as decodeIDNA } from 'flavours/glitch/utils/idna';
+import { decodeIDNA } from 'flavours/glitch/utils/links';
 
 export interface HandledLinkProps {
   href: string;
@@ -119,12 +119,10 @@ export const HandledLink: FC<HandledLinkProps & ComponentProps<'a'>> = ({
   ...props
 }) => {
   const rewriteMentions = useAppSelector(
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     (state) => state.local_settings.get('rewrite_mentions', 'no') as string,
   );
   const tagLinks = useAppSelector(
     (state) =>
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       state.local_settings.get('tag_misleading_links', false) as string,
   );
 
@@ -176,9 +174,10 @@ export const HandledLink: FC<HandledLinkProps & ComponentProps<'a'>> = ({
     return (
       <Link
         className={classNames('mention', className)}
-        to={`/@${mention.acct}`}
+        to={{ pathname: `/@${mention.acct}`, state: { reference: 'status' } }}
         title={`@${mention.acct}`}
         data-hover-card-account={mention.id}
+        data-hover-card-reference='status'
       >
         {children}
       </Link>
