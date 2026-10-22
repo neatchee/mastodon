@@ -12,14 +12,12 @@ import { defineMessages } from 'react-intl';
 
 import type { Plugin, ResolvedConfig } from 'vite';
 
- 
 const translations = defineMessages({
   mentioned_you: {
     id: 'notification.mentioned_you',
     defaultMessage: '{name} mentioned you',
   },
 });
- 
 
 const CUSTOM_TRANSLATIONS = {
   'notification.mention': translations.mentioned_you.id,

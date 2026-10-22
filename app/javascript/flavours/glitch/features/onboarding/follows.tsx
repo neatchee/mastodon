@@ -2,11 +2,13 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 
 import { FormattedMessage, useIntl, defineMessages } from 'react-intl';
 
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
 import { Helmet } from '@unhead/react/helmet';
 import { useDebouncedCallback } from 'use-debounce';
 
+import { Button } from '@/flavours/glitch/components/button/redesign';
 import { Column } from '@/flavours/glitch/components/column';
 import { ColumnHeader as LegacyColumnHeader } from '@/flavours/glitch/components/column/header';
 import { ColumnSearchHeader } from '@/flavours/glitch/components/column/search_header';
@@ -154,12 +156,32 @@ export const Follows: React.FC<{
             {displayedAccountIds.length > 0 && <div className='spacer' />}
 
             <div className='column-footer'>
-              <Link className='button button--block' to='/start/profile'>
-                <FormattedMessage
-                  id='onboarding.follows.next'
-                  defaultMessage='Next: Setup your profile'
-                />
-              </Link>
+              {isRedesignEnabled() ? (
+                <Button
+                  variant='solid'
+                  color='accent'
+                  as='link'
+                  to='/start/profile'
+                >
+                  <FormattedMessage
+                    id='onboarding.follows.next'
+                    defaultMessage='Next: Setup your profile'
+                  />
+                </Button>
+              ) : (
+                <Link
+                  className={classNames(
+                    'button',
+                    !isRedesignEnabled() && 'button--block',
+                  )}
+                  to='/start/profile'
+                >
+                  <FormattedMessage
+                    id='onboarding.follows.next'
+                    defaultMessage='Next: Setup your profile'
+                  />
+                </Link>
+              )}
             </div>
           </>
         }

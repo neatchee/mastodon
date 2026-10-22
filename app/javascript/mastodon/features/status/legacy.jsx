@@ -5,14 +5,12 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 import { Helmet } from '@unhead/react/helmet';
 import { withRouter } from 'react-router-dom';
+import { difference } from 'lodash';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { ImmutablePureComponent } from 'react-immutable-pure-component';
 import { connect } from 'react-redux';
 
-import { difference } from 'lodash';
-
-import { quoteComposeById } from '@/mastodon/actions/compose_typed';
 import VisibilityIcon from '@/material-icons/400-24px/visibility.svg?react';
 import VisibilityOffIcon from '@/material-icons/400-24px/visibility_off.svg?react';
 import { Column } from '@/mastodon/components/column';
@@ -26,7 +24,6 @@ import { LoadingIndicator } from 'mastodon/components/loading_indicator';
 import { ScrollContainer } from 'mastodon/containers/scroll_container';
 import { BundleColumnError } from 'mastodon/features/ui/components/bundle_column_error';
 import { identityContextPropShape, withIdentity } from 'mastodon/identity_context';
-import { getAncestorsIds, getDescendantsIds } from 'mastodon/selectors/contexts';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 
 import {
@@ -70,11 +67,13 @@ import { textForScreenReader, defaultMediaVisibility } from '@/mastodon/componen
 import { Status as StatusComponent } from '@/mastodon/components/status';
 import { deleteModal } from '@/mastodon/initial_state';
 import { makeGetStatus, makeGetPictureInPicture } from '@/mastodon/selectors';
+import { getAncestorsIds, getDescendantsIds } from 'mastodon/selectors/contexts';
 import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from '../ui/util/fullscreen';
 
 import ActionBar from './components/action_bar';
 import { DetailedStatus } from './components/detailed_status';
 import { RefreshController } from './components/refresh_controller';
+import { quoteComposeById } from '@/mastodon/actions/compose_typed';
 import { FOCUS_TARGET, NavigationFocusTarget } from '@/mastodon/components/navigation_focus_target';
 import { isRedesignEnabled } from '@/mastodon/utils/environment';
 
@@ -205,7 +204,7 @@ class Status extends ImmutablePureComponent {
 
     if (signedIn) {
       if (askReplyConfirmation) {
-        dispatch(openModal({ modalType: 'CONFIRM_REPLY', modalProps: { status } }));
+        dispatch(openModal({ modalType: 'CONFIRM_REPLY', modalProps: { statusId: status.get('id') } }));
       } else {
         dispatch(replyCompose(status));
       }

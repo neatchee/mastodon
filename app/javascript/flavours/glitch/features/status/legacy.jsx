@@ -5,14 +5,12 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 import { Helmet } from '@unhead/react/helmet';
 import { withRouter } from 'react-router-dom';
+import { difference } from 'lodash';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { ImmutablePureComponent } from 'react-immutable-pure-component';
 import { connect } from 'react-redux';
 
-import { difference } from 'lodash';
-
-import { quoteComposeById } from '@/flavours/glitch/actions/compose_typed';
 import ChatIcon from '@/material-icons/400-24px/chat.svg?react';
 import VisibilityIcon from '@/material-icons/400-24px/visibility.svg?react';
 import VisibilityOffIcon from '@/material-icons/400-24px/visibility_off.svg?react';
@@ -27,7 +25,6 @@ import { LoadingIndicator } from 'flavours/glitch/components/loading_indicator';
 import { ScrollContainer } from 'flavours/glitch/containers/scroll_container';
 import { BundleColumnError } from 'flavours/glitch/features/ui/components/bundle_column_error';
 import { identityContextPropShape, withIdentity } from 'flavours/glitch/identity_context';
-import { getAncestorsIds, getDescendantsIds } from 'flavours/glitch/selectors/contexts';
 import { autoUnfoldCW } from 'flavours/glitch/utils/content_warning';
 import { WithRouterPropTypes } from 'flavours/glitch/utils/react_router';
 
@@ -44,8 +41,6 @@ import {
   toggleReblog,
   pin,
   unpin,
-  addReaction,
-  removeReaction,
 } from '@/flavours/glitch/actions/interactions';
 import { openModal } from '@/flavours/glitch/actions/modal';
 import { initMuteModal } from '@/flavours/glitch/actions/mutes';
@@ -66,11 +61,13 @@ import { textForScreenReader, defaultMediaVisibility } from '@/flavours/glitch/c
 import { Status as StatusComponent } from '@/flavours/glitch/components/status';
 import { deleteModal } from '@/flavours/glitch/initial_state';
 import { makeGetStatus, makeGetPictureInPicture } from '@/flavours/glitch/selectors';
+import { getAncestorsIds, getDescendantsIds } from 'flavours/glitch/selectors/contexts';
 import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from '../ui/util/fullscreen';
 
 import ActionBar from './components/action_bar';
 import { DetailedStatus } from './components/detailed_status';
 import { RefreshController } from './components/refresh_controller';
+import { quoteComposeById } from '@/flavours/glitch/actions/compose_typed';
 import { FOCUS_TARGET, NavigationFocusTarget } from '@/flavours/glitch/components/navigation_focus_target';
 import { isRedesignEnabled } from '@/flavours/glitch/utils/environment';
 
@@ -236,19 +233,6 @@ class Status extends ImmutablePureComponent {
     }
   };
 
-  handleReactionAdd = (statusId, name, url) => {
-    const { dispatch, identity } = this.props;
-    const { signedIn } = identity;
-
-    if (signedIn) {
-      dispatch(addReaction(statusId, name, url));
-    }
-  };
-
-  handleReactionRemove = (statusId, name) => {
-    this.props.dispatch(removeReaction(statusId, name));
-  };
-
   handlePin = (status) => {
     if (status.get('pinned')) {
       this.props.dispatch(unpin(status));
@@ -263,7 +247,7 @@ class Status extends ImmutablePureComponent {
 
     if (signedIn) {
       if (askReplyConfirmation) {
-        dispatch(openModal({ modalType: 'CONFIRM_REPLY', modalProps: { status } }));
+        dispatch(openModal({ modalType: 'CONFIRM_REPLY', modalProps: { statusId: status.get('id') } }));
       } else {
         dispatch(replyCompose(status));
       }
@@ -693,8 +677,6 @@ class Status extends ImmutablePureComponent {
                   settings={settings}
                   onOpenVideo={this.handleOpenVideo}
                   onOpenMedia={this.handleOpenMedia}
-                  onReactionAdd={this.handleReactionAdd}
-                  onReactionRemove={this.handleReactionRemove}
                   expanded={isExpanded}
                   onToggleHidden={this.handleToggleHidden}
                   onTranslate={this.handleTranslate}
@@ -711,7 +693,6 @@ class Status extends ImmutablePureComponent {
                   status={status}
                   onReply={this.handleReplyClick}
                   onFavourite={this.handleFavouriteClick}
-                  onReactionAdd={this.handleReactionAdd}
                   onReblog={this.handleReblogClick}
                   onBookmark={this.handleBookmarkClick}
                   onDelete={this.handleDeleteClick}

@@ -116,7 +116,7 @@ const AutosuggestTextarea = forwardRef(({
   const closeMenu = useCallback((e) => {
     setSuggestionsHidden(true);
     onBlur?.(e);
-  }, [setSuggestionsHidden]);
+  }, [setSuggestionsHidden, onBlur]);
 
   const handleFocus = useCallback((e) => {
     onFocus?.(e);

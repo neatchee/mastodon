@@ -7,13 +7,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import AddReactionIcon from '@/material-icons/400-24px/add_reaction.svg?react';
-import BookmarkIcon from '@/material-icons/400-24px/bookmark-fill.svg?react';
-import BookmarkBorderIcon from '@/material-icons/400-24px/bookmark.svg?react';
 import MoreHorizIcon from '@/material-icons/400-24px/more_horiz.svg?react';
-import ReplyIcon from '@/material-icons/400-24px/reply.svg?react';
-import ReplyAllIcon from '@/material-icons/400-24px/reply_all.svg?react';
-import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
-import StarBorderIcon from '@/material-icons/400-24px/star.svg?react';
 import { injectIntl } from '@/flavours/glitch/components/intl';
 import { identityContextPropShape, withIdentity } from 'flavours/glitch/identity_context';
 import { PERMISSION_MANAGE_USERS, PERMISSION_MANAGE_FEDERATION } from 'flavours/glitch/permissions';
@@ -26,8 +20,17 @@ import EmojiPickerDropdown from '../../compose/containers/emoji_picker_dropdown_
 import { BoostButton } from '@/flavours/glitch/components/status/legacy/boost_button';
 import { quoteItemState } from '@/flavours/glitch/components/status/boost_button_utils';
 import { selectStatusConditions } from '@/flavours/glitch/selectors/statuses';
+import { isRedesignEnabled } from '@/flavours/glitch/utils/environment';
+import {
+  StatusBookmarkActiveIcon,
+  StatusBookmarkIcon,
+  StatusLikeActiveIcon,
+  StatusLikeIcon,
+  StatusReplyAllIcon,
+  StatusReplyIcon,
+} from '@/flavours/glitch/components/status/icons';
 
-const messages = defineMessages({
+const baseMessages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
   redraft: { id: 'status.redraft', defaultMessage: 'Delete & re-draft' },
   edit: { id: 'status.edit', defaultMessage: 'Edit' },
@@ -57,6 +60,15 @@ const messages = defineMessages({
   revokeQuote: { id: 'status.revoke_quote', defaultMessage: 'Remove my post from @{name}’s post' },
   quotePolicyChange: { id: 'status.quote_policy_change', defaultMessage: 'Change who can quote' },
 });
+
+const redesignMessages = defineMessages({
+  favourite: { id: 'status.like', defaultMessage: 'Like' },
+  removeFavourite: { id: 'status.unlike', defaultMessage: 'Unlike' },
+  bookmark: { id: 'status.save', defaultMessage: 'Save post' },
+  removeBookmark: { id: 'status.remove_from_saved', defaultMessage: 'Remove from Saved' },
+})
+
+const messages = isRedesignEnabled() ? {...baseMessages, ...redesignMessages} : baseMessages;
 
 const mapStateToProps = (state, { status }) => {
   const quotedStatusId = status.getIn(['quote', 'quoted_status']);
@@ -278,10 +290,10 @@ class ActionBar extends PureComponent {
 
     if (status.get('in_reply_to_id', null) === null) {
       replyIcon = 'reply';
-      replyIconComponent = ReplyIcon;
+      replyIconComponent = StatusReplyIcon;
     } else {
       replyIcon = 'reply-all';
-      replyIconComponent = ReplyAllIcon;
+      replyIconComponent = StatusReplyAllIcon;
     }
 
     const canReact = signedIn && status.get('reactions').filter(r => r.get('count') > 0 && r.get('me')).size < maxReactions;
@@ -291,16 +303,23 @@ class ActionBar extends PureComponent {
 
     return (
       <div className='detailed-status__action-bar'>
-        <div className='detailed-status__button'><IconButton title={intl.formatMessage(messages.reply)} icon={replyIcon} iconComponent={replyIconComponent} onClick={this.handleReplyClick} /></div>
+        <div className='detailed-status__button'>
+          <IconButton title={intl.formatMessage(messages.reply)} icon={replyIcon} iconComponent={replyIconComponent} onClick={this.handleReplyClick} />
+        </div>
         <div className='detailed-status__button'>
           <BoostButton statusId={status.get('id')} />
         </div>
-        <div className='detailed-status__button'><IconButton className='star-icon' animate active={status.get('favourited')} title={favouriteTitle} icon='star' iconComponent={status.get('favourited') ? StarIcon : StarBorderIcon} onClick={this.handleFavouriteClick} /></div>
-        <div className='detailed-status__button'><EmojiPickerDropdown onPickEmoji={this.handleEmojiPick} react disabled={!canReact} /></div>
-        <div className='detailed-status__button'><IconButton className='bookmark-icon' disabled={!signedIn} active={status.get('bookmarked')} title={bookmarkTitle} icon='bookmark' iconComponent={status.get('bookmarked') ? BookmarkIcon : BookmarkBorderIcon} onClick={this.handleBookmarkClick} /></div>
-
+        <div className='detailed-status__button'>
+          <IconButton className='star-icon' animate active={status.get('favourited')} title={favouriteTitle} icon='star' iconComponent={status.get('favourited') ? StatusLikeActiveIcon : StatusLikeIcon} onClick={this.handleFavouriteClick} />
+        </div>
+        <div className='detailed-status__button'>
+          <EmojiPickerDropdown onPickEmoji={this.handleEmojiPick} react disabled={!canReact} />
+        </div>
+        <div className='detailed-status__button'>
+          <IconButton className='bookmark-icon' disabled={!signedIn} active={status.get('bookmarked')} title={bookmarkTitle} icon='bookmark' iconComponent={status.get('bookmarked') ? StatusBookmarkActiveIcon : StatusBookmarkIcon} onClick={this.handleBookmarkClick} />
+        </div>
         <div className='detailed-status__action-bar-dropdown'>
-          <Dropdown icon='ellipsis-h' iconComponent={MoreHorizIcon} items={menu} direction='left' title={intl.formatMessage(messages.more)} />
+          <Dropdown icon='ellipsis-h' iconComponent={MoreHorizIcon} status={status} items={menu} direction='left' title={intl.formatMessage(messages.more)} />
         </div>
       </div>
     );

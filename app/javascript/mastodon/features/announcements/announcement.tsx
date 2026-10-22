@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 
 import { FormattedDate, FormattedMessage } from 'react-intl';
 
-import { dismissAnnouncement } from '@/flavours/glitch/actions/announcements';
-import type { ApiAnnouncementJSON } from '@/flavours/glitch/api_types/announcements';
-import { AnimateEmojiProvider } from '@/flavours/glitch/components/emoji/context';
-import { EmojiHTML } from '@/flavours/glitch/components/emoji/html';
-import { useAppDispatch } from '@/flavours/glitch/store';
+import { dismissAnnouncement } from '@/mastodon/actions/announcements';
+import type { ApiAnnouncementJSON } from '@/mastodon/api_types/announcements';
+import { AnimateEmojiProvider } from '@/mastodon/components/emoji/context';
+import { EmojiHTML } from '@/mastodon/components/emoji/html';
+import { useAppDispatch } from '@/mastodon/store';
 
 import { ReactionsBar } from './reactions';
 
@@ -57,6 +57,7 @@ export const Announcement: FC<AnnouncementProps> = ({
         <span>
           {' · '}
           <Timestamp announcement={announcement} />
+          {!isVisuallyRead && <span className='announcements__unread' />}
         </span>
       </strong>
 
@@ -67,8 +68,6 @@ export const Announcement: FC<AnnouncementProps> = ({
       />
 
       <ReactionsBar reactions={announcement.reactions} id={announcement.id} />
-
-      {!isVisuallyRead && <span className='announcements__unread' />}
     </AnimateEmojiProvider>
   );
 };

@@ -36,7 +36,8 @@ const messages = defineMessages({
     id: 'column.firehose_singular',
     defaultMessage: 'Live feed',
   },
-  title_redesign: { id: 'tabs_bar.fediverse_feeds', defaultMessage: 'Fediverse Feeds' },
+  title_redesign: { id: 'tabs_bar.public_feeds', defaultMessage: 'Public Feeds' },
+  title_singular_redesign: { id: 'tabs_bar.public_feed', defaultMessage: 'Public Feed' },
   filter_regex: { id: 'home.column_settings.filter_regex', defaultMessage: 'Filter out by regular expressions' },
 });
 
@@ -231,25 +232,32 @@ const Firehose = ({ feedType, multiColumn }) => {
     />
   );
 
-  let title;
-
-  const canViewLocal = canViewFeed(signedIn, permissions, localLiveFeedAccess);
+  const canViewLocalFeed = canViewFeed(signedIn, permissions, localLiveFeedAccess);
+  const canViewRemoteFeed = canViewFeed(signedIn, permissions, remoteLiveFeedAccess);
   const canViewBubble = canViewFeed(signedIn, permissions, bubbleLiveFeedAccess);
-  const canViewRemote = canViewFeed(signedIn, permissions, remoteLiveFeedAccess);
 
-  if ((canViewLocal + canViewBubble + canViewRemote) > 1) {
+  let title;
+  if (canViewLocalFeed && canViewRemoteFeed) {
     title = messages.title;
-  } else if (canViewLocal) {
+  } else if (canViewLocalFeed) {
     title = messages.title_local;
   } else {
     title = messages.title_singular;
+  }
+
+  if (isRedesignEnabled()) {
+    const canOnlyViewSingleFeed = canViewLocalFeed !== canViewRemoteFeed;
+
+    title = canOnlyViewSingleFeed
+      ? intl.formatMessage(messages.title_singular_redesign)
+      : intl.formatMessage(messages.title_redesign);
   }
 
   return (
     <Column bindToDocument={!multiColumn} label={intl.formatMessage(messages.title)}>
       {isRedesignEnabled() ? (
         <ColumnHeader
-          title={intl.formatMessage(messages.title_redesign)}
+          title={title}
           withBackButton={multiColumn && 'auto'}
           withUnreadMarker={hasUnread}
           extraButtons={multiColumn &&

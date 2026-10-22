@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import type { Merge } from 'type-fest';
 
+import type { ExpandedStatusShape } from '@/flavours/glitch/models/status';
 import { selectExpandedStatus } from '@/flavours/glitch/selectors/statuses';
 import { createAppSelector, useAppSelector } from '@/flavours/glitch/store';
 
@@ -15,9 +16,9 @@ import { StatusAttachments } from './attachments';
 import { StatusContent } from './content';
 import { StatusHashtagBar } from './hashtag_bar';
 import { StatusRedesignHeader } from './header';
-import type { StatusHandlers } from './hooks';
 import {
   StatusContext,
+  useStatusContext,
   useStatusHandlers,
   useTextForScreenReader,
 } from './hooks';
@@ -107,7 +108,8 @@ export const StatusRedesign: React.FC<StatusRedesignProps> = ({
     showDespiteFilter,
     onFilterToggle,
     onTranslate,
-    ...handlers
+    onOpenCallback,
+    onOpenClick,
   } = useStatusHandlers({
     status,
     contextType,
@@ -119,10 +121,8 @@ export const StatusRedesign: React.FC<StatusRedesignProps> = ({
   }
 
   const hotkeysProps = {
-    handlers: {
-      ...handlers,
-      onTranslate,
-    },
+    status,
+    onOpen,
     muted,
     unfocusable,
     'data-id': id,
@@ -146,8 +146,10 @@ export const StatusRedesign: React.FC<StatusRedesignProps> = ({
     <StatusContext.Provider value={{ id, contextType }}>
       <StatusHotkeys
         {...hotkeysProps}
+        onClick={onOpenClick}
         className={classNames(
           classes.root,
+          variant === 'feed' && classes.variantFeed,
           variant === 'thread' && classes.variantThread,
           variant === 'page' && classes.variantPage,
           isQuotedPost && classes.isQuote,
@@ -156,7 +158,9 @@ export const StatusRedesign: React.FC<StatusRedesignProps> = ({
             isNextReplyingToMe &&
             !showThread &&
             classes.connectNextReply,
+          !unfocusable && 'focusable',
         )}
+        tabIndex={unfocusable ? undefined : -1}
         data-featured={featured ? 'true' : null}
         aria-label={screenReaderText}
         data-nosnippet={status.account.noindex || undefined}
@@ -186,7 +190,8 @@ export const StatusRedesign: React.FC<StatusRedesignProps> = ({
         <div
           className={classNames(
             classes.contentWrapper,
-            isHidden && classes.isFiltered,
+            isHidden && classes.hasContentWarning,
+            !showDespiteFilter && isFiltered && classes.isFiltered,
           )}
           id={contentWrapperId}
           inert={isHidden}
@@ -194,9 +199,9 @@ export const StatusRedesign: React.FC<StatusRedesignProps> = ({
           <StatusContent
             status={status}
             statusContent={statusContent}
-            onReadMore={handlers.onOpen}
+            onReadMore={onOpenCallback}
             onTranslate={onTranslate}
-            collapsible
+            collapsible={variant !== 'page'}
           >
             {!!status.poll && (
               <Poll
@@ -225,7 +230,7 @@ export const StatusRedesign: React.FC<StatusRedesignProps> = ({
                 statusId={status.id}
                 withDismiss={withDismiss}
                 withCounters={withCounters}
-                onlyInteractions={variant === 'page'}
+                onlyResponses={variant === 'page'}
               />
             )}
 
@@ -238,27 +243,28 @@ export const StatusRedesign: React.FC<StatusRedesignProps> = ({
 };
 
 interface StatusHotkeysProps {
+  children: React.ReactNode;
+  status: ExpandedStatusShape;
+  onOpen?: () => void;
   muted?: boolean;
   unfocusable?: boolean;
-  children: React.ReactNode;
-  handlers: Omit<
-    StatusHandlers,
-    | 'isFiltered'
-    | 'showDespiteFilter'
-    | 'onOpenClick'
-    | 'onHeaderClick'
-    | 'onExpandedToggle'
-    | 'onFilterToggle'
-  >;
 }
 
 const StatusHotkeys = ({
+  children,
+  status,
+  onOpen,
   muted,
   unfocusable,
-  children,
-  handlers,
   ...props
 }: StatusHotkeysProps & React.ComponentPropsWithoutRef<'article'>) => {
+  const { contextType } = useStatusContext();
+  const handlers = useStatusHandlers({
+    status,
+    contextType,
+    onOpen,
+  });
+
   if (muted) {
     return <article {...props}>{children}</article>;
   }
@@ -273,7 +279,7 @@ const StatusHotkeys = ({
         boost: handlers.onBoost,
         quote: handlers.onQuote,
         mention: handlers.onMention,
-        open: handlers.onOpen,
+        open: handlers.onOpenCallback,
         openProfile: handlers.onOpenProfile,
         toggleHidden: handlers.onToggleHidden,
         // TODO: This is handled in a child component, so needs to be fixed.
@@ -292,11 +298,11 @@ function contextToVariant(contextType?: StatusContextType): StatusVariant {
   switch (contextType) {
     case 'composer':
     case 'detailed':
-    case 'notifications':
     case undefined:
       return 'page';
     case 'thread':
       return 'thread';
+    case 'notifications':
     default:
       return 'feed';
   }

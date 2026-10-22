@@ -14,10 +14,16 @@
   grid-auto-rows: auto;
   row-gap: var(--space-2);
   padding: var(--space-4);
+  cursor: pointer;
+}
+
+.variantFeed {
+  border-bottom: var(--border-thin);
 }
 
 .variantPage {
   padding: var(--space-2) var(--space-4);
+  cursor: auto;
 }
 
 .variantThread {
@@ -52,10 +58,6 @@
 .variantPage,
 .isQuote {
   --content-col: span 2;
-}
-
-.isFiltered {
-  content: '';
 }
 
 .header {
@@ -94,18 +96,6 @@
   margin-inline-start: auto;
 }
 
-.spoiler {
-  display: flex;
-  align-items: center;
-}
-
-.spoilerContent {
-  @include mixins.type-body-strong;
-
-  font-style: italic;
-  flex-grow: 1;
-}
-
 .contentWrapper,
 .content {
   display: flex;
@@ -120,6 +110,10 @@
   overflow: clip;
   border-radius: var(--radius-2);
 
+  &.isFiltered {
+    display: none;
+  }
+
   &::after {
     content: '';
     position: absolute;
@@ -130,6 +124,9 @@
     );
     background-size: var(--space-2) var(--space-2);
     background-repeat: repeat;
+
+    // Override .media-gallery__item
+    z-index: 2;
 
     // See: https://css-tricks.com/snippets/css/toggle-visibility-when-hiding-elements/
     visibility: hidden;
@@ -147,16 +144,20 @@
     }
   }
 
-  &.isFiltered::after {
-    visibility: visible;
-    opacity: 1;
-    transition:
-      visibility 0s linear 0s,
-      opacity var(--fade-time) ease-in-out;
+  &.hasContentWarning {
+    &::after {
+      visibility: visible;
+      opacity: 1;
+      transition:
+        visibility 0s linear 0s,
+        opacity var(--fade-time) ease-in-out;
+    }
   }
 }
 
 .content {
+  @include mixins.type-body;
+
   --mask-height: 80px;
 
   overflow-y: clip;
@@ -173,13 +174,12 @@
 }
 
 .contentText {
-  @include mixins.type-body;
-
   p:not(:last-child) {
     margin-block-end: 1em;
   }
 
-  a {
+  a,
+  button {
     color: var(--color-text-brand);
   }
 }
@@ -232,13 +232,27 @@
   @include mixins.type-micro;
 
   display: flex;
-  gap: var(--space-1);
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  justify-content: space-between;
   color: var(--color-text-secondary);
   padding-block-start: var(--space-2);
   margin-block-start: var(--space-2);
   border-block-start: var(--border-default);
   margin-inline: calc(-1 * var(--space-4));
   padding-inline: var(--space-4);
+
+  > ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+  }
+
+  li:not(:first-child) {
+    &::before {
+      content: '• ';
+    }
+  }
 
   a {
     color: inherit;

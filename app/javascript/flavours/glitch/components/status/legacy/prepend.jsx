@@ -7,16 +7,14 @@ import { FormattedMessage } from 'react-intl';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import EditIcon from '@/material-icons/400-24px/edit.svg?react';
-import FormatQuoteIcon from '@/material-icons/400-24px/format_quote-fill.svg?react';
 import HomeIcon from '@/material-icons/400-24px/home-fill.svg?react';
 import InsertChartIcon from '@/material-icons/400-24px/insert_chart.svg?react';
 import MoodIcon from '@/material-icons/400-24px/mood.svg?react';
 import PushPinIcon from '@/material-icons/400-24px/push_pin.svg?react';
-import RepeatIcon from '@/material-icons/400-24px/repeat.svg?react';
-import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
 import { LinkedDisplayName } from 'flavours/glitch/components/display_name';
 import { Icon } from 'flavours/glitch/components/icon';
 import { me } from 'flavours/glitch/initial_state';
+import { StatusBoostIcon, StatusLikeIcon, StatusQuoteIcon } from '@/flavours/glitch/components/status/icons';
 
 export default class StatusPrepend extends PureComponent {
 
@@ -135,7 +133,7 @@ export default class StatusPrepend extends PureComponent {
     switch(type) {
     case 'favourite':
       iconId = 'star';
-      iconComponent = StarIcon;
+      iconComponent = StatusLikeIcon;
       break;
     case 'reaction':
       iconId = 'mood';
@@ -152,7 +150,7 @@ export default class StatusPrepend extends PureComponent {
     case 'reblog':
     case 'reblogged_by':
       iconId = 'retweet';
-      iconComponent = RepeatIcon;
+      iconComponent = StatusBoostIcon;
       break;
     case 'status':
       iconId = 'bell';
@@ -165,7 +163,7 @@ export default class StatusPrepend extends PureComponent {
       break;
     case 'quote':
       iconId = 'quote';
-      iconComponent = FormatQuoteIcon;
+      iconComponent = StatusQuoteIcon;
     }
 
     return !type ? null : (
